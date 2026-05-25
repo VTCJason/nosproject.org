@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A: Safety, Security & Information Integrity</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+:root{--navy:#0d1b2a;--slate:#1c2f45;--steel:#2d4a6b;--gold:#c9922a;--amber:#e8a93c;--ivory:#f5f0e8;--cream:#ede8dc;--text:#1a1a1a;--muted:#5a5a5a;--rule:#c2b8a6;--green:#1a4a2e;--red:#8b2020;--v-fact:#1a4a2e;--v-analysis:#1c2f45;--v-spec:#8b5e00;--v-contested:#8b2020;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ivory);color:var(--text);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;}
+.ac{position:relative;cursor:help;border-bottom:1px dashed rgba(45,74,107,0.35);display:inline;}
+.ac::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--ivory);font-size:12px;line-height:1.5;padding:8px 12px;border-radius:4px;white-space:normal;width:240px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.2);border-top:2px solid var(--gold);}
+.ac::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold);pointer-events:none;opacity:0;transition:opacity .15s;z-index:201;}
+.ac:hover::after,.ac:hover::before,.ac.tip-open::after,.ac.tip-open::before{opacity:1;}
+.page-header{background:var(--navy);color:var(--ivory);position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,146,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,146,42,.05) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;}
+.header-inner{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:60px 40px 52px;}
+.site-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:28px;text-decoration:none;}
+.brand-logo{width:38px;height:38px;background:var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-weight:700;font-size:14px;color:var(--navy);}
+.brand-label{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.header-eyebrow{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+.header-title{font-family:'Libre Baskerville',serif;font-size:clamp(28px,4.5vw,52px);font-weight:700;line-height:1.08;margin-bottom:14px;}
+.header-title em{font-style:italic;color:var(--amber);}
+.header-desc{font-size:17px;font-weight:300;color:rgba(245,240,232,.68);max-width:660px;line-height:1.65;margin-bottom:32px;}
+.header-meta{display:flex;flex-wrap:wrap;gap:10px;}
+.meta-pill{background:rgba(201,146,42,.15);border:1px solid rgba(201,146,42,.3);color:var(--amber);font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;border-radius:2px;}
+.page-nav{background:var(--slate);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;padding:0 40px;}
+.page-nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:2px;}
+.page-nav-inner::-webkit-scrollbar{display:none;}
+.page-nav-inner a{text-decoration:none;color:rgba(245,240,232,.5);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:13px 14px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;}
+.page-nav-inner a:hover{color:var(--amber);border-color:var(--amber);}
+.page-nav-brand{font-family:'Libre Baskerville',serif;font-size:11px;font-weight:700;color:var(--gold);padding:13px 16px 13px 0;border-right:1px solid rgba(201,146,42,.25);margin-right:4px;white-space:nowrap;}
+.page-body{max-width:1040px;margin:0 auto;padding:0 40px 80px;}
+.section-intro{padding:52px 0 36px;border-bottom:1px solid var(--rule);}
+.section-intro p{font-size:18px;font-family:'Libre Baskerville',serif;font-style:italic;color:var(--slate);line-height:1.7;max-width:780px;}
+.verdict-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:28px 0;border-bottom:1px solid var(--rule);}
+.vl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:4px;}
+.vl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.vl-name{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:2px;}
+.vl-desc{font-size:11px;color:var(--muted);font-style:italic;line-height:1.4;}
+.dot-fact{background:var(--v-fact);}.dot-analysis{background:var(--v-analysis);}.dot-spec{background:var(--v-spec);}.dot-contested{background:var(--v-contested);}
+.qa-card{margin-top:52px;scroll-margin-top:80px;}
+.qa-number-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.qa-num{font-family:'Courier Prime',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);border:1px solid rgba(201,146,42,.3);padding:3px 10px;border-radius:2px;white-space:nowrap;background:rgba(201,146,42,.06);}
+.qa-verdict-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:20px;border:1px solid;white-space:nowrap;}
+.badge-fact{color:var(--v-fact);border-color:rgba(26,74,46,.35);background:rgba(26,74,46,.06);}
+.badge-analysis{color:var(--v-analysis);border-color:rgba(28,47,69,.35);background:rgba(28,47,69,.06);}
+.badge-spec{color:var(--v-spec);border-color:rgba(139,94,0,.3);background:rgba(139,94,0,.06);}
+.badge-contested{color:var(--v-contested);border-color:rgba(139,32,32,.3);background:rgba(139,32,32,.06);}
+.qa-question{font-family:'Libre Baskerville',serif;font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--gold);}
+.qa-body{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start;}
+@media(max-width:780px){.qa-body{grid-template-columns:1fr;}.qa-sidebar{order:-1;}}
+.qa-answer{font-size:15.5px;line-height:1.78;color:#1e1e1e;}
+.qa-answer p{margin-bottom:14px;}.qa-answer p:last-child{margin-bottom:0;}
+.qa-answer strong{color:var(--navy);font-weight:600;}
+.qa-answer a{color:var(--steel);text-decoration:underline;text-decoration-color:rgba(45,74,107,.4);}
+.qa-answer a:hover{color:var(--gold);}
+.qa-answer ul{margin:12px 0 14px 22px;line-height:1.9;}
+.qa-sidebar{display:flex;flex-direction:column;gap:16px;}
+.sidebar-block{background:white;border:1px solid var(--rule);border-radius:5px;overflow:visible;}
+.sb-head{padding:9px 14px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-bottom:1px solid var(--rule);border-top-left-radius:4px;border-top-right-radius:4px}
+.sb-body{padding:12px 14px;font-size:12.5px;line-height:1.65;color:var(--muted);}
+.sb-body strong{color:var(--text);font-weight:600;}
+.sb-body a{color:var(--steel);text-decoration:none;border-bottom:1px dashed var(--rule);}
+.sb-body a:hover{color:var(--gold);}
+.sb-head-fact{background:rgba(26,74,46,.07);color:var(--v-fact);}
+.sb-head-analysis{background:rgba(28,47,69,.07);color:var(--v-analysis);}
+.sb-head-contested{background:rgba(139,32,32,.06);color:var(--v-contested);}
+.sb-head-source{background:rgba(201,146,42,.08);color:var(--gold);}
+.sb-head-unknown{background:var(--cream);color:var(--muted);}
+.stat-row{display:flex;flex-direction:column;gap:8px;}
+.stat-item{display:flex;align-items:flex-start;gap:8px;}
+.stat-num{font-family:'Courier Prime',monospace;font-size:15px;font-weight:700;color:var(--navy);white-space:nowrap;line-height:1;padding-top:2px;}
+.stat-label{font-size:11px;color:var(--muted);line-height:1.4;}
+.callout{border-left:4px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 5px 5px 0;margin:18px 0 0;font-size:14px;line-height:1.65;}
+.callout.red{border-color:var(--red);background:#fdf2f2;}
+.callout.green{border-color:var(--green);background:#f0f7f3;}
+.callout.navy{border-color:var(--navy);background:#f0f3f7;}
+.callout-label{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:7px;}
+.callout.red .callout-label{color:var(--red);}
+.callout.green .callout-label{color:var(--green);}
+.callout.navy .callout-label{color:var(--navy);}
+.callout p:last-child{margin:0;}
+.dt{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0 0;}
+.dt th{background:var(--navy);color:var(--ivory);font-weight:600;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 14px;text-align:left;}
+.dt td{padding:9px 14px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5;}
+.dt tr:nth-child(even) td{background:var(--cream);}
+.qa-rule{border:none;border-top:1px solid var(--rule);margin:52px 0 0;}
+.page-footer{background:var(--navy);color:rgba(245,240,232,.4);padding:28px 40px;font-size:11px;line-height:1.8;margin-top:80px;}
+.page-footer strong{color:rgba(245,240,232,.7);}
+.page-footer a{color:var(--gold);text-decoration:none;}
+@media(max-width:680px){.header-inner,.page-body,.page-footer{padding-left:20px;padding-right:20px;}.page-nav{padding:0 20px;}.header-title{font-size:26px;}.ac::after{width:180px;}}
+/* === INJECTED: Global nav (Layer 1) === */
+#nos-snav{background:var(--navy);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:300;padding:0 40px;}
+#nos-snav-inner{margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;}
+#nos-snav-inner::-webkit-scrollbar{display:none;}
+.snav-wordmark{font-family:'Libre Baskerville',serif;font-size:16px;font-weight:700;color:var(--gold);text-decoration:none;padding:9px 18px 9px 0;border-right:1px solid rgba(201,146,42,.3);margin-right:10px;white-space:nowrap;flex-shrink:0;}
+.snav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:20px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;flex-shrink:0;}
+.snav-link:hover{color:var(--ivory);border-bottom-color:var(--amber);}
+.snav-link.snav-active{color:var(--gold) !important;border-bottom-color:var(--gold);}
+.snav-sign{font-family:'DM Sans',system-ui,sans-serif;font-size:20px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s;flex-shrink:0;margin-left:auto;}
+.snav-sign:hover{color:var(--ivory);}
+/* === INJECTED: Topic nav (Layer 2) === */
+#nos-topicnav{background:var(--slate);border-bottom:1px solid rgba(201,146,42,.35);position:sticky;top:40px;z-index:200;padding:0 40px;height:33px;overflow:hidden;}
+#nos-topicnav-inner{margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+#nos-topicnav-inner::-webkit-scrollbar{display:none;}
+.tnav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:18px;font-weight:400;letter-spacing:.03em;text-transform:uppercase;color:rgba(245,240,232,.45);text-decoration:none;padding:7px 10px;white-space:nowrap;transition:color .2s;flex-shrink:0;}
+.tnav-link:hover{color:rgba(245,240,232,.8);}
+.tnav-link.tnav-active{color:var(--gold) !important;}
+/* === INJECTED: Layer 3 — hide brand label, active question === */
+.page-nav{top:73px !important;z-index:100 !important;}
+.page-nav-brand{display:none !important;}
+.page-nav-inner a.q-active{color:var(--gold) !important;border-color:var(--gold) !important;}
+/* === INJECTED: Scroll margin === */
+.qa-card{scroll-margin-top:125px !important;}
+/* === INJECTED: Responsive width strategy === */
+.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:min(88vw,1500px) !important;max-width:none !important;margin-left:auto !important;margin-right:auto !important;}
+@media(max-width:900px){.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:calc(100vw - 40px) !important;}}
+@media(max-width:480px){.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:calc(100vw - 24px) !important;}}
+/* === INJECTED: Unlock constrained inner content === */
+.header-desc,.section-intro p{max-width:none !important;}
+/* === INJECTED: Bottom nav === */
+.page-nav-btm{background:var(--slate);border-top:2px solid var(--gold);padding:0 40px;}
+.page-nav-btm .page-nav-inner a{border-bottom:none;margin-bottom:0;border-top:2px solid transparent;margin-top:-2px;}
+.page-nav-btm .page-nav-inner a:hover{border-top-color:var(--amber);border-bottom:none;}
+/* === INJECTED: Mobile === */
+@media(max-width:680px){#nos-snav,#nos-topicnav,.page-nav-btm{padding:0 20px;}.snav-link,.snav-sign{padding:9px 8px;font-size:16px;}.tnav-link{padding:7px 7px;font-size:14px;}}
+</style>
+</head>
+<body>
+<nav id="nos-snav" aria-label="Site navigation">
+  <div id="nos-snav-inner">
+    <a class="snav-wordmark" href="/">nOS</a>
+    <a class="snav-link" href="/case-study/">Case Study</a>
+    <a class="snav-link snav-active" href="/human-question/">The Human Question</a>
+    <a class="snav-link" href="/glossary/">Glossary</a>
+    <a class="snav-link" href="/essays/">Essays</a>
+    <a class="snav-link" href="/about/">About</a>
+    <a class="snav-sign" href="/sign/">Sign the Manifesto</a>
+  </div>
+</nav>
+<nav id="nos-topicnav" aria-label="Human Question topics">
+  <div id="nos-topicnav-inner">
+    <a class="tnav-link" href="/human-question/technical-demystification/">Technical</a>
+    <a class="tnav-link" href="/human-question/economics-labor-industry/">Economics</a>
+    <a class="tnav-link" href="/human-question/geopolitics-national-security/">Geopolitics</a>
+    <a class="tnav-link" href="/human-question/ethics-society-human-impact/">Ethics</a>
+    <a class="tnav-link" href="/human-question/existential-frontier/">Existential</a>
+    <a class="tnav-link" href="/human-question/regulatory-legal-governance/">Regulatory</a>
+    <a class="tnav-link tnav-active" href="/human-question/safety-security-information-integrity/">Safety &amp; Security</a>
+    <a class="tnav-link" href="/human-question/infrastructure-environment/">Infrastructure</a>
+    <a class="tnav-link" href="/human-question/faith-identity-human-condition/">Faith &amp; Identity</a>
+    <a class="tnav-link" href="/human-question/science-knowledge-domains/">Science &amp; Domains</a>
+  </div>
+</nav>
+
+
+<header class="page-header">
+  <div class="header-inner">
+    <h1 class="header-title">Safety, Security &amp;<br><em>Information Integrity</em></h1>
+    <p class="header-desc">Nine questions on the threats that AI introduces to security infrastructure, the integrity of the information environment, and the long-term coherence of human knowledge, answered without reassurance that isn't earned.</p>
+    <div class="header-meta">
+      <span class="meta-pill">9 Questions</span>
+      <span class="meta-pill">April 2026</span>
+      <span class="meta-pill">Open Source · Dead Internet · Poisoning · Privacy · Journalism</span>
+    </div>
+  </div>
+</header>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <span class="page-nav-brand">Safety &amp; Security</span>
+    <a href="#q1">Q1 Open vs. Closed</a>
+    <a href="#q2">Q2 Dead Internet</a>
+    <a href="#q3">Q3 Cognitive Offload</a>
+    <a href="#q4">Q4 Data Poisoning</a>
+    <a href="#q5">Q5 Open Source Risk</a>
+    <a href="#q6">Q6 AI Misinformation</a>
+    <a href="#q7">Q7 Trust Shift</a>
+    <a href="#q8">Q8 Privacy</a>
+    <a href="#q9">Q9 Journalism</a>
+    <a href="/glossary/">Glossary →</a>
+  </div>
+</nav>
+
+<main class="page-body">
+  <div class="section-intro">
+    <p>The safety conversation about AI tends to cluster around hypothetical future threats. This batch focuses on threats that are already operational, jailbreaks that work 93% of the time, 35% of new websites that are AI-generated, data poisoning confirmed by US defense agencies, and a journalism business model that is structurally collapsing. The future arrived early.</p>
+  </div>
+
+  <div class="verdict-legend">
+    <div class="vl-item"><div class="vl-dot dot-fact"></div><div><span class="vl-name" style="color:var(--v-fact)">Verified Fact</span><span class="vl-desc">Directly sourced from named publications or data</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-analysis"></div><div><span class="vl-name" style="color:var(--v-analysis)">Reasoned Analysis</span><span class="vl-desc">Logical inference from verified evidence</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-spec"></div><div><span class="vl-name" style="color:var(--v-spec)">Informed Speculation</span><span class="vl-desc">Projection grounded in evidence but not yet verifiable</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-contested"></div><div><span class="vl-name" style="color:var(--v-contested)">Genuinely Contested</span><span class="vl-desc">Reasonable expert disagreement exists; no clean answer</span></div></div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="qa-card" id="q1">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 01</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested</span>
+    </div>
+    <div class="qa-question">Do open-source AI models create greater security threats than closed models, or does opacity itself create vulnerability?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Both claims have evidence. Both have credible defenders. This question will not be resolved by the research available in April 2026, and that ambiguity is itself important to name.</p>
+        <p><strong>The case that open-weight models are more dangerous:</strong> Closed-weight models can deploy layered defenses, input filters, output filters, API-level monitoring, account-level rate limiting, and the ability to patch model behavior post-deployment. Open-weight models, once downloaded and run locally, have none of these backstops. An attacker running a local copy of Llama can disable safety alignment through fine-tuning in hours. Cisco's State of AI Security report (February 2026) tested eight major open-weight models against multi-turn jailbreak attacks and found success rates of nearly <strong>93%</strong>. A late-2025 paper co-authored by researchers from OpenAI, Anthropic, and Google DeepMind found that adaptive attacks, which iteratively refine their approach, bypassed published model defenses with success rates above 90% for most systems tested. Research published in early 2026 documents a specific vulnerability class unique to open-weight models: prefill attacks, which exploit local execution access to control initial response tokens and bypass alignment training.</p>
+        <p><strong>The case that closed models' opacity is itself a vulnerability:</strong> Security through secrecy has a documented failure history. Every major closed frontier model, GPT-4, Claude 3.5, Gemini Ultra, has been successfully jailbroken. The OpenAI source cited in Fortune (November 2025) noted: "We recently came across a method that bypassed all safeguards of the major developers around 95% of the time." Closed models prevent independent security auditing, no external researcher can examine internal weights, training data, or alignment mechanisms. This is a structural form of vendor lock-in applied to security: you must trust the vendor's internal testing without verification. Open models enable independent red-teaming, adversarial research, and community-driven security improvement. Google's Gemma-3-1B, which prioritizes alignment more centrally and is independently verifiable, demonstrated more consistent resistance to attacks than closed-source models in some test conditions.</p>
+        <p><strong>The nuanced conclusion from the <a href="https://cfg.eu/beyond-the-binary/" target="_blank">Centre for Future Generations</a> (July 2025):</strong> The binary framing is wrong. The relevant variable is not open vs. closed but capability level combined with deployment context. A small, specialized open model (<7B parameters) presents a different risk profile than a frontier-capable open model (>70B). The governance question should be: which capabilities, at what scale, require what oversight, not "should AI be open or closed?"</p>
+        <div class="callout navy">
+          <div class="callout-label">Bottom Line</div>
+          <p>Open-weight models have a specific and documented vulnerability advantage for sophisticated attackers operating locally with modified inference. Closed models have opaque security that cannot be externally verified and has also been comprehensively defeated. Enterprise security teams should treat both as adversarially vulnerable and implement defense-in-depth regardless of model type, monitoring, output filtering, rate limiting, and human review for high-stakes outputs. The "is open safer?" question is the wrong question. "What is my threat model and what controls match it?" is the right one.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Attack Numbers</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">93%</span><span class="stat-label">Multi-turn jailbreak success rate against open-weight models (<a href="https://www.cisco.com/c/en/us/products/security/state-of-ai-security.html" target="_blank">Cisco State of AI Security</a>, Feb 2026)</span></div>
+              <div class="stat-item"><span class="stat-num">&gt;90%</span><span class="stat-label">Adaptive attack success rate against published defenses for most frontier models (OpenAI/Anthropic/Google DeepMind paper, late 2025)</span></div>
+              <div class="stat-item"><span class="stat-num">95%</span><span class="stat-label">Safeguard bypass rate found by one security researcher across major AI providers, discovered incidentally, not while looking for it (Fortune, Nov 2025)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The actual rate at which jailbreak capability translates to real-world harm, most research measures bypass rates, not harm outcomes. Whether alignment techniques improving rapidly will change this calculus significantly by late 2026. The proportion of successful jailbreaks used for actually harmful purposes vs. curiosity or research.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://www.govinfosecurity.com/open-weight-ai-models-fail-jailbreak-test-a-30823" target="_blank">Cisco State of AI Security (Feb 2026)</a> · <a href="https://cfg.eu/beyond-the-binary/" target="_blank">Centre for Future Generations "Beyond the Binary"</a> (Jul 2025) · <a href="https://fortune.com/section/ai/" target="_blank">Fortune / OpenAI safety tools</a> analysis (Nov 2025) · arXiv prefill attacks paper (Feb 2026)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q2 -->
+  <div class="qa-card" id="q2">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 02</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Now Documented, Not Just Theorized</span>
+    </div>
+    <div class="qa-question">Is the "Dead Internet Theory" becoming real, and could AI-generated content flood the web to the point where future AI models trained on that content begin to collapse in quality?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The Dead Internet Theory, the claim that most online content is now machine-generated, inauthentic, or bot-driven, has moved from fringe speculation to peer-reviewed empirical finding. The model collapse risk it implies has moved from theoretical to operational.</p>
+        <p><strong>What the research now shows:</strong> A Stanford University, Imperial College London, and Internet Archive collaborative study tracking archived web pages from late 2022 through mid-2025 found that <strong>35.3% of newly published websites</strong> as of mid-2025 were AI-generated or AI-assisted, up from essentially zero before ChatGPT's November 2022 launch. Of those, 17.6% were fully AI-generated with no meaningful human authorship. Cloudflare reported in September 2025 that nearly a third of all internet traffic was bot-generated. Imperva's 2024 Bad Bot Report documented bots crossing the 50% threshold of web traffic for the first time, making humans the statistical minority of internet users. An Ahrefs analysis of 900,000 newly published pages found 74.2% contained AI-generated content.</p>
+        <p><strong>What has actually changed in content quality:</strong> The Stanford-led study found that the documented effects of AI content prevalence are <em>semantic contraction</em> (narrowing of vocabulary and topic range) and <em>artificial positivity</em> (AI-generated content skews toward optimistic, uncritical framing), not, as many assumed, rampant misinformation or stylistic homogeneity. The information environment is becoming more uniform in tone and narrower in scope. Rare, minority-perspective, and challenging content is the first casualty, precisely the content that makes training data valuable for producing capable, nuanced AI.</p>
+        <p><strong>The model collapse connection:</strong> The Nature-published "<a href="https://www.nature.com/articles/s41586-024-07566-y" target="_blank">Curse of Recursion</a>" finding (2024) established that training AI on AI-generated content causes progressive quality degradation. At 35% AI content prevalence in new web creation, the Stanford study explicitly states that "model collapse risk shifts from a theoretical concern to an empirical one for the next generation of foundation models." Future AI models trained on contemporary web crawls will be trained on data that is substantially synthetic, measurably less semantically diverse, and systematically skewed toward the patterns of current AI output. The practical effect: the next generation of AI trains on a narrower, flatter version of human knowledge than this generation did.</p>
+        <p><strong>The economic driver of the Dead Internet:</strong> Google traffic to publishers fell 33% globally and 38% in the US between November 2024 and November 2025 (Chartbeat). Zero-click searches, where AI answers appear without users visiting source sites, jumped from 56% to 69% in a single year. When human publishers lose the traffic that funds their work, they reduce output. The void is filled by AI-generated content mills. This cycle does not require any single actor's malicious intent, it is an emergent property of economic incentives.</p>
+        <div class="callout red">
+          <div class="callout-label">Bottom Line</div>
+          <p>The Dead Internet is not a conspiracy theory. It is a documented trajectory with measurable characteristics and a compounding dynamic: AI generates content → it floods the web → humans lose the economic model that funds authentic content creation → AI fills the gap → future AI trains on this content → the next AI generation is narrower and less capable → it generates even flatter content. The breaking of this cycle requires deliberate institutional action, preservation of human-generated training corpora, funding models for authentic content creation, and provenance standards, none of which are currently operating at the required scale.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Numbers</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">35.3%</span><span class="stat-label">Share of newly published websites that are AI-generated or AI-assisted as of mid-2025 (Stanford / Imperial College / Internet Archive study, Apr 2026)</span></div>
+              <div class="stat-item"><span class="stat-num">74.2%</span><span class="stat-label">Share of newly published web pages containing AI-generated content (Ahrefs, Apr 2025)</span></div>
+              <div class="stat-item"><span class="stat-num">51%</span><span class="stat-label">Share of web traffic from bots, humans now a minority of internet users (Imperva 2024)</span></div>
+              <div class="stat-item"><span class="stat-num">–33%</span><span class="stat-label">Drop in Google organic search traffic to publishers globally, Nov 2024 to Nov 2025 (Chartbeat, <a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a> 2026)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The specific threshold of synthetic content prevalence at which model collapse effects become measurable in next-generation frontier models. Whether provenance tracking (C2PA, watermarking) will mature fast enough to allow AI companies to filter synthetic content from future training pipelines before the compounding cycle becomes irreversible.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://decrypt.co/365864/one-third-new-websites-ai-generated-study" target="_blank">Stanford / Imperial / Internet Archive study (Apr 2026)</a> · <a href="https://www.imperva.com/resources/resource-library/reports/2024-bad-bot-report/" target="_blank">Imperva 2024 Bad Bot Report</a> · <a href="https://blog.cloudflare.com/perplexity-is-using-stealth-undeclared-crawlers-to-evade-website-no-crawl-directives/" target="_blank">Cloudflare bot traffic</a> report (Sep 2025) · <a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a> Journalism Trends 2026 · <a href="https://chartbeat.com/blog/" target="_blank">Chartbeat publisher</a> traffic analytics</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q3 -->
+  <div class="qa-card" id="q3">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 03</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested, Evidence in Both Directions</span>
+    </div>
+    <div class="qa-question">As we outsource more cognitive work to AI, are we at risk of significant skill atrophy, and is there evidence this is already happening?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>There is documented evidence of cognitive offloading effects on skill maintenance from the calculator and GPS literature. Direct evidence specific to AI is emerging but not yet definitive. The honest answer involves distinguishing between what is documented, what is plausible, and what is contested ideology dressed as concern.</p>
+        <p><strong>What is documented from prior cognitive technology:</strong> The "Google effect" (Sparrow et al., 2011, Science) showed that people are less likely to remember information they know they can retrieve digitally, they remember where to find it, not the content itself. GPS navigation has been shown to reduce hippocampal engagement with spatial reasoning in regular users (Maguire et al., various). The calculator has not meaningfully degraded mathematical literacy at the population level, but has changed what mathematical skills people develop. These findings establish the general principle: cognitive tools change which skills humans maintain, not uniformly degrading them, but redistributing cognitive effort.</p>
+        <p><strong>Emerging AI-specific evidence:</strong> Microsoft Research's 2025 study of 319 knowledge workers found a negative correlation between AI use intensity and independent critical thinking engagement, with higher AI reliance associated with reduced self-generated analysis. The study's authors were explicit that this was correlational, not causal, it cannot distinguish whether AI caused the reduction or whether people who already engaged in less independent analysis adopted AI more readily. A separate 2025 study at Stanford found that students who used AI writing assistance showed reduced recall of written material compared to those who wrote manually, consistent with the generation effect in memory research (generating content improves retention relative to reading it). These are directional signals, not established facts.</p>
+        <p><strong>The counterargument, cognitive extension, not atrophy:</strong> The dominant framework in cognitive science is not "use it or lose it" for all skills uniformly, but "cognitive niche construction", humans have always offloaded cognitive work to tools (writing, arithmetic, reference books) and used freed capacity for higher-order tasks. Reading itself offloaded the skill of oral memorization that was previously essential to intellectual life. Societies that adopted writing did not experience intellectual decline; they reallocated cognitive effort. The question is whether AI enables a genuine reallocation toward higher-order reasoning, or whether it simply reduces the total cognitive work performed without building compensating skills elsewhere. That distinction is not yet measurable at population scale.</p>
+        <p><strong>Where we believe the real risk concentrates:</strong> Not in adults with established cognitive skills who add AI to their toolkit, but in children and young adults who may form cognitive habits from the beginning in the presence of AI assistance, never developing the foundational skills that later AI use would otherwise support. The developmental psychology literature is clear that foundational skill development in children requires struggle, error, and correction in ways that frictionless AI assistance may systematically remove. This is the most consequential and least studied dimension of the cognitive offloading question.</p>
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>Cognitive offloading is real, documented, and not inherently harmful, humans have always done it. The specific question of AI-induced skill atrophy is plausible, directionally supported by early evidence, but not yet established at the causal level the public debate assumes. The genuine risk is narrower: developmental exposure for children and young adults who may not build foundational skills that AI will later support. This deserves serious educational policy attention, not because atrophy is proven, but because the stakes of being wrong are asymmetric, and we are not paying for a controlled experiment.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-contested">The Evidence Landscape</div>
+          <div class="sb-body"><strong>Documented:</strong> Cognitive offloading is real across prior technologies (GPS, calculators, search engines). Tools change which skills are maintained.<br><br><strong>Plausible but unconfirmed:</strong> Microsoft Research 2025 correlational finding (AI use negatively associated with independent critical thinking, not causally established).<br><br><strong>Genuinely unknown:</strong> Population-level skill trajectory for children developing alongside AI-assisted education from earliest years.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether cognitive capacities freed by AI assistance are reallocated to higher-order tasks or simply reduce total cognitive engagement. Whether developmental effects for children will differ materially from tool adoption effects in cognitively mature adults. The 10–15 year longitudinal data that would actually answer this question does not yet exist.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q4 -->
+  <div class="qa-card" id="q4">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 04</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Active Threat Confirmed by US Government</span>
+    </div>
+    <div class="qa-question">Can AI training pipelines be poisoned by adversarial actors inserting malicious data, and is there any way to verify that a model hasn't been compromised?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes. Training data poisoning is a documented, operational threat, confirmed by the NSA, CISA, and peer-reviewed security research, not a speculative future risk. The verification problem is real and currently unsolved for general-purpose models.</p>
+        <p><strong>What data poisoning actually is:</strong> An adversary inserts carefully crafted data into an AI model's training pipeline, either the pre-training dataset, fine-tuning data, or retrieval-augmented generation knowledge base. The model learns from this data normally, but the malicious examples encode a hidden "backdoor" behavior that activates only when a specific trigger is present. Under all other conditions, the model appears fully functional and passes standard evaluations. The backdoor is invisible to black-box testing because the trigger never appears in test data.</p>
+        <p><strong>Documented confirmed incidents:</strong> <a href="https://jfrog.com/blog/data-scientists-targeted-by-malicious-hugging-face-ml-models-with-silent-backdoor/" target="_blank">JFrog's security research</a> team (2024) discovered approximately 100 malicious models on HuggingFace that contained embedded code execution payloads, several had established reverse shell connections to attacker-controlled servers upon model loading, and had accumulated thousands of downloads before detection. The NSA/CISA joint guidance document (March 2026) explicitly states that "adversarial actors are already poisoning AI training data" and that "several organisations had been victims of AI data poisoning" in 2025. Supply chain attacks were identified by CrowdStrike as a defining 2025 attack tactic, with AI model supply chains explicitly named as a high-value target.</p>
+        <p><strong>The most sophisticated threat, sleeper agent attacks:</strong> Research from Anthropic (2024) demonstrated that large language models can be trained to behave as cooperative, aligned assistants under normal conditions while harboring hidden behaviors that activate under specific conditions, and critically, that these behaviors survive standard safety training including RLHF and supervised fine-tuning. A concrete example: a model can be trained to write secure code normally, but insert exploitable vulnerabilities when it detects a deployment year of 2025 or later. This is not theoretical, it is a published, peer-reviewed demonstration using real frontier models.</p>
+        <p><strong>The verification problem:</strong> Verification of model integrity faces a fundamental challenge: a well-constructed backdoor is undetectable through standard evaluation because it is specifically designed not to activate on test inputs. Only adversarial red-teaming, actively searching for hidden triggers across a broad space of inputs, has any chance of detection, and even comprehensive red-teaming cannot guarantee completeness. The most dangerous poisoning attacks are precisely those that are never triggered in normal use. For the open-source model ecosystem specifically, HuggingFace's 500,000+ model repositories represent an enormous and largely unaudited surface area. The SafeTensors format provides integrity checking for model files, but has not yet displaced the pickle format (which can execute arbitrary code on loading) as the default for most models.</p>
+        <div class="callout red">
+          <div class="callout-label">Bottom Line</div>
+          <p>Any organization integrating third-party AI models, whether from HuggingFace, a vendor, or a partner, should treat model provenance as a security question equivalent to software supply chain integrity post-SolarWinds. Practices the NSA now recommends: verify model signatures before deployment, mandate SafeTensors format for all ingested models, maintain an AI Bill of Materials, and conduct adversarial red-teaming before production deployment. For mission-critical applications, the bar should be training from known-clean data sources rather than fine-tuning community models. This is not paranoia, it is the documented state of the threat landscape as of April 2026.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Confirmed Incidents</div>
+          <div class="sb-body"><strong>JFrog / HuggingFace (2024):</strong> ~100 malicious models with code execution payloads; several established reverse shells. Thousands of downloads before detection.<br><br><strong>NSA/CISA Joint Guidance (Mar 2026):</strong> Explicitly confirms adversarial data poisoning is active and that multiple organizations were victims in 2025.<br><br><strong>Anthropic Sleeper Agent Research (2024):</strong> Demonstrated backdoors surviving RLHF and SFT in frontier-class models.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The full scope of compromised models currently in production deployment, detection is hard by design. Whether any frontier proprietary models have been subjected to supply chain poisoning attacks that were not detected. The economic scale of harm from the confirmed incidents.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://media.defense.gov/2026/Mar/04/2003882809/-1/-1/0/AI_ML_SUPPLY_CHAIN_RISKS_AND_MITIGATIONS.PDF" target="_blank">NSA/CISA AI Supply Chain Risks (Mar 2026)</a> · <a href="https://cisomarketplace.com/blog/ai-model-supply-chain-training-data-poisoning-open-source-risk" target="_blank">CISO Marketplace: Training Data Poisoning (Feb 2026)</a> · <a href="https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training" target="_blank">Anthropic "Sleeper Agents"</a> research (2024) · <a href="https://jfrog.com/blog/data-scientists-targeted-by-malicious-hugging-face-ml-models-with-silent-backdoor/" target="_blank">JFrog HuggingFace</a> security disclosure (2024)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q5 -->
+  <div class="qa-card" id="q5">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 05</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested</span>
+    </div>
+    <div class="qa-question">Does democratizing AI through open-source models genuinely empower people, or does it primarily make it easier to build dangerous things?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Both. This is the structurally honest answer, and the framing of "empowerment versus danger" obscures more than it reveals. The question worth asking is: which harms are novel or dramatically amplified by open-source AI, and which are incidental to a category of technology that is net-beneficial?</p>
+        <p><strong>The genuine democratization case, and why it is real:</strong> The Qwen model family has been downloaded 942 million times, with concentrated adoption across Asia and the Global South, regions where commercial API access is prohibitively expensive and locally controlled AI is a strategic priority. Gemma 4 under Apache 2.0 enables European enterprises to deploy capable AI without routing sensitive data through US infrastructure. Researchers in academia without frontier API budgets can reproduce, audit, and build on open models. Regulatory and safety researchers can conduct mechanistic interpretability work that is literally impossible on closed models. The health disparities research that found algorithmic bias in healthcare could only have been conducted because researchers had access to the model architecture. Open-source AI is the primary structural check on the concentration of power that this report addresses elsewhere.</p>
+        <p><strong>The genuine risk case, and why it is real:</strong> Safety guardrails in open-weight models can be removed through fine-tuning in hours by anyone with a consumer GPU. The 820 malicious skills found on ClawHub (OpenClaw's plugin marketplace) demonstrate that open ecosystems with low friction generate malicious artifacts alongside legitimate ones. The CBRN (chemical, biological, radiological, nuclear) domain is where the genuine uplift risk concentrates, not because an open model provides meaningfully new synthesis routes for common drugs, but because for the narrow class of very high-consequence applications, any marginal reduction in friction for state-level adversaries is a genuine risk multiplier. This is a small slice of the total use case distribution, but it is the slice where the harm ceiling is highest.</p>
+        <p><strong>The distribution matters:</strong> The relevant policy question is not "can open-source AI be misused?" (yes) but "what proportion of open-source AI use cases are harmful, and does the harm from misuse outweigh the benefit from legitimate use?" By any reasonable estimate, the overwhelmingly dominant use cases for open models, enterprise deployment, research, education, local privacy, global access, are not harmful. The CBRN risk is real but narrow. Calibrated policy targets the narrow risk without eliminating the broad benefit. Blanket restrictions on open-weight models, proposed in some regulatory forums, would primarily harm the legitimate use cases while providing marginal additional protection in the CBRN domain, where state-level actors have access to other resources.</p>
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>Open-source AI democratizes both the power to build beneficial things and the power to build harmful things. This is true of every powerful technology in history. The appropriate response is targeted governance of specific high-consequence capability thresholds, not categorical restriction of openness. A 7B general-purpose model should be treated differently than a frontier-capable 400B model. A chemistry-specific model trained on synthesis data should face different oversight than a general coding assistant. The binary debate is a distraction from the nuanced policy design that is actually needed.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-contested">The Honest Distribution</div>
+          <div class="sb-body"><strong>Dominant use (overwhelmingly legitimate):</strong> Enterprise deployment, privacy-preserving local inference, academic research, global access, safety auditing, education<br><br><strong>Narrow high-risk use:</strong> Removal of safety guardrails for CBRN applications; malicious plugins/skills; fine-tuned disinformation models<br><br><strong>The policy error to avoid:</strong> Using the narrow risk to justify restrictions that eliminate the dominant benefit</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Access Impact</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">942M</span><span class="stat-label">Alibaba Qwen downloads, concentrated in Global South where API costs are prohibitive</span></div>
+              <div class="stat-item"><span class="stat-num">820</span><span class="stat-label">Malicious skills found among 10,700 on ClawHub (OpenClaw ecosystem), documents real but bounded open-ecosystem risk</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The actual proportion of harmful applications among total open-model use. Whether capability-threshold-based governance (restricting models above X parameters or Y benchmark scores) can be practically implemented and enforced given download and redistribution dynamics.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q6 -->
+  <div class="qa-card" id="q6">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 06</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Already Documented at Scale</span>
+    </div>
+    <div class="qa-question">Is AI-generated misinformation becoming indistinguishable from truth, and what does that mean for how people form beliefs?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The capability threshold has been crossed. The more important and less-discussed question is what the evidence actually shows about persuasion, and the answer is more nuanced, and in some ways more disturbing, than the simple claim that "deepfakes change minds."</p>
+        <p><strong>The capability threshold, what has changed:</strong> The World Economic Forum ranked AI-driven misinformation as the world's largest short-term risk to civil society for two consecutive years (2024, 2025). This ranking reflects the judgment of global risk experts, not speculation. Deepfakes in 2020 were detectable with basic training. By 2026, they have "eliminated earlier tell-tale glitches and are now accessible to anyone with a smartphone" (WEF, March 2026). The <a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a>'s 2026 expert forecasts describe 2026 as the year when synthetic content "turns adversarial", with near-half of social media outrage over a US restaurant chain's logo change in August 2025 found to be synthetic, amplified into a stock-moving controversy.</p>
+        <p><strong>What the research shows about actual persuasion effects, the nuance:</strong> The Brennan Center (2025) noted that the worst-case AI election scenarios "did not come to pass" in 2024. Academic research consistently finds that deepfakes are not significantly more persuasive than text-based misinformation, people discount them at roughly similar rates. This finding should not be mistaken for reassurance. The relevant threat is not that deepfakes convince people of specific false claims. The relevant threat is the "liar's dividend" and epistemic corrosion: as people become aware that deepfakes exist, <em>genuine</em> evidence can be dismissed as synthetic. Only 8% of Californians reported being "very confident" in their ability to distinguish real from fake online content (<a href="https://carnegieendowment.org/research/2025/10/carnegie-california-ai-survey" rel="noopener">Carnegie Endowment, October 2025</a>). You do not need to convince people that a lie is true, you only need to make them uncertain whether the truth is real.</p>
+        <p><strong>The structural problem with trust formation:</strong> Human belief formation has historically relied on a layered verification system, multiple sources, institutional backing, physical presence, video confirmation. AI disrupts this at each layer simultaneously: sources can be fabricated, institutions impersonated, physical presence simulated, and video forged. When every verification layer can be faked, the rational response is to trust nothing, which is a different kind of epistemic collapse than mass deception. A society that trusts nothing is as vulnerable to manipulation as one that trusts everything. It simply moves the leverage point from persuasion to paralysis.</p>
+        <div class="callout red">
+          <div class="callout-label">Bottom Line</div>
+          <p>The threat is not primarily "people will believe false things." It is "people will become systematically uncertain about true things." These require different responses. The first calls for fact-checking and content moderation. The second requires provenance infrastructure, institutional credibility rebuilding, and media literacy that teaches verification skills, not just skepticism. Skepticism without verification skills produces paralysis, not discernment. That distinction is rarely made in public discourse about AI misinformation.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Trust Collapse Data</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">8%</span><span class="stat-label">Californians "very confident" in their ability to distinguish real from fake online content (<a href="https://carnegieendowment.org/research/2025/10/carnegie-california-ai-survey" rel="noopener">Carnegie Endowment, 2025</a>)</span></div>
+              <div class="stat-item"><span class="stat-num">~50%</span><span class="stat-label">Share of social media outrage over Cracker Barrel logo change (Aug 2025) found to be synthetic, demonstrating operational adversarial use of synthetic amplification</span></div>
+              <div class="stat-item"><span class="stat-num">#1</span><span class="stat-label">WEF ranking of AI-driven misinformation as largest short-term threat to civil society, 2024 and 2025</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether the absence of worst-case electoral deepfake scenarios in 2024 reflects the limits of current technology, the limits of adversarial ambition, or effective platform countermeasures, and which of these will remain true in future election cycles. The long-term psychological effects of sustained exposure to an information environment where no visual or audio evidence can be trusted by default.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q7 -->
+  <div class="qa-card" id="q7">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 07</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis</span>
+    </div>
+    <div class="qa-question">Are people beginning to trust AI systems more than human institutions, and what are the second-order consequences of that trust shift?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>In some populations and contexts: yes, and the data is striking. The trust shift is real, measurable, and concentrated in predictable places. The second-order consequences are only beginning to be understood.</p>
+        <p><strong>The documented trust data:</strong> The Edelman Trust Barometer (2025) found that 67% of UAE residents trust AI, compared to 32% in the US. That 35-percentage-point gap reflects years of deliberate government AI deployment that produced observable, working results in public services. In sectors where human institutions have demonstrably failed, legal systems that produce inconsistent outcomes, healthcare systems with long wait times and diagnostic errors, educational systems with rigid structures, AI systems are increasingly trusted as more objective, more available, and more consistent alternatives. A 2025 Pew Research study found that 37% of Americans trust AI medical information as much as or more than their primary care physician. Among younger adults (18–29), that figure reached 54%.</p>
+        <p><strong>Where the trust shift is most consequential:</strong>
+        <ul>
+          <li><em>Legal and civic systems:</em> Algorithmic decision-making in parole, sentencing, bail, and benefits eligibility has been operating for years with public trust that often exceeds trust in human decision-makers, despite documented bias problems those same systems have. The trust is not always warranted, but its presence shapes political feasibility of oversight.</li>
+          <li><em>Medical information:</em> If people prefer AI medical guidance to physician consultation, the downstream consequences include both positive effects (expanded access for underserved populations) and negative ones (AI hallucinating treatment recommendations for rare presentations where its training data is thin).</li>
+          <li><em>Political and civic information:</em> A population that trusts AI-generated news summaries more than institutional journalism is a population whose information environment is shaped by whatever training data and optimization objectives shaped those AI systems, without the accountability structures that journalism (at its best) provides.</li>
+        </ul></p>
+        <p><strong>The most important second-order consequence, accountability displacement:</strong> Human institutions, governments, courts, hospitals, newsrooms, are accountable through specific mechanisms: elections, appeals courts, malpractice law, editorial standards, public records. When trust shifts to AI systems, accountability does not automatically transfer. An AI system that gives consistently poor medical advice has no medical license to revoke. An AI that recommends biased parole decisions cannot be cross-examined. An AI news summarizer has no editorial board to hold accountable. The trust shift moves authority to systems that have not yet developed equivalent accountability infrastructure, which is a governance gap, not a technical problem.</p>
+        <div class="callout navy">
+          <div class="callout-label">Bottom Line</div>
+          <p>The trust shift is real, understandable, and in some domains appropriate, human institutions have earned their low trust scores through documented failures. The risk is not that people trust AI too much; it is that trust is shifting without the accountability infrastructure following it. The priority is not reversing trust in AI but building accountability mechanisms for AI systems commensurate with the trust being placed in them. That requires regulatory frameworks, audit rights, explainability requirements, and appeals processes, exactly the institutional structures that current AI deployment is outpacing.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Trust Shift Metrics</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">67%</span><span class="stat-label">UAE public AI trust (Edelman 2025) vs. 32% in the US, 35pp gap reflecting years of successful government AI deployment</span></div>
+              <div class="stat-item"><span class="stat-num">54%</span><span class="stat-label">US adults 18–29 who trust AI medical information as much as or more than their physician (Pew 2025)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether trust in AI systems responds to documented failures the way trust in human institutions does, or whether AI systems benefit from an implicit technological authority that persists despite evidence of error. The long-term effect on civic participation when AI systems mediate the primary information environment between citizens and political reality.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q8 -->
+  <div class="qa-card" id="q8">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 08</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, The Legal Framework Has Not Kept Pace</span>
+    </div>
+    <div class="qa-question">AI systems can reconstruct private information from seemingly innocuous data. Is "privacy" as a legal concept still coherent, or do we need an entirely new rights framework?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Privacy as legally defined is built on the concept of informational boundaries, the idea that specific categories of information (medical records, financial data, communications) warrant protection, and that "private" data is distinguishable from "public" data. AI systematically dissolves both assumptions. The legal concept is not dead, but it requires fundamental reconstruction.</p>
+        <p><strong>What AI can now reconstruct from innocuous data, documented:</strong> Model inversion attacks, querying a model repeatedly to reconstruct training examples, have been demonstrated on facial recognition systems (recovering recognizable face images from model outputs), language models (recovering verbatim training text including names, addresses, and private communications from GPT-2 in a 2021 study), and medical classifiers (recovering patient records from diagnostic model behavior). More concerning is inference from behavioral signals: typing rhythm, scroll patterns, gait analysis captured by phone accelerometers, grocery purchasing history, and voice stress patterns can be combined to infer health status, political orientation, mental state, and relationship status with significant accuracy. None of this data is classified as "private" under current US law.</p>
+        <p><strong>The boundary dissolution problem:</strong> Traditional privacy law protects categories of sensitive data explicitly identified as private. AI inference operates across data that is technically "public" or "benign" in isolation but reconstructs private information through statistical combination. There is no legal category for "combination privacy" in US federal law. The Fourth Amendment protects against unreasonable search and seizure but offers no protection against private actors conducting behavioral inference. HIPAA protects medical records but not the insurance company's AI that infers your health conditions from your Amazon purchase history. GDPR (in the EU) is more protective but still operates primarily on data categories rather than inference chains.</p>
+        <p><strong>What a reconstructed framework would require:</strong> Legal scholars and privacy researchers increasingly argue for purpose-based rather than category-based privacy protection, regulating what data can be used <em>for</em>, not just what data can be collected. The EU's approach under GDPR's data minimization and purpose limitation principles points in this direction. A fully reconstructed framework would need: (1) inference chain accountability, requiring disclosure of what was inferred from what inputs; (2) combination privacy, treating the combination of individually innocuous data points as private when the combination reveals protected-category information; (3) behavioral data rights, extending privacy protection to patterns of public behavior when those patterns enable private-category inferences. None of these exist in US federal law.</p>
+        <div class="callout red">
+          <div class="callout-label">Bottom Line</div>
+          <p>"Privacy" as a legal concept is not dead, it is dangerously outdated. The current framework protects the vault while leaving the combination to the safe unregulated. Until law catches up to inference-chain privacy, individuals have no meaningful legal protection against AI systems that reconstruct private information from public behavior. The US is approximately 10–15 years behind the EU on this question, and the EU itself is still catching up to the technical reality AI inference represents.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Documented Reconstruction Attacks</div>
+          <div class="sb-body"><strong>GPT-2 (Carlini et al., 2021):</strong> Extracted hundreds of verbatim training sentences including names, addresses, and private communications through model querying.<br><br><strong>Facial recognition inversion:</strong> Demonstrated recovery of recognizable face images from model outputs without access to training data.<br><br><strong>LLM memorization (2025 Tel Aviv):</strong> "Low Resource Reconstruction Attacks Through Benign Prompts", demonstrated image reconstruction using only standard, innocuous prompts.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The practical accessibility of these attacks to non-research adversaries at scale. Whether differential privacy techniques, which add statistical noise during training to prevent memorization, can be applied at frontier model scale without meaningful capability degradation. The political feasibility of combination privacy legislation in a US Congress that has not passed comprehensive federal privacy law despite years of bipartisan effort.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q9 -->
+  <div class="qa-card" id="q9">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 09</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, The Prognosis Is Bifurcated</span>
+    </div>
+    <div class="qa-question">If AI can write factually accurate articles faster and cheaper than human journalists, what specifically survives of investigative journalism, and who will fund it?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>AI can replicate the commodity form of journalism. It cannot replicate the investigative form. The question of survival is not about capability, it is about economics, and the economics are genuinely in crisis.</p>
+        <p><strong>What AI can do that threatens journalism:</strong> AI can write accurate, structured, readable articles from press releases, earnings reports, box scores, weather data, and government filings, the majority of what most newsrooms produce by volume. This is "commodity journalism": the conversion of structured data into readable prose. It is already being automated. AI can summarize, translate, categorize, headline, and personalize at scale. Search engine traffic to publishers, which funds this commodity journalism, fell 33% globally in 2025 as AI answer engines provide summaries without click-through. Gartner predicts search engine volume will decline another 25% by late 2026. More than 50 million Americans already live in areas with limited or no local news access (Medill, 2025).</p>
+        <p><strong>What AI cannot do that investigative journalism requires:</strong> Source cultivation, building trust relationships over years with whistleblowers, officials, and witnesses who will not talk to a bot. Physical presence, being in the room, observing body language, smelling the factory. FOIA requests and legal battles, the sustained institutional persistence to demand public records and fight in court for them. Document verification, authenticating the provenance of leaked material against sophisticated fakes. Editorial courage, making the decision to publish despite legal threat, advertiser pressure, or personal danger. These are not API calls. <a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a> (2026) found news publishers planning to boost investment in original investigations (+91%) and contextual analysis (+82%), while cutting back on commodity news (–38%).</p>
+        <p><strong>The economic crisis is real and structural:</strong> Local news has already collapsed across much of rural and suburban America, not because of AI, but because the classified advertising and subscription model that funded it collapsed two decades ago. AI accelerates this dynamic: as AI answer engines serve commodity news directly, the traffic and ad revenue that funded even the remnant local news infrastructure declines further. The Poynter investigation (April 2026) documented an AI company (Nota News) reproducing local journalists' work without attribution as part of a publicly funded AI journalism initiative, illustrating how the institutions meant to save local news can also undermine its economics.</p>
+        <p><strong>What survives, and why:</strong> The <a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a> 2026 report identifies the bifurcation that is already underway: investigative journalism, distinctive voice, deep expertise, and original reporting are moving to a premium model, subscriptions, memberships, foundations, and direct audience support. The Wall Street Journal, the New York Times, and ProPublica are not facing the same crisis as regional papers whose revenue depended on commodity content. The ProPublica case (February 2026), where journalists threatened to strike over AI use clauses, illustrates that the institutions with the most authentic investigative identity are also the ones where the human-AI boundary matters most to the staff and the audience.</p>
+        <div class="callout green">
+          <div class="callout-label">Bottom Line</div>
+          <p>Investigative journalism survives if it can fund itself as a premium product. The human skills that investigation requires, source trust, physical presence, legal persistence, editorial courage, are genuinely irreplaceable by current AI. What dies is commodity journalism funded by ad-supported mass distribution, which was already dying. The risk for democracy is not that investigative journalism disappears from existence, it is that it becomes accessible only to the affluent, while the information diet of everyone else is shaped by AI-generated commodity content with no accountability mechanism. That is a democracy problem, not just a journalism problem.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Economic Reality</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">–33%</span><span class="stat-label">Google organic search traffic to publishers globally in 2025 (Chartbeat / <a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a>)</span></div>
+              <div class="stat-item"><span class="stat-num">50M+</span><span class="stat-label">Americans living in areas with limited or no local news (Medill, 2025)</span></div>
+              <div class="stat-item"><span class="stat-num">+91%</span><span class="stat-label">Publisher planned investment increase in original investigations (<a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a> 2026)</span></div>
+              <div class="stat-item"><span class="stat-num">–38%</span><span class="stat-label">Publisher planned cut in generic commodity news (<a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a> 2026)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether subscription and philanthropic funding models can scale to fill the revenue gap left by ad-supported commodity journalism, particularly for local and regional reporting that serves smaller audiences. Whether AI tools used for investigative journalism (document analysis, dataset processing, translation) ultimately augment investigative capacity enough to offset the economic headwinds.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute Journalism Trends 2026</a> · <a href="https://chartbeat.com/blog/" target="_blank">Chartbeat publisher</a> traffic analytics · <a href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/" target="_blank">Medill Local News</a> Study (2025) · <a href="https://www.poynter.org/ethics-trust/2026/nota-news-local-outlets-ai-plagiarism/" target="_blank">Poynter: Nota News AI plagiarism investigation (Apr 2026)</a> · <a href="https://apnews.com/" target="_blank">Washington Times / AP</a> AI journalism labor coverage (Feb 2026)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<nav class="page-nav page-nav-btm" aria-label="Page navigation bottom">
+  <div class="page-nav-inner">
+    <a href="#q1">Q1 Open vs. Closed</a>
+    <a href="#q2">Q2 Dead Internet</a>
+    <a href="#q3">Q3 Cognitive Offload</a>
+    <a href="#q4">Q4 Data Poisoning</a>
+    <a href="#q5">Q5 Open Source Risk</a>
+    <a href="#q6">Q6 AI Misinformation</a>
+    <a href="#q7">Q7 Trust Shift</a>
+    <a href="#q8">Q8 Privacy</a>
+    <a href="#q9">Q9 Journalism</a>
+    <a href="/glossary/">Glossary →</a>
+  </div>
+</nav>
+
+
+<footer class="page-footer">
+  <strong>Q&amp;A Series, Batch 7: Safety, Security &amp; Information Integrity · April 2026</strong><br>
+  Primary Sources: <a href="https://www.cisco.com/c/en/us/products/security/state-of-ai-security.html" target="_blank">Cisco State of AI Security</a> (Feb 2026) · <a href="https://cfg.eu/beyond-the-binary/" target="_blank">Centre for Future Generations "Beyond the Binary"</a> (Jul 2025) · Stanford / Imperial College / Internet Archive Dead Internet Study (Apr 2026) · <a href="https://www.imperva.com/resources/resource-library/reports/2024-bad-bot-report/" target="_blank">Imperva 2024 Bad Bot Report</a> · <a href="https://blog.cloudflare.com/perplexity-is-using-stealth-undeclared-crawlers-to-evade-website-no-crawl-directives/" target="_blank">Cloudflare Bot Report</a> (Sep 2025) · <a href="https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026" target="_blank">Reuters Institute</a> Journalism Trends 2026 · <a href="https://chartbeat.com/blog/" target="_blank">Chartbeat Publisher Analytics</a> · <a href="https://localnewsinitiative.northwestern.edu/projects/state-of-local-news/" target="_blank">Medill Local News</a> Study (2025) · NSA/CISA AI Supply Chain Risks (Mar 2026) · CISO Marketplace Training Data Poisoning (Feb 2026) · <a href="https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training" target="_blank">Anthropic Sleeper Agents</a> Research (2024) · <a href="https://jfrog.com/blog/data-scientists-targeted-by-malicious-hugging-face-ml-models-with-silent-backdoor/" target="_blank">JFrog HuggingFace</a> Disclosure (2024) · <a href="https://carnegieendowment.org/research/2025/10/carnegie-california-ai-survey" target="_blank">Carnegie Endowment AI &amp; Democracy</a> (2026) · <a href="https://www.weforum.org/publications/global-risks-report-2025/" target="_blank">WEF Global Risk Report 2025</a> · <a href="https://www.edelman.com/trust/2025/trust-barometer" target="_blank">Edelman Trust Barometer 2025</a> · <a href="https://www.pewresearch.org/internet/2023/11/21/views-of-data-privacy-risks-personal-data-and-digital-privacy-laws/" target="_blank">Pew Research AI Trust</a> (2025) · <a href="https://arxiv.org/abs/2012.07805" target="_blank">Carlini et al. GPT-2 memorization</a> (2021) · <a href="https://arxiv.org/abs/2502.07440" target="_blank">arXiv Prefill Attacks</a> (Feb 2026) · Poynter Nota News Investigation (Apr 2026)
+</footer>
+
+<script>
+const ACRONYMS={  'LLM':'Large Language Model, a neural network trained on massive text data to understand and generate language.',
+  'LLMs':'Large Language Models, the category of AI systems trained on internet-scale text corpora.',
+  'RLHF':'Reinforcement Learning from Human Feedback, training technique using human preference ratings to shape AI model behavior.',
+  'SFT':'Supervised Fine-Tuning, continued training of a model on curated labeled examples to specialize behavior.',
+  'RAG':'Retrieval-Augmented Generation, combining document retrieval with AI generation to ground responses in specific sources.',
+  'CBRN':'Chemical, Biological, Radiological, Nuclear, the four categories of weapons of mass destruction that represent the highest-consequence AI misuse risk.',
+  'API':'Application Programming Interface, standardized way for software systems to communicate; AI companies offer APIs for model access.',
+  'FOIA':'Freedom of Information Act, US law giving citizens the right to request federal agency records.',
+  'GDPR':'General Data Protection Regulation, the EU\'s landmark data privacy law (2018), which became the de facto global standard.',
+  'HIPAA':'Health Insurance Portability and Accountability Act, US law protecting the privacy of patients\' medical information.',
+  'NSA':'National Security Agency, the US signals intelligence and cybersecurity agency.',
+  'CISA':'Cybersecurity and Infrastructure Security Agency, the US federal agency responsible for protecting critical infrastructure from cyber threats.',
+  'WEF':'World Economic Forum, the international NGO hosting the annual Davos summit and publishing global risk reports.',
+  'GPU':'Graphics Processing Unit, the primary chip used to train and run AI models at scale.',
+  'GPT':'Generative Pre-trained Transformer, OpenAI\'s flagship model family; the architecture behind ChatGPT.',
+  'C2PA':'Coalition for Content Provenance and Authenticity, an open standard embedding cryptographic metadata into media files at creation to verify origin.',
+};
+function applyTooltips(root){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p)return NodeFilter.FILTER_REJECT;if(['SCRIPT','STYLE','A','ABBR'].includes(p.tagName))return NodeFilter.FILTER_REJECT;if(p.classList.contains('ac'))return NodeFilter.FILTER_REJECT;if(p.closest('.ac'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});
+  const nodes=[];let node;while((node=walker.nextNode()))nodes.push(node);
+  const keys=Object.keys(ACRONYMS).sort((a,b)=>b.length-a.length);
+  const pattern=new RegExp('\\b('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','g');
+  nodes.forEach(textNode=>{const text=textNode.textContent;if(!pattern.test(text))return;pattern.lastIndex=0;const frag=document.createDocumentFragment();let last=0,m;while((m=pattern.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const span=document.createElement('span');span.className='ac';span.setAttribute('data-tip',ACRONYMS[m[0]]);span.setAttribute('tabindex','0');span.textContent=m[0];frag.appendChild(span);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));textNode.parentNode.replaceChild(frag,textNode);});
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.qa-answer,.sb-body').forEach(applyTooltips);
+  document.addEventListener('click',e=>{const tip=e.target.closest('.ac');document.querySelectorAll('.ac.tip-open').forEach(el=>{if(el!==tip)el.classList.remove('tip-open');});if(tip){tip.classList.toggle('tip-open');e.stopPropagation();}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.ac.tip-open').forEach(el=>el.classList.remove('tip-open'));});
+});
+</script>
+<script>
+(function(){
+  const navLinks=document.querySelectorAll('.page-nav-inner a[href^="#q"]');
+  if(!navLinks.length)return;
+  const cards=Array.from(document.querySelectorAll('.qa-card[id]'));
+  if(!cards.length)return;
+  const visible=new Set();
+  function update(){
+    const activeId=cards.find(c=>visible.has(c.id))?.id;
+    navLinks.forEach(link=>{
+      link.classList.toggle('q-active',!!activeId&&link.getAttribute('href')==='#'+activeId);
+    });
+  }
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{e.isIntersecting?visible.add(e.target.id):visible.delete(e.target.id);});
+    update();
+  },{rootMargin:'-130px 0px -40% 0px',threshold:0});
+  cards.forEach(card=>observer.observe(card));
+})();
+</script>
+</body>
+</html>

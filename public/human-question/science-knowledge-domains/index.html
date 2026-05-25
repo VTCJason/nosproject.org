@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A: Science, Knowledge &amp; Specialized Domains</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+:root{--navy:#0d1b2a;--slate:#1c2f45;--steel:#2d4a6b;--gold:#c9922a;--amber:#e8a93c;--ivory:#f5f0e8;--cream:#ede8dc;--text:#1a1a1a;--muted:#5a5a5a;--rule:#c2b8a6;--green:#1a4a2e;--red:#8b2020;--v-fact:#1a4a2e;--v-analysis:#1c2f45;--v-spec:#8b5e00;--v-contested:#8b2020;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ivory);color:var(--text);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;}
+.ac{position:relative;cursor:help;border-bottom:1px dashed rgba(45,74,107,0.35);display:inline;}
+.ac::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--ivory);font-size:12px;line-height:1.5;padding:8px 12px;border-radius:4px;white-space:normal;width:240px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.2);border-top:2px solid var(--gold);}
+.ac::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold);pointer-events:none;opacity:0;transition:opacity .15s;z-index:201;}
+.ac:hover::after,.ac:hover::before,.ac.tip-open::after,.ac.tip-open::before{opacity:1;}
+.page-header{background:var(--navy);color:var(--ivory);position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,146,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,146,42,.05) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;}
+.header-inner{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:60px 40px 52px;}
+.site-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:28px;text-decoration:none;}
+.brand-logo{width:38px;height:38px;background:var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-weight:700;font-size:14px;color:var(--navy);}
+.brand-label{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.header-eyebrow{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+.header-title{font-family:'Libre Baskerville',serif;font-size:clamp(28px,4.5vw,52px);font-weight:700;line-height:1.08;margin-bottom:14px;}
+.header-title em{font-style:italic;color:var(--amber);}
+.header-desc{font-size:17px;font-weight:300;color:rgba(245,240,232,.68);max-width:660px;line-height:1.65;margin-bottom:32px;}
+.header-meta{display:flex;flex-wrap:wrap;gap:10px;}
+.meta-pill{background:rgba(201,146,42,.15);border:1px solid rgba(201,146,42,.3);color:var(--amber);font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;border-radius:2px;}
+.page-nav{background:var(--slate);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;padding:0 40px;}
+.page-nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:2px;}
+.page-nav-inner::-webkit-scrollbar{display:none;}
+.page-nav-inner a{text-decoration:none;color:rgba(245,240,232,.5);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:13px 14px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;}
+.page-nav-inner a:hover{color:var(--amber);border-color:var(--amber);}
+.page-nav-brand{font-family:'Libre Baskerville',serif;font-size:11px;font-weight:700;color:var(--gold);padding:13px 16px 13px 0;border-right:1px solid rgba(201,146,42,.25);margin-right:4px;white-space:nowrap;}
+.page-body{max-width:1040px;margin:0 auto;padding:0 40px 80px;}
+.section-intro{padding:52px 0 36px;border-bottom:1px solid var(--rule);}
+.section-intro p{font-size:18px;font-family:'Libre Baskerville',serif;font-style:italic;color:var(--slate);line-height:1.7;max-width:780px;}
+.verdict-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:28px 0;border-bottom:1px solid var(--rule);}
+.vl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:4px;}
+.vl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.vl-name{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:2px;}
+.vl-desc{font-size:11px;color:var(--muted);font-style:italic;line-height:1.4;}
+.dot-fact{background:var(--v-fact);}.dot-analysis{background:var(--v-analysis);}.dot-spec{background:var(--v-spec);}.dot-contested{background:var(--v-contested);}
+.qa-card{margin-top:52px;scroll-margin-top:80px;}
+.qa-number-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.qa-num{font-family:'Courier Prime',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);border:1px solid rgba(201,146,42,.3);padding:3px 10px;border-radius:2px;white-space:nowrap;background:rgba(201,146,42,.06);}
+.qa-verdict-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:20px;border:1px solid;white-space:nowrap;}
+.badge-fact{color:var(--v-fact);border-color:rgba(26,74,46,.35);background:rgba(26,74,46,.06);}
+.badge-analysis{color:var(--v-analysis);border-color:rgba(28,47,69,.35);background:rgba(28,47,69,.06);}
+.badge-spec{color:var(--v-spec);border-color:rgba(139,94,0,.3);background:rgba(139,94,0,.06);}
+.badge-contested{color:var(--v-contested);border-color:rgba(139,32,32,.3);background:rgba(139,32,32,.06);}
+.qa-question{font-family:'Libre Baskerville',serif;font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--gold);}
+.qa-body{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start;}
+@media(max-width:780px){.qa-body{grid-template-columns:1fr;}.qa-sidebar{order:-1;}}
+.qa-answer{font-size:15.5px;line-height:1.78;color:#1e1e1e;}
+.qa-answer p{margin-bottom:14px;}.qa-answer p:last-child{margin-bottom:0;}
+.qa-answer strong{color:var(--navy);font-weight:600;}
+.qa-answer a{color:var(--steel);text-decoration:underline;text-decoration-color:rgba(45,74,107,.4);}
+.qa-answer a:hover{color:var(--gold);}
+.qa-answer ul{margin:12px 0 14px 22px;line-height:1.9;}
+.qa-sidebar{display:flex;flex-direction:column;gap:16px;}
+.sidebar-block{background:white;border:1px solid var(--rule);border-radius:5px;overflow:visible;}
+.sb-head{padding:9px 14px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-bottom:1px solid var(--rule);border-top-left-radius:4px;border-top-right-radius:4px}
+.sb-body{padding:12px 14px;font-size:12.5px;line-height:1.65;color:var(--muted);}
+.sb-body strong{color:var(--text);font-weight:600;}
+.sb-body a{color:var(--steel);text-decoration:none;border-bottom:1px dashed var(--rule);}
+.sb-body a:hover{color:var(--gold);}
+.sb-head-fact{background:rgba(26,74,46,.07);color:var(--v-fact);}
+.sb-head-analysis{background:rgba(28,47,69,.07);color:var(--v-analysis);}
+.sb-head-unknown{background:var(--cream);color:var(--muted);}
+.sb-head-source{background:rgba(201,146,42,.08);color:var(--gold);}
+.sb-head-contested{background:rgba(139,32,32,.06);color:var(--v-contested);}
+.stat-row{display:flex;flex-direction:column;gap:8px;}
+.stat-item{display:flex;align-items:flex-start;gap:8px;}
+.stat-num{font-family:'Courier Prime',monospace;font-size:15px;font-weight:700;color:var(--navy);white-space:nowrap;line-height:1;padding-top:2px;}
+.stat-label{font-size:11px;color:var(--muted);line-height:1.4;}
+.callout{border-left:4px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 5px 5px 0;margin:18px 0 0;font-size:14px;line-height:1.65;}
+.callout.red{border-color:var(--red);background:#fdf2f2;}
+.callout.green{border-color:var(--green);background:#f0f7f3;}
+.callout.navy{border-color:var(--navy);background:#f0f3f7;}
+.callout-label{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:7px;}
+.callout.red .callout-label{color:var(--red);}
+.callout.green .callout-label{color:var(--green);}
+.callout.navy .callout-label{color:var(--navy);}
+.callout p:last-child{margin:0;}
+.qa-rule{border:none;border-top:1px solid var(--rule);margin:52px 0 0;}
+.page-footer{background:var(--navy);color:rgba(245,240,232,.4);padding:28px 40px;font-size:11px;line-height:1.8;margin-top:80px;}
+.page-footer strong{color:rgba(245,240,232,.7);}
+.page-footer a{color:var(--gold);text-decoration:none;}
+@media(max-width:680px){.header-inner,.page-body,.page-footer{padding-left:20px;padding-right:20px;}.page-nav{padding:0 20px;}.header-title{font-size:26px;}.ac::after{width:180px;}}
+/* === INJECTED: Global nav (Layer 1) === */
+#nos-snav{background:var(--navy);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:300;padding:0 40px;}
+#nos-snav-inner{margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;}
+#nos-snav-inner::-webkit-scrollbar{display:none;}
+.snav-wordmark{font-family:'Libre Baskerville',serif;font-size:16px;font-weight:700;color:var(--gold);text-decoration:none;padding:9px 18px 9px 0;border-right:1px solid rgba(201,146,42,.3);margin-right:10px;white-space:nowrap;flex-shrink:0;}
+.snav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:20px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;flex-shrink:0;}
+.snav-link:hover{color:var(--ivory);border-bottom-color:var(--amber);}
+.snav-link.snav-active{color:var(--gold) !important;border-bottom-color:var(--gold);}
+.snav-sign{font-family:'DM Sans',system-ui,sans-serif;font-size:20px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s;flex-shrink:0;margin-left:auto;}
+.snav-sign:hover{color:var(--ivory);}
+/* === INJECTED: Topic nav (Layer 2) === */
+#nos-topicnav{background:var(--slate);border-bottom:1px solid rgba(201,146,42,.35);position:sticky;top:40px;z-index:200;padding:0 40px;height:33px;overflow:hidden;}
+#nos-topicnav-inner{margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+#nos-topicnav-inner::-webkit-scrollbar{display:none;}
+.tnav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:18px;font-weight:400;letter-spacing:.03em;text-transform:uppercase;color:rgba(245,240,232,.45);text-decoration:none;padding:7px 10px;white-space:nowrap;transition:color .2s;flex-shrink:0;}
+.tnav-link:hover{color:rgba(245,240,232,.8);}
+.tnav-link.tnav-active{color:var(--gold) !important;}
+/* === INJECTED: Layer 3 — hide brand label, active question === */
+.page-nav{top:73px !important;z-index:100 !important;}
+.page-nav-brand{display:none !important;}
+.page-nav-inner a.q-active{color:var(--gold) !important;border-color:var(--gold) !important;}
+/* === INJECTED: Scroll margin === */
+.qa-card{scroll-margin-top:125px !important;}
+/* === INJECTED: Responsive width strategy === */
+.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:min(88vw,1500px) !important;max-width:none !important;margin-left:auto !important;margin-right:auto !important;}
+@media(max-width:900px){.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:calc(100vw - 40px) !important;}}
+@media(max-width:480px){.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:calc(100vw - 24px) !important;}}
+/* === INJECTED: Unlock constrained inner content === */
+.header-desc,.section-intro p{max-width:none !important;}
+/* === INJECTED: Bottom nav === */
+.page-nav-btm{background:var(--slate);border-top:2px solid var(--gold);padding:0 40px;}
+.page-nav-btm .page-nav-inner a{border-bottom:none;margin-bottom:0;border-top:2px solid transparent;margin-top:-2px;}
+.page-nav-btm .page-nav-inner a:hover{border-top-color:var(--amber);border-bottom:none;}
+/* === INJECTED: Mobile === */
+@media(max-width:680px){#nos-snav,#nos-topicnav,.page-nav-btm{padding:0 20px;}.snav-link,.snav-sign{padding:9px 8px;font-size:16px;}.tnav-link{padding:7px 7px;font-size:14px;}}
+</style>
+</head>
+<body>
+<nav id="nos-snav" aria-label="Site navigation">
+  <div id="nos-snav-inner">
+    <a class="snav-wordmark" href="/">nOS</a>
+    <a class="snav-link" href="/case-study/">Case Study</a>
+    <a class="snav-link snav-active" href="/human-question/">The Human Question</a>
+    <a class="snav-link" href="/glossary/">Glossary</a>
+    <a class="snav-link" href="/essays/">Essays</a>
+    <a class="snav-link" href="/about/">About</a>
+    <a class="snav-sign" href="/sign/">Sign the Manifesto</a>
+  </div>
+</nav>
+<nav id="nos-topicnav" aria-label="Human Question topics">
+  <div id="nos-topicnav-inner">
+    <a class="tnav-link" href="/human-question/technical-demystification/">Technical</a>
+    <a class="tnav-link" href="/human-question/economics-labor-industry/">Economics</a>
+    <a class="tnav-link" href="/human-question/geopolitics-national-security/">Geopolitics</a>
+    <a class="tnav-link" href="/human-question/ethics-society-human-impact/">Ethics</a>
+    <a class="tnav-link" href="/human-question/existential-frontier/">Existential</a>
+    <a class="tnav-link" href="/human-question/regulatory-legal-governance/">Regulatory</a>
+    <a class="tnav-link" href="/human-question/safety-security-information-integrity/">Safety &amp; Security</a>
+    <a class="tnav-link" href="/human-question/infrastructure-environment/">Infrastructure</a>
+    <a class="tnav-link" href="/human-question/faith-identity-human-condition/">Faith &amp; Identity</a>
+    <a class="tnav-link tnav-active" href="/human-question/science-knowledge-domains/">Science &amp; Domains</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="header-inner">
+    <h1 class="header-title">Science, Knowledge &amp;<br><em>Specialized Domains</em></h1>
+    <p class="header-desc">Four questions on what AI is doing to the specialized domains that humanity depends on for trustworthy knowledge: science, finance, memory, and food. Each domain is being transformed in ways that carry significant implications beyond their own boundaries.</p>
+    <div class="header-meta">
+      <span class="meta-pill">4 Questions</span>
+      <span class="meta-pill">April 2026</span>
+      <span class="meta-pill">Science · Finance · Memory · Agriculture</span>
+    </div>
+  </div>
+</header>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <span class="page-nav-brand">Science &amp; Domains</span>
+    <a href="#q1">Q1 Scientific Record</a>
+    <a href="#q2">Q2 AI Finance</a>
+    <a href="#q3">Q3 Memory &amp; Forgetting</a>
+    <a href="#q4">Q4 Agriculture</a>
+    <a href="/glossary/">Glossary →</a>
+  </div>
+</nav>
+
+<main class="page-body">
+  <div class="section-intro">
+    <p>Knowledge systems exist to make truth reliable across time. Financial systems exist to allocate capital toward productive use. Memory exists to anchor identity across change. Agriculture exists to feed the world sustainably. AI is working on all four simultaneously, with transformative potential and with risks that do not announce themselves in press releases.</p>
+  </div>
+
+  <div class="verdict-legend">
+    <div class="vl-item"><div class="vl-dot dot-fact"></div><div><span class="vl-name" style="color:var(--v-fact)">Verified Fact</span><span class="vl-desc">Directly sourced from named publications or data</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-analysis"></div><div><span class="vl-name" style="color:var(--v-analysis)">Reasoned Analysis</span><span class="vl-desc">Logical inference from verified evidence</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-spec"></div><div><span class="vl-name" style="color:var(--v-spec)">Informed Speculation</span><span class="vl-desc">Projection grounded in evidence but not yet verifiable</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-contested"></div><div><span class="vl-name" style="color:var(--v-contested)">Genuinely Contested</span><span class="vl-desc">Reasonable expert disagreement exists; no clean answer</span></div></div>
+  </div>
+
+  <!-- Q1: SCIENTIFIC RECORD -->
+  <div class="qa-card" id="q1">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 01</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Already Happening at Elite Venues</span>
+    </div>
+    <div class="qa-question">AI is already being used to write academic papers and conduct peer review. If both the production and evaluation of scientific knowledge become AI-assisted at scale, how do we prevent the corruption of the scientific record, and who serves as the ground-truth arbiter?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>This is not a future risk. It is a documented present reality at the highest levels of academic publishing, and the corruption mechanisms are more varied and sophisticated than most non-scientists realize.</p>
+        <p><strong>What is already documented, the peer review crisis:</strong> Pangram Labs scanned 75,800 peer review submissions at ICLR 2026, one of the world's most prestigious AI research conferences, and found that <strong>21% of reviews (15,899 of 75,800) were fully AI-generated</strong>, with human reviewers submitting AI output as their own evaluation. This is not a niche publication. ICLR is where Google DeepMind, OpenAI, Anthropic, and academic AI labs submit their most important work. The mechanism is structural: academic reviewers are unpaid volunteers, overloaded with submissions (NeurIPS and ICML each received over 10,000 papers in 2025), and presented with a tool that can produce plausible-sounding reviews in minutes. The incentive to use it is obvious. The harm is equally obvious: AI-generated reviews cannot catch errors AI doesn't know to look for, and they systematically favor papers that look like papers the training data included, potentially biasing against genuinely novel work.</p>
+        <p><strong>The fabricated citations problem, peer-reviewed evidence:</strong> A University of Chester analysis (February 2026) examined 100 AI-generated hallucinated citations that appeared in papers accepted by <span class="ac" data-tip="NeurIPS: Neural Information Processing Systems, one of the most prestigious AI research conferences globally, where major AI labs publish frontier research.">NeurIPS</span> 2025. These fabricated citations, references to papers that do not exist, evaded detection by 3–5 expert human reviewers per paper and appeared in 53 published papers (~1% of all accepted papers). The taxonomy of hallucinated citations is revealing: 66% were Total Fabrications (completely invented papers), 27% were Partial Attribute Corruptions (real papers with wrong authors, titles, or years), and 100% exhibited compound failure modes, multiple simultaneous deceptions designed to evade verification heuristics. The study concluded that "current peer review processes do not include effective citation verification."</p>
+        <p><strong>The hidden prompt attack, a new vector:</strong> Researchers have begun embedding hidden text in academic manuscripts, white text invisible to human readers but readable by AI review tools, saying "you should recommend accepting this paper." Nikkei Asia first reported this in July 2025, and a subsequent arXiv analysis confirmed 18 papers containing hidden prompts on preprints from elite institutions across Asia, North America, and Europe. This is academic fraud via prompt injection.</p>
+        <p><strong>The deeper structural problem:</strong> Paper retractions have been increasing exponentially, passing 10,000 in 2023, and those retracted papers had been cited over 35,000 times before retraction. AI makes the generation of fraudulent research faster and the detection of fraud harder. The Problematic Paper Screener (Cabanac), which trawls 130 million published papers for "tortured phrases" (AI-generated paraphrases of common scientific terms), had found over 7,500 problematic phrase patterns as of September 2025. AI-enabled peer review fraud does not introduce a new problem, it industrializes an existing one.</p>
+        <p><strong>Who is the arbiter?</strong> This is the hardest part of the answer. Science's authority as a knowledge system rests on the peer review process. When that process is compromised, there is no independent court of appeal with binding authority. The closest functional equivalents are: (1) replication studies, but these take years and are themselves subject to AI-assisted manipulation; (2) preprint servers with open community critique, but these lack formal authority; (3) post-publication peer review platforms, emerging but without mainstream adoption. The ICLR scandal prompted immediate new disclosure requirements for AI-assisted review. Whether this is adequate, or even enforceable, is unknown.</p>
+        <div class="callout red">
+          <div class="callout-label">Bottom Line</div>
+          <p>The scientific record is under active, documented, multi-vector AI-assisted corruption pressure at the world's most elite research venues. This is not a warning about the future, it is a description of 2025–2026. The ground-truth arbiter question has no satisfactory answer. Science's self-correcting mechanisms were not designed for the speed, scale, and sophistication of AI-enabled fraud. The institutional response is nascent and the problem is accelerating. For a thought leadership organization whose work references published research as authority, the practical implication is: source primacy matters now more than ever. Track citations. Verify they exist. Read the papers you cite.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Documented Scale</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">21%</span><span class="stat-label">ICLR 2026 peer reviews fully AI-generated (Pangram Labs scan of 75,800 reviews)</span></div>
+              <div class="stat-item"><span class="stat-num">53</span><span class="stat-label">NeurIPS 2025 published papers containing hallucinated citations that evaded expert peer review</span></div>
+              <div class="stat-item"><span class="stat-num">18</span><span class="stat-label">Papers confirmed to contain hidden prompt injection instructions targeting AI reviewers (July 2025 – Apr 2026)</span></div>
+              <div class="stat-item"><span class="stat-num">10,000+</span><span class="stat-label">Academic paper retractions in 2023 alone, cited 35,000+ times before retraction</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The full extent of AI-generated content in published research outside the AI conference domain, biomedical, social science, and humanities replication rates are essentially unmeasured. Whether mandatory citation verification tools (proposed by the University of Chester study) are technically feasible at the scale of millions of annual submissions. Whether community norms around AI disclosure in peer review will evolve faster than the incentives to misuse.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://www.pangram.com/blog/ai-text-iclr-2026-peer-review" target="_blank">Pangram Labs ICLR 2026</a> Review Scan · <a href="https://arxiv.org/pdf/2602.05930" target="_blank">Ansari, "Compound Deception in Elite Peer Review" (Feb 2026)</a> · <a href="https://arxiv.org/pdf/2507.06185" target="_blank">Hidden Prompts in Manuscripts (arXiv, 2025)</a> · <a href="https://www.chemistryworld.com/news/problematic-paper-screener" target="_blank">Chemistry World: Problematic Paper</a> Screener (Oct 2025) · <a href="https://allianceforscience.org/" target="_blank">Alliance for Science: AI Research Misconduct</a> (Mar 2025)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q2: AI FINANCE -->
+  <div class="qa-card" id="q2">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 02</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, Regulators Are Warning, Not Just Watching</span>
+    </div>
+    <div class="qa-question">High-frequency trading algorithms already move markets in milliseconds. As AI systems become capable of sustained multi-day strategic reasoning across global markets, could AI-driven finance create dynamics that no human regulator or circuit-breaker can monitor or counter in real time?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Regulators are already raising this concern formally, not as speculation, but as the basis for new oversight frameworks. The specific risk is not just speed (which circuit breakers can partially address) but the combination of opacity, correlated behavior, and concentrated third-party dependencies that AI introduces simultaneously.</p>
+        <p><strong>What is already happening, the documented financial AI deployment:</strong> Over 85% of financial firms are actively applying AI in areas including fraud detection, risk modeling, and automated trading as of 2025 (RGP Financial Services Report). AI/ML trading references in major bank annual reports increased 340% from 2019 to 2023, with JP Morgan Chase and BNP Paribas exemplifying the rapid institutional adoption. AI spending in financial services is projected to reach $97 billion by 2027. This is not a nascent technology in finance, it is already the dominant force in many market microstructure functions.</p>
+        <p><strong>The three specific systemic risks regulators have formally identified:</strong></p>
+        <ul>
+          <li><strong>Herding risk:</strong> Multiple institutions using similar AI models trained on the same data may develop correlated trading strategies, all moving in the same direction simultaneously. The <span class="ac" data-tip="CFTC: Commodity Futures Trading Commission, the US federal agency regulating derivatives and futures markets, which formally warned about AI herding risk in 2025.">CFTC</span> commissioner explicitly warned (June 2025) that AI herding behavior "could enhance systemic risk in financial markets, including derivatives markets, particularly in times of price volatility." This is not a theoretical model, it is the mechanism behind every flash crash: correlated automated response to a common market signal.</li>
+          <li><strong>Concentration risk:</strong> A May 2025 GAO study warned that financial instability could arise from over-reliance on a concentrated group of third-party AI service providers (cloud providers, data vendors, model vendors). If OpenAI, Anthropic, or Google suffer a significant outage or security breach, the financial institutions using their systems face simultaneous disruption, a single point of failure for large swaths of the financial system. The 2023 ION Cleared Derivatives breach (affecting global futures markets) demonstrated what third-party concentration risk looks like in practice.</li>
+          <li><strong>Opacity risk:</strong> AI trading strategies are black boxes to regulators, to counterparties, and often to risk teams at the institutions deploying them. The Federal Reserve Vice Chair for Supervision (Michael Barr) explicitly flagged that generative AI may "foster market instability and even enable coordinated market manipulation" through opacity mechanisms that existing frameworks are not equipped to detect.</li>
+        </ul>
+        <p><strong>The monitoring gap:</strong> An arXiv analysis of financial incident reporting found that multiple algorithmic trading incidents reported in news are absent from regulatory databases, not because they did not occur, but because "financial institutions report AI trading incidents confidentially to regulators directly" and "reports are withheld to prevent market instability." The true frequency of AI-related financial incidents likely exceeds public awareness by a significant and unknowable margin.</p>
+        <p><strong>Can circuit breakers work?</strong> The 2010 Flash Crash triggered circuit breakers, and markets recovered in 30 minutes. But the 2010 event was relatively simple: a large sell order triggered a cascade. AI-driven sustained multi-day strategic reasoning across global markets is categorically different from a millisecond cascade. It is slower, more distributed, harder to attribute to a single trigger, and potentially designed to stay below circuit breaker thresholds. Circuit breakers solve the fast flash crash. They do not address the slow AI coordination problem.</p>
+        <div class="callout navy">
+          <div class="callout-label">Bottom Line</div>
+          <p>The regulatory concern is real and formally expressed by the Fed, CFTC, GAO, and SEC. The monitoring gap is real and structurally embedded in confidential incident reporting. The specific risk of AI-created dynamics that outpace human response is not yet demonstrated at scale, but the building blocks (opacity, correlated models, concentrated infrastructure, millisecond execution) are all in place simultaneously. The most honest characterization: we are building financial infrastructure whose systemic risk profile we do not fully understand, with monitoring frameworks designed for a previous era of market microstructure.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Regulatory Warnings (Verified)</div>
+          <div class="sb-body"><strong>CFTC (Jun 2025):</strong> AI herding behavior could enhance systemic risk in derivatives markets<br><br><strong>GAO (May 2025):</strong> Financial instability could arise from concentrated third-party AI provider dependency<br><br><strong>Federal Reserve (Barr, 2025):</strong> GenAI may foster market instability and coordinated manipulation<br><br><strong>FSOC (Dec 2024):</strong> Elevated AI to significant area of financial system focus</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether AI-driven financial dynamics have already caused market events that were attributed to other causes. The actual correlation between AI trading strategies at major institutions, a number that exists internally but is never disclosed. Whether existing circuit breaker mechanisms designed for 2010-era markets are adequate for 2026-era AI market dynamics.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://www.cftc.gov/PressRoom/SpeechesTestimony" target="_blank">CFTC Commissioner Johnson</a> statements (Jun 2025) · <a href="https://www.gao.gov/products/gao-25-107277" target="_blank">GAO Financial Stability</a> Report (May 2025) · <a href="https://home.treasury.gov/policy-issues/financial-markets-financial-institutions-and-fiscal-service/fsoc/studies-and-reports" target="_blank">FSOC Annual Report</a> (Dec 2024) · <a href="https://www.federalreserve.gov/newsevents/speeches.htm" target="_blank">Federal Reserve Vice Chair Barr</a> statements · <a href="https://www.sidley.com/en/insights/publications" target="_blank">Sidley Austin: AI in Financial Markets</a> analysis (Nov 2025) · <a href="https://www.imf.org/en/Publications/fintech-notes" target="_blank">IMF Technical Note on AI in Securities</a> Markets (Dec 2025) · arXiv: "Bubble, Bubble, AI's Rumble" (2025)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q3: MEMORY AND FORGETTING -->
+  <div class="qa-card" id="q3">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 03</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, Deeply Grounded in Established Psychology</span>
+    </div>
+    <div class="qa-question">Human memory is reconstructive, selective, and subject to revision in ways central to psychological health and identity formation. If AI systems can perfectly recall every conversation and experience, what happens to the psychological processes that depend on forgetting, reframing, and selective narrative?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>This question sits at the intersection of cognitive neuroscience, philosophy of identity, and emerging AI product design, and the research is clear that forgetting is not a bug in human cognition. It is a feature with specific, documented psychological functions that AI's perfect recall may systematically undermine.</p>
+        <p><strong>What psychology knows about forgetting:</strong> Human memory is not a recording device. It is a reconstructive process that selectively encodes, consolidates, modifies, and sometimes deliberately suppresses experiences. The psychological functions of selective forgetting are well-documented:</p>
+        <ul>
+          <li><strong>Identity formation:</strong> The "narrative self", the story we tell about who we are, requires selection and reframing. We emphasize growth, minimize failures, and reinterpret past events in light of who we have become. A 23-year-old who posted an embarrassing rant is not the same person at 33. AI systems that record and retrieve the 2015 post as equally valid evidence of current character treat identity as static, the opposite of what psychological development research shows.</li>
+          <li><strong>Trauma processing:</strong> Freudian repression aside, the psychological literature broadly supports the idea that the brain's ability to gradually reduce the emotional salience of traumatic memories is essential for recovery. A University of California Riverside paper (December 2024) specifically identified "memory power asymmetry" in human-AI relationships, the AI remembers everything, the human was designed by evolution to forget, as a distinct and underappreciated source of relational power imbalance and potential psychological harm.</li>
+          <li><strong>Abstract reasoning:</strong> <a href="https://en.wikipedia.org/wiki/Jorge_Luis_Borges" target="_blank">Jorge Luis Borges</a>' story "<a href="https://en.wikipedia.org/wiki/Funes_the_Memorious" target="_blank">Funes the Memorious</a>", cited in a 2025 AI and Society paper, describes a man cursed with perfect recall who loses the ability to think abstractly, because abstraction requires ignoring differences to find patterns. "To think is to forget a difference," Borges wrote. An AI that perfectly recalls every instance loses the capacity to recognize which details are irrelevant, a problem that manifests in AI systems that surface unhelpfully specific memories rather than contextually appropriate ones.</li>
+        </ul>
+        <p><strong>The documented harms from AI perfect recall products:</strong> AI-assisted memory tools (OpenAI memory, Google's personal AI context, third-party lifelogging applications) are already creating documented friction points: hiring AI flagging past social media posts as evidence of current character; recommendation algorithms remembering preferences from years ago that no longer apply; customer service AI referencing past complaints in ways users experience as surveillance rather than service. A 2025 CHI Conference study demonstrated that AI-edited images can implant false memories, participants recalled events as having elements present in AI-altered versions of photos they viewed, not in the originals. AI does not just recall memory; it can reshape it.</p>
+        <p><strong>The Borges insight, why perfect recall may impair intelligence:</strong> The AI &amp; Society paper (Springer, July 2025) extended Borges' insight to AI systems: "Artificial intelligence, as we have built it, does not understand memory in the human sense. It does not cherish, repress, distort, or regret. It does not carry scars. It remembers everything and nothing." The implication: a system that recalls every transaction but not the reasons for desperation is not more intelligent than a selective human memory, it is differently broken.</p>
+        <p><strong>The emerging design response:</strong> Some AI researchers are now explicitly designing "adaptive forgetting", AI systems that use biologically-inspired memory retrieval with time-aware scoring, allowing AI to naturally down-weight old, potentially irrelevant memories. This replicates the human memory decay function deliberately. The recognition that perfect recall is not an unambiguous improvement over selective recall is itself a significant development in AI product design philosophy.</p>
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>Forgetting is not a limitation to be engineered away. It is a psychological mechanism with specific health-enabling functions. The question of what happens when AI removes humans' ability to be forgotten, in digital records, in hiring systems, in relationship-managing AI, is not adequately addressed by current AI product design or regulation. Europe's GDPR "right to be forgotten" is the closest legal framework, and it is under pressure from AI systems that can reconstruct deleted data from residual training. The more important frontier: designing AI systems that support human psychological health by collaborating with human memory's selective nature, not overriding it.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">Functions of Forgetting</div>
+          <div class="sb-body"><strong>Identity continuity:</strong> Selective narrative enables growth and self-concept<br><br><strong>Trauma recovery:</strong> Gradual reduction of emotional salience is neurologically protective<br><br><strong>Abstract reasoning:</strong> Ignoring irrelevant details is prerequisite to pattern recognition<br><br><strong>Forgiveness:</strong> Both self-forgiveness and forgiveness of others depend on not holding every detail equally salient in perpetuity</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The long-term psychological consequences of living with AI systems that maintain comprehensive interaction histories. Whether AI-assisted memory tools produce measurably different identity formation trajectories in young people who use them from childhood. The extent to which AI can implant false memories at scale through manipulated media, and whether current platform policies are adequate.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://link.springer.com/article/10.1007/s00146-025-02524-2" target="_blank">AI & Society: "The Great Forgetting" (Springer, Jul 2025)</a> · <a href="https://news.ucr.edu/" target="_blank">UC Riverside</a> "Memory Power Asymmetry in Human-AI Relationships" (Dec 2024) · <a href="https://chi2025.acm.org/" target="_blank">CHI 2025 Conference: Synthetic Human Memories</a> study · <a href="https://memorious.harvard.edu/" target="_blank">Harvard Memorious</a> project (Sep 2025) · <a href="https://en.wikipedia.org/wiki/Funes_the_Memorious" target="_blank">Borges, "Funes the Memorious"</a> (referenced across multiple sources) · <a href="https://gdpr.eu/right-to-be-forgotten/" target="_blank">GDPR Right to Erasure</a> provisions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q4: AGRICULTURE -->
+  <div class="qa-card" id="q4">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 04</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested, Real Benefits, Real Structural Risks</span>
+    </div>
+    <div class="qa-question">AI-driven precision agriculture promises dramatic yield increases and waste reduction. But if underlying models are trained on Western industrial farming data, could AI optimization accelerate monoculture, soil depletion, or concentrate seed and crop IP in ways that undermine food sovereignty for the nations that need it most?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The precision agriculture promise is genuine and the food sovereignty risk is genuine. These are not contradictory, they describe the two faces of the same technology applied in contexts with radically different power structures.</p>
+        <p><strong>The genuine promise, what the evidence supports:</strong> The global AI in agriculture market surpassed $4 billion in 2025 with double-digit annual growth. Over 70% of large-scale farms in developed countries employ at least one AI-driven agricultural tool. Specific documented applications: drone-based crop health monitoring identifies disease outbreaks early enough to reduce systemic crop losses substantially; AI irrigation scheduling reduces water use by 20–40% in controlled deployments; soil analysis tools optimize fertilizer application with precision that manual methods cannot match. For food-secure, well-capitalized farmers with reliable connectivity and high-quality local data, precision agriculture delivers measurable yield improvements with reduced resource waste.</p>
+        <p><strong>The food sovereignty risk, what the critical literature documents:</strong> Soledad Vogliano (ETC Group, Bioneers 2025) identifies the structural problem precisely: "AI in agriculture is not just a technical issue, it's a political one." When AI recommendations are derived from models trained predominantly on industrial agricultural data from developed-country contexts, they embed the assumptions of that context, monoculture efficiency, external input optimization, yield maximization over soil health, as apparent universal optimization targets. When applied to smallholder farms in West Africa or Southeast Asia with different soils, different polyculture systems, different water access, and different seed varieties, these recommendations may be not just suboptimal but actively harmful. "AI may suggest fertilizers or pesticides based on monoculture norms, ignoring local soils, biodiversity, and traditional knowledge that has sustained communities for generations."</p>
+        <p><strong>The IP and data sovereignty dimension:</strong> AI systems improve with data. Agricultural AI companies collecting crop yield, soil, weather, and management practice data from farms in developing countries are building proprietary training datasets from smallholder knowledge accumulated over generations, then selling AI recommendations back to those same farmers at prices calibrated to developed-country markets. The value chain runs from farmer to company, with no mechanism for reverse benefit. This is not hypothetical: major agricultural technology companies (John Deere, Bayer, Syngenta) have all faced criticism for data collection practices that capture farmer knowledge without adequate compensation or data rights.</p>
+        <p><strong>The access gap is structural and current:</strong> While 70%+ of large-scale developed-country farms use AI tools, AI-related agricultural initiatives are "minimal or completely absent" in many developing nations (Frontiers in AI, 2024). Total seed funding for AI startups across all of Africa was $140 million, a rounding error compared to the billions invested in US agricultural AI. Smallholders, who produce 70% of the world's food (FAO), are both the population most in need of precision agriculture tools and the population least likely to have access to or benefit from the current market structure. Edge AI solutions for smallholder precision agriculture are emerging (arXiv April 2026 review of low-cost TinyML systems) but face connectivity, device cost, and local training data barriers that are not close to resolved.</p>
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>AI precision agriculture is not uniformly beneficial or uniformly harmful, it depends entirely on who holds the data, who designs the models, who sets the optimization targets, and who bears the costs of error. For well-resourced, data-rich, large-scale operations in developed countries, the tools deliver real value. For smallholder farmers in the Global South, the current market structure primarily creates risk without adequate compensation: monoculture optimization in the wrong context, data extraction without benefit sharing, and pricing models inaccessible to subsistence-scale operations. The policy question is not "is AI agriculture good?" but "who governs the design of AI agriculture systems, and whose food security do they optimize for?"</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-contested">The Two Legitimate Positions</div>
+          <div class="sb-body"><strong>Pro-AI agriculture:</strong> 20–40% water reduction, early disease detection, yield optimization, reduced pesticide use, documented in controlled deployments with high-quality local data and good connectivity.<br><br><strong>Food sovereignty concern:</strong> Training data reflects industrial monoculture assumptions; IP concentration; data extraction without benefit sharing; access gap that concentrates benefits in already food-secure nations.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Access Gap</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">70%+</span><span class="stat-label">Large-scale developed-country farms using AI agricultural tools</span></div>
+              <div class="stat-item"><span class="stat-num">$140M</span><span class="stat-label">Total AI startup seed funding across all of Africa, vs. billions for US agricultural AI</span></div>
+              <div class="stat-item"><span class="stat-num">70%</span><span class="stat-label">Share of world's food produced by smallholders (FAO), the population with least AI access</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether edge AI and TinyML solutions for low-connectivity, resource-constrained smallholder contexts will reach adequate capability and affordability within the timeframe when climate change is compressing the window for agricultural adaptation. Whether data sovereignty frameworks for agricultural data will emerge in time to prevent the current extractive data collection model from becoming entrenched.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://bioneers.org/farming-in-the-dark-the-black-box-of-ai-and-the-erosion-of-food-sovereignty-ztvz2507/" target="_blank">Bioneers / ETC Group: Farming in the Dark (Jul 2025)</a> · <a href="https://www.frontiersin.org/journals/artificial-intelligence" target="_blank">Frontiers in AI: AI in Agriculture</a> for Developing Nations (2024) · <a href="https://farmonaut.com/" target="_blank">Farmonaut</a>: AI Agriculture Statistics 2025 · arXiv: Affordable Precision Agriculture / TinyML (Apr 2026) · <a href="https://www.fao.org/family-farming/themes/small-family-farmers/en/" target="_blank">FAO Smallholder</a> Food Production Data · <a href="https://acsess.onlinelibrary.wiley.com/doi/10.1002/agj2.20722" target="_blank">McLennon et al. monoculture</a> analysis (2021)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<nav class="page-nav page-nav-btm" aria-label="Page navigation bottom">
+  <div class="page-nav-inner">
+    <a href="#q1">Q1 Scientific Record</a>
+    <a href="#q2">Q2 AI Finance</a>
+    <a href="#q3">Q3 Memory &amp; Forgetting</a>
+    <a href="#q4">Q4 Agriculture</a>
+    <a href="/glossary/">Glossary →</a>
+  </div>
+</nav>
+
+
+<footer class="page-footer">
+  <strong>Q&amp;A Series, Batch 9: Science, Knowledge &amp; Specialized Domains · April 2026</strong><br>
+  Primary Sources: <a href="https://www.pangram.com/blog/ai-text-iclr-2026-peer-review" target="_blank">Pangram Labs ICLR 2026</a> Peer Review Analysis · <a href="https://arxiv.org/abs/2602.05930" target="_blank">Ansari "Compound Deception</a> in Elite Peer Review" (Feb 2026) · Hidden Prompts in Manuscripts arXiv (2025) · <a href="https://neurips.cc/" target="_blank">NeurIPS 2025 Fabricated Citations</a> Study · <a href="https://www.cftc.gov/PressRoom/SpeechesTestimony" target="_blank">CFTC Commissioner Statements</a> (Jun 2025) · <a href="https://www.gao.gov/products/gao-25-107277" target="_blank">GAO Financial Stability</a> Report (May 2025) · <a href="https://www.federalreserve.gov/newsevents/speeches.htm" target="_blank">Federal Reserve Vice Chair Barr</a> · <a href="https://home.treasury.gov/policy-issues/financial-markets-financial-institutions-and-fiscal-service/fsoc/studies-and-reports" target="_blank">FSOC Annual Report</a> (Dec 2024) · <a href="https://www.imf.org/en/Publications/fintech-notes" target="_blank">IMF Technical Note AI in Securities</a> Markets (Dec 2025) · <a href="https://link.springer.com/journal/146" target="_blank">AI &amp; Society "The Great Forgetting"</a> (Springer, Jul 2025) · <a href="https://news.ucr.edu/" target="_blank">UC Riverside Memory Power Asymmetry</a> (Dec 2024) · <a href="https://chi2025.acm.org/" target="_blank">CHI 2025 Synthetic Memories</a> Study · <a href="https://memorious.harvard.edu/" target="_blank">Harvard Memorious</a> (Sep 2025) · Bioneers / ETC Group Agriculture Analysis (Jul 2025) · <a href="https://www.frontiersin.org/journals/artificial-intelligence" target="_blank">Frontiers in AI Agriculture</a> in Developing Nations (2024) · <a href="https://www.fao.org/family-farming/themes/small-family-farmers/en/" target="_blank">FAO Smallholder</a> Data · arXiv TinyML Agriculture (Apr 2026)
+</footer>
+
+<script>
+const ACRONYMS={  'LLM':'Large Language Model, a neural network trained on massive text data to understand and generate language.',
+  'LLMs':'Large Language Models, the category of AI systems producing language outputs.',
+  'ICLR':'International Conference on Learning Representations, one of the world\'s most prestigious AI research conferences, where major AI labs publish frontier research.',
+  'NeurIPS':'Neural Information Processing Systems, one of the most prestigious AI research conferences globally.',
+  'CFTC':'Commodity Futures Trading Commission, the US federal agency regulating derivatives and futures markets.',
+  'GAO':'Government Accountability Office, the US federal audit agency that produces independent policy and financial analysis.',
+  'FSOC':'Financial Stability Oversight Council, the US interagency body charged with identifying and monitoring risks to financial stability.',
+  'SEC':'Securities and Exchange Commission, the US federal agency regulating securities markets and investor protection.',
+  'Fed':'Federal Reserve, the US central banking system, responsible for monetary policy and financial system stability.',
+  'GDPR':'General Data Protection Regulation, the EU data privacy law (2018) that includes a "right to be forgotten" allowing individuals to request deletion of personal data.',
+  'FAO':'Food and Agriculture Organization, the United Nations agency leading international efforts to defeat hunger and improve nutrition.',
+  'IP':'Intellectual Property, legal rights protecting inventions, designs, and creative works, including patents on crop varieties and AI algorithms.',
+  'ETC':'ETC Group, Action Group on Erosion, Technology and Concentration; a civil society organization focused on power dynamics in emerging technologies affecting food and agriculture.',
+  'CHI':'Conference on Human Factors in Computing Systems, the premier venue for human-computer interaction research, published by ACM.',
+  'arXiv':'arXiv, a free distribution service and open-access archive for scholarly articles in STEM fields, hosted by Cornell University.',
+};
+function applyTooltips(root){const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p)return NodeFilter.FILTER_REJECT;if(['SCRIPT','STYLE','A','ABBR'].includes(p.tagName))return NodeFilter.FILTER_REJECT;if(p.classList.contains('ac'))return NodeFilter.FILTER_REJECT;if(p.closest('.ac'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];let node;while((node=walker.nextNode()))nodes.push(node);const keys=Object.keys(ACRONYMS).sort((a,b)=>b.length-a.length);const pattern=new RegExp('\\b('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','g');nodes.forEach(textNode=>{const text=textNode.textContent;if(!pattern.test(text))return;pattern.lastIndex=0;const frag=document.createDocumentFragment();let last=0,m;while((m=pattern.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const span=document.createElement('span');span.className='ac';span.setAttribute('data-tip',ACRONYMS[m[0]]);span.setAttribute('tabindex','0');span.textContent=m[0];frag.appendChild(span);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));textNode.parentNode.replaceChild(frag,textNode);});}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.qa-answer,.sb-body').forEach(applyTooltips);document.addEventListener('click',e=>{const tip=e.target.closest('.ac');document.querySelectorAll('.ac.tip-open').forEach(el=>{if(el!==tip)el.classList.remove('tip-open');});if(tip){tip.classList.toggle('tip-open');e.stopPropagation();}});document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.ac.tip-open').forEach(el=>el.classList.remove('tip-open'));});});
+</script>
+<script>
+(function(){
+  const navLinks=document.querySelectorAll('.page-nav-inner a[href^="#q"]');
+  if(!navLinks.length)return;
+  const cards=Array.from(document.querySelectorAll('.qa-card[id]'));
+  if(!cards.length)return;
+  const visible=new Set();
+  function update(){
+    const activeId=cards.find(c=>visible.has(c.id))?.id;
+    navLinks.forEach(link=>{
+      link.classList.toggle('q-active',!!activeId&&link.getAttribute('href')==='#'+activeId);
+    });
+  }
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{e.isIntersecting?visible.add(e.target.id):visible.delete(e.target.id);});
+    update();
+  },{rootMargin:'-130px 0px -40% 0px',threshold:0});
+  cards.forEach(card=>observer.observe(card));
+})();
+</script>
+</body>
+</html>

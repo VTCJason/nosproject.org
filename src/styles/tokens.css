@@ -1,0 +1,21 @@
+:root {
+  --navy: #0d1b2a;
+  --slate: #1c2f45;
+  --steel: #2d4a6b;
+  --gold: #c9922a;
+  --amber: #e8a93c;
+  --ivory: #f5f0e8;
+  --cream: #ede8dc;
+  --text: #1a1a1a;
+  --muted: #5a5a5a;
+  --rule: #c2b8a6;
+  --green: #1a4a2e;
+  --red: #8b2020;
+
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'Courier Prime', 'Courier New', monospace;
+
+  --max-width: 1200px;
+  --gutter: 1.5rem;
+}

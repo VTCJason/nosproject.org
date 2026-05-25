@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  label?: string;
+  accent?: boolean;
+}
+
+const { title, description, href, label, accent = false } = Astro.props;
+---
+
+<a href={href} class:list={['section-card', { 'section-card--accent': accent }]}>
+  {label && <span class="label card-label">{label}</span>}
+  <h3 class="card-title">{title}</h3>
+  <p class="card-desc">{description}</p>
+  <span class="card-arrow" aria-hidden="true">→</span>
+</a>
+
+<style>
+  .section-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 2rem;
+    background: var(--ivory);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .section-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 2px 16px rgba(13, 27, 42, 0.07);
+    color: inherit;
+  }
+  .section-card--accent {
+    background: var(--cream);
+    border-top: 3px solid var(--gold);
+  }
+  .card-label {
+    margin-bottom: 0.25rem;
+  }
+  .card-title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--navy);
+    line-height: 1.25;
+  }
+  .card-desc {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.65;
+    flex: 1;
+    max-width: none;
+  }
+  .card-arrow {
+    font-size: 1.125rem;
+    color: var(--gold);
+    margin-top: 0.5rem;
+    align-self: flex-end;
+  }
+</style>

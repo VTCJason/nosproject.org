@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A: Infrastructure &amp; Environment, The Physical Costs of AI</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+:root{--navy:#0d1b2a;--slate:#1c2f45;--steel:#2d4a6b;--gold:#c9922a;--amber:#e8a93c;--ivory:#f5f0e8;--cream:#ede8dc;--text:#1a1a1a;--muted:#5a5a5a;--rule:#c2b8a6;--green:#1a4a2e;--red:#8b2020;--v-fact:#1a4a2e;--v-analysis:#1c2f45;--v-spec:#8b5e00;--v-contested:#8b2020;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ivory);color:var(--text);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;}
+.ac{position:relative;cursor:help;border-bottom:1px dashed rgba(45,74,107,0.35);display:inline;}
+.ac::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--ivory);font-size:12px;line-height:1.5;padding:8px 12px;border-radius:4px;white-space:normal;width:240px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.2);border-top:2px solid var(--gold);}
+.ac::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold);pointer-events:none;opacity:0;transition:opacity .15s;z-index:201;}
+.ac:hover::after,.ac:hover::before,.ac.tip-open::after,.ac.tip-open::before{opacity:1;}
+.page-header{background:var(--navy);color:var(--ivory);position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,146,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,146,42,.05) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;}
+.header-inner{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:60px 40px 52px;}
+.site-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:28px;text-decoration:none;}
+.brand-logo{width:38px;height:38px;background:var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-weight:700;font-size:14px;color:var(--navy);}
+.brand-label{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.header-eyebrow{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+.header-title{font-family:'Libre Baskerville',serif;font-size:clamp(28px,4.5vw,52px);font-weight:700;line-height:1.08;margin-bottom:14px;}
+.header-title em{font-style:italic;color:var(--amber);}
+.header-desc{font-size:17px;font-weight:300;color:rgba(245,240,232,.68);max-width:660px;line-height:1.65;margin-bottom:32px;}
+.header-meta{display:flex;flex-wrap:wrap;gap:10px;}
+.meta-pill{background:rgba(201,146,42,.15);border:1px solid rgba(201,146,42,.3);color:var(--amber);font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;border-radius:2px;}
+.page-nav{background:var(--slate);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;padding:0 40px;}
+.page-nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:2px;}
+.page-nav-inner::-webkit-scrollbar{display:none;}
+.page-nav-inner a{text-decoration:none;color:rgba(245,240,232,.5);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:13px 14px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;}
+.page-nav-inner a:hover{color:var(--amber);border-color:var(--amber);}
+.page-nav-brand{font-family:'Libre Baskerville',serif;font-size:11px;font-weight:700;color:var(--gold);padding:13px 16px 13px 0;border-right:1px solid rgba(201,146,42,.25);margin-right:4px;white-space:nowrap;}
+.page-body{max-width:1040px;margin:0 auto;padding:0 40px 80px;}
+.section-intro{padding:52px 0 36px;border-bottom:1px solid var(--rule);}
+.section-intro p{font-size:18px;font-family:'Libre Baskerville',serif;font-style:italic;color:var(--slate);line-height:1.7;max-width:780px;}
+.verdict-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:28px 0;border-bottom:1px solid var(--rule);}
+.vl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:4px;}
+.vl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.vl-name{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:2px;}
+.vl-desc{font-size:11px;color:var(--muted);font-style:italic;line-height:1.4;}
+.dot-fact{background:var(--v-fact);}.dot-analysis{background:var(--v-analysis);}.dot-spec{background:var(--v-spec);}.dot-contested{background:var(--v-contested);}
+.qa-card{margin-top:52px;scroll-margin-top:80px;}
+.qa-number-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.qa-num{font-family:'Courier Prime',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);border:1px solid rgba(201,146,42,.3);padding:3px 10px;border-radius:2px;white-space:nowrap;background:rgba(201,146,42,.06);}
+.qa-verdict-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:20px;border:1px solid;white-space:nowrap;}
+.badge-fact{color:var(--v-fact);border-color:rgba(26,74,46,.35);background:rgba(26,74,46,.06);}
+.badge-analysis{color:var(--v-analysis);border-color:rgba(28,47,69,.35);background:rgba(28,47,69,.06);}
+.badge-spec{color:var(--v-spec);border-color:rgba(139,94,0,.3);background:rgba(139,94,0,.06);}
+.badge-contested{color:var(--v-contested);border-color:rgba(139,32,32,.3);background:rgba(139,32,32,.06);}
+.qa-question{font-family:'Libre Baskerville',serif;font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--gold);}
+.qa-body{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start;}
+@media(max-width:780px){.qa-body{grid-template-columns:1fr;}.qa-sidebar{order:-1;}}
+.qa-answer{font-size:15.5px;line-height:1.78;color:#1e1e1e;}
+.qa-answer p{margin-bottom:14px;}.qa-answer p:last-child{margin-bottom:0;}
+.qa-answer strong{color:var(--navy);font-weight:600;}
+.qa-answer a{color:var(--steel);text-decoration:underline;text-decoration-color:rgba(45,74,107,.4);}
+.qa-answer a:hover{color:var(--gold);}
+.qa-answer ul{margin:12px 0 14px 22px;line-height:1.9;}
+.qa-sidebar{display:flex;flex-direction:column;gap:16px;}
+.sidebar-block{background:white;border:1px solid var(--rule);border-radius:5px;overflow:visible;}
+.sb-head{padding:9px 14px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-bottom:1px solid var(--rule);border-top-left-radius:4px;border-top-right-radius:4px}
+.sb-body{padding:12px 14px;font-size:12.5px;line-height:1.65;color:var(--muted);}
+.sb-body strong{color:var(--text);font-weight:600;}
+.sb-body a{color:var(--steel);text-decoration:none;border-bottom:1px dashed var(--rule);}
+.sb-body a:hover{color:var(--gold);}
+.sb-head-fact{background:rgba(26,74,46,.07);color:var(--v-fact);}
+.sb-head-analysis{background:rgba(28,47,69,.07);color:var(--v-analysis);}
+.sb-head-unknown{background:var(--cream);color:var(--muted);}
+.sb-head-source{background:rgba(201,146,42,.08);color:var(--gold);}
+.stat-row{display:flex;flex-direction:column;gap:8px;}
+.stat-item{display:flex;align-items:flex-start;gap:8px;}
+.stat-num{font-family:'Courier Prime',monospace;font-size:15px;font-weight:700;color:var(--navy);white-space:nowrap;line-height:1;padding-top:2px;}
+.stat-label{font-size:11px;color:var(--muted);line-height:1.4;}
+.callout{border-left:4px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 5px 5px 0;margin:18px 0 0;font-size:14px;line-height:1.65;}
+.callout.red{border-color:var(--red);background:#fdf2f2;}
+.callout.green{border-color:var(--green);background:#f0f7f3;}
+.callout.navy{border-color:var(--navy);background:#f0f3f7;}
+.callout-label{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:7px;}
+.callout.red .callout-label{color:var(--red);}
+.callout.green .callout-label{color:var(--green);}
+.callout.navy .callout-label{color:var(--navy);}
+.callout p:last-child{margin:0;}
+.dt{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0 0;}
+.dt th{background:var(--navy);color:var(--ivory);font-weight:600;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 14px;text-align:left;}
+.dt td{padding:9px 14px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5;}
+.dt tr:nth-child(even) td{background:var(--cream);}
+.qa-rule{border:none;border-top:1px solid var(--rule);margin:52px 0 0;}
+.page-footer{background:var(--navy);color:rgba(245,240,232,.4);padding:28px 40px;font-size:11px;line-height:1.8;margin-top:80px;}
+.page-footer strong{color:rgba(245,240,232,.7);}
+.page-footer a{color:var(--gold);text-decoration:none;}
+@media(max-width:680px){.header-inner,.page-body,.page-footer{padding-left:20px;padding-right:20px;}.page-nav{padding:0 20px;}.header-title{font-size:26px;}.ac::after{width:180px;}}
+/* === INJECTED: Global nav (Layer 1) === */
+#nos-snav{background:var(--navy);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:300;padding:0 40px;}
+#nos-snav-inner{margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;}
+#nos-snav-inner::-webkit-scrollbar{display:none;}
+.snav-wordmark{font-family:'Libre Baskerville',serif;font-size:16px;font-weight:700;color:var(--gold);text-decoration:none;padding:9px 18px 9px 0;border-right:1px solid rgba(201,146,42,.3);margin-right:10px;white-space:nowrap;flex-shrink:0;}
+.snav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:20px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;flex-shrink:0;}
+.snav-link:hover{color:var(--ivory);border-bottom-color:var(--amber);}
+.snav-link.snav-active{color:var(--gold) !important;border-bottom-color:var(--gold);}
+.snav-sign{font-family:'DM Sans',system-ui,sans-serif;font-size:20px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s;flex-shrink:0;margin-left:auto;}
+.snav-sign:hover{color:var(--ivory);}
+/* === INJECTED: Topic nav (Layer 2) === */
+#nos-topicnav{background:var(--slate);border-bottom:1px solid rgba(201,146,42,.35);position:sticky;top:40px;z-index:200;padding:0 40px;height:33px;overflow:hidden;}
+#nos-topicnav-inner{margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+#nos-topicnav-inner::-webkit-scrollbar{display:none;}
+.tnav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:18px;font-weight:400;letter-spacing:.03em;text-transform:uppercase;color:rgba(245,240,232,.45);text-decoration:none;padding:7px 10px;white-space:nowrap;transition:color .2s;flex-shrink:0;}
+.tnav-link:hover{color:rgba(245,240,232,.8);}
+.tnav-link.tnav-active{color:var(--gold) !important;}
+/* === INJECTED: Layer 3 — hide brand label, active question === */
+.page-nav{top:73px !important;z-index:100 !important;}
+.page-nav-brand{display:none !important;}
+.page-nav-inner a.q-active{color:var(--gold) !important;border-color:var(--gold) !important;}
+/* === INJECTED: Scroll margin === */
+.qa-card{scroll-margin-top:125px !important;}
+/* === INJECTED: Responsive width strategy === */
+.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:min(88vw,1500px) !important;max-width:none !important;margin-left:auto !important;margin-right:auto !important;}
+@media(max-width:900px){.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:calc(100vw - 40px) !important;}}
+@media(max-width:480px){.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:calc(100vw - 24px) !important;}}
+/* === INJECTED: Unlock constrained inner content === */
+.header-desc,.section-intro p{max-width:none !important;}
+/* === INJECTED: Bottom nav === */
+.page-nav-btm{background:var(--slate);border-top:2px solid var(--gold);padding:0 40px;}
+.page-nav-btm .page-nav-inner a{border-bottom:none;margin-bottom:0;border-top:2px solid transparent;margin-top:-2px;}
+.page-nav-btm .page-nav-inner a:hover{border-top-color:var(--amber);border-bottom:none;}
+/* === INJECTED: Mobile === */
+@media(max-width:680px){#nos-snav,#nos-topicnav,.page-nav-btm{padding:0 20px;}.snav-link,.snav-sign{padding:9px 8px;font-size:16px;}.tnav-link{padding:7px 7px;font-size:14px;}}
+</style>
+</head>
+<body>
+<nav id="nos-snav" aria-label="Site navigation">
+  <div id="nos-snav-inner">
+    <a class="snav-wordmark" href="/">nOS</a>
+    <a class="snav-link" href="/case-study/">Case Study</a>
+    <a class="snav-link snav-active" href="/human-question/">The Human Question</a>
+    <a class="snav-link" href="/glossary/">Glossary</a>
+    <a class="snav-link" href="/essays/">Essays</a>
+    <a class="snav-link" href="/about/">About</a>
+    <a class="snav-sign" href="/sign/">Sign the Manifesto</a>
+  </div>
+</nav>
+<nav id="nos-topicnav" aria-label="Human Question topics">
+  <div id="nos-topicnav-inner">
+    <a class="tnav-link" href="/human-question/technical-demystification/">Technical</a>
+    <a class="tnav-link" href="/human-question/economics-labor-industry/">Economics</a>
+    <a class="tnav-link" href="/human-question/geopolitics-national-security/">Geopolitics</a>
+    <a class="tnav-link" href="/human-question/ethics-society-human-impact/">Ethics</a>
+    <a class="tnav-link" href="/human-question/existential-frontier/">Existential</a>
+    <a class="tnav-link" href="/human-question/regulatory-legal-governance/">Regulatory</a>
+    <a class="tnav-link" href="/human-question/safety-security-information-integrity/">Safety &amp; Security</a>
+    <a class="tnav-link tnav-active" href="/human-question/infrastructure-environment/">Infrastructure</a>
+    <a class="tnav-link" href="/human-question/faith-identity-human-condition/">Faith &amp; Identity</a>
+    <a class="tnav-link" href="/human-question/science-knowledge-domains/">Science &amp; Domains</a>
+  </div>
+</nav>
+
+
+<header class="page-header">
+  <div class="header-inner">
+    <h1 class="header-title">Infrastructure &amp; Environment<br><em>The Physical Costs of AI</em></h1>
+    <p class="header-desc">Four questions on the physical reality underpinning AI: the energy and water it consumes, where inference is heading, what it has unlocked in biology, and why the black-box problem is not an academic concern.</p>
+    <div class="header-meta">
+      <span class="meta-pill">4 Questions</span>
+      <span class="meta-pill">April 2026</span>
+      <span class="meta-pill">Energy · Water · Edge · Biotech · Explainability</span>
+    </div>
+  </div>
+</header>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <span class="page-nav-brand">Infrastructure</span>
+    <a href="#q1">Q1 Energy &amp; Water</a>
+    <a href="#q2">Q2 Edge vs. Cloud</a>
+    <a href="#q3">Q3 Biology &amp; Biotech</a>
+    <a href="#q4">Q4 Black Box</a>
+    <a href="/glossary/">Glossary →</a>
+  </div>
+</nav>
+
+<main class="page-body">
+  <div class="section-intro">
+    <p>AI's most immediate environmental costs are not carbon abstractions, they are power grid pressures measurable today, water allocations competing with agriculture and drinking water, and communities organizing against data center construction in their backyards. These are not future problems. They are the present infrastructure reality of a technology that is scaling faster than the systems meant to support it.</p>
+  </div>
+
+  <div class="verdict-legend">
+    <div class="vl-item"><div class="vl-dot dot-fact"></div><div><span class="vl-name" style="color:var(--v-fact)">Verified Fact</span><span class="vl-desc">Directly sourced from named publications or data</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-analysis"></div><div><span class="vl-name" style="color:var(--v-analysis)">Reasoned Analysis</span><span class="vl-desc">Logical inference from verified evidence</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-spec"></div><div><span class="vl-name" style="color:var(--v-spec)">Informed Speculation</span><span class="vl-desc">Projection grounded in evidence but not yet verifiable</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-contested"></div><div><span class="vl-name" style="color:var(--v-contested)">Genuinely Contested</span><span class="vl-desc">Reasonable expert disagreement exists; no clean answer</span></div></div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="qa-card" id="q1">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 01</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, The Numbers Are Large and Growing</span>
+    </div>
+    <div class="qa-question">How much energy and water does AI actually consume, and is that consumption creating real-world infrastructure crises?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The consumption numbers are significant, verified, and growing faster than the energy systems meant to support them. Whether they constitute a "crisis" depends on where you are and what you compare them to, but in specific geographies, the strain is already acute.</p>
+        <p><strong>Energy, the verified numbers:</strong> Global data center electricity consumption was approximately 415 terawatt-hours (TWh) in 2024, roughly 1.5% of total global electricity demand. The <a href="https://www.iea.org/news/data-centre-electricity-use-surged-in-2025" target="_blank">IEA reported</a> (April 2026) that data center electricity use surged 17% in 2025, with AI-focused data centers growing even faster. By 2030, data center electricity consumption is projected to double, with AI-specific power use tripling. US data centers are projected to consume between 6.7–12% of total US electricity by 2028, up from 4.4% in 2023 (<a href="https://eta.lbl.gov/publications/2024-united-states-data-center" target="_blank">Lawrence Berkeley National Lab</a>). In Northern Virginia, already the densest data center concentration on Earth, facilities consume 26% of the state's electricity. In Ireland, considered Europe's tech hub, data centers consumed 21% of national electricity in 2024, projected to reach 32% by 2026. In Dublin, the figure was 79%. These are not national averages, they are local concentrations that directly compete with residential and industrial power needs. Tech companies signed 40% of all corporate renewable energy purchase agreements in 2025. The pipeline of nuclear <span class="ac" data-tip="SMR: Small Modular Reactor, a next-generation nuclear plant design smaller than conventional nuclear plants, designed for faster construction and deployment. AI companies are signing agreements for their output to power data centers.">SMR</span> commitments has grown from 25GW to 45GW in one year, driven substantially by AI data center demand.</p>
+        <p><strong>Water, the less-discussed constraint:</strong> Data centers use water for cooling. The carbon footprint of AI systems could reach 32.6–79.7 million tons of CO₂ in 2025, while the water footprint could reach 312.5–764.6 billion liters (<a href="https://digiconomist.net/" target="_blank">VU Amsterdam / Digiconomist</a>, 2025). In Texas alone, data centers are projected to use 49 billion gallons of water in 2025 and up to 399 billion gallons by 2030 (<a href="https://harcresearch.org/" target="_blank">University of Houston / HARC</a> study). These are in a state experiencing recurring drought conditions. AI training runs are particularly water-intensive: a single conversation with a language model reportedly requires approximately 500ml of water for cooling in thermally-stressed data centers, a figure that scales to millions of gallons per day at GPT-4 query volumes.</p>
+        <p><strong>The community opposition that is now organized and successful:</strong> Community opposition led to $98 billion in data center projects being blocked or delayed between March and June 2025 (Data Center Watch). At least 25 projects were canceled in 2025 in response to local objections (Heatmap Pro). In more than 30 US states, lawmakers introduced over 300 bills on data center issues in 2026, including moratoriums. Memphis residents opposed Elon Musk's xAI gas turbine-powered data center. Indianapolis residents successfully blocked a Google facility. This is not NIMBYism at the margins, it is organized, legally sophisticated opposition with demonstrated wins.</p>
+        <p><strong>The efficiency counterargument, and why it doesn't fully apply:</strong> The IEA notes that power consumption per AI task is declining rapidly, "efficiency improving at a rate unprecedented in energy history." This is true. More capable AI models run on less energy than their predecessors for equivalent tasks. But efficiency gains are being overwhelmed by scale: more people using AI, more agentic AI use cases running continuously, and data centers running 24/7 without utilization gaps. The Jevons Paradox applies: when a technology gets more efficient, total consumption typically rises because usage expands to fill and exceed the efficiency gains.</p>
+        <div class="callout navy">
+          <div class="callout-label">Bottom Line</div>
+          <p>AI's energy and water footprint is real, measurable, and accelerating. It is not an existential crisis for the global energy system (1.5% of global electricity is significant but manageable at the right scale of response), but it is a localized crisis in specific regions where concentration of data center infrastructure is straining grids, competing for water, and generating well-organized community resistance. The question for policymakers is not "is this a problem?" but "who bears the cost?" The current answer, local communities and electricity ratepayers, is not a stable political equilibrium.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Numbers</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">415 TWh</span><span class="stat-label">Global data center electricity consumption in 2024 (~1.5% of global total)</span></div>
+              <div class="stat-item"><span class="stat-num">+17%</span><span class="stat-label">Data center electricity demand growth in 2025 (IEA, Apr 2026)</span></div>
+              <div class="stat-item"><span class="stat-num">2×</span><span class="stat-label">Projected data center electricity growth by 2030; AI-specific use projected to triple</span></div>
+              <div class="stat-item"><span class="stat-num">79%</span><span class="stat-label">Share of Dublin, Ireland's electricity consumed by data centers</span></div>
+              <div class="stat-item"><span class="stat-num">399B gal</span><span class="stat-label">Projected Texas data center water use by 2030 (University of Houston)</span></div>
+              <div class="stat-item"><span class="stat-num">$98B</span><span class="stat-label">Data center projects blocked or delayed by community opposition, Mar–Jun 2025</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether nuclear SMR agreements will deliver power on the timelines data center operators need. The actual water consumption per AI query at scale, the 500ml figure is contested and varies enormously by cooling technology, climate, and data center design. Whether efficiency gains from next-generation chips (Blackwell, Rubin) will meaningfully close the gap with demand growth.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://www.iea.org/news/data-centre-electricity-use-surged-in-2025" target="_blank">IEA Energy and AI Report (Apr 2026)</a> · <a href="https://eta.lbl.gov/publications/2024-united-states-data-center" target="_blank">Lawrence Berkeley National Lab</a> data center projections · <a href="https://digiconomist.net/" target="_blank">VU Amsterdam / Digiconomist</a> carbon and water footprint study · <a href="https://harcresearch.org/" target="_blank">University of Houston / HARC</a> Texas water study · <a href="https://www.consumerreports.org/" target="_blank">Consumer Reports data center</a> impact analysis (Mar 2026) · <a href="https://www.carbonbrief.org/analysis-data-centres-using-ai-could-drive-up-power-demand/" target="_blank">Carbon Brief data center</a> energy charts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q2 -->
+  <div class="qa-card" id="q2">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 02</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, The Shift Is Underway</span>
+    </div>
+    <div class="qa-question">Is AI moving from the cloud to the edge, and what does that shift mean for energy consumption, privacy, and the concentration of AI power?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes, and the shift is structural rather than cyclical. Cloud AI and edge AI are not competitors on a spectrum, they are complementary layers of an emerging architecture, and the distribution of workloads between them is changing rapidly in response to cost, latency, privacy, and regulatory pressure.</p>
+        <p><strong>What edge AI is:</strong> Running AI inference on the device where the data is generated, a smartphone, a factory floor sensor, an autonomous vehicle, a medical device, rather than sending data to a remote data center and waiting for a response. Edge AI uses local chips (<span class="ac" data-tip="NPU: Neural Processing Unit, a specialized chip designed specifically for AI inference workloads, optimized for efficiency at the neural network operations common in AI models. Found in modern smartphones and AI PCs.">NPU</span>s, specialized AI chips) rather than cloud <span class="ac" data-tip="GPU: Graphics Processing Unit, the primary hardware chip used for AI training and cloud-based inference, manufactured primarily by NVIDIA.">GPU</span>s. Current edge AI performance: 1–10ms local inference latency vs. 50–200ms for cloud round-trip; a 7B quantized model runs at 150–260 tokens/second on a consumer RTX 5090; Apple's A18 Pro chip achieves 35 TOPS of AI performance at ~5 watts.</p>
+        <p><strong>The economic driver:</strong> Cloud AI inference at scale is expensive. A company running 10,000 daily queries pays $5,000–$50,000/month for frontier model API access. On-device models eliminate recurring API costs entirely, replacing them with one-time hardware investment. Gartner forecasts AI PCs will reach 55% market share in 2026, up from 31% in 2025, largely because chip manufacturers have integrated NPUs into consumer devices that make local inference viable for common tasks. At low cloud utilization (10%), the cost-per-token for cloud GPU becomes 10× higher than at full utilization, on-device has no idle cost.</p>
+        <p><strong>Privacy and sovereignty:</strong> Processing sensitive data locally means it never leaves the device or premises. For healthcare systems, legal firms, government agencies, and enterprises with proprietary data, on-device inference eliminates both regulatory risk (data residency requirements) and competitive risk (sensitive data routed through third-party infrastructure). EU data sovereignty requirements and equivalents are driving enterprise adoption of edge AI specifically to avoid routing data through US cloud providers. OpenJarvis (Stanford, March 2026) was designed from the ground up for exactly this use case.</p>
+        <p><strong>Energy implications, the nuanced picture:</strong> Edge AI consumes less energy per query than cloud AI when the comparison is data-transmission costs included, sending raw sensor data to a cloud data center and back uses significant bandwidth energy. But edge AI deployed at the scale of billions of always-on devices (smartphones, IoT sensors, vehicles) represents a new and distributed energy demand that is difficult to account for. The aggregate energy profile of always-on edge AI, wearables, smart cameras, home assistants, may exceed the cloud AI savings in specific sectors. The architecture evolving is hybrid: simple, high-frequency tasks at the edge; complex, resource-intensive tasks in the cloud.</p>
+        <p><strong>Power concentration implications:</strong> Cloud AI concentrates AI capability in a few companies (OpenAI, Anthropic, Google, Microsoft) and a few geographic regions. Edge AI distributes that capability to devices everywhere, reducing dependency on vendor APIs, enabling offline operation, and reducing the surface area of vendor control. This is the primary reason that governments concerned about technological sovereignty (UAE, France, Singapore, and increasingly the US DoD) are investing specifically in edge and on-premises AI infrastructure. It is also why open-weight models are strategically important to national sovereignty, a country that can run its own models on its own hardware is not dependent on another country's AI companies.</p>
+        <div class="callout green">
+          <div class="callout-label">Bottom Line</div>
+          <p>The cloud-to-edge shift is real and driven by four simultaneous pressures: cost (cloud inference is expensive at scale), latency (real-time applications cannot tolerate cloud round-trips), privacy (regulatory and competitive), and sovereignty (nations and enterprises want control). The architecture that emerges is not "edge replaces cloud" but "edge handles the frequent and sensitive, cloud handles the complex and rare." For organizations planning AI infrastructure, this bifurcation is the most practically important infrastructure insight in this batch.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Edge vs. Cloud, The Numbers</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">1–10ms</span><span class="stat-label">Edge AI inference latency vs. 50–200ms cloud round-trip</span></div>
+              <div class="stat-item"><span class="stat-num">55%</span><span class="stat-label">Projected AI PC market share in 2026 (Gartner), up from 31% in 2025</span></div>
+              <div class="stat-item"><span class="stat-num">40%</span><span class="stat-label">Projected share of enterprise applications featuring AI agents by end of 2026 (Gartner), vs. &lt;5% in 2025, forcing hybrid architectures</span></div>
+              <div class="stat-item"><span class="stat-num">5W</span><span class="stat-label">Apple A18 Pro chip power draw for 35 TOPS of AI performance, enabling continuous on-device inference at phone battery scales</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The aggregate energy profile of always-on edge AI deployed at device scale (billions of devices) vs. equivalent cloud workloads, this comparison is not yet available in published research. Whether open-weight models will reach the capability threshold where edge deployment satisfies enterprise quality requirements across complex task types, eliminating cloud API dependence for most workloads.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q3 -->
+  <div class="qa-card" id="q3">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 03</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Nobel-Prize Validated, Clinically Transformative</span>
+    </div>
+    <div class="qa-question">Is the AI-driven biotechnology revolution real, or is it still mostly hype?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The biology revolution is the most unambiguously real and most underreported breakthrough in AI's impact portfolio. The hype in consumer AI is significant; the hype in biotech AI is insufficient relative to what the evidence supports.</p>
+        <p><strong>The Nobel Prize confirmation, the highest credentialing signal in science:</strong> The 2024 Nobel Prize in Chemistry was awarded to <a href="https://en.wikipedia.org/wiki/Demis_Hassabis" target="_blank">Demis Hassabis</a> and John Jumper (Google DeepMind) for AlphaFold, and to David Baker for computational protein design. This is not a startup press release or a conference presentation. The Nobel Committee awarded chemistry's highest honor to AI researchers for solving a problem that structural biologists had considered one of the grand challenges of science: predicting how a protein folds into its three-dimensional shape. AlphaFold2 predicted protein structures with near-experimental accuracy. AlphaFold3 (2024) extended this to predict the structure and interactions of proteins, DNA, RNA, ligands, and small molecules simultaneously, enabling the computational modeling of biological machinery at a level of detail previously requiring months of experimental work per protein.</p>
+        <p><strong>What AlphaFold3 specifically enables, and why it matters for medicine:</strong> Drug discovery has historically failed at the "target identification" stage, finding the molecular mechanism a disease exploits, and the "lead optimization" stage, finding a molecule that binds the target without toxic side effects. AlphaFold3 is reported to be 50% more accurate than the best traditional physics-based methods on biomolecular structure prediction benchmarks. <a href="https://www.isomorphiclabs.com/" target="_blank">Isomorphic Labs</a> (the DeepMind spin-out applying AlphaFold3 commercially) is in active drug discovery partnerships with AstraZeneca and Eli Lilly. The protein folding database, freely accessible to researchers globally, already covers 200 million proteins, including the entire human proteome. This is science infrastructure that previously would have required decades and hundreds of billions of research dollars to produce experimentally.</p>
+        <p><strong>What else is happening beyond protein folding:</strong></p>
+        <ul>
+          <li><strong>Generative chemistry:</strong> AI systems now propose novel molecular structures optimized for target binding, solubility, and toxicity profiles simultaneously, compressing what was a decade-long screening process to months.</li>
+          <li><strong>Genomics:</strong> Deep learning models identify disease-associated genetic variants and predict their functional consequences at scales not achievable through manual analysis. Genomic sequencing combined with AI interpretation is enabling precision medicine for rare diseases where no treatment previously existed.</li>
+          <li><strong>Vaccine design:</strong> AlphaFold3 enables the computational design of antigen structures optimized for immune response, directly applicable to next-generation vaccines including updated malaria and HIV candidates.</li>
+          <li><strong>Materials science / antibiotic resistance:</strong> AI-driven materials discovery has identified novel antibiotic candidates active against drug-resistant bacteria, a class of drugs where traditional discovery has been largely stagnant for decades.</li>
+        </ul>
+        <p><strong>The honest limitations:</strong> Structure prediction is not the same as function prediction. Knowing a protein's shape does not immediately reveal all of its biological functions. Computational proposals must still be validated in wet lab experiments, AI accelerates the hypothesis generation and screening, but does not eliminate experimental biology. The translation from AI-identified drug candidate to approved clinical treatment still requires the same clinical trial process (Phase I/II/III) that takes 10–15 years and billions of dollars. The acceleration is real but not instantaneous.</p>
+        <div class="callout green">
+          <div class="callout-label">Bottom Line</div>
+          <p>The biotech AI revolution is real, Nobel-validated, and operating at a scale that has genuine implications for human health across the next decade. It is neither the breathless "AI will cure all disease by 2030" claim nor the dismissive "it's just hype." What is accurate: AI has removed a foundational bottleneck in biological research that has persisted for 50 years, and the downstream effects on drug discovery, vaccine development, and precision medicine are measurable, not speculative. For a Christian thought leadership audience, this is perhaps the AI application most directly connected to healing, human flourishing, and the stewardship of the natural world.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Key Milestones</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">2024</span><span class="stat-label">Nobel Prize in Chemistry awarded to AlphaFold creators (Hassabis, Jumper) and protein design pioneer (Baker)</span></div>
+              <div class="stat-item"><span class="stat-num">200M</span><span class="stat-label">Proteins in the AlphaFold database, freely accessible to researchers globally, including the entire human proteome</span></div>
+              <div class="stat-item"><span class="stat-num">+50%</span><span class="stat-label">AlphaFold3 accuracy improvement over best traditional physics-based methods (PoseBusters benchmark)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">How quickly computationally identified drug candidates will translate into approved treatments, the clinical trial pipeline is a multi-year fixed constraint regardless of AI acceleration at earlier stages. Whether AI-designed proteins will exhibit the functional properties their structures predict, structure-function gaps remain a challenge. The biosecurity implications of the same tools that accelerate therapeutic discovery being available for pathogen design.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://www.nobelprize.org/prizes/chemistry/2024/summary/" target="_blank">Nobel Prize Chemistry 2024</a> announcement · AlphaFold3 paper (Abramson et al., Nature, 2024) · <a href="https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/" target="_blank">Google DeepMind AlphaFold3 blog</a> · PMC review of AlphaFold3 drug discovery applications · <a href="https://www.isomorphiclabs.com/" target="_blank">Isomorphic Labs</a> partnership announcements</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q4 -->
+  <div class="qa-card" id="q4">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 04</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, Solvable in Principle, Unsolved in Practice</span>
+    </div>
+    <div class="qa-question">The "black box" problem, AI making decisions no one can fully explain, seems like an academic concern. Why does it matter in practice, and is it being solved?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The black box problem is not academic. It is why people have been incorrectly denied parole, why medical AI misdiagnoses cannot be meaningfully appealed, and why algorithmic trading strategies can trigger market events that regulators cannot reconstruct afterward. The practical stakes are high. The progress toward solutions is real but uneven.</p>
+        <p><strong>Why it matters, the documented cases where it failed:</strong> COMPAS (the recidivism prediction algorithm used in US courts) produced outputs that judges could not interrogate, the algorithm's reasoning was proprietary, its weights were undisclosed, and its error patterns (systematically higher false positive rates for Black defendants) were identified not by the courts using it, but by an investigative journalism team that reverse-engineered it from public records. Healthcare: ML-based clinical decision support tools have denied treatment coverage for patients in ways that treating physicians could not explain or challenge because the model's reasoning was inaccessible. Finance: High-frequency trading algorithms have contributed to flash crashes (2010 Dow Jones: –1,000 points in minutes) where post-hoc reconstruction of what the algorithms did was complex and disputed. These are not hypothetical harms.</p>
+        <p><strong>The two distinct problems that "black box" conflates:</strong> (1) <em>Opacity in complex models</em>: Large neural networks have billions of parameters whose individual contributions to any specific output cannot be decomposed in human-readable terms. Even the model's developers cannot fully explain why a specific output was produced. (2) <em>Opacity by design</em>: Some AI systems are black boxes because their developers have chosen not to disclose their weights, architecture, or training data, a deliberate business decision. These require different solutions: the first is a technical problem (interpretability research); the second is a governance problem (disclosure requirements).</p>
+        <p><strong>What progress looks like in 2026:</strong> Mechanistic interpretability has matured significantly. Anthropic's Sparse Autoencoder (SAE) work (2025) demonstrated the ability to identify specific "features" in frontier model internals that correspond to human-readable concepts, the model is not a complete black box to trained interpretability researchers. <span class="ac" data-tip="XAI: Explainable AI, a field of AI research focused on making model decisions interpretable and explainable to human users and reviewers.">XAI</span> techniques like SHAP and LIME provide post-hoc approximations of why a model made a specific decision, though Duke's Cynthia Rudin (Nature Machine Intelligence, 2019, still the most-cited paper in this area) argues persuasively that post-hoc explanations of black boxes are inherently unreliable and that the solution is inherently interpretable models, not explanation wrappers. Critically: for criminal justice and healthcare applications, Rudin's research shows that simple, interpretable models achieve the same predictive accuracy as complex black boxes, eliminating the accuracy-interpretability trade-off that is often used to justify black boxes.</p>
+        <p><strong>The regulatory response:</strong> The <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> mandates transparency and explainability for "high-risk" AI applications including employment, credit scoring, criminal justice, and healthcare, effective August 2026. This is the most significant regulatory push on explainability globally. US: No equivalent federal mandate. The CFPB has issued guidance that credit denial decisions must be explainable under the Equal Credit Opportunity Act, but this applies to the output reasoning, not the model internals. NIST's AI Risk Management Framework includes explainability as a core trustworthiness dimension but is voluntary.</p>
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>The black box problem is real, consequential, and being addressed at different speeds by research (real progress in interpretability), industry (uneven, some sectors prioritizing transparency, others resisting), and regulation (EU leading, US lagging significantly). The most important practical guidance: for any high-stakes application, medical diagnosis, credit decisions, criminal justice, hiring, the default question before AI deployment should be "why not an interpretable model?" not "how do we explain the black box after the fact?" Rudin's evidence that interpretable models match black box accuracy in criminal justice deserves far more attention than it has received.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">The Key Distinction</div>
+          <div class="sb-body">
+            <strong>Technical black box:</strong> Complex neural networks whose internal operations cannot be decomposed in human-readable terms, a research problem being actively addressed by mechanistic interpretability.<br><br>
+            <strong>Policy black box:</strong> AI systems kept opaque by vendor choice, a governance problem requiring disclosure mandates, not technical solutions.<br><br>
+            Both require different responses. Conflating them produces inadequate responses to both.
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Regulatory Status</div>
+          <div class="sb-body">
+            <strong><a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> (Aug 2026):</strong> Mandatory explainability for high-risk applications<br><br>
+            <strong>US CFPB:</strong> Credit denial must be explainable, output only, not model internals<br><br>
+            <strong>US Federal:</strong> No binding AI explainability mandate for medical, criminal justice, or hiring applications<br><br>
+            <strong><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI RMF</a>:</strong> Voluntary framework including explainability dimension
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://www.nature.com/articles/s42256-019-0048-x" target="_blank">Rudin, "Stop Explaining Black Box ML Models" (Nature, 2019)</a> · <a href="https://transformer-circuits.pub/2024/scaling-monosemanticity/" target="_blank">Anthropic Sparse Autoencoder</a> interpretability research (2025) · <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act high-risk classification</a> · <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI Risk Management Framework</a> · <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank">ProPublica COMPAS</a> analysis · <a href="https://www.consumerfinance.gov/about-us/newsroom/cfpb-issues-guidance-on-credit-denials-by-lenders-using-artificial-intelligence/" target="_blank">CFPB fair lending</a> AI guidance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<nav class="page-nav page-nav-btm" aria-label="Page navigation bottom">
+  <div class="page-nav-inner">
+    <a href="#q1">Q1 Energy &amp; Water</a>
+    <a href="#q2">Q2 Edge vs. Cloud</a>
+    <a href="#q3">Q3 Biology &amp; Biotech</a>
+    <a href="#q4">Q4 Black Box</a>
+    <a href="/glossary/">Glossary →</a>
+  </div>
+</nav>
+
+
+<footer class="page-footer">
+  <strong>Q&amp;A Series, Batch 8: Infrastructure &amp; Environment · April 2026</strong><br>
+  Primary Sources: <a href="https://www.iea.org/reports/energy-and-ai" target="_blank">IEA Energy and AI Report</a> (Apr 2026) · <a href="https://eta.lbl.gov/publications/2024-united-states-data-center" target="_blank">Lawrence Berkeley National Lab</a> Data Center Projections · <a href="https://digiconomist.net/" target="_blank">VU Amsterdam / Digiconomist</a> Carbon and Water Footprint Study · <a href="https://harcresearch.org/" target="_blank">University of Houston / HARC</a> Texas Water Study · Consumer Reports Data Center Impact (Mar 2026) · Carbon Brief Data Center Charts · <a href="https://www.nobelprize.org/prizes/chemistry/2024/summary/" target="_blank">Nobel Prize Chemistry 2024</a> Announcement · AlphaFold3 Paper (Nature, 2024) · Rudin "Stop Explaining Black Box ML Models" (Nature Machine Intelligence, 2019) · <a href="https://transformer-circuits.pub/2024/scaling-monosemanticity/" target="_blank">Anthropic SAE Interpretability</a> Research (2025) · <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> · <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI RMF</a> · <a href="https://blog.spheron.network/" target="_blank">Spheron Cloud vs. Edge</a> Guide (Apr 2026) · <a href="https://www.gartner.com/en/newsroom/press-releases/2024-09-10-gartner-forecasts-worldwide-shipments-of-ai-pcs-to-total-114-million-units-in-2025" target="_blank">Gartner AI PC Forecast</a> · <a href="https://www.institutionalinvestor.com/" target="_blank">Institutional Investor Edge AI</a> Outlook (Jan 2026)
+</footer>
+
+<script>
+const ACRONYMS={  'SMR':'Small Modular Reactor, a next-generation nuclear plant design smaller than conventional nuclear plants, designed for faster construction and deployment.',
+  'GPU':'Graphics Processing Unit, the primary hardware chip used for AI training and cloud-based inference.',
+  'NPU':'Neural Processing Unit, a specialized chip designed for AI inference workloads, found in modern smartphones and AI PCs.',
+  'XAI':'Explainable AI, a field of AI research focused on making model decisions interpretable and explainable to human users.',
+  'SHAP':'SHapley Additive exPlanations, a post-hoc interpretability technique that assigns each input feature a contribution score for a model prediction.',
+  'LIME':'Local Interpretable Model-agnostic Explanations, a technique that explains model predictions by approximating the model locally with a simpler interpretable model.',
+  'IEA':'International Energy Agency, the Paris-based intergovernmental organization tracking global energy data and policy.',
+  'NIST':'National Institute of Standards and Technology, the US federal agency publishing the AI Risk Management Framework.',
+  'CFPB':'Consumer Financial Protection Bureau, US federal agency with authority over fair lending practices including AI-driven credit decisions.',
+  'TOPS':'Tera Operations Per Second, a measure of AI chip performance counting how many trillion AI-relevant calculations the chip can perform per second.',
+  'TWh':'Terawatt-hour, a unit of energy equal to one trillion watt-hours; used to measure annual electricity consumption of large infrastructure.',
+  'DNA':'Deoxyribonucleic Acid, the molecule carrying genetic information; now structurally modeled by AlphaFold3.',
+  'RNA':'Ribonucleic Acid, the molecule involved in protein synthesis; now structurally modeled by AlphaFold3 alongside DNA and proteins.',
+};
+function applyTooltips(root){const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p)return NodeFilter.FILTER_REJECT;if(['SCRIPT','STYLE','A','ABBR'].includes(p.tagName))return NodeFilter.FILTER_REJECT;if(p.classList.contains('ac'))return NodeFilter.FILTER_REJECT;if(p.closest('.ac'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];let node;while((node=walker.nextNode()))nodes.push(node);const keys=Object.keys(ACRONYMS).sort((a,b)=>b.length-a.length);const pattern=new RegExp('\\b('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','g');nodes.forEach(textNode=>{const text=textNode.textContent;if(!pattern.test(text))return;pattern.lastIndex=0;const frag=document.createDocumentFragment();let last=0,m;while((m=pattern.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const span=document.createElement('span');span.className='ac';span.setAttribute('data-tip',ACRONYMS[m[0]]);span.setAttribute('tabindex','0');span.textContent=m[0];frag.appendChild(span);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));textNode.parentNode.replaceChild(frag,textNode);});}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.qa-answer,.sb-body').forEach(applyTooltips);document.addEventListener('click',e=>{const tip=e.target.closest('.ac');document.querySelectorAll('.ac.tip-open').forEach(el=>{if(el!==tip)el.classList.remove('tip-open');});if(tip){tip.classList.toggle('tip-open');e.stopPropagation();}});document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.ac.tip-open').forEach(el=>el.classList.remove('tip-open'));});});
+</script>
+<script>
+(function(){
+  const navLinks=document.querySelectorAll('.page-nav-inner a[href^="#q"]');
+  if(!navLinks.length)return;
+  const cards=Array.from(document.querySelectorAll('.qa-card[id]'));
+  if(!cards.length)return;
+  const visible=new Set();
+  function update(){
+    const activeId=cards.find(c=>visible.has(c.id))?.id;
+    navLinks.forEach(link=>{
+      link.classList.toggle('q-active',!!activeId&&link.getAttribute('href')==='#'+activeId);
+    });
+  }
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{e.isIntersecting?visible.add(e.target.id):visible.delete(e.target.id);});
+    update();
+  },{rootMargin:'-130px 0px -40% 0px',threshold:0});
+  cards.forEach(card=>observer.observe(card));
+})();
+</script>
+</body>
+</html>

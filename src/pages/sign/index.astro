@@ -1,0 +1,256 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Sign the Manifesto"
+  description="Add your name to the nOS Manifesto — a public declaration for the age of artificial intelligence."
+>
+  <div class="sign-hero">
+    <div class="container">
+      <p class="label eyebrow">Public Declaration</p>
+      <h1 class="sign-headline">Sign the Manifesto</h1>
+      <p class="sign-subline">
+        Signing means you've read it, you believe it, and you're willing to put your name on it.
+        This is a public record.
+      </p>
+    </div>
+  </div>
+
+  <section class="sign-body">
+    <div class="container sign-grid">
+      <div class="sign-form-wrap">
+        <div class="form-notice">
+          <p class="label notice-label">Signature collection</p>
+          <p class="notice-text">
+            Signature collection is not yet active. Leave your email below to be notified when
+            signing opens — your information will not be shared or used for any other purpose.
+          </p>
+        </div>
+
+        <form class="sign-form" action="#" method="post">
+          <div class="field-group">
+            <label class="field-label" for="name">Full name</label>
+            <input
+              class="field-input"
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Your name as it will appear"
+              autocomplete="name"
+            />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="email">Email address</label>
+            <input
+              class="field-input"
+              id="email"
+              name="email"
+              type="email"
+              placeholder="For notification only — not published"
+              autocomplete="email"
+            />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="affiliation">
+              Affiliation <span class="field-optional">(optional)</span>
+            </label>
+            <input
+              class="field-input"
+              id="affiliation"
+              name="affiliation"
+              type="text"
+              placeholder="Organization, title, or role"
+            />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="comment">
+              Why you're signing <span class="field-optional">(optional)</span>
+            </label>
+            <textarea
+              class="field-input field-textarea"
+              id="comment"
+              name="comment"
+              rows="4"
+              placeholder="A sentence or two — may be shared with your permission"></textarea>
+          </div>
+          <button class="submit-btn" type="submit" disabled>Notify me when signing opens</button>
+          <p class="form-footnote label">
+            Signing not yet active. Form submission is disabled.
+          </p>
+        </form>
+      </div>
+
+      <aside class="sign-sidebar">
+        <div class="sidebar-panel">
+          <p class="label panel-label">Before you sign</p>
+          <ul class="sign-checklist">
+            <li>Read the full manifesto</li>
+            <li>Understand that your name will be public</li>
+            <li>Sign as an individual, not on behalf of an organization</li>
+            <li>You can withdraw your signature at any time</li>
+          </ul>
+        </div>
+        <div class="sidebar-panel">
+          <p class="label panel-label">Already signed?</p>
+          <p class="panel-text">
+            View the list of current signatories at <a href="/signatories/">signatories</a>.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sign-hero {
+    background: var(--cream);
+    padding: 3.5rem 0 3rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    margin-bottom: 0.75rem;
+  }
+  .sign-headline {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    color: var(--navy);
+    margin-bottom: 0.875rem;
+  }
+  .sign-subline {
+    font-size: 1.0625rem;
+    color: var(--muted);
+    max-width: 52ch;
+    line-height: 1.75;
+  }
+  .sign-body {
+    padding: 3rem 0 5rem;
+  }
+  .sign-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 3rem;
+    align-items: start;
+  }
+  .form-notice {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--amber);
+    border-radius: 3px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .notice-label {
+    margin-bottom: 0.5rem;
+    color: var(--amber);
+  }
+  .notice-text {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: none;
+  }
+  .sign-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field-optional {
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+  }
+  .field-input {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 0.625rem 0.875rem;
+    width: 100%;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+  }
+  .field-input:focus {
+    outline: none;
+    border-color: var(--steel);
+  }
+  .field-textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  .submit-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: var(--ivory);
+    border: none;
+    padding: 0.875rem 1.5rem;
+    border-radius: 2px;
+    cursor: not-allowed;
+    opacity: 0.5;
+    align-self: flex-start;
+  }
+  .form-footnote {
+    color: var(--muted);
+    font-size: 0.68rem;
+  }
+  .sign-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: sticky;
+    top: calc(56px + 1.5rem);
+  }
+  .sidebar-panel {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--steel);
+    border-radius: 3px;
+    padding: 1.25rem;
+  }
+  .panel-label {
+    margin-bottom: 0.75rem;
+  }
+  .sign-checklist {
+    padding-left: 1.1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .panel-text {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  @media (max-width: 768px) {
+    .sign-grid {
+      grid-template-columns: 1fr;
+    }
+    .sign-sidebar {
+      position: static;
+    }
+  }
+</style>

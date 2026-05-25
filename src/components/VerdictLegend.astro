@@ -1,0 +1,98 @@
+---
+const verdicts = [
+  {
+    key: 'established',
+    label: 'Established',
+    color: 'green',
+    desc: 'Consensus view, well-supported',
+  },
+  {
+    key: 'contested',
+    label: 'Contested',
+    color: 'amber',
+    desc: 'Significant disagreement exists',
+  },
+  {
+    key: 'speculative',
+    label: 'Speculative',
+    color: 'muted',
+    desc: 'Limited evidence, plausible',
+  },
+  {
+    key: 'cautionary',
+    label: 'Cautionary',
+    color: 'red',
+    desc: 'Risk or harm flagged',
+  },
+];
+---
+
+<div class="verdict-legend">
+  <p class="label legend-heading">Verdict Key</p>
+  <ul class="legend-list">
+    {
+      verdicts.map(v => (
+        <li class="legend-item">
+          <span class:list={['verdict-dot', `verdict-dot--${v.color}`]} />
+          <span class="verdict-label">{v.label}</span>
+          <span class="verdict-desc">{v.desc}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .verdict-legend {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.25rem;
+  }
+  .legend-heading {
+    margin-bottom: 0.75rem;
+  }
+  .legend-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  .legend-item {
+    display: grid;
+    grid-template-columns: 10px 80px 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+  }
+  .verdict-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .verdict-dot--green {
+    background: var(--green);
+  }
+  .verdict-dot--amber {
+    background: var(--amber);
+  }
+  .verdict-dot--muted {
+    background: var(--muted);
+  }
+  .verdict-dot--red {
+    background: var(--red);
+  }
+  .verdict-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .verdict-desc {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>

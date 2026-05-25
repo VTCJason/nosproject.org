@@ -1,0 +1,89 @@
+---
+interface Props {
+  question: string;
+  verdict: 'established' | 'contested' | 'speculative' | 'cautionary';
+  summary: string;
+  id?: string;
+}
+
+const { question, verdict, summary, id } = Astro.props;
+
+const verdictLabels: Record<string, string> = {
+  established: 'Established',
+  contested: 'Contested',
+  speculative: 'Speculative',
+  cautionary: 'Cautionary',
+};
+---
+
+<article class:list={['question-card', `question-card--${verdict}`]} id={id}>
+  <div class="qc-header">
+    <span class:list={['verdict-badge', `verdict-badge--${verdict}`]}>
+      {verdictLabels[verdict]}
+    </span>
+  </div>
+  <h3 class="qc-question">{question}</h3>
+  <p class="qc-summary">{summary}</p>
+</article>
+
+<style>
+  .question-card {
+    padding: 1.5rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    border-left: 4px solid var(--rule);
+    background: #fff;
+  }
+  .question-card--established {
+    border-left-color: var(--green);
+  }
+  .question-card--contested {
+    border-left-color: var(--amber);
+  }
+  .question-card--speculative {
+    border-left-color: var(--muted);
+  }
+  .question-card--cautionary {
+    border-left-color: var(--red);
+  }
+  .qc-header {
+    margin-bottom: 0.75rem;
+  }
+  .verdict-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2em 0.6em;
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+  }
+  .verdict-badge--established {
+    background: var(--green);
+  }
+  .verdict-badge--contested {
+    background: var(--amber);
+    color: var(--navy);
+  }
+  .verdict-badge--speculative {
+    background: var(--muted);
+  }
+  .verdict-badge--cautionary {
+    background: var(--red);
+  }
+  .qc-question {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    color: var(--navy);
+    line-height: 1.35;
+    margin-bottom: 0.625rem;
+  }
+  .qc-summary {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: none;
+  }
+</style>

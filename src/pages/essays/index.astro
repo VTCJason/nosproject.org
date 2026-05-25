@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const essays = [
+  {
+    title: 'The One-Keystroke Climate Win',
+    slug: 'the-one-keystroke-climate-win',
+    date: 'May 2026',
+    summary:
+      'How swapping a single default behavior across 15 frontier AI models could save $117M in compute, recover $19B in productivity, and prevent 7,000 tons of CO₂e every year. A data-driven business case for product leaders.',
+    tags: ['Sustainability', 'UX', 'Infrastructure'],
+  },
+];
+---
+
+<BaseLayout
+  title="Essays"
+  description="Long-form analysis on AI, society, and the transition ahead."
+>
+  <div class="essays-hero">
+    <div class="container">
+      <p class="label essays-eyebrow">Long-form Analysis</p>
+      <h1 class="essays-headline">Essays</h1>
+      <p class="essays-subline">
+        Specific questions, decisions, and moments that matter for how AI unfolds.
+        Written for people who want to understand, not just react.
+      </p>
+      <p class="label essays-meta">{essays.length} {essays.length === 1 ? 'essay' : 'essays'} · ongoing</p>
+    </div>
+  </div>
+
+  <section class="essays-grid-section">
+    <div class="container">
+      <div class="essay-grid">
+        {essays.map(essay => (
+          <a href={`/essays/${essay.slug}/`} class="essay-card">
+            <div class="essay-card-header">
+              <span class="label essay-date">{essay.date}</span>
+              <div class="essay-tags">
+                {essay.tags.map(tag => <span class="essay-tag">{tag}</span>)}
+              </div>
+            </div>
+            <h2 class="essay-card-title">{essay.title}</h2>
+            <p class="essay-card-summary">{essay.summary}</p>
+            <span class="essay-read-link">Read essay →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .essays-hero {
+    background: var(--navy);
+    padding: 4rem 0 3.5rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .essays-eyebrow {
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+  .essays-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--ivory);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+  .essays-subline {
+    font-size: 1.0625rem;
+    color: var(--cream);
+    max-width: 58ch;
+    line-height: 1.75;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+  .essays-meta {
+    color: var(--muted);
+  }
+  .essays-grid-section {
+    padding: 3rem 0 5rem;
+    background: var(--navy);
+  }
+  .essay-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+  .essay-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.75rem;
+    background: var(--navy);
+    border: 1px solid var(--steel);
+    border-left: 3px solid var(--gold);
+    border-radius: 3px;
+    text-decoration: none;
+    color: var(--ivory);
+    transition: background 0.15s, border-left-color 0.15s;
+  }
+  .essay-card:hover {
+    background: var(--slate);
+    border-left-color: var(--amber);
+  }
+  .essay-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .essay-date {
+    color: var(--amber);
+  }
+  .essay-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .essay-tag {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,.5);
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 2px;
+    padding: 2px 7px;
+  }
+  .essay-card-title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    color: var(--ivory);
+    line-height: 1.3;
+  }
+  .essay-card-summary {
+    font-size: 0.875rem;
+    color: var(--cream);
+    line-height: 1.65;
+    opacity: 0.85;
+    flex-grow: 1;
+  }
+  .essay-read-link {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    margin-top: 0.25rem;
+    transition: color 0.15s;
+  }
+  .essay-card:hover .essay-read-link {
+    color: var(--amber);
+  }
+</style>

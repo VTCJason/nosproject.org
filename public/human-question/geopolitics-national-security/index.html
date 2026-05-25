@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A: Geopolitics &amp; National Security, AI in the Global Arena</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --navy:    #0d1b2a;
+  --slate:   #1c2f45;
+  --steel:   #2d4a6b;
+  --gold:    #c9922a;
+  --amber:   #e8a93c;
+  --ivory:   #f5f0e8;
+  --cream:   #ede8dc;
+  --text:    #1a1a1a;
+  --muted:   #5a5a5a;
+  --rule:    #c2b8a6;
+  --green:   #1a4a2e;
+  --red:     #8b2020;
+  --teal:    #1a3a4a;
+  --purple:  #3a1a5a;
+  --shadow:  0 4px 24px rgba(13,27,42,0.10);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--ivory);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOOLTIPS ──────────────────────────────────── */
+.ac {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dashed rgba(45,74,107,0.35);
+  display: inline-block;
+}
+.ac::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: var(--ivory);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 4px;
+  white-space: normal;
+  width: 240px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 200;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border-top: 2px solid var(--gold);
+}
+.ac::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 1px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--gold);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 201;
+}
+.ac:hover::after, .ac:hover::before,
+.ac:focus::after, .ac:focus::before { opacity: 1; }
+
+/* mobile tap */
+.ac.tip-open::after, .ac.tip-open::before { opacity: 1; }
+
+/* ── PAGE HEADER ────────────────────────────────── */
+.page-header {
+  background: var(--navy);
+  color: var(--ivory);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--gold);
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,146,42,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,146,42,0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+.header-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 60px 40px 52px;
+}
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  text-decoration: none;
+}
+.brand-logo {
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700; font-size: 14px; color: var(--navy);
+  flex-shrink: 0;
+}
+.brand-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--gold); text-transform: uppercase;
+}
+.header-eyebrow {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px; letter-spacing: 3px;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.header-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+.header-title em { font-style: italic; color: var(--amber); }
+.header-desc {
+  font-size: 17px;
+  font-weight: 300;
+  color: rgba(245,240,232,0.68);
+  max-width: 660px;
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+.header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.meta-pill {
+  background: rgba(201,146,42,0.15);
+  border: 1px solid rgba(201,146,42,0.3);
+  color: var(--amber);
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 13px;
+  border-radius: 2px;
+}
+
+/* ── NAV ────────────────────────────────────────── */
+.page-nav {
+  background: var(--slate);
+  border-bottom: 2px solid var(--gold);
+  position: sticky;
+  top: 0; z-index: 100;
+  padding: 0 40px;
+}
+.page-nav-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 2px;
+}
+.page-nav-inner::-webkit-scrollbar { display: none; }
+.page-nav-inner a {
+  text-decoration: none;
+  color: rgba(245,240,232,0.5);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 13px 14px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color .2s, border-color .2s;
+}
+.page-nav-inner a:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+.page-nav-brand {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 11px; font-weight: 700;
+  color: var(--gold);
+  padding: 13px 16px 13px 0;
+  border-right: 1px solid rgba(201,146,42,.25);
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+/* ── MAIN LAYOUT ────────────────────────────────── */
+.page-body {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+/* ── SECTION INTRO ──────────────────────────────── */
+.section-intro {
+  padding: 52px 0 36px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+.section-intro p {
+  font-size: 18px;
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  color: var(--slate);
+  line-height: 1.7;
+  max-width: 780px;
+}
+
+/* ── VERDICT SYSTEM ─────────────────────────────── */
+.verdict-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+.vl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.vl-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.vl-name {
+  font-family: 'Courier Prime', monospace;
+  font-size: 8.5px; letter-spacing: 1.5px;
+  text-transform: uppercase; font-weight: 700;
+  display: block; margin-bottom: 2px;
+}
+.vl-desc {
+  font-size: 11px; color: var(--muted);
+  font-style: italic; line-height: 1.4;
+}
+
+/* verdict color tokens */
+:root {
+  --v-fact:      #1a4a2e;
+  --v-analysis:  #1c2f45;
+  --v-spec:      #8b5e00;
+  --v-contested: #8b2020;
+}
+.dot-fact      { background: var(--v-fact); }
+.dot-analysis  { background: var(--v-analysis); }
+.dot-spec      { background: var(--v-spec); }
+.dot-contested { background: var(--v-contested); }
+
+/* ── Q&A CARD ───────────────────────────────────── */
+.qa-card {
+  margin-top: 52px;
+  scroll-margin-top: 80px;
+}
+
+.qa-number-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.qa-num {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; color: var(--gold);
+  border: 1px solid rgba(201,146,42,0.3);
+  padding: 3px 10px; border-radius: 2px;
+  white-space: nowrap;
+  background: rgba(201,146,42,0.06);
+}
+
+.qa-verdict-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 8.5px; letter-spacing: 1.5px;
+  text-transform: uppercase; font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 20px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.badge-fact      { color: var(--v-fact);      border-color: rgba(26,74,46,.35);  background: rgba(26,74,46,.06); }
+.badge-analysis  { color: var(--v-analysis);  border-color: rgba(28,47,69,.35);  background: rgba(28,47,69,.06); }
+.badge-spec      { color: var(--v-spec);       border-color: rgba(139,94,0,.3);   background: rgba(139,94,0,.06); }
+.badge-contested { color: var(--v-contested);  border-color: rgba(139,32,32,.3);  background: rgba(139,32,32,.06); }
+
+.qa-question {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.35;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--gold);
+}
+
+.qa-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+  align-items: start;
+}
+@media (max-width: 780px) {
+  .qa-body { grid-template-columns: 1fr; }
+  .qa-sidebar { order: -1; }
+}
+
+/* answer */
+.qa-answer {
+  font-size: 15.5px;
+  line-height: 1.78;
+  color: #1e1e1e;
+}
+.qa-answer p { margin-bottom: 14px; }
+.qa-answer p:last-child { margin-bottom: 0; }
+.qa-answer strong { color: var(--navy); font-weight: 600; }
+.qa-answer em { color: var(--muted); }
+.qa-answer a { color: var(--steel); text-decoration: underline; text-decoration-color: rgba(45,74,107,.4); }
+.qa-answer a:hover { color: var(--gold); }
+
+/* sidebar */
+.qa-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+.sidebar-block {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  overflow: visible;
+}
+
+.sb-head {
+  padding: 9px 14px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 8.5px; letter-spacing: 2px;
+  text-transform: uppercase; font-weight: 700;
+  border-bottom: 1px solid var(--rule);border-top-left-radius:4px;border-top-right-radius:4px}
+
+.sb-body {
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.sb-body strong { color: var(--text); font-weight: 600; }
+.sb-body a { color: var(--steel); text-decoration: none; border-bottom: 1px dashed var(--rule); }
+.sb-body a:hover { color: var(--gold); }
+
+.sb-head-fact      { background: rgba(26,74,46,.07);   color: var(--v-fact); }
+.sb-head-analysis  { background: rgba(28,47,69,.07);   color: var(--v-analysis); }
+.sb-head-spec      { background: rgba(139,94,0,.06);   color: var(--v-spec); }
+.sb-head-contested { background: rgba(139,32,32,.06);  color: var(--v-contested); }
+.sb-head-source    { background: rgba(201,146,42,.08); color: var(--gold); }
+.sb-head-unknown   { background: var(--cream);         color: var(--muted); }
+
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stat-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.stat-num {
+  font-family: 'Courier Prime', monospace;
+  font-size: 16px; font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+  line-height: 1;
+  padding-top: 2px;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* divider between cards */
+.qa-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 52px 0 0;
+}
+
+/* ── CALLOUT ─────────────────────────────────────── */
+.callout {
+  border-left: 4px solid var(--gold);
+  background: var(--cream);
+  padding: 16px 20px;
+  border-radius: 0 5px 5px 0;
+  margin: 18px 0 0;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.callout.red    { border-color: var(--red);   background: #fdf2f2; }
+.callout.green  { border-color: var(--green); background: #f0f7f3; }
+.callout.navy   { border-color: var(--navy);  background: #f0f3f7; }
+.callout.purple { border-color: var(--purple);background: #f5f0fd; }
+.callout-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 8.5px; letter-spacing: 2px;
+  text-transform: uppercase; font-weight: 700;
+  color: var(--gold); margin-bottom: 7px;
+}
+.callout.red    .callout-label { color: var(--red); }
+.callout.green  .callout-label { color: var(--green); }
+.callout.navy   .callout-label { color: var(--navy); }
+.callout.purple .callout-label { color: var(--purple); }
+.callout p:last-child { margin: 0; }
+
+/* ── DATA TABLE ─────────────────────────────────── */
+.dt {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0 0;
+}
+.dt th {
+  background: var(--navy);
+  color: var(--ivory);
+  font-weight: 600; font-size: 9px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 10px 14px; text-align: left;
+}
+.dt td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top; line-height: 1.5;
+}
+.dt tr:nth-child(even) td { background: var(--cream); }
+.dt .win { color: var(--green); font-weight: 600; }
+.dt .lose { color: var(--red); }
+.dt .mid  { color: #7a5000; }
+
+/* ── PAGE FOOTER ────────────────────────────────── */
+.page-footer {
+  background: var(--navy);
+  color: rgba(245,240,232,0.4);
+  padding: 28px 40px;
+  font-size: 11px;
+  line-height: 1.8;
+  margin-top: 80px;
+}
+.page-footer strong { color: rgba(245,240,232,0.7); }
+.page-footer a { color: var(--gold); text-decoration: none; }
+
+/* ── RESPONSIVE ─────────────────────────────────── */
+@media (max-width: 680px) {
+  .header-inner, .page-body, .page-footer { padding-left: 20px; padding-right: 20px; }
+  .page-nav { padding: 0 20px; }
+  .header-title { font-size: 26px; }
+  .ac::after { width: 180px; }
+}
+/* === INJECTED: Global nav (Layer 1) === */
+#nos-snav{background:var(--navy);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:300;padding:0 40px;}
+#nos-snav-inner{margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;}
+#nos-snav-inner::-webkit-scrollbar{display:none;}
+.snav-wordmark{font-family:'Libre Baskerville',serif;font-size:16px;font-weight:700;color:var(--gold);text-decoration:none;padding:9px 18px 9px 0;border-right:1px solid rgba(201,146,42,.3);margin-right:10px;white-space:nowrap;flex-shrink:0;}
+.snav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:20px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;flex-shrink:0;}
+.snav-link:hover{color:var(--ivory);border-bottom-color:var(--amber);}
+.snav-link.snav-active{color:var(--gold) !important;border-bottom-color:var(--gold);}
+.snav-sign{font-family:'DM Sans',system-ui,sans-serif;font-size:20px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s;flex-shrink:0;margin-left:auto;}
+.snav-sign:hover{color:var(--ivory);}
+/* === INJECTED: Topic nav (Layer 2) === */
+#nos-topicnav{background:var(--slate);border-bottom:1px solid rgba(201,146,42,.35);position:sticky;top:40px;z-index:200;padding:0 40px;height:33px;overflow:hidden;}
+#nos-topicnav-inner{margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+#nos-topicnav-inner::-webkit-scrollbar{display:none;}
+.tnav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:18px;font-weight:400;letter-spacing:.03em;text-transform:uppercase;color:rgba(245,240,232,.45);text-decoration:none;padding:7px 10px;white-space:nowrap;transition:color .2s;flex-shrink:0;}
+.tnav-link:hover{color:rgba(245,240,232,.8);}
+.tnav-link.tnav-active{color:var(--gold) !important;}
+/* === INJECTED: Layer 3 — hide brand label, active question === */
+.page-nav{top:73px !important;z-index:100 !important;}
+.page-nav-brand{display:none !important;}
+.page-nav-inner a.q-active{color:var(--gold) !important;border-color:var(--gold) !important;}
+/* === INJECTED: Scroll margin === */
+.qa-card{scroll-margin-top:125px !important;}
+/* === INJECTED: Responsive width strategy === */
+.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:min(88vw,1500px) !important;max-width:none !important;margin-left:auto !important;margin-right:auto !important;}
+@media(max-width:900px){.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:calc(100vw - 40px) !important;}}
+@media(max-width:480px){.header-inner,.page-body,.page-nav-inner,#nos-snav-inner,#nos-topicnav-inner{width:calc(100vw - 24px) !important;}}
+/* === INJECTED: Unlock constrained inner content === */
+.header-desc,.section-intro p{max-width:none !important;}
+/* === INJECTED: Bottom nav === */
+.page-nav-btm{background:var(--slate);border-top:2px solid var(--gold);padding:0 40px;}
+.page-nav-btm .page-nav-inner a{border-bottom:none;margin-bottom:0;border-top:2px solid transparent;margin-top:-2px;}
+.page-nav-btm .page-nav-inner a:hover{border-top-color:var(--amber);border-bottom:none;}
+/* === INJECTED: Mobile === */
+@media(max-width:680px){#nos-snav,#nos-topicnav,.page-nav-btm{padding:0 20px;}.snav-link,.snav-sign{padding:9px 8px;font-size:16px;}.tnav-link{padding:7px 7px;font-size:14px;}}
+</style>
+</head>
+<body>
+<nav id="nos-snav" aria-label="Site navigation">
+  <div id="nos-snav-inner">
+    <a class="snav-wordmark" href="/">nOS</a>
+    <a class="snav-link" href="/case-study/">Case Study</a>
+    <a class="snav-link snav-active" href="/human-question/">The Human Question</a>
+    <a class="snav-link" href="/glossary/">Glossary</a>
+    <a class="snav-link" href="/essays/">Essays</a>
+    <a class="snav-link" href="/about/">About</a>
+    <a class="snav-sign" href="/sign/">Sign the Manifesto</a>
+  </div>
+</nav>
+<nav id="nos-topicnav" aria-label="Human Question topics">
+  <div id="nos-topicnav-inner">
+    <a class="tnav-link" href="/human-question/technical-demystification/">Technical</a>
+    <a class="tnav-link" href="/human-question/economics-labor-industry/">Economics</a>
+    <a class="tnav-link tnav-active" href="/human-question/geopolitics-national-security/">Geopolitics</a>
+    <a class="tnav-link" href="/human-question/ethics-society-human-impact/">Ethics</a>
+    <a class="tnav-link" href="/human-question/existential-frontier/">Existential</a>
+    <a class="tnav-link" href="/human-question/regulatory-legal-governance/">Regulatory</a>
+    <a class="tnav-link" href="/human-question/safety-security-information-integrity/">Safety &amp; Security</a>
+    <a class="tnav-link" href="/human-question/infrastructure-environment/">Infrastructure</a>
+    <a class="tnav-link" href="/human-question/faith-identity-human-condition/">Faith &amp; Identity</a>
+    <a class="tnav-link" href="/human-question/science-knowledge-domains/">Science &amp; Domains</a>
+  </div>
+</nav>
+
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="header-inner">
+    <h1 class="header-title">
+      Geopolitics &amp; National Security<br>
+      <em>AI in the Global Arena</em>
+    </h1>
+    <p class="header-desc">Eight of the most pressing questions at the intersection of artificial intelligence, national power, military risk, and global equity, answered with sourced analysis, honest uncertainty, and no diplomatic evasion.</p>
+    <div class="header-meta">
+      <span class="meta-pill">8 Questions</span>
+      <span class="meta-pill">April 2026</span>
+      <span class="meta-pill">US · China · Middle Powers · Global South · Nuclear Risk</span>
+    </div>
+  </div>
+</header>
+
+<!-- NAVIGATION -->
+<nav class="page-nav" aria-label="Question navigation">
+  <div class="page-nav-inner">
+    <span class="page-nav-brand">Geopolitics &amp; AI</span>
+    <a href="#q1">Q1 US Race</a>
+    <a href="#q2">Q2 China Robots</a>
+    <a href="#q3">Q3 Sovereign AI</a>
+    <a href="#q4">Q4 Middle Powers</a>
+    <a href="#q5">Q5 Influence Ops</a>
+    <a href="#q6">Q6 Future War</a>
+    <a href="#q7">Q7 Global South</a>
+    <a href="#q8">Q8 Nuclear Risk</a>
+    <a href="/glossary/">Glossary →</a>
+  </div>
+</nav>
+
+<!-- BODY -->
+<main class="page-body">
+
+  <div class="section-intro">
+    <p>The question of who leads in artificial intelligence is, at its core, a question about who will shape the twenty-first century. These eight questions examine that contest, not just the US-China binary that dominates headlines, but the middle powers writing their own stories, the Global South bearing disproportionate risk, and the military integration of AI that is already rewriting deterrence logic in real time.</p>
+  </div>
+
+  <!-- VERDICT LEGEND -->
+  <div class="verdict-legend">
+    <div class="vl-item">
+      <div class="vl-dot dot-fact"></div>
+      <div>
+        <span class="vl-name" style="color:var(--v-fact)">Verified Fact</span>
+        <span class="vl-desc">Directly sourced from named publications, filings, or data</span>
+      </div>
+    </div>
+    <div class="vl-item">
+      <div class="vl-dot dot-analysis"></div>
+      <div>
+        <span class="vl-name" style="color:var(--v-analysis)">Reasoned Analysis</span>
+        <span class="vl-desc">Logical inference from verified evidence; labeled as such</span>
+      </div>
+    </div>
+    <div class="vl-item">
+      <div class="vl-dot dot-spec"></div>
+      <div>
+        <span class="vl-name" style="color:var(--v-spec)">Informed Speculation</span>
+        <span class="vl-desc">Projection grounded in evidence but not yet verifiable</span>
+      </div>
+    </div>
+    <div class="vl-item">
+      <div class="vl-dot dot-contested"></div>
+      <div>
+        <span class="vl-name" style="color:var(--v-contested)">Genuinely Contested</span>
+        <span class="vl-desc">Reasonable expert disagreement exists; no clean answer</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       Q1, HAS THE US LOST THE AI RACE?
+  ══════════════════════════════════════════════════════ -->
+  <div class="qa-card" id="q1">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 01</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact with Important Nuance</span>
+    </div>
+    <div class="qa-question">Has the US already lost the AI race?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>No, but the answer requires unpacking what "the AI race" actually is, because it is not one race. It is five simultaneous competitions, and the US leads three of them decisively, lags in two, and the scoreboard has changed dramatically in the past eighteen months.</p>
+
+        <p><strong>Where the US leads:</strong> Frontier model capability, every model currently at the top of global benchmarks is American-made: <span class="ac" data-tip="Gemini: Google DeepMind's flagship AI model family; 3.1 Pro currently tops 13 of 16 major benchmarks as of April 2026.">Gemini</span> 3.1 Pro, Claude Opus 4.6, <span class="ac" data-tip="GPT: Generative Pre-trained Transformer, OpenAI's flagship model family; GPT-5.4 released April 23, 2026.">GPT</span>-5.4. The US controls approximately 70% of global AI compute via its hyperscale data center advantage. US private AI investment in 2025 was $285.9 billion, 23 times China's $12.4 billion. NVIDIA designs the world's most capable AI chips. The US attracts 57% of the world's elite AI researchers.</p>
+
+        <p><strong>Where China has closed the gap:</strong> The Stanford <span class="ac" data-tip="HAI: Human-Centered Artificial Intelligence, Stanford University's interdisciplinary AI research institute, which publishes the annual AI Index Report.">HAI</span> 2026 AI Index places the overall performance gap between the best US and Chinese frontier models at just <strong>2.7 percentage points</strong>, down from 17.5 to 31.6 points in May 2023. DeepSeek R1 (January 2025) matched US frontier reasoning at a training cost of approximately $6 million versus $100 million or more for comparable US models. Alibaba's Qwen family has accumulated 942 million downloads as of March 2026, more than double the combined downloads of its next eight competitors. China installs one in every two industrial robots deployed globally. China produces more energy than the US and is building more nuclear power plants than the rest of the world combined, a significant advantage for powering data center growth.</p>
+
+        <p><strong>The most important dimension, architecture and research culture:</strong> Google DeepMind CEO <a href="https://en.wikipedia.org/wiki/Demis_Hassabis" target="_blank">Demis Hassabis</a> (January 2026) argues the decisive frontier is not current model capability but the ability to invent what comes next. The Transformer architecture that underpins all major <span class="ac" data-tip="LLM: Large Language Model, a neural network trained on massive text datasets to understand and generate human language. Examples: GPT, Claude, Gemini, Llama.">LLM</span>s was invented by Western researchers. Hassabis contends US and UK labs operate like a "modern Bell Labs", fostering exploratory research culture that produces paradigm shifts. China excels at optimizing and scaling existing approaches. For China to decisively win the AI race, it must invent the post-Transformer architecture.</p>
+
+        <p><strong>The self-inflicted risks to the US lead:</strong> The Trump administration's 2026 loosening of chip export controls, allowing H200 sales to Chinese companies, has prompted bipartisan concern. An analysis by the Institute for Progress found that unrestricted H200 exports could reduce the US compute advantage from more than 10:1 to single digits or zero. Simultaneously, the administration's immigration crackdown and research funding cuts threaten the talent inflow that sustains frontier research. China is the top country of origin for the elite AI researchers working in the US. Policies that slow that pipeline directly benefit China.</p>
+
+        <div class="callout navy">
+          <div class="callout-label">Bottom Line</div>
+          <p>The US is winning the sprint. China is building for the marathon. The US lead is real but contingent, it depends on export controls holding, <span class="ac" data-tip="TSMC: Taiwan Semiconductor Manufacturing Company, produces over 90% of the world's most advanced chips used in AI training systems.">TSMC</span> remaining aligned with Western interests, and talent continuing to flow westward. All three are shakier today than they were two years ago, and US policy since January 2025 has placed pressure on all three simultaneously. This is not a race the US has lost. It is a race the US could lose through its own decisions more readily than through Chinese innovation.</p>
+        </div>
+      </div>
+
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Key Data Points</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item">
+                <span class="stat-num">2.7pp</span>
+                <span class="stat-label">Performance gap between best US and Chinese frontier models, <a href="https://aiindex.stanford.edu/report/" target="_blank">Stanford AI Index 2026</a> (down from 17.5–31.6pp in 2023)</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">~7 mo</span>
+                <span class="stat-label">Average lag of Chinese LLMs behind US models (Epoch AI)</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">70%</span>
+                <span class="stat-label">US share of global AI compute capacity</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">23×</span>
+                <span class="stat-label">US vs. China private AI investment ratio in 2025 ($285.9B vs. $12.4B)</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">942M</span>
+                <span class="stat-label">Downloads of Alibaba's Qwen open-source model family as of March 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether DeepSeek's efficiency gains reflect genuine architectural innovation or primarily distillation from US models. Whether H200 export loosening will materially close the compute gap. The true magnitude of Chinese state AI investment (figures are opaque and likely understated).
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body">
+            <a href="https://aiindex.stanford.edu/report/" target="_blank">Stanford HAI AI Index 2026</a> · <a href="https://www.foreignaffairs.com/united-states/myth-ai-race" target="_blank">Foreign Affairs, "The Myth of the AI Race" (Feb 2026)</a> · <a href="https://time.com/7379419/ai-race-us-china/" target="_blank">TIME, "The Complicated Stakes" (Mar 2026)</a> · <a href="https://digitalinasia.com/2026/04/20/china-vs-us-ai-race/" target="_blank">Digital in Asia (Apr 2026)</a> · <a href="https://www.politifact.com/" target="_blank">Poynter/PolitiFact</a> fact-check (Feb 2026) · <a href="https://www.morganstanley.com/insights/articles/ai-trends-reasoning-frontier-models-2025-tmt" target="_blank">Morgan Stanley Global AI Race</a> Report
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- ═══════════════════════════════════════════════════
+       Q2, CHINA ROBOTS
+  ══════════════════════════════════════════════════════ -->
+  <div class="qa-card" id="q2">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 02</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis</span>
+    </div>
+    <div class="qa-question">Will China replace its flagging workforce population with AI robots?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>China is already attempting this, and the scale of that attempt is unlike anything in economic history. Whether it will succeed is a different and more complex question.</p>
+
+        <p><strong>The demographic crisis is severe:</strong> China's population has declined for three consecutive years. Births fell 17% in 2025 to a new record low, despite years of pronatalist financial incentives that the 2025 <a href="https://www.rand.org/topics/artificial-intelligence.html" target="_blank">RAND Corporation</a> analysis concluded have "not successfully reversed fertility decline." Adults over 60 now represent 23% of China's population and could constitute more than half by 2100 per UN projections. The working-age population has been declining since 2015. Pronatalism has failed. Automation is the remaining lever.</p>
+
+        <p><strong>The robot deployment is not hypothetical, it is the present reality:</strong> China is the world's largest industrial robot market. One in every two industrial robots installed globally in 2024 went into China. China's robot density stands at 470 per 10,000 manufacturing workers, against a global average of 162. More than 90% of Chinese organizations identify AI and robotics as key business transformation technologies (World Economic Forum Future of Jobs Report 2025). Peer-reviewed research published in the <a href="https://link.springer.com/journal/148" target="_blank">Journal of Population Economics</a> (February 2026) found that population aging directly caused 17.5% of China's increased robot adoption over the study period, the relationship is causal, not coincidental.</p>
+
+        <p><strong>Beijing's official framing:</strong> As Professor Bert Hofman (National University of Singapore, former World Bank China director) described: "Since the population numbers are starting to turn against China, this idea of automation, and now AI, has become part of the script of 'We're going to have all this productivity increase and therefore population decline won't matter.'" State media have explicitly framed DeepSeek and <span class="ac" data-tip="OpenClaw: An open-source local AI agent framework (launched November 2025) that can autonomously execute multi-step tasks across communication platforms. Widely adopted in China for e-commerce automation.">OpenClaw</span> as tools for "one-person companies", a single individual automating what previously required a staff.</p>
+
+        <p><strong>The limits of the "replacement" framing:</strong> Industrial automation can mitigate workforce decline in manufacturing and logistics. It cannot address: the domestic consumption collapse from a shrinking total population; the elder care crisis (robots struggle with the relational and adaptive demands of caregiving); the pension system strain that comes from fewer working-age contributors; or service sector jobs that require human presence, judgment, and trust. Professor Guojun He (University of Hong Kong) frames it precisely: automation can "significantly mitigate, but not completely neutralize, the economic impact of a shrinking workforce, especially in industrial production."</p>
+
+        <p><strong>The humanoid robot dimension:</strong> China is actively piloting humanoid robots in assembly lines, logistics hubs, and science labs, visible as showpieces in televised competitions, but increasingly operational. State plans envision robots not just as factory workers but as caregivers for the elderly. This is early-stage and faces significant barriers, but the ambition and investment are not hypothetical.</p>
+
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>Partial replacement, not full. AI and robotics will allow China to maintain industrial competitiveness and economic output with a declining manufacturing workforce. They will not solve the deeper consumption, care, and social contract challenges of an aging society. China is making the largest bet in human history on automation as demographic offset, and the outcome will have global economic consequences regardless of whether the bet pays off fully.</p>
+        </div>
+      </div>
+
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Key Data Points</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item">
+                <span class="stat-num">–17%</span>
+                <span class="stat-label">Drop in China's birth numbers in 2025, reaching a new record low</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">23%</span>
+                <span class="stat-label">Share of China's population aged 60+, projected to exceed 50% by 2100</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">50%</span>
+                <span class="stat-label">Share of all globally installed industrial robots deployed in China (2024)</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">470</span>
+                <span class="stat-label">Industrial robots per 10,000 manufacturing workers in China vs. global average of 162</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The actual productivity ceiling for industrial robots in complex assembly contexts. Whether humanoid robots can bridge the physical and relational demands of elder care. The long-term macro-economic effect of simultaneous demographic decline and automation acceleration on domestic consumption and social stability.
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body">
+            <a href="https://www.weforum.org/stories/2025/04/the-future-of-jobs-in-china" target="_blank">WEF Future of Jobs Report 2025</a> · <a href="https://www.cnn.com/2026/02/13/china/china-population-robots-intl-hnk-dst" target="_blank">CNN (Feb 2026)</a> · <a href="https://link.springer.com/journal/148" target="_blank">Journal of Population Economics</a> (Feb 2026) · <a href="https://www.rand.org/topics/artificial-intelligence.html" target="_blank">RAND Corporation</a> 2025 pronatalist policy analysis · SCMP (Mar 2026)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- ═══════════════════════════════════════════════════
+       Q3, SOVEREIGN AI
+  ══════════════════════════════════════════════════════ -->
+  <div class="qa-card" id="q3">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 03</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested</span>
+    </div>
+    <div class="qa-question">To what extent should the US government invest in "Sovereign AI" infrastructure, state-owned compute and datasets, versus relying entirely on private entities like Microsoft, Google, or OpenAI?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>This is one of the most consequential policy debates in technology governance today, and serious people hold diametrically opposing views. We will present the strongest version of both arguments.</p>
+
+        <p><strong>The case for Sovereign AI investment:</strong> Entire categories of government function, national defense, intelligence, judiciary, healthcare, census, and financial regulation, generate data that is simultaneously the richest possible fuel for AI training and the most sensitive in existence. Routing that data through infrastructure owned by three commercial corporations creates structural dependencies and exposure that no serious national security posture should accept. Additionally, commercial AI companies have shareholders, revenue incentives, and legal vulnerabilities that may not align with national interest at moments of crisis. A pharmaceutical company example: if the federal government's entire drug approval infrastructure runs on OpenAI's <span class="ac" data-tip="API: Application Programming Interface, a standardized way for software systems to communicate. AI companies offer APIs that allow external applications to access their models for a per-use fee.">API</span>, and OpenAI faces a bankruptcy, a regulatory shutdown, or a foreign acquisition, the FDA's ability to function becomes a third-party risk. The European Union has already concluded this argument: the EU AI Continent Action Plan explicitly champions building European AI infrastructure independent of US corporate control. France, the UAE, Saudi Arabia, and Singapore have all committed state capital to sovereign AI infrastructure for precisely this reason.</p>
+
+        <p><strong>The case against heavy Sovereign AI investment (in the US context):</strong> The US government has a documented track record of massive technology procurement failures. The <span class="ac" data-tip="Healthcare.gov: The US federal health insurance marketplace website, which failed catastrophically at launch in 2013 due to poor government technology procurement and management.">Healthcare.gov</span> launch was not an anomaly, it was a pattern. State-owned compute becomes subject to political cycles, procurement rules, congressional budget fights, and the inherent conservatism of government contracting. The private sector out-innovated government in every prior technology wave, and AI is moving too fast for institutional procurement timelines to keep pace. A government-run AI lab in 2023 would be deploying what OpenAI shipped in 2021.</p>
+
+        <p><strong>The emerging US middle path:</strong> The <span class="ac" data-tip="NAIRR: National AI Research Resource, a US federal initiative to provide academic researchers and others with access to compute, data, and AI tools, partially funded through the National Science Foundation.">NAIRR</span> (National AI Research Resource) represents the current US approach: public funding to provide compute access to academic and non-commercial researchers, without building a state-owned model. This preserves private sector dynamism while reducing the concentration of AI access among a handful of well-capitalized companies. The debate is whether this half-measure is adequate given the stakes, or whether it is the pragmatically correct calibration for US institutional context.</p>
+
+        <p><strong>The specific question of defense and intelligence:</strong> The Pentagon and intelligence community have no realistic option of full private-sector dependence. The classified nature of their operations, the security requirements, and the sensitivity of the underlying data mean some form of sovereign compute is not optional, it is already happening through classified infrastructure. The real debate is about civilian government functions and the extent of NAIRR-type investment for broader public benefit.</p>
+
+        <div class="callout purple">
+          <div class="callout-label">Our Position: The Honest Disagreement</div>
+          <p>Both sides of this debate have merit that we will not paper over. The question hinges on your assessment of two uncertain variables: (1) how fast AI develops and how consequential the next 5 years of capability gains are, and (2) how much you trust either government procurement processes or commercial corporate governance to act in the public interest under pressure. Reasonable people holding different assessments of those two variables will reach different conclusions, and both can cite real evidence for their priors.</p>
+        </div>
+      </div>
+
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-contested">The Competing Frameworks</div>
+          <div class="sb-body">
+            <strong>Chatham House (Feb 2026)</strong> identifies four middle-power strategies: specializing in one AI supply chain segment · aligning with a superpower · sharing sovereignty via regional blocs · hedging across multiple providers<br><br>
+            <strong>WEF (Jan 2026)</strong> taxonomy: "Ecosystem Builders" (UAE, Singapore) vs. "Selective Players" (France, Germany) vs. full sovereigns (China)
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Comparable International Commitments</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item">
+                <span class="stat-num">€109B</span>
+                <span class="stat-label">France's announced AI investment (Paris AI Action Summit, Feb 2026)</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">$500B</span>
+                <span class="stat-label">US Stargate private AI infrastructure commitment (2025)</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-num">$40B</span>
+                <span class="stat-label">Saudi Arabia sovereign AI fund earmarked for compute, data centers, AI companies</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether AI capability concentration in 3–5 private companies constitutes a systemic risk serious enough to require state intervention. How the liability and accountability frameworks for consequential government AI decisions would function in a purely private-cloud model. Whether NAIRR at current funding levels meaningfully changes the access distribution.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- ═══════════════════════════════════════════════════
+       Q4, MIDDLE POWERS
+  ══════════════════════════════════════════════════════ -->
+  <div class="qa-card" id="q4">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 04</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Detailed</span>
+    </div>
+    <div class="qa-question">How are countries like the UAE, France, and Singapore positioning themselves to be "AI hubs" that can operate independently of the US-China duopoly?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Each of these three countries has chosen a fundamentally different strategy, and all three are succeeding by their own definitions of success. The context matters: the US and China combined account for over 60% of global private AI investment and dominate frontier model development. The question for every other nation is which game to play and how to avoid dependence on either superpower's terms.</p>
+
+        <p><strong>The UAE, Infrastructure Supremacy:</strong> The <span class="ac" data-tip="UAE: United Arab Emirates, a federation of seven emirates, including Abu Dhabi and Dubai, that appointed the world's first Minister of State for AI in 2017.">UAE</span> strategy is the most capital-intensive and most straightforwardly legible: become the world's most capable AI infrastructure hub and let both superpowers need you. The UAE appointed the world's first Minister of State for Artificial Intelligence in 2017, five years before ChatGPT captured global attention. By end of 2025, 64% of UAE working-age adults were using AI tools, the highest adoption rate on Earth, more than three percentage points ahead of second-place Singapore and more than twice the US rate of 28.3%. The Abu Dhabi G42/Stargate campus will reach 5 gigawatts of data center capacity when complete, one of the largest AI compute concentrations anywhere. The sovereign MGX fund has committed $100 billion toward global AI chip and infrastructure investments. The UAE has partnered with OpenAI, NVIDIA, Oracle, and Microsoft while explicitly maintaining relationships with Chinese technology companies, a deliberate neutrality strategy that the Chatham House analysis (February 2026) describes as the "Switzerland of AI."</p>
+
+        <p><strong>Singapore, Regulatory Leadership and Talent Hub:</strong> Singapore's strategy is precision over scale. With 78% enterprise AI adoption (third globally), Singapore leads in government AI readiness and serves as the regional headquarters for AI companies seeking access to Southeast Asian markets. Singapore's National AI Strategy 2.0 commits to AI infrastructure, talent development, and one of the most developed ethical AI frameworks in Asia. Uniquely, Singapore is building for linguistic sovereignty: the SEA-LION project (Southeast Asian Languages in One Network) develops multilingual AI models that reflect the cultural and linguistic diversity of the region rather than defaulting to English-dominant Western <span class="ac" data-tip="LLM: Large Language Model, a neural network trained on massive text data to understand and generate human language.">LLM</span>s. In 2025, 4.69% of Singapore's job postings required AI skills, above the US (2.6%) and UK (1.9%). Singapore consistently outperforms what its GDP per capita would predict, demonstrating that deliberate governance and early investment matter more than raw economic scale.</p>
+
+        <p><strong>France, Regulatory Power and Open-Source Champions:</strong> France's approach is to win the standard-setting game rather than the infrastructure game. French President Macron's announcement of €109 billion in AI investment at the February 2026 Paris AI Summit established France as the leading European nation in AI ambition. France is home to <a href="https://mistral.ai" target="_blank">Mistral AI</a>, the most prominent European-headquartered open-weight model company, releasing frontier-adjacent models under Apache 2.0 that provide a non-US, non-Chinese alternative for enterprises. France is also the most influential architect of the <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a>, the world's most comprehensive AI regulatory framework, positioning European regulatory standards as a global template in the same way <span class="ac" data-tip="GDPR: General Data Protection Regulation, the EU's landmark data privacy law (2018) that became the de facto global standard, with companies worldwide adopting its principles.">GDPR</span> became the de facto global privacy standard. The WEF classifies France as a "Selective Player", focused on R&D and education, relying on international cooperation for hardware, but building asymmetric influence through regulatory and research leadership.</p>
+
+        <table class="dt">
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th>Primary Strategy</th>
+              <th>Key Metric</th>
+              <th>Independence Model</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>UAE</strong></td>
+              <td>Infrastructure superpower; strategic neutrality</td>
+              <td class="win">64% working-age AI adoption (global #1)</td>
+              <td>Infrastructure leverage, both powers need UAE compute</td>
+            </tr>
+            <tr>
+              <td><strong>Singapore</strong></td>
+              <td>Governance excellence; linguistic sovereignty; talent density</td>
+              <td class="win">78% enterprise AI adoption; #1 govt AI readiness</td>
+              <td>Southeast Asian bridge, neither dependent nor excludable</td>
+            </tr>
+            <tr>
+              <td><strong>France</strong></td>
+              <td>Regulatory standard-setting; open-source champion</td>
+              <td class="win">€109B investment; Mistral AI; <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> architecture</td>
+              <td>Standards influence, shaping the rules others must follow</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout green">
+          <div class="callout-label">Our Observation, The Pattern Worth Noting</div>
+          <p>All three of these countries made AI a national priority before it became a global emergency. The UAE acted in 2017. Singapore acted throughout the 2010s. France invested years of diplomatic capital in the <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a>. The nations succeeding as middle powers in AI are not reacting to the current moment, they anticipated it. For any nation, organization, or institution asking this question in 2026, the lesson is that the time to position was already three years ago. The second-best time is now.</p>
+        </div>
+      </div>
+
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">UAE at a Glance</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">2017</span><span class="stat-label">World's first Minister of State for Artificial Intelligence appointed</span></div>
+              <div class="stat-item"><span class="stat-num">5 GW</span><span class="stat-label">G42/Stargate AI campus total capacity (Abu Dhabi)</span></div>
+              <div class="stat-item"><span class="stat-num">$100B</span><span class="stat-label">MGX sovereign AI investment fund target</span></div>
+              <div class="stat-item"><span class="stat-num">67%</span><span class="stat-label">UAE public AI trust score vs. 32% in the US (<a href="https://www.edelman.com/trust/2025/trust-barometer" target="_blank">Edelman Trust Barometer 2025</a>)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body">
+            <a href="https://www.chathamhouse.org/2026/02/how-middle-powers-can-weather-us-and-chinese-ai-dominance" target="_blank">Chatham House: "How Middle Powers Can Weather AI Dominance" (Feb 2026)</a> · <a href="https://www.microsoft.com/en-us/corporate-responsibility/topics/ai-economy-institute/reports/global-ai-adoption-2025/" target="_blank">Microsoft AI Economy Institute (Jan 2026)</a> · <a href="https://www.weforum.org/stories/2026/01/five-pathways-shaping-national-ai-investment-strategies/" target="_blank">WEF: Five Pathways (Jan 2026)</a> · <a href="https://aiindex.stanford.edu/report/" target="_blank">Stanford AI Index 2026</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- ═══════════════════════════════════════════════════
+       Q5, ADVERSARIAL AI / INFLUENCE OPERATIONS
+  ══════════════════════════════════════════════════════ -->
+  <div class="qa-card" id="q5">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 05</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Active Threat</span>
+    </div>
+    <div class="qa-question">What are the national security risks of adversarial AI systems specifically designed to manipulate public opinion at scale within the United States?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>This is not a theoretical future risk. It is an active, documented, present-tense national security threat, acknowledged by the US Intelligence Community's annual threat assessment and demonstrably operational by foreign actors including Russia, China, and Iran.</p>
+
+        <p><strong>What AI changes about influence operations:</strong> Foreign influence operations existed before AI. What AI changes is the cost structure, the scale, the personalization, and the deniability. Before <span class="ac" data-tip="GenAI: Generative AI, AI models that produce new content (text, images, audio, video) rather than classifying or predicting from existing data.">GenAI</span>, a professional disinformation campaign required human writers, graphic designers, translators, and distribution networks, all trackable and attributable. Now, a single actor with access to any frontier <span class="ac" data-tip="LLM: Large Language Model, neural network trained on massive text data to understand and generate human language.">LLM</span> (including open-weight models) can generate thousands of linguistically authentic, culturally calibrated articles, social media posts, comment threads, and synthetic media artifacts per hour, in any regional dialect, targeted to specific demographic psychographic profiles, for a marginal cost approaching zero.</p>
+
+        <p><strong>The specific mechanisms:</strong> (1) <em>Narrative amplification at scale</em>, AI can identify existing social fault lines (political, racial, religious, geographic) and generate content that pours accelerant on them without creating the narrative from scratch, making the operation harder to attribute. (2) <em>Synthetic persona networks</em>, AI-generated social media accounts with coherent posting histories, authentic-looking profile images, and plausible engagement patterns that can seed and amplify coordinated narratives. (3) <em>Micro-targeted civic disruption</em>, content calibrated not just by political affiliation but by zip code, local grievances, economic anxiety, and community identity, the granularity that makes content feel locally relevant rather than foreign. (4) <em>Deepfake attack on institutional trust</em>, not just impersonating politicians but discrediting genuine evidence by making verification itself feel unreliable.</p>
+
+        <p><strong>What is documented and verified:</strong> The US Intelligence Community's annual threat assessment (2025) specifically cites AI-amplified foreign influence operations as a top-tier threat. The <span class="ac" data-tip="WEF: World Economic Forum, the international NGO that hosts the annual Davos summit and publishes influential global risk and technology reports.">WEF</span> ranked AI-powered disinformation as the largest short-term threat to civil society for two consecutive years (2024, 2025). OpenAI and Meta have each published reports documenting their disruption of specific AI-assisted influence operation networks linked to foreign state actors. A 2025 <a href="https://cyber.fsi.stanford.edu/io" target="_blank">Stanford Internet Observatory</a> report found AI-generated political content appearing in US local news outlets through content mills without disclosure.</p>
+
+        <p><strong>The "liar's dividend", the secondary threat:</strong> Beyond false content itself, the awareness that deepfakes exist provides a powerful defensive shield for genuine wrongdoing. A politician captured on video can now plausibly claim the footage is AI-generated. An institution releasing authentic evidence must now spend resources proving its authenticity before the evidence even lands. This epistemic corrosion, the degradation of shared confidence in evidence itself, may be more strategically valuable to adversaries than any specific piece of false content.</p>
+
+        <p><strong>What the US government is doing:</strong> The National Security Agency has dedicated resources to AI-generated content detection. The <span class="ac" data-tip="CISA: Cybersecurity and Infrastructure Security Agency, the federal agency responsible for protecting US critical infrastructure from cyber threats.">CISA</span> has published guidance on synthetic media threats to election infrastructure. The <span class="ac" data-tip="C2PA: Coalition for Content Provenance and Authenticity, an open technical standard that embeds cryptographic metadata into media files at the point of creation to verify origin.">C2PA</span> provenance standard is gaining adoption. The TAKE IT DOWN Act (2025) addresses non-consensual intimate deepfakes but not political or civic disinformation. A comprehensive federal framework specifically addressing AI-generated political influence content does not yet exist.</p>
+
+        <div class="callout red">
+          <div class="callout-label">Assessment, The Structural Gap</div>
+          <p>The threat has outpaced the institutional response. Detection technology is advancing but lags generation capability by 12–18 months. The legal framework is fragmented and primarily reactive. The media literacy infrastructure, the public's ability to recognize and resist manipulation, is underfunded and reaches the highest-risk populations last. The adversary's cost to operate is near zero. The defender's cost to detect, attribute, and respond is high. This asymmetry is not a temporary condition, it is the structural nature of the information environment AI has created.</p>
+        </div>
+      </div>
+
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Documented Operations</div>
+          <div class="sb-body">
+            <strong>OpenAI (2025):</strong> Published report on disruption of five state-linked influence operation networks using their models, including actors linked to Russia, China, Iran, and Israel.<br><br>
+            <strong>Meta (2025):</strong> Removed coordinated inauthentic behavior networks using AI-generated profile photos and content, active across US political topics.<br><br>
+            <strong><a href="https://cyber.fsi.stanford.edu/io" target="_blank">Stanford Internet Observatory</a>:</strong> Found AI-generated content appearing in US local news outlets via undisclosed content mill pipelines.
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The full extent of operations that have not been detected or disclosed. Whether existing influence operations have materially changed electoral outcomes in the US, the Brennan Center noted the worst-case AI election scenarios "did not come to pass" in 2024, but absence of proven effect is not absence of effect. The long-term cognitive impact of sustained exposure to AI-generated information environments.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- ═══════════════════════════════════════════════════
+       Q6, FUTURE OF WARFARE
+  ══════════════════════════════════════════════════════ -->
+  <div class="qa-card" id="q6">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 06</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis</span>
+    </div>
+    <div class="qa-question">Will future wars be decided more by AI systems fighting each other digitally than by physical military force?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>AI is already reshaping warfare in measurable ways. Whether it ultimately displaces physical force as the primary decisive domain is more contested, and depends heavily on what kind of conflict and what timeframe we are discussing.</p>
+
+        <p><strong>What is already documented:</strong> The Russia-Ukraine conflict has been widely described as the "first AI-integrated war." Drone targeting, electronic warfare, battlefield situational awareness, logistics optimization, and satellite image analysis have all been AI-augmented in active combat. Ukraine's use of AI-assisted drone guidance enabled targeting capabilities that substantially offset conventional military disadvantages. The US <span class="ac" data-tip="DARPA: Defense Advanced Research Projects Agency, the US military's research arm, responsible for developing emerging technologies for national security.">DARPA</span> has active AI programs for autonomous vehicle swarms, electronic warfare, and cyber operations. China has published military doctrine explicitly describing AI as a force-multiplier for "intelligentized warfare." AI-assisted cyber operations targeting critical infrastructure, power grids, water systems, financial networks, are already occurring at a level below the armed conflict threshold.</p>
+
+        <p><strong>The domains where digital AI warfare is most decisive near-term:</strong> (1) <em>Cyber operations</em>, AI dramatically accelerates offensive and defensive cyber capabilities; vulnerability discovery, social engineering at scale, and infrastructure attack vectors. (2) <em>Electronic warfare</em>, AI-enabled spectrum management, jamming, and anti-jamming. (3) <em>Intelligence and targeting</em>, AI's ability to process satellite imagery, signals intelligence, and open-source data at speeds no human analyst can match changes decision timelines fundamentally. (4) <em>Autonomous weapon systems</em>, drone swarms, autonomous naval vessels, and potentially air combat systems that can respond in milliseconds.</p>
+
+        <p><strong>Where physical force retains primacy:</strong> Control of territory, civilian population compliance, resource access, and political legitimacy cannot be achieved through purely digital means. No amount of AI-enabled cyber operations will cause an adversary's population to accept occupation without physical military presence. The current geopolitical landscape, including Ukraine, Gaza, the South China Sea, demonstrates that physical military force, geography, and civilian endurance remain decisive in most real-world conflicts. AI accelerates and augments military capability; it does not currently substitute for the human and physical dimensions of conflict.</p>
+
+        <p><strong>The most important emerging risk, speed and accountability:</strong> AI compresses decision-to-action timelines in ways that create new catastrophic risks. A cyber attack on infrastructure that triggers automated defensive responses that trigger further automated escalation could produce conflict outcomes that unfold faster than any human decision cycle. The book <em>AI and the Bomb</em> (reviewed in Arms Control Association, 2025) opens with a fictional account of a "flash war" between the US and China over less than two hours, after which "no one on either side can explain exactly what happened." This is not science fiction; it is an extrapolation of documented system interaction behaviors.</p>
+
+        <div class="callout navy">
+          <div class="callout-label">Assessment, The More Precise Answer</div>
+          <p>Future wars will be increasingly decided by the quality of AI-enabled intelligence, targeting, electronic warfare, and cyber operations, but physical military force, geography, and human endurance will remain co-determinants of outcomes for the foreseeable future. The more important question is not "digital versus physical" but "how do we prevent AI-enabled speed from collapsing the decision space humans need to avoid catastrophic escalation?" That question does not yet have a satisfactory institutional answer.</p>
+        </div>
+      </div>
+
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">Current AI-Warfare Integration</div>
+          <div class="sb-body">
+            <strong>Ukraine-Russia:</strong> AI-assisted drone targeting, satellite image analysis, electronic warfare<br><br>
+            <strong>US Strategic Command:</strong> Integrating AI into nuclear C2 architecture "to accelerate human decision-making" (General Cotton, Senate testimony 2025)<br><br>
+            <strong>China PLA Doctrine:</strong> "Intelligentized warfare", AI as primary force multiplier in published military strategy
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The actual performance of AI-enabled weapon systems under contested, degraded network conditions (the conditions that prevail in actual conflict). Whether autonomous weapon systems will reach sufficient reliability to operate without meaningful human authorization. The international governance framework for AI in warfare, which currently does not exist at binding treaty level.
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body">
+            <a href="https://www.armscontrol.org/act/2023-12/book-reviews/ai-and-bomb-nuclear-strategy-and-risk-digital-age" target="_blank">Arms Control Association, AI and the Bomb review</a> · <a href="https://www.armed-services.senate.gov/hearings" target="_blank">US Strategic Command testimony,Senate Armed Services Committee</a> (2025) · <a href="https://www.darpa.mil/about-us/ai-next-campaign" target="_blank">DARPA AI research portfolio</a> · Carnegie Corporation nuclear technology risk research (Oct 2025)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- ═══════════════════════════════════════════════════
+       Q7, GLOBAL SOUTH / DIGITAL COLONIALISM
+  ══════════════════════════════════════════════════════ -->
+  <div class="qa-card" id="q7">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 07</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested</span>
+    </div>
+    <div class="qa-question">The Global South is largely absent from AI governance conversations yet faces the most acute exposure to AI-driven job displacement and the least access to AI-driven opportunity. Is the current AI governance architecture a form of digital colonialism, and what would a genuinely global AI compact look like?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The factual asymmetry is real and documented. Whether it constitutes "digital colonialism" depends on whether one attributes the disparity to intent or to structural economic dynamics, and reasonable people in good faith reach different conclusions.</p>
+
+        <p><strong>The documented asymmetry:</strong> Over 70% of global AI compute is controlled by US and European companies. The three major AI governance summits since 2023, Bletchley Park (UK, November 2023), Seoul (May 2024), Paris (February 2026), have all been hosted by wealthy nations with comparatively minor participation from African, South Asian, and Latin American governments. Most frontier <span class="ac" data-tip="LLM: Large Language Model, a neural network trained on massive text datasets to understand and generate human language.">LLM</span>s are trained primarily on English-language data. Manufacturing-dependent developing economies, Vietnam, Bangladesh, Ethiopia, Cambodia, face AI-driven automation of the exact export manufacturing sectors that have historically been the ladder from subsistence to middle income. The ladder is being pulled up precisely as they reach for it.</p>
+
+        <p><strong>The counterarguments are substantive:</strong> Open-weight models are actively closing the access gap. Alibaba's Qwen family has reached developing nations at scale precisely because it is free and computationally efficient, <span class="ac" data-tip="DeepSeek: A Chinese AI lab that released DeepSeek R1 in January 2025, matching frontier US model performance at approximately $6M training cost vs. $100M+ for comparable US models. MIT license, fully open.">DeepSeek</span>'s ascent across Africa reflects a genuine expansion of accessible AI capability to communities with historically limited access. India hosted the 2026 AI Impact Summit, and the EU endorsed its leaders' declaration, a sign that governance forums are diversifying, even if slowly. The Microsoft AI Economy Institute (January 2026) notes that "the next wave of users may come from communities that have historically had limited access to technological progress." AI adoption has reached 53% of the global population within three years, faster than the internet or personal computer, and with broader geographic spread than either technology's early adoption phase.</p>
+
+        <p><strong>The "colonialism" framing, where it lands and where it overshoots:</strong> The strongest version of the digital colonialism argument holds that AI systems trained on Western data embed Western epistemologies, value hierarchies, and conceptual frameworks as apparent universals, that a medical AI trained on American clinical data may perform poorly for presentations common in Sub-Saharan Africa; that a legal AI trained on US common law provides no utility and potentially misleading guidance in civil law jurisdictions; that an agricultural AI optimized for Iowa farmland may recommend practices actively harmful in West African soil conditions. This is not theoretical, it is a documented problem in deployed AI systems. The weaker version of the argument, that any advantage enjoyed by wealthy nations constitutes exploitation, is less persuasive and muddies a real and important critique.</p>
+
+        <p><strong>What a genuinely global AI compact would require:</strong> Data sovereignty provisions allowing nations to maintain control over data generated by their citizens. Mandatory training data diversification requirements for models claiming global deployment. Compute access programs for academic and government researchers in low-income nations, analogous to how CERN was structured as global scientific infrastructure. Binding Global South representation in AI governance forums with actual voting power, not observer status. Technology transfer provisions. None of these exist at binding international treaty level.</p>
+
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>The asymmetry is real; the "colonialism" framing captures something important about systemic disadvantage while potentially obscuring the absence of coordinated intent. What is not disputed: the current trajectory of AI development concentrates its benefits in nations that already have economic advantages and distributes its costs to those with the least resilience to absorb them. That is a policy problem regardless of what one calls it, and it has no serious institutional response at the global level in April 2026.</p>
+        </div>
+      </div>
+
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Access Gap</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">&gt;70%</span><span class="stat-label">Share of global AI compute controlled by US and European companies</span></div>
+              <div class="stat-item"><span class="stat-num">3</span><span class="stat-label">Major AI governance summits hosted by wealthy nations since 2023 (UK, South Korea, France)</span></div>
+              <div class="stat-item"><span class="stat-num">942M</span><span class="stat-label">Downloads of Alibaba Qwen, predominantly from Asia and Africa, demonstrating open-source democratization is real</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">How quickly open-weight model quality will match frontier models for languages and contexts outside English-dominant training sets. Whether manufacturing displacement of developing economies will be offset by AI-driven new economic opportunities in those same countries. The political feasibility of meaningful Global South representation in AI governance institutions given current geopolitical dynamics.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- ═══════════════════════════════════════════════════
+       Q8, NUCLEAR DETERRENCE
+  ══════════════════════════════════════════════════════ -->
+  <div class="qa-card" id="q8">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 08</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, High Consequence</span>
+    </div>
+    <div class="qa-question">Nuclear deterrence logic depends on rational actors with predictable decision trees. If AI systems are integrated into nuclear command-and-control infrastructure, does that introduce failure modes, speed, opacity, misattribution of attack origin, that could undermine deterrence stability in ways we haven't fully modeled?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes. This is not speculation, it is the documented consensus of nuclear security researchers, and AI integration into nuclear systems is already underway. The honest answer is that we are proceeding faster than we understand.</p>
+
+        <p><strong>What is already happening:</strong> US Strategic Command is actively integrating AI into the nuclear command and control (<span class="ac" data-tip="NC3: Nuclear Command and Control and Communications, the systems and protocols through which nuclear-armed states manage, authorize, and execute nuclear decisions.">NC3</span>) architecture. General Anthony Cotton, testifying before the <a href="https://www.armed-services.senate.gov/hearings" target="_blank">Senate Armed Services Committee</a> in 2025, confirmed the command is incorporating AI "to accelerate human decision-making." This is not a future plan, it is the current state. China's military doctrine explicitly discusses AI integration in nuclear-relevant systems. Russia has been developing AI-enabled early warning systems. The 2026 NPT Review Conference is expected to address this directly, marking the first time the core nuclear non-proliferation treaty forum will formally discuss AI in nuclear systems.</p>
+
+        <p><strong>The three documented risk vectors (SIPRI, March 2025):</strong> (1) <em>NC3 vulnerabilities</em>, AI systems capable of breaking encryption or, more likely, of generating false signals that mimic nuclear threat indicators, creating the risk that automated early-warning systems generate alerts for attacks that aren't happening. The Petrov incident (1983), in which a Soviet officer's individual judgment prevented retaliation to a false missile alarm, illustrates the stakes: AI removes Petrov from the loop. (2) <em>Compressed decision timelines</em>, "deterrence requires deliberation, but AI incentivizes rapid reaction" (Arms Control Association, December 2025). The logic of AI integration is to accelerate response; but any compression of decision time reduces the space for de-escalation, misunderstanding correction, and the kind of communication that prevented nuclear conflict during the Cold War. (3) <em>Inflated strategic advantage perceptions</em>, AI surveillance and analysis capabilities may lead decision-makers to believe they have a decisive first-strike advantage that justifies riskier postures, destabilizing the mutual assured deterrence equilibrium.</p>
+
+        <p><strong>The Transparency Paradox:</strong> Verifying that an adversary's nuclear AI systems behave safely under stress requires visibility into those systems. Revealing that visibility undermines operational security and the deterrence the systems exist to protect. This is not a solvable dilemma within current international governance frameworks, it is a structural contradiction between the requirements of arms control verification and the requirements of nuclear security.</p>
+
+        <p><strong>The "flash war" scenario:</strong> AI critic James Johnson's book <em>AI and the Bomb</em> opens with a modeled scenario of a US-China "flash war" unfolding in under two hours in June 2025, in which nuclear weapons are used and "afterward, no one on either side can explain exactly what happened." The Arms Control Association review notes this illustrates how AI and adjacent technologies "may combine in unforeseen ways to render nuclear escalation incomprehensible to the humans in (or on) the loop." Johnson concludes that "rationality-based deterrence logic appears an increasingly untenable proposition" in an AI-integrated nuclear environment.</p>
+
+        <p><strong>What is being done:</strong> The UN passed its first resolution on AI in nuclear command and control in December 2025. The US, UK, and France committed in 2022 to "maintain human control and involvement" in nuclear decisions. SIPRI recommends maintaining "air-gaps" between launch commands and early warning systems, using AI only as decision-support rather than decision-making authority, and prohibiting autonomous weapons for nuclear delivery. These commitments are not legally binding, not universally adopted, and not independently verifiable.</p>
+
+        <div class="callout red">
+          <div class="callout-label">Assessment, The Uncomfortable Conclusion</div>
+          <p>The integration of AI into nuclear systems is already underway, driven by the logic that each side must keep pace with the other's integration to avoid disadvantage, a classic arms race dynamic applied to the most consequential domain in human civilization. The governance frameworks that might regulate this integration are embryonic, unverified, and not universally adopted. The failure modes being introduced are real, documented, and not fully modeled. This is, in our assessment, the highest-stakes underaddressed risk in the intersection of AI and national security, and it is receiving a fraction of the public and regulatory attention directed at less consequential AI risks.</p>
+        </div>
+      </div>
+
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">The Petrov Precedent</div>
+          <div class="sb-body">
+            In 1983, Soviet Lieutenant Colonel Stanislav Petrov received satellite data indicating five US nuclear missiles were inbound. Protocols required him to report an attack and initiate retaliation. He judged it a false alarm and did not report it. He was correct, it was a sensor malfunction. <strong>AI integration removes this human judgment from the loop by design.</strong> The "accelerated decision-making" that General Cotton described to the Senate is, from one angle, the removal of the capacity for a Petrov to intervene.
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Governance Status (April 2026)</div>
+          <div class="sb-body">
+            <strong>UN Resolution:</strong> First resolution on AI in nuclear C2, passed Dec 2025; non-binding<br><br>
+            <strong>US/UK/France pledge:</strong> "Maintain human control" in nuclear decisions, 2022; not verified<br><br>
+            <strong>Binding international treaty:</strong> None. NPT Review Conference 2026 expected to address<br><br>
+            <strong>US STRATCOM:</strong> AI already integrated into NC3 as of 2025
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body">
+            <a href="https://www.carnegie.org/our-work/article/how-are-modern-technologies-affecting-nuclear-risks/" target="_blank">Carnegie Corporation Nuclear Risk Q&amp;A (Oct 2025)</a> · <a href="https://www.armscontrol.org/act/2025-12/features/solving-ai-induced-transparency-paradox-nuclear-command-and-control" target="_blank">Arms Control Association, Transparency Paradox (Dec 2025)</a> · <a href="https://www.sipri.org/publications" target="_blank">SIPRI Insights</a> 2025/03 · <a href="https://www.apln.network/analysis/policy-briefs/how-artificial-intelligence-impacts-deterrence-stability-a-realistic-assessment" target="_blank">APLN Policy Brief (Jan 2026)</a> · <a href="https://thebulletin.org/" target="_blank">Bulletin of the Atomic Scientists</a> (Dec 2025)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<nav class="page-nav page-nav-btm" aria-label="Page navigation bottom">
+  <div class="page-nav-inner">
+    <a href="#q1">Q1 US Race</a>
+    <a href="#q2">Q2 China Robots</a>
+    <a href="#q3">Q3 Sovereign AI</a>
+    <a href="#q4">Q4 Middle Powers</a>
+    <a href="#q5">Q5 Influence Ops</a>
+    <a href="#q6">Q6 Future War</a>
+    <a href="#q7">Q7 Global South</a>
+    <a href="#q8">Q8 Nuclear Risk</a>
+    <a href="/glossary/">Glossary →</a>
+  </div>
+</nav>
+
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <strong>Q&amp;A Series, Batch 3: Geopolitics &amp; National Security · April 2026</strong><br>
+  Primary Sources: <a href="https://aiindex.stanford.edu/report/" target="_blank">Stanford HAI AI Index 2026</a> · Foreign Affairs (Feb 2026) · <a href="https://time.com/" target="_blank">TIME Magazine</a> (Jan–Mar 2026) · Digital in Asia (Apr 2026) · <a href="https://www.politifact.com/" target="_blank">Poynter/PolitiFact</a> (Feb 2026) · <a href="https://www.morganstanley.com/insights/articles/ai-trends-reasoning-frontier-models-2025-tmt" target="_blank">Morgan Stanley Global AI Race</a> Report · WEF Future of Jobs Report 2025 · <a href="https://www.cnn.com/" target="_blank">CNN China Demographics</a> (Feb 2026) · <a href="https://link.springer.com/journal/148" target="_blank">Journal of Population Economics</a> (Feb 2026) · <a href="https://www.rand.org/topics/artificial-intelligence.html" target="_blank">RAND Corporation</a> 2025 · SCMP (Mar 2026) · Chatham House "Middle Powers" (Feb 2026) · Microsoft AI Economy Institute (Jan 2026) · WEF Five Pathways (Jan 2026) · Carnegie Corporation Nuclear Risk (Oct 2025) · Arms Control Association (Dec 2025) · <a href="https://www.sipri.org/publications" target="_blank">SIPRI 2025/03</a> · APLN Policy Brief (Jan 2026) · <a href="https://thebulletin.org/" target="_blank">Bulletin of the Atomic Scientists</a> (Dec 2025) · <a href="https://press.un.org/en/2025/ga12676.doc.htm" target="_blank">UN First Resolution on AI in Nuclear</a> C2 (Dec 2025) · <a href="https://cyber.fsi.stanford.edu/io" target="_blank">Stanford Internet Observatory</a> · <a href="https://openai.com/global-affairs/disrupting-deceptive-uses-of-AI-by-covert-influence-operations/" target="_blank">OpenAI Influence Operations</a> Report 2025
+</footer>
+
+<script>
+// Acronym tooltip registry
+const ACRONYMS = {
+  'LLM':    'Large Language Model, a neural network trained on massive text data to understand and generate human language. Examples: GPT, Claude, Gemini, Llama.',
+  'LLMs':   'Large Language Models, neural networks trained on massive text data to understand and generate human language.',
+  'GenAI':  'Generative AI, AI models that produce new content (text, images, audio, video) rather than classifying or predicting from existing data.',
+  'API':    'Application Programming Interface, a standardized way for software systems to communicate. AI companies offer APIs for per-use access to their models.',
+  'GPU':    'Graphics Processing Unit, originally designed for gaming, GPUs excel at the parallel matrix multiplications that deep learning requires, making them the primary AI training hardware.',
+  'GPUs':   'Graphics Processing Units, the primary hardware chips used to train and run AI models at scale.',
+  'NAIRR':  'National AI Research Resource, a US federal initiative to provide academic and non-commercial researchers with access to compute, data, and AI tools.',
+  'TSMC':   'Taiwan Semiconductor Manufacturing Company, produces over 90% of the world\'s most advanced chips, which are required for AI training systems.',
+  'CISA':   'Cybersecurity and Infrastructure Security Agency, the US federal agency responsible for protecting critical infrastructure from cyber threats.',
+  'C2PA':   'Coalition for Content Provenance and Authenticity, an open standard embedding cryptographic metadata into media files at creation to verify origin.',
+  'NC3':    'Nuclear Command, Control and Communications, the systems and protocols through which nuclear-armed states manage, authorize, and execute nuclear decisions.',
+  'SIPRI':  'Stockholm International Peace Research Institute, a leading independent research institute on conflict, armaments, arms control, and disarmament.',
+  'DARPA':  'Defense Advanced Research Projects Agency, the US military research arm responsible for developing emerging technologies for national security.',
+  'UAE':    'United Arab Emirates, a federation of seven emirates that appointed the world\'s first Minister of State for AI in 2017 and leads global AI adoption rates.',
+  'WEF':    'World Economic Forum, the international NGO hosting the annual Davos summit and publishing global risk and technology reports.',
+  'HAI':    'Human-Centered Artificial Intelligence, Stanford University\'s interdisciplinary AI research institute, which publishes the annual AI Index Report.',
+  'GDPR':   'General Data Protection Regulation, the EU data privacy law (2018) that became the de facto global standard for data rights.',
+  'CAGR':   'Compound Annual Growth Rate, the annualized rate of growth of a value over a specified time period.',
+  'NPT':    'Non-Proliferation Treaty, the international treaty limiting the spread of nuclear weapons, reviewed every five years.',
+  'PLA':    'People\'s Liberation Army, China\'s unified military organization under the Chinese Communist Party.',
+  'RAG':    'Retrieval-Augmented Generation, a technique combining information retrieval with AI generation to ground responses in specific documents.',
+  'MoE':    'Mixture of Experts, a neural network architecture where only a subset of "expert" sub-networks activates for any given input, improving efficiency.',
+  'AGI':    'Artificial General Intelligence, a hypothetical AI that matches or exceeds human cognitive ability across all domains. Not yet achieved as of April 2026.',
+  'RLHF':   'Reinforcement Learning from Human Feedback, a training technique using human preference ratings to shape AI model behavior toward helpful, safe outputs.',
+  'SFT':    'Supervised Fine-Tuning, continued training of a pre-trained foundation model on a smaller, labeled, domain-specific dataset to specialize its behavior.',
+  'CFR':    'Council on Foreign Relations, a US nonpartisan think tank focused on international affairs and foreign policy analysis.',
+  'WTO':    'World Trade Organization, the international organization governing rules of trade between nations.',
+  'NATO':   'North Atlantic Treaty Organization, a military alliance of 31 member countries committed to collective defense.',
+  'GDP':    'Gross Domestic Product, the total monetary value of all goods and services produced in a country in a given period.',
+};
+
+// Apply tooltips to text nodes
+function applyTooltips(root) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => {
+      const p = n.parentElement;
+      if (!p) return NodeFilter.FILTER_REJECT;
+      if (['SCRIPT','STYLE','A','ABBR'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+      if (p.classList.contains('ac')) return NodeFilter.FILTER_REJECT;
+      if (p.closest('.ac')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+
+  const nodes = [];
+  let node;
+  while ((node = walker.nextNode())) nodes.push(node);
+
+  const pattern = new RegExp('\\b(' + Object.keys(ACRONYMS).join('|') + ')\\b', 'g');
+
+  nodes.forEach(textNode => {
+    const text = textNode.textContent;
+    if (!pattern.test(text)) return;
+    pattern.lastIndex = 0;
+
+    const frag = document.createDocumentFragment();
+    let last = 0;
+    let m;
+    while ((m = pattern.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      const span = document.createElement('span');
+      span.className = 'ac';
+      span.setAttribute('data-tip', ACRONYMS[m[0]]);
+      span.setAttribute('tabindex', '0');
+      span.textContent = m[0];
+      frag.appendChild(span);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    textNode.parentNode.replaceChild(frag, textNode);
+  });
+}
+
+// Run after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  // Apply to answer bodies only (not headers or nav)
+  document.querySelectorAll('.qa-answer, .sb-body').forEach(applyTooltips);
+
+  // Mobile tap support
+  document.addEventListener('click', e => {
+    const tip = e.target.closest('.ac');
+    document.querySelectorAll('.ac.tip-open').forEach(el => {
+      if (el !== tip) el.classList.remove('tip-open');
+    });
+    if (tip) {
+      tip.classList.toggle('tip-open');
+      e.stopPropagation();
+    }
+  });
+
+  // Keyboard accessibility
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.ac.tip-open').forEach(el => el.classList.remove('tip-open'));
+    }
+  });
+});
+</script>
+
+<script>
+(function(){
+  const navLinks=document.querySelectorAll('.page-nav-inner a[href^="#q"]');
+  if(!navLinks.length)return;
+  const cards=Array.from(document.querySelectorAll('.qa-card[id]'));
+  if(!cards.length)return;
+  const visible=new Set();
+  function update(){
+    const activeId=cards.find(c=>visible.has(c.id))?.id;
+    navLinks.forEach(link=>{
+      link.classList.toggle('q-active',!!activeId&&link.getAttribute('href')==='#'+activeId);
+    });
+  }
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{e.isIntersecting?visible.add(e.target.id):visible.delete(e.target.id);});
+    update();
+  },{rootMargin:'-130px 0px -40% 0px',threshold:0});
+  cards.forEach(card=>observer.observe(card));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When the Tenant Becomes the Landlord — Case Study</title>
+<meta name="description" content="A graduate strategy case on value-chain inversion in the post-2026 productivity stack.">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+
+<style>
+:root{
+  --serif:'EB Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --ink:#151515;
+  --muted:#5f6368;
+  --rule:#d9d5cb;
+  --paper:#fafaf7;
+  --teal:#2a6f7a;
+  --ochre:#b88a44;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#e8e8e4;color:var(--ink);font-family:var(--serif)}
+
+/* ── Site nav ── */
+#nos-snav{background:#0d1b2a;border-bottom:2px solid #c9922a;position:relative;z-index:300;padding:0 40px}
+#nos-snav-inner{width:min(88vw,1500px);margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
+#nos-snav-inner::-webkit-scrollbar{display:none}
+.snav-wordmark{font-family:'Libre Baskerville',Georgia,serif;font-size:16px;font-weight:700;color:#c9922a;text-decoration:none;padding:9px 18px 9px 0;border-right:1px solid rgba(201,146,42,.3);margin-right:10px;white-space:nowrap;flex-shrink:0}
+.snav-link{font-family:var(--sans);font-size:15px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;border-bottom:2px solid transparent;padding:9px 12px;white-space:nowrap;margin-bottom:-2px;transition:color .2s,border-color .2s;flex-shrink:0}
+.snav-link:hover{color:#f5f0e8;border-bottom-color:#e8a93c}
+.snav-link.snav-active{color:#c9922a!important;border-bottom-color:#c9922a}
+.snav-sign{font-family:var(--sans);font-size:15px;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;margin-left:auto;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s;flex-shrink:0}
+.snav-sign:hover{color:#f5f0e8}
+
+/* ── Page wrapper ── */
+.page-wrapper{max-width:min(96vw,1600px);margin:0 auto;padding:40px 24px 60px}
+
+/* ── Header block ── */
+.case-header{background:#fff;border:1px solid var(--rule);border-radius:4px;padding:28px 32px 24px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.case-eyebrow{font-family:var(--sans);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:10px}
+.case-title{font-family:var(--serif);font-size:26px;font-weight:500;line-height:1.15;margin-bottom:6px}
+.case-subtitle{font-family:var(--serif);font-style:italic;font-size:16px;color:#3f3f3c;margin-bottom:14px}
+.case-meta{font-family:var(--sans);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:18px}
+.case-meta-sep{color:var(--rule)}
+.case-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-download{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:13px;font-weight:500;color:#fff;background:var(--teal);border-radius:3px;padding:8px 16px;text-decoration:none;transition:background .2s}
+.btn-download:hover{background:#235e68}
+.btn-download svg{flex-shrink:0}
+.btn-secondary{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--teal);background:transparent;border:1.5px solid var(--teal);border-radius:3px;padding:7px 14px;text-decoration:none;transition:background .2s,color .2s}
+.btn-secondary:hover{background:var(--teal);color:#fff}
+
+/* ── PDF viewer ── */
+.pdf-section{margin-bottom:32px}
+.pdf-label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:10px}
+.pdf-embed-wrap{background:#fff;border:1px solid var(--rule);border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.pdf-embed-wrap embed,
+.pdf-embed-wrap object{display:block;width:100%;border:none}
+.pdf-fallback{padding:32px;text-align:center;font-family:var(--sans);color:var(--muted);font-size:14px}
+.pdf-fallback a{color:var(--teal)}
+
+/* ── Firework section ── */
+.firework-section{background:#fff;border:1px solid var(--rule);border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.firework-header{padding:18px 24px 14px;border-bottom:1px solid var(--rule)}
+.firework-label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:4px}
+.firework-title{font-family:var(--serif);font-size:17px;font-weight:500}
+.firework-desc{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:4px;line-height:1.4}
+.firework-embed{width:100%}
+.firework-embed iframe{display:block;width:100%;height:720px;border:none}
+
+/* ── Responsive ── */
+@media(max-width:640px){
+  .page-wrapper{padding:20px 16px 40px}
+  .case-header{padding:20px 18px 18px}
+  .case-title{font-size:21px}
+  .firework-embed iframe{height:560px}
+}
+</style>
+</head>
+<body>
+
+<nav id="nos-snav" aria-label="Site navigation">
+  <div id="nos-snav-inner">
+    <a class="snav-wordmark" href="/">nOS</a>
+    <a class="snav-link snav-active" href="/case-study/">Case Study</a>
+    <a class="snav-link" href="/human-question/">The Human Question</a>
+    <a class="snav-link" href="/glossary/">Glossary</a>
+    <a class="snav-link" href="/essays/">Essays</a>
+    <a class="snav-link" href="/about/">About</a>
+    <a class="snav-sign" href="/sign/">Sign the Manifesto</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <div class="case-header">
+    <div class="case-eyebrow">Graduate Strategy Case</div>
+    <h1 class="case-title">When the Tenant Becomes the Landlord</h1>
+    <div class="case-subtitle">Value-Chain Inversion in the Post-2026 Productivity Stack</div>
+    <div class="case-meta">
+      <span>Jason Troxel</span>
+      <span class="case-meta-sep">|</span>
+      <span>Drafted April 2026; revised May 2026</span>
+      <span class="case-meta-sep">|</span>
+      <span>25 pages</span>
+      <span class="case-meta-sep">|</span>
+      <span>Companion to <em>The nOS Manifesto</em></span>
+    </div>
+    <div class="case-actions">
+      <a class="btn-download" href="case-study.pdf" download="when-tenant-becomes-landlord.pdf">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 1v8M4 7l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Download PDF
+      </a>
+      <a class="btn-secondary" href="#firework-chart">
+        View Exhibit 2 — Interactive Chart ↓
+      </a>
+    </div>
+  </div>
+
+  <!-- PDF Viewer -->
+  <div class="pdf-section">
+    <div class="pdf-label">Case Document &mdash; 25 pages</div>
+    <div class="pdf-embed-wrap">
+      <object data="case-study.pdf" type="application/pdf" style="height:88vh">
+        <div class="pdf-fallback">
+          <p>Your browser cannot display the PDF inline.</p>
+          <p style="margin-top:10px"><a href="case-study.pdf">Download the PDF to read it</a></p>
+        </div>
+      </object>
+    </div>
+  </div>
+
+  <!-- Exhibit 2: Firework Interactive Chart -->
+  <div class="firework-section" id="firework-chart">
+    <div class="firework-header">
+      <div class="firework-label">Exhibit 2</div>
+      <div class="firework-title">The Firework Chart — Interactive Vendor Map</div>
+      <div class="firework-desc">Explore the configuration positions of each major vendor. Click a vendor name to drill into their AIP, AIO, and AIA activity. Click <em>All Vendors</em> to return to the overview.</div>
+    </div>
+    <div class="firework-embed">
+      <iframe
+        src="paper_assets/firework-interactive.html"
+        title="Exhibit 2. The Firework Chart — interactive vendor map"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+</div><!-- /.page-wrapper -->
+</body>
+</html>

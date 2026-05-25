@@ -1,0 +1,77 @@
+---
+interface Props {
+  title: string;
+  slug: string;
+  summary: string;
+  questionCount?: number;
+  status?: string;
+}
+
+const { title, slug, summary, questionCount, status = 'In Progress' } =
+  Astro.props;
+---
+
+<a href={`/human-question/${slug}/`} class="hq-card">
+  <div class="hq-card-header">
+    <h3 class="hq-card-title">{title}</h3>
+    <span class="label hq-status">{status}</span>
+  </div>
+  <p class="hq-summary">{summary}</p>
+  {
+    questionCount && (
+      <div class="hq-meta">
+        <span class="label">{questionCount} questions</span>
+      </div>
+    )
+  }
+</a>
+
+<style>
+  .hq-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background: var(--navy);
+    border: 1px solid var(--steel);
+    border-left: 3px solid var(--gold);
+    border-radius: 3px;
+    text-decoration: none;
+    color: var(--ivory);
+    transition: background 0.15s, border-left-color 0.15s;
+  }
+  .hq-card:hover {
+    background: var(--slate);
+    border-left-color: var(--amber);
+    color: var(--ivory);
+  }
+  .hq-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .hq-card-title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--ivory);
+    line-height: 1.3;
+  }
+  .hq-status {
+    color: var(--amber);
+    flex-shrink: 0;
+  }
+  .hq-summary {
+    font-size: 0.875rem;
+    color: var(--cream);
+    line-height: 1.65;
+    opacity: 0.85;
+    max-width: none;
+  }
+  .hq-meta {
+    margin-top: auto;
+  }
+  .hq-meta .label {
+    color: var(--muted);
+  }
+</style>

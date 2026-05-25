@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<aside class="sidebar-block">
+  <h4 class="sb-title">{title}</h4>
+  <div class="sb-content">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .sidebar-block {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--steel);
+    border-radius: 3px;
+    padding: 1.25rem;
+  }
+  .sb-title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.875rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sb-content {
+    font-size: 0.875rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .sb-content :global(ul) {
+    padding-left: 1.1em;
+  }
+  .sb-content :global(li) {
+    margin-bottom: 0.4rem;
+  }
+  .sb-content :global(p) {
+    margin-bottom: 0.625rem;
+    max-width: none;
+  }
+  .sb-content :global(strong) {
+    font-weight: 600;
+    color: var(--navy);
+    display: block;
+    margin-top: 0.75rem;
+    margin-bottom: 0.2rem;
+  }
+  .sb-content :global(a) {
+    font-size: 0.875rem;
+  }
+</style>

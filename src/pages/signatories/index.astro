@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const signatories = [
+  { name: 'Placeholder Signatory', affiliation: 'Independent', date: '2025-01-01' },
+  { name: 'Placeholder Signatory', affiliation: 'Independent', date: '2025-01-01' },
+  { name: 'Placeholder Signatory', affiliation: 'Independent', date: '2025-01-01' },
+];
+---
+
+<BaseLayout
+  title="Signatories"
+  description="Those who have signed the nOS Manifesto."
+>
+  <div class="sig-hero">
+    <div class="container">
+      <p class="label eyebrow">Public Record</p>
+      <h1 class="sig-headline">Signatories</h1>
+      <p class="sig-subline">
+        Those who have read the nOS Manifesto and added their names to it. Signing is an
+        individual act — a public statement of agreement.
+      </p>
+      <p class="label sig-count">{signatories.length} signatures — signing opens soon</p>
+    </div>
+  </div>
+
+  <section class="sig-body">
+    <div class="container">
+      <div class="sig-notice">
+        <p class="label">Signing not yet open</p>
+        <p>
+          The signatory list will be published when signature collection opens. Return here to see
+          who has signed, or <a href="/sign/">sign up for notification</a>.
+        </p>
+      </div>
+
+      <table class="sig-table" aria-label="Signatories">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Affiliation</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            signatories.map(sig => (
+              <tr>
+                <td>{sig.name}</td>
+                <td class="sig-affiliation">{sig.affiliation}</td>
+                <td class="sig-date label">{sig.date}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sig-hero {
+    background: var(--cream);
+    padding: 3.5rem 0 3rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    margin-bottom: 0.75rem;
+  }
+  .sig-headline {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    color: var(--navy);
+    margin-bottom: 0.875rem;
+  }
+  .sig-subline {
+    font-size: 1.0625rem;
+    color: var(--muted);
+    max-width: 52ch;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .sig-count {
+    color: var(--muted);
+  }
+  .sig-body {
+    padding: 3rem 0 5rem;
+  }
+  .sig-notice {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 580px;
+  }
+  .sig-notice .label {
+    margin-bottom: 0.5rem;
+    color: var(--amber);
+  }
+  .sig-notice p {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: none;
+  }
+  .sig-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+  .sig-table th {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 0.625rem 1rem 0.625rem 0;
+    border-bottom: 2px solid var(--rule);
+  }
+  .sig-table td {
+    padding: 0.75rem 1rem 0.75rem 0;
+    border-bottom: 1px solid var(--cream);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .sig-affiliation {
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  .sig-date {
+    color: var(--muted);
+    font-size: 0.68rem;
+    white-space: nowrap;
+  }
+</style>

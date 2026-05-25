@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A: Technical Demystification, What AI Actually Is</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --navy:    #0d1b2a;
+  --slate:   #1c2f45;
+  --steel:   #2d4a6b;
+  --gold:    #c9922a;
+  --amber:   #e8a93c;
+  --ivory:   #f5f0e8;
+  --cream:   #ede8dc;
+  --text:    #1a1a1a;
+  --muted:   #5a5a5a;
+  --rule:    #c2b8a6;
+  --green:   #1a4a2e;
+  --red:     #8b2020;
+  --v-fact:      #1a4a2e;
+  --v-analysis:  #1c2f45;
+  --v-spec:      #8b5e00;
+  --v-contested: #8b2020;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ivory);color:var(--text);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;}
+
+/* TOOLTIPS */
+.ac{position:relative;cursor:help;border-bottom:1px dashed rgba(45,74,107,0.35);display:inline;}
+.ac::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--ivory);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;line-height:1.5;padding:8px 12px;border-radius:4px;white-space:normal;width:240px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.2);border-top:2px solid var(--gold);}
+.ac::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold);pointer-events:none;opacity:0;transition:opacity .15s;z-index:201;}
+.ac:hover::after,.ac:hover::before,.ac:focus::after,.ac:focus::before,.ac.tip-open::after,.ac.tip-open::before{opacity:1;}
+
+/* HEADER */
+.page-header{background:var(--navy);color:var(--ivory);position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,146,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,146,42,.05) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;}
+.header-inner{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:60px 40px 52px;}
+.site-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:28px;text-decoration:none;}
+.brand-logo{width:38px;height:38px;background:var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-weight:700;font-size:14px;color:var(--navy);flex-shrink:0;}
+.brand-label{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.header-eyebrow{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+.header-title{font-family:'Libre Baskerville',serif;font-size:clamp(28px,4.5vw,52px);font-weight:700;line-height:1.08;margin-bottom:14px;}
+.header-title em{font-style:italic;color:var(--amber);}
+.header-desc{font-size:17px;font-weight:300;color:rgba(245,240,232,.68);max-width:660px;line-height:1.65;margin-bottom:32px;}
+.header-meta{display:flex;flex-wrap:wrap;gap:10px;}
+.meta-pill{background:rgba(201,146,42,.15);border:1px solid rgba(201,146,42,.3);color:var(--amber);font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;border-radius:2px;}
+
+/* NAV */
+.page-nav{background:var(--slate);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;padding:0 40px;}
+.page-nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:2px;}
+.page-nav-inner::-webkit-scrollbar{display:none;}
+.page-nav-inner a{text-decoration:none;color:rgba(245,240,232,.5);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:13px 14px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;}
+.page-nav-inner a:hover{color:var(--amber);border-color:var(--amber);}
+.page-nav-brand{font-family:'Libre Baskerville',serif;font-size:11px;font-weight:700;color:var(--gold);padding:13px 16px 13px 0;border-right:1px solid rgba(201,146,42,.25);margin-right:4px;white-space:nowrap;}
+
+/* LAYOUT */
+.page-body{max-width:1040px;margin:0 auto;padding:0 40px 80px;}
+
+.section-intro{padding:52px 0 36px;border-bottom:1px solid var(--rule);}
+.section-intro p{font-size:18px;font-family:'Libre Baskerville',serif;font-style:italic;color:var(--slate);line-height:1.7;max-width:780px;}
+
+/* VERDICT LEGEND */
+.verdict-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:28px 0;border-bottom:1px solid var(--rule);}
+.vl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:4px;}
+.vl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.vl-name{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:2px;}
+.vl-desc{font-size:11px;color:var(--muted);font-style:italic;line-height:1.4;}
+.dot-fact{background:var(--v-fact);}
+.dot-analysis{background:var(--v-analysis);}
+.dot-spec{background:var(--v-spec);}
+.dot-contested{background:var(--v-contested);}
+
+/* Q&A CARDS */
+.qa-card{margin-top:52px;scroll-margin-top:80px;}
+.qa-number-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.qa-num{font-family:'Courier Prime',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);border:1px solid rgba(201,146,42,.3);padding:3px 10px;border-radius:2px;white-space:nowrap;background:rgba(201,146,42,.06);}
+.qa-verdict-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:20px;border:1px solid;white-space:nowrap;}
+.badge-fact{color:var(--v-fact);border-color:rgba(26,74,46,.35);background:rgba(26,74,46,.06);}
+.badge-analysis{color:var(--v-analysis);border-color:rgba(28,47,69,.35);background:rgba(28,47,69,.06);}
+.badge-spec{color:var(--v-spec);border-color:rgba(139,94,0,.3);background:rgba(139,94,0,.06);}
+.badge-contested{color:var(--v-contested);border-color:rgba(139,32,32,.3);background:rgba(139,32,32,.06);}
+.qa-question{font-family:'Libre Baskerville',serif;font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--gold);}
+.qa-body{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start;}
+@media(max-width:780px){.qa-body{grid-template-columns:1fr;}.qa-sidebar{order:-1;}}
+
+/* ANSWER */
+.qa-answer{font-size:15.5px;line-height:1.78;color:#1e1e1e;}
+.qa-answer p{margin-bottom:14px;}
+.qa-answer p:last-child{margin-bottom:0;}
+.qa-answer strong{color:var(--navy);font-weight:600;}
+.qa-answer em{color:var(--muted);}
+.qa-answer a{color:var(--steel);text-decoration:underline;text-decoration-color:rgba(45,74,107,.4);}
+.qa-answer a:hover{color:var(--gold);}
+.qa-answer ul{margin:12px 0 14px 22px;line-height:1.9;}
+.qa-answer ul li{margin-bottom:4px;}
+
+/* SIDEBAR */
+.qa-sidebar{display:flex;flex-direction:column;gap:16px;}
+.sidebar-block{background:white;border:1px solid var(--rule);border-radius:5px;overflow:visible;}
+.sb-head{padding:9px 14px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-bottom:1px solid var(--rule);border-top-left-radius:4px;border-top-right-radius:4px}
+.sb-body{padding:12px 14px;font-size:12.5px;line-height:1.65;color:var(--muted);}
+.sb-body strong{color:var(--text);font-weight:600;}
+.sb-body a{color:var(--steel);text-decoration:none;border-bottom:1px dashed var(--rule);}
+.sb-body a:hover{color:var(--gold);}
+.sb-head-fact{background:rgba(26,74,46,.07);color:var(--v-fact);}
+.sb-head-analysis{background:rgba(28,47,69,.07);color:var(--v-analysis);}
+.sb-head-contested{background:rgba(139,32,32,.06);color:var(--v-contested);}
+.sb-head-source{background:rgba(201,146,42,.08);color:var(--gold);}
+.sb-head-unknown{background:var(--cream);color:var(--muted);}
+
+.stat-row{display:flex;flex-direction:column;gap:8px;}
+.stat-item{display:flex;align-items:flex-start;gap:8px;}
+.stat-num{font-family:'Courier Prime',monospace;font-size:15px;font-weight:700;color:var(--navy);white-space:nowrap;line-height:1;padding-top:2px;}
+.stat-label{font-size:11px;color:var(--muted);line-height:1.4;}
+
+/* CALLOUT */
+.callout{border-left:4px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 5px 5px 0;margin:18px 0 0;font-size:14px;line-height:1.65;}
+.callout.red{border-color:var(--red);background:#fdf2f2;}
+.callout.green{border-color:var(--green);background:#f0f7f3;}
+.callout.navy{border-color:var(--navy);background:#f0f3f7;}
+.callout-label{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:7px;}
+.callout.red .callout-label{color:var(--red);}
+.callout.green .callout-label{color:var(--green);}
+.callout.navy .callout-label{color:var(--navy);}
+.callout p:last-child{margin:0;}
+
+/* TABLE */
+.dt{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0 0;}
+.dt th{background:var(--navy);color:var(--ivory);font-weight:600;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 14px;text-align:left;}
+.dt td{padding:9px 14px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5;}
+.dt tr:nth-child(even) td{background:var(--cream);}
+.dt .win{color:var(--green);font-weight:600;}
+.dt .lose{color:var(--red);}
+.dt .mid{color:#7a5000;}
+
+/* DIVIDER */
+.qa-rule{border:none;border-top:1px solid var(--rule);margin:52px 0 0;}
+
+/* FOOTER */
+.page-footer{background:var(--navy);color:rgba(245,240,232,.4);padding:28px 40px;font-size:11px;line-height:1.8;margin-top:80px;}
+.page-footer strong{color:rgba(245,240,232,.7);}
+.page-footer a{color:var(--gold);text-decoration:none;}
+
+@media(max-width:680px){.header-inner,.page-body,.page-footer{padding-left:20px;padding-right:20px;}.page-nav{padding:0 20px;}.header-title{font-size:26px;}.ac::after{width:180px;}}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="header-inner">
+    <a class="site-brand" href="index.html">
+      <div class="brand-logo">AI</div>
+      <span class="brand-label">AI Impact · Q&amp;A Series</span>
+    </a>
+    <div class="header-eyebrow">Q&amp;A Series · Batch 1 of 10</div>
+    <h1 class="header-title">Technical Demystification<br><em>What AI Actually Is</em></h1>
+    <p class="header-desc">Seven foundational questions about how AI really works, separating what the evidence shows from what the marketing claims. No jargon left unexplained. No false certainty about genuinely contested questions.</p>
+    <div class="header-meta">
+      <span class="meta-pill">7 Questions</span>
+      <span class="meta-pill">April 2026</span>
+      <span class="meta-pill">Data · Memory · Models · Reasoning · Bias</span>
+    </div>
+  </div>
+</header>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <span class="page-nav-brand">Technical Q&amp;A</span>
+    <a href="#q1">Q1 More Data</a>
+    <a href="#q2">Q2 HBM Bottleneck</a>
+    <a href="#q3">Q3 Data Wall</a>
+    <a href="#q4">Q4 Small Models</a>
+    <a href="#q5">Q5 Reasoning</a>
+    <a href="#q6">Q6 New Metrics</a>
+    <a href="#q7">Q7 Cognitive Bias</a>
+    <a href="glossary.html">Glossary →</a>
+  </div>
+</nav>
+
+<main class="page-body">
+
+  <div class="section-intro">
+    <p>The most consequential misunderstandings about AI are not about its dangers or its promise, they are about what it fundamentally is. These seven questions address the technical realities that determine whether AI systems are reliable, scalable, equitable, and trustworthy. Getting these wrong is not an academic failure. It produces bad products, bad policy, and bad decisions at every level.</p>
+  </div>
+
+  <div class="verdict-legend">
+    <div class="vl-item"><div class="vl-dot dot-fact"></div><div><span class="vl-name" style="color:var(--v-fact)">Verified Fact</span><span class="vl-desc">Directly sourced from named publications or data</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-analysis"></div><div><span class="vl-name" style="color:var(--v-analysis)">Reasoned Analysis</span><span class="vl-desc">Logical inference from verified evidence; labeled as such</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-spec"></div><div><span class="vl-name" style="color:var(--v-spec)">Informed Speculation</span><span class="vl-desc">Projection grounded in evidence but not yet verifiable</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-contested"></div><div><span class="vl-name" style="color:var(--v-contested)">Genuinely Contested</span><span class="vl-desc">Reasonable expert disagreement exists; no clean answer</span></div></div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="qa-card" id="q1">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 01</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, Partially Accurate, Now Outdated</span>
+    </div>
+    <div class="qa-question">More data always means a "better AI", right?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>This was broadly true from roughly 2017 to 2022. It is no longer the dominant principle driving AI progress, and treating it as settled truth now produces bad decisions in both AI development and AI procurement.</p>
+
+        <p><strong>Where the "more data" belief came from:</strong> Early deep learning research consistently showed that more training data improved model performance. ImageNet demonstrated it for vision. GPT-3 demonstrated it for language. Scale became the mantra, more data, more compute, more parameters, better results. For years, this formula held.</p>
+
+        <p><strong>What changed:</strong> The Chinchilla paper (Hoffmann et al., Google DeepMind, 2022) was the first major inflection point. It demonstrated that previous large models, including GPT-3, were dramatically under-trained relative to their parameter count. The optimal ratio is approximately <strong>20 tokens of training data per model parameter</strong>. GPT-3 had been trained with fewer than 10 tokens per parameter. The finding: you can get equivalent performance with a smaller model trained on more data, at a fraction of the compute cost. This shifted the field from "bigger model" to "right ratio."</p>
+
+        <p><strong>Data quality over data quantity:</strong> Microsoft's Phi model series demonstrated the most striking inversion. Phi-2 (2.7 billion parameters) was trained on deliberately curated "textbook quality" data, synthetic and real, and outperformed models 5-10× its size on coding and reasoning benchmarks. The principle established: a billion carefully selected tokens outperforms a trillion poorly curated ones. <a href="https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/" target="_blank">Microsoft Research confirms this</a> across the Phi family.</p>
+
+        <p><strong>DeepSeek R1 as proof point:</strong> DeepSeek R1 (January 2025) matched the reasoning performance of OpenAI's o1 at a reported training cost of approximately $6 million, versus $100 million or more for comparable US frontier models. The approach was not more data, it was reinforcement learning applied to a smaller, more efficient architecture. Efficiency and training method, not volume, drove the result.</p>
+
+        <p><strong>The new "more data" concern, quality contamination:</strong> Ironically, more internet data is now becoming a liability rather than a pure asset. As AI-generated content floods the web, future training datasets are increasingly contaminated with synthetic text produced by earlier models. Training on this contaminated data without filtering produces measurable quality degradation, a phenomenon known as model collapse. Epoch AI predicted that all high-quality human-generated text may be exhausted for training purposes as early as 2026.</p>
+
+        <div class="callout navy">
+          <div class="callout-label">Bottom Line</div>
+          <p>The updated principle is: <strong>the right data, in the right ratio to parameters, used with the right training method, beats more data every time.</strong> For enterprises evaluating AI vendors or building AI systems, the question is not "how big is their training dataset?", it is "what is the curation process, and what is the quality verification methodology?" Volume is a red herring. Curation is the differentiator.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Key Findings</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">~20</span><span class="stat-label">Tokens per parameter: Chinchilla-optimal training ratio (Hoffmann et al., 2022, Google DeepMind)</span></div>
+              <div class="stat-item"><span class="stat-num">1,875×</span><span class="stat-label">Tokens per parameter: Llama 3 8B trained at, far past Chinchilla optimal, for inference efficiency</span></div>
+              <div class="stat-item"><span class="stat-num">$6M</span><span class="stat-label">DeepSeek R1 training cost vs. $100M+ for comparable US models, same performance, better method</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The precise threshold at which internet data contamination from AI-generated content meaningfully degrades training quality at scale. Whether synthetic data, with proper verification loops, fully compensates for the human-data ceiling, or whether something essential is lost.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://arxiv.org/abs/2203.15556" target="_blank">Chinchilla paper (Hoffmann et al., 2022)</a> · Microsoft Phi research series · <a href="https://arxiv.org/abs/2501.12948" target="_blank">DeepSeek R1 technical report</a> (Jan 2025) · <a href="https://epoch.ai/blog/will-we-run-out-of-data-limits-of-llm-scaling-based-on-human-generated-data" target="_blank">Epoch AI data wall</a> analysis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q2 -->
+  <div class="qa-card" id="q2">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 02</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, The Hidden Constraint Is Now the Real Constraint</span>
+    </div>
+    <div class="qa-question">We talk about chips, but what about the supply chain for high-bandwidth memory (HBM) and advanced packaging? Could a shortage in these less-discussed components stall AI progress more than a GPU shortage?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes. and as of 2026, this is not a hypothetical risk. It is the documented, present-tense primary bottleneck in AI hardware deployment. The constraint has already moved from <span class="ac" data-tip="GPU: Graphics Processing Unit, originally designed for gaming, now the primary chip used to train and run AI models due to its parallel processing architecture.">GPU</span> chips to memory and packaging, and the consequences are rippling across the entire consumer electronics market.</p>
+
+        <p><strong>What HBM is and why it is irreplaceable:</strong> <span class="ac" data-tip="HBM: High Bandwidth Memory, a specialized DRAM memory type built by stacking multiple memory dies vertically using Through-Silicon Vias (TSVs). Provides the extreme data bandwidth that AI accelerators require to feed thousands of compute cores simultaneously.">HBM</span> (High Bandwidth Memory) is not regular RAM packaged differently. It is built by stacking 8–12 individual <span class="ac" data-tip="DRAM: Dynamic Random Access Memory, the foundational memory technology used in computers. HBM is a specialized, vertically stacked variant of DRAM.">DRAM</span> dies vertically using microscopic conductive pathways (through-silicon vias), then bonding the stack to an interposer alongside the GPU die using a process called <span class="ac" data-tip="CoWoS: Chip-on-Wafer-on-Substrate, TSMC's advanced packaging technology that integrates HBM memory stacks directly with logic chips (GPUs, TPUs) on a large silicon interposer. Essential for all modern frontier AI accelerators.">CoWoS</span>. Without this architecture, AI accelerators cannot feed data to their thousands of compute cores fast enough to use their computational power. It is not optional, it is the mechanism that makes modern AI hardware functional.</p>
+
+        <p><strong>The supply reality (verified from CEO testimony and earnings calls):</strong></p>
+        <ul>
+          <li><strong>SK Hynix CEO:</strong> "Our HBM capacity for calendar 2025 and 2026 is fully booked."</li>
+          <li><strong>Micron CEO (Sanjay Mehrotra):</strong> "HBM bit demand is growing exponentially… tight supply-demand balance through 2026 and beyond."</li>
+          <li><strong>NVIDIA management:</strong> "CoWoS assembly capacity is oversubscribed through at least mid-2026."</li>
+          <li><strong>TSMC CEO (C.C. Wei):</strong> "Our CoWoS capacity is very tight and remains sold out through 2025 and into 2026."</li>
+        </ul>
+
+        <p><strong>The Epoch AI finding (March 2026):</strong> The four largest AI chip designers, NVIDIA, Google, AMD, and Amazon, collectively consumed approximately <strong>90% of global CoWoS packaging capacity and HBM supply</strong> in 2025, while consuming only 12% of advanced logic die production. The chip itself is not the bottleneck. The memory and the packaging that turns a chip into a deployable AI accelerator are.</p>
+
+        <p><strong>Why HBM production cannot scale quickly:</strong> Only three companies produce HBM, SK Hynix (62% market share), Samsung, and Micron. HBM requires approximately <strong>3× more wafer capacity per gigabyte than standard DDR5</strong> due to the complexity of 3D stacking, lower manufacturing yields, and the CoWoS packaging requirement. A new HBM fab takes 18–24 months to build and qualify. HBM demand is projected to grow 70% year-over-year in 2026, while supply capacity cannot scale at anything approaching that rate.</p>
+
+        <p><strong>The collateral damage to consumer electronics:</strong> Memory manufacturers face a stark business choice: produce HBM (commanding 5–10× the price per gigabyte of consumer DRAM, with long-term hyperscaler contracts) or produce consumer RAM. The math is obvious. Data centers are projected to consume 70% of all memory chips produced in 2026. The consequences: smartphone shipments projected to decline 12.9%, PC market facing an 11.3% contraction, and NVIDIA cutting gaming GPU production 30–40% in H1 2026 due to GDDR7 shortages. Micron has exited its consumer Crucial brand entirely.</p>
+
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>The GPU shortage of 2022–2024 has already transitioned to an HBM and advanced packaging shortage of 2025–2026+. This is not an emerging risk, it is the present operational reality. The supply of complete, deployable AI accelerators is constrained not by the chip's logic die but by the memory and assembly that complete it. New capacity investments are underway (SK Hynix $13B South Korea plant, Micron $24B Singapore) but take 18–24 months to produce output. Meaningful supply relief is not projected before late 2027 to 2028.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Supply Numbers</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">90%</span><span class="stat-label">Share of global CoWoS and HBM supply consumed by top 4 AI chip designers in 2025 (Epoch AI, Mar 2026)</span></div>
+              <div class="stat-item"><span class="stat-num">3×</span><span class="stat-label">More wafer capacity per GB required for HBM vs. standard DDR5</span></div>
+              <div class="stat-item"><span class="stat-num">70%</span><span class="stat-label">Projected share of all memory chips going to AI data centers in 2026</span></div>
+              <div class="stat-item"><span class="stat-num">–12.9%</span><span class="stat-label">Projected 2026 smartphone shipment decline due to memory reallocation</span></div>
+              <div class="stat-item"><span class="stat-num">$100B</span><span class="stat-label">Projected HBM total addressable market by 2028 (~40% CAGR from $35B in 2025)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether HBM4 (expected volume production late 2026/early 2027) ramps fast enough to ease constraints before next-generation GPU architectures (Rubin) demand even more memory per chip. Whether hybrid bonding or alternative packaging technologies will meaningfully increase CoWoS-equivalent throughput at scale before 2028.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://epoch.ai/data-insights/ai-chip-supply-chain-constraints" target="_blank">Epoch AI Supply Chain Analysis (Mar 2026)</a> · <a href="https://investors.micron.com/news-releases" target="_blank">CEO earnings call testimony: Micron</a>, SK Hynix, TSMC, NVIDIA (Q3–Q4 2025) · <a href="https://www.tomshardware.com/tech-industry/semiconductors/hbm-shortage-could-last-through-2026" target="_blank">Tom's Hardware HBM</a> analysis · IDC memory market projections</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q3 -->
+  <div class="qa-card" id="q3">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 03</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested, Real Threat, Real Mitigation, Real Risks</span>
+    </div>
+    <div class="qa-question">Experts suggest we will run out of high-quality, human-generated text for training by 2028. Is "synthetic data" (AI training on AI) a viable solution, or a recipe for digital inbreeding?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The data wall is real. Synthetic data as a solution is partially viable. Model collapse as a risk is scientifically documented. All three of these are true simultaneously, which is why this is genuinely contested.</p>
+
+        <p><strong>The data wall, what the research says:</strong> Epoch AI, the leading tracker of AI training compute and data consumption, predicts that all high-quality textual data on the internet will be exhausted for training purposes by 2028, and that "high-quality language data" specifically may deplete as early as 2026. This isn't about raw text volume (there is plenty of that). It is about the subset that is accurate, coherent, non-duplicative, and representative of the range of human knowledge and expression that makes models reliably useful. That subset is finite and shrinking relative to demand.</p>
+
+        <p><strong>Synthetic data as a working solution, the evidence that it can work:</strong> Gartner estimates that 80% of AI training will use synthetic data by 2028. This is not wishful thinking, it is already happening at scale. OpenAI's o1/o3, DeepSeek R1, and Google Gemini all use AI-generated reasoning traces in their training pipelines. For specific domains where answers can be verified, mathematics, coding, formal logic, physical simulation, synthetic data works exceptionally well. Microsoft's Phi models (trained substantially on synthetic "textbook quality" data) demonstrated competitive performance with models 5–10× larger. The key mechanism: when you can verify whether a synthetic training example is correct (by running the code, checking the math, simulating the physics), you can generate essentially unlimited high-quality training data in those domains.</p>
+
+        <p><strong>Model collapse, the scientific documentation of the risk:</strong> Ilia <a href="https://www.nature.com/articles/s41586-024-07566-y" target="_blank">Shumailov</a> and colleagues published "The <a href="https://www.nature.com/articles/s41586-024-07566-y" target="_blank">Curse of Recursion</a>" in <em>Nature</em> (2024), one of the most prestigious scientific journals, demonstrating that <span class="ac" data-tip="LLMs: Large Language Models, neural networks trained on massive text corpora to understand and generate language. Models like GPT, Claude, and Gemini are all LLMs.">LLMs</span> degrade when trained recursively on their own outputs. The mechanism: models learn the "average" of their training data; when trained on synthetic outputs, they lose the rare, tail-distribution examples that represent edge cases, specialized knowledge, and genuine novelty. Outputs converge toward "bland central tendencies with weird outliers." The collapse is not hypothetical, the LAION-5B dataset, a cornerstone for many generative models, already shows measurable contamination from synthetic sources.</p>
+
+        <p><strong>The important nuance that the popular framing misses:</strong> A 2025 position paper (<em>"Model Collapse Does Not Mean What You Think"</em>, arXiv) argues the doom framing is overstated. The critical distinction is between: (1) <em>contaminated synthetic data</em>, AI outputs mixed into training data without labeling or quality filtering, which does cause measurable degradation; and (2) <em>verified, task-specific synthetic data</em> with human oversight, quality filtering, and provenance tracking, which is demonstrably beneficial. The model collapse risk is real for the former; the latter is a legitimate and improving approach to the data wall problem.</p>
+
+        <p><strong>The "digital inbreeding" framing:</strong> The Wall Street Journal described training on AI-generated text as "the computer-science version of inbreeding", a colorful metaphor that captures the recursive quality loss but overstates inevitability. Controlled, verified synthetic data pipelines are more analogous to selective breeding with genetic testing than to inbreeding. The danger is in the carelessness, not the principle.</p>
+
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>Synthetic data is not a binary choice between "solution" and "catastrophe." It is a tool, effective when verified, curated, and mixed with preserved human-generated data; dangerous when used carelessly at scale without provenance tracking. The organizations building data verification infrastructure now (watermarking, quality filtering, human-data preservation) will have a durable training advantage by 2028. Those that don't will face the model collapse risk the research describes.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-contested">The Core Tension</div>
+          <div class="sb-body">
+            <strong>The data wall is verified:</strong> Epoch AI predicts high-quality text exhaustion by 2028; "high-quality language data" potentially by 2026.<br><br>
+            <strong>Synthetic data works for verifiable tasks:</strong> Math, code, formal logic, domains where you can check the answer. Already deployed in o1/o3, DeepSeek R1, Gemini.<br><br>
+            <strong>Model collapse is peer-reviewed science:</strong> Published in <em>Nature</em> (2024). Not a blog post. The risk is real if synthetic data is used carelessly.
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Key Forecasts</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">2026</span><span class="stat-label">Epoch AI: potential exhaustion date for "high-quality language data"</span></div>
+              <div class="stat-item"><span class="stat-num">80%</span><span class="stat-label">Gartner estimate: share of AI training using synthetic data by 2028</span></div>
+              <div class="stat-item"><span class="stat-num">1%</span><span class="stat-label">Synthetic data contamination level shown to cause measurable model degradation in controlled studies (arXiv, 2025)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether the domains where synthetic data works well (verifiable tasks) cover enough of what matters for general-purpose AI. Whether provenance-tracking and watermarking technologies will mature fast enough to prevent uncontrolled contamination of the public web. The long-term ceiling for reasoning model quality improvements via synthetic RL-based training.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://arxiv.org/abs/2401.01325" target="_blank">Shumailov et al. "Curse of Recursion" (Nature, 2024)</a> · <a href="https://epoch.ai/blog/will-we-run-out-of-data-limits-of-llm-scaling-based-on-human-generated-data" target="_blank">Epoch AI data wall</a> analysis · <a href="https://www.gartner.com/en/newsroom/press-releases/2024-07-22-gartner-predicts-30-percent-of-generative-ai-projects-will-be-abandoned-after-proof-of-concept-by-end-of-2025" target="_blank">Gartner synthetic data forecast</a> · arXiv "Model Collapse Does Not Mean What You Think" (2025)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q4 -->
+  <div class="qa-card" id="q4">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 04</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, With an Important Boundary Condition</span>
+    </div>
+    <div class="qa-question">Are we moving toward a "smaller is better" era where highly specialized, 7-billion parameter models outperform general-purpose giants like GPT-4 in specific professional domains?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes. for specific, well-defined domains. No, for open-ended, complex, multi-step reasoning. The "smaller is better" narrative is accurate for a large and growing category of enterprise use cases, and misleading as a universal claim.</p>
+
+        <p><strong>Where SLMs genuinely outperform frontier LLMs:</strong> In professional domains with high-quality proprietary training data, narrow task definitions, and high-frequency, low-latency requirements:</p>
+        <ul>
+          <li><strong>Healthcare diagnostics:</strong> Diabetica-7B (7B parameters, diabetes-specific) achieved 87.2% accuracy on diabetes-related clinical queries, surpassing GPT-4 and Claude 3.5. The reason: specialized training on Electronic Health Records calibrated to the specific patient presentation patterns the model will encounter.</li>
+          <li><strong>Legal document processing:</strong> Fine-tuned <span class="ac" data-tip="SLM: Small Language Model, typically 1–15 billion parameters; trained or fine-tuned for specific domains. Faster, cheaper, and often more accurate than frontier LLMs on narrow, well-defined tasks.">SLM</span>s trained on jurisdiction-specific case law and regulatory language outperform general models on document review tasks where the domain vocabulary is fixed and the task structure is consistent.</li>
+          <li><strong>Customer support:</strong> An SLM fine-tuned on a company's own support tickets and product documentation will typically outperform a frontier model given only a system prompt, for those specific products and policies.</li>
+          <li><strong>Compliance and AML:</strong> One global bank reported a 27% reduction in anti-money laundering compliance costs using a domain-specific SLM for suspicious transaction pattern recognition.</li>
+        </ul>
+
+        <p><strong>The cost differential is the primary driver in enterprise adoption:</strong> 10,000 daily queries: an SLM private endpoint costs approximately $500–$2,000 per month on major cloud providers. Equivalent frontier <span class="ac" data-tip="LLM: Large Language Model, a neural network with billions to trillions of parameters, trained on internet-scale data for general-purpose language tasks. Examples: GPT-5, Claude Opus, Gemini Ultra.">LLM</span> API usage costs $5,000–$50,000 per month, a 5–20× difference that widens significantly at scale. For high-volume, repetitive enterprise workloads where accuracy on a specific task is measurable, this differential is decisive.</p>
+
+        <p><strong>Where frontier LLMs still lead and likely always will:</strong> Broad reasoning across unfamiliar domains, complex multi-step problem solving requiring synthesis across different knowledge areas, nuanced instruction following for open-ended creative or analytical tasks, and tasks where the range of possible inputs cannot be anticipated at deployment time. A 2026 business guide is explicit: "For broad, multi-domain tasks requiring complex reasoning, LLMs still lead, but that gap has narrowed considerably."</p>
+
+        <p><strong>The emerging 2026 architecture, hybrid routing:</strong> The sophisticated enterprise deployment model is not SLMs versus LLMs but SLMs plus LLMs in a routing architecture. Simple, high-frequency, domain-specific tasks route to a fine-tuned SLM (fast, cheap, accurate for that task). Complex, novel, or ambiguous tasks route to a frontier model (slower, expensive, but capable of handling the unexpected). A 2026 analysis captures it: "Think of it like a support team: front-line agents handle common queries, escalating only the hard cases to a senior specialist." By 2026, inference demand is projected to exceed training compute demand by 118×, and the majority of that inference workload is best served by SLMs.</p>
+
+        <div class="callout green">
+          <div class="callout-label">Bottom Line</div>
+          <p>The "smaller is better" era is accurate for task-specific enterprise deployment, and represents one of the most actionable near-term insights in AI strategy. Any organization deploying AI at scale on a defined, repetitive workflow (document review, customer support, compliance monitoring, diagnostic assistance) should be evaluating fine-tuned SLMs, not defaulting to frontier API subscriptions. The cost savings are real; the accuracy on narrow tasks is real; the operational risk of being locked into a single large vendor is real. The limitation: do not try to cover open-ended reasoning, creative synthesis, or unpredictable task ranges with an SLM. That is not what they are for.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Performance Evidence</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">87.2%</span><span class="stat-label">Diabetica-7B accuracy on diabetes clinical queries, surpassing GPT-4 and Claude 3.5</span></div>
+              <div class="stat-item"><span class="stat-num">5–20×</span><span class="stat-label">Cost reduction: SLM vs. frontier LLM API for 10,000 daily queries</span></div>
+              <div class="stat-item"><span class="stat-num">27%</span><span class="stat-label">AML compliance cost reduction at one global bank using domain-specific SLM</span></div>
+              <div class="stat-item"><span class="stat-num">118×</span><span class="stat-label">Projected inference demand excess over training demand by 2026, the primary deployment reality</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">Notable SLMs (2026)</div>
+          <div class="sb-body"><strong>Microsoft Phi-4:</strong> 14B params, reasoning competitive with GPT-4 class<br><strong>Google Gemma 4 E4B:</strong> 4B active params, native multimodal, Apache 2.0<br><strong>Llama 3.2 3B:</strong> On-device capable<br><strong>Mistral 7B:</strong> Outperforms Llama 2 13B on multiple benchmarks<br><strong>Apple on-device models:</strong> iOS smart reply, on-device Siri, all SLM deployments</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The long-term ceiling for distillation, how close SLMs can get to frontier performance on complex tasks as techniques improve. Whether the hybrid routing architecture becomes commoditized infrastructure or remains a competitive differentiator.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q5 -->
+  <div class="qa-card" id="q5">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 05</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested, The Hardest Question in This Batch</span>
+    </div>
+    <div class="qa-question">Is the "Chain of Thought" processing in newer AI models evidence of actual logic, or just a more sophisticated way of predicting the next likely token?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>This is the most philosophically consequential open question in AI science, and the honest answer requires us to say clearly: we do not know. Reasonable experts examining the same evidence have reached opposite conclusions, and neither side can yet prove its case definitively.</p>
+
+        <p><strong>The "stochastic parrot" position:</strong> AI systems like GPT and Claude are fundamentally next-token predictors. When a model produces a Chain of Thought response, "Let me think through this step by step...", it is generating the tokens that would statistically follow a reasoning-like preamble in its training data. The reasoning steps are not causally producing the answer; they are being generated alongside the answer as a coherent pattern. Evidence for this view: LLMs fail embarrassingly on simple logical reversals and novel arithmetic problems that would be trivial for a system that understood logic. Models produce confident reasoning that is completely wrong. The "chain of thought" can sometimes lead to a correct answer via an entirely invalid reasoning path, which genuine logical deduction would not permit.</p>
+
+        <p><strong>The "emergent reasoning" position:</strong> The performance improvements from <span class="ac" data-tip="CoT: Chain of Thought, see above. Also refers to the internal reasoning traces generated by reasoning models like o3, Claude Opus 4.6 extended thinking mode, and DeepSeek R1.">CoT</span> and reasoning models on verifiable benchmarks are too large, too consistent, and too specifically calibrated to the structure of correct reasoning to be explained purely by pattern matching. DeepSeek R1, trained with pure reinforcement learning without any explicit CoT training data, spontaneously developed step-by-step reasoning, self-correction, and chain verification. You cannot pattern-match a reasoning style you were never shown. OpenAI's o3 achieves above 75% on the <span class="ac" data-tip="ARC-AGI: Abstract and Reasoning Corpus for Artificial General Intelligence, a benchmark specifically designed by <a href="https://en.wikipedia.org/wiki/Fran%C3%A7ois_Chollet" target="_blank">François Chollet</a> to test for genuine reasoning ability rather than pattern matching. Extremely resistant to scaling and few-shot tricks.">ARC-AGI</span> benchmark, specifically designed by <a href="https://en.wikipedia.org/wiki/Fran%C3%A7ois_Chollet" rel="noopener">François Chollet</a> to defeat pattern-matching and test for genuine compositional reasoning.</p>
+
+        <p><strong>What interpretability research shows (a third position):</strong> Anthropic's mechanistic interpretability team has found evidence that models represent and manipulate logical relationships in their internal activation space, not simply predicting the next probable token. Specific circuits track grammatical agreement, logical entailment, and factual consistency across long contexts. This is not identical to human logical deduction, but it is not "just" pattern matching in the naive sense either. The picture emerging from interpretability research is that something more complex than token prediction is happening, but it differs meaningfully from human reasoning in ways not yet fully characterized.</p>
+
+        <p><strong>The practical implication, why this question matters for your use cases:</strong> If AI is genuinely reasoning, it can be trusted for novel problems in domains where it was trained, with appropriate verification. If it is sophisticated pattern matching, it will systematically fail on problems that differ structurally from its training distribution, even when it seems confident and its answer looks like reasoning. The current pragmatic answer: <em>treat AI outputs as reasoning for verification purposes, not as a replacement for it.</em> Use the reasoning model's output as a strong prior that still requires human evaluation on consequential decisions.</p>
+
+        <div class="callout navy">
+          <div class="callout-label">Our Position: On Intellectual Honesty</div>
+          <p>A thought leadership organization that claims certainty on this question is overstating what is known. The correct position is: current <span class="ac" data-tip="LLMs: Large Language Models, the dominant architecture for AI assistants. The question of whether they 'reason' or pattern-match is one of the most actively contested in AI science.">LLM</span>s exhibit behaviors that look like reasoning, that produce reasoning-quality improvements on verifiable tasks, and that emerge from training processes not explicitly designed to produce those behaviors. Whether this constitutes "reasoning" in any philosophically meaningful sense remains an open question, and the intellectual courage to say so is itself a marker of credibility.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-contested">The Two Camps</div>
+          <div class="sb-body">
+            <strong>Pattern-matching camp:</strong> Emily Bender (UW), Gary Marcus, CoT is sophisticated next-token prediction, not logical deduction. Models fail on structurally novel problems in ways true reasoning would not.<br><br>
+            <strong>Emergent reasoning camp:</strong> OpenAI, Anthropic interpretability team, ARC-AGI performance, something beyond token prediction is documented. Pure RL produces spontaneous reasoning (DeepSeek R1).
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Evidence Points</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">&gt;75%</span><span class="stat-label">o3 score on ARC-AGI, benchmark designed to defeat pattern matching (Chollet, 2024)</span></div>
+              <div class="stat-item"><span class="stat-num">0</span><span class="stat-label">Explicit CoT training data used for DeepSeek R1's reasoning, it emerged from RL alone</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">The Core Unknown</div>
+          <div class="sb-body">Whether the internal representations found by interpretability research constitute "reasoning" in any philosophically meaningful sense, or whether they are sophisticated correlates of reasoning-like behavior. This question may not be resolvable with current tools, it requires advances in both interpretability methodology and philosophy of mind.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q6 -->
+  <div class="qa-card" id="q6">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 06</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, The Paradigm Shift Is Documented</span>
+    </div>
+    <div class="qa-question">Once we hit the "Parameter Ceiling" where models can't get any larger due to energy and data limits, what is the "Intel Core Duo" equivalent for AI, the new metric that will define which AI is truly "better"?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The parameter ceiling has already arrived, not as a hard stop, but as a diminishing returns curve that made raw parameter scaling the wrong investment. The industry's response mirrors Intel's 2006 shift from megahertz to multi-core: a fundamental architectural reorientation away from the single-dimension race.</p>
+
+        <p><strong>Why the parameter race ended:</strong> The scaling laws that governed AI improvement from 2017–2023 began showing diminishing returns in 2024. Training compute is showing "flattening" on the gains-per-dollar curve. The Chinchilla finding established that more parameters without commensurate data is wasteful. Energy costs for training runs exceeding $500M became prohibitive for all but a handful of entities. The data wall (Q3 above) limits the high-quality data available to justify larger models. The industry needed a new paradigm, not a bigger version of the old one.</p>
+
+        <p><strong>The "Intel Core Duo" moment, Inference-Time Scaling:</strong> When Intel hit the megahertz wall (circa 2004–2006), it did not abandon chip performance, it rearchitected for it. Dual cores, then quad cores, then multi-core: doing more useful work in parallel rather than making the single core faster. The AI equivalent is inference-time scaling: allocating more compute at generation time rather than encoding everything in parameters at training time. A 7 billion parameter model given 100× more inference compute can match a 70 billion parameter model with standard inference. DeepSeek R1 validated this at scale.</p>
+
+        <p><strong>The new metrics that define "better" in 2026:</strong></p>
+        <ul>
+          <li><strong>Inference-time efficiency:</strong> Useful output quality per token generated at inference. Reasoning models are optimized on this dimension, they "think longer" on hard problems and spend fewer tokens on easy ones.</li>
+          <li><strong>Task-specific benchmark performance:</strong> <span class="ac" data-tip="SWE-Bench: Software Engineering Benchmark, tests AI ability to resolve real GitHub issues. Claude Opus 4.6 leads at 80.8% (April 2026). GPQA: Graduate-level science questions. AIME: American Invitational Mathematics Examination.">SWE-bench</span> for software engineering, GPQA for graduate science, AIME for mathematics, ARC-AGI for compositional reasoning, HumanEval for code, MMLU for knowledge breadth. Raw parameter count predicts benchmark performance poorly compared to training method and inference approach.</li>
+          <li><strong>Cost-per-correct-answer:</strong> The economic metric. DeepSeek's breakthrough was not just capability, it was capability-per-dollar. A complex task costing $15 on GPT-5 runs for $0.50 on DeepSeek V4 (reported March 2026). For enterprises, this is often the decisive metric.</li>
+          <li><strong>Agent task horizon:</strong> <a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/" rel="noopener">METR's measure</a> of the hardest task (in human-equivalent hours) a model can complete reliably at 50% success rate. Currently doubling every ~7 months. This is the capability metric that most directly predicts real-world utility for agentic deployments.</li>
+          <li><strong>Context utilization quality:</strong> Not context window size (how much the model can technically accept) but how accurately it uses what's in its context, particularly relevant given context rot research showing degradation with length.</li>
+          <li><strong>Multimodal breadth and native integration:</strong> Whether modalities (text, image, audio, video) are genuinely integrated in a shared representation or bolted onto a text model post-hoc. Native multimodal models outperform stitched approaches on cross-modal reasoning tasks.</li>
+        </ul>
+
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>Parameters are to AI what megahertz was to CPUs after 2006: a number that still matters but that no longer defines leadership. The organizations and investors using parameter count as a proxy for AI quality are making decisions on an obsolete scorecard. The emerging scoreboard, inference efficiency, task-specific benchmark performance, cost-per-correct-answer, and agent task horizon, is more complex, harder to market, and far more predictive of real-world value.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">The Analogy Explained</div>
+          <div class="sb-body">
+            <strong>Intel megahertz wall (2004):</strong> Single-core clock speeds hit physical limits. Intel pivoted to multi-core, parallel processing of the same workload.<br><br>
+            <strong>AI parameter ceiling (2023–2024):</strong> Raw parameter scaling hitting diminishing returns. Industry pivoting to inference-time compute, allocating more compute at answer generation rather than model building.<br><br>
+            <strong>The common principle:</strong> When the single-dimension race ends, architectural innovation redefines the performance metric.
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Infrastructure Shift</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">118×</span><span class="stat-label">Projected excess of inference demand over training demand by 2026, reshaping GPU procurement toward inference-optimized hardware</span></div>
+              <div class="stat-item"><span class="stat-num">75%</span><span class="stat-label">Projected share of total AI compute going to inference by 2030</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://arxiv.org/abs/2203.15556" target="_blank">Chinchilla scaling laws</a> (Hoffmann et al., 2022) · <a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/" target="_blank">METR task-horizon benchmark</a> · <a href="https://introl.com/blog/inference-time-scaling-and-the-rise-of-reasoning-models" target="_blank">Introl Inference-Time Scaling</a> analysis (Dec 2025) · <a href="https://lambda.ai/blog/2025-ai-wrapped" target="_blank">Lambda AI 2025 Wrapped</a> · arXiv "Inference-Time Scaling" (Apr 2025) · <a href="https://www.swebench.com/" target="_blank">SWE-bench</a>, <a href="https://arxiv.org/abs/2311.12022" target="_blank">GPQA</a>, <a href="https://arcprize.org/arc-agi" target="_blank">ARC-AGI</a> benchmark results</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q7 -->
+  <div class="qa-card" id="q7">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 07</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Documented, Consequential, and Underaddressed</span>
+    </div>
+    <div class="qa-question">When AI systems are trained on human-generated data, they inherit human cognitive biases. When those systems are then used for high-stakes decisions in medicine, law, and finance, are we systematically scaling our worst cognitive tendencies at machine speed?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes. This is not a theoretical concern, it is documented across multiple domains, confirmed by peer-reviewed research and federal agency findings, and currently inadequately addressed by existing regulatory frameworks in the United States.</p>
+
+        <p><strong>The mechanism, how bias enters AI systems:</strong> <span class="ac" data-tip="LLMs: Large Language Models, neural networks trained on internet-scale text data. The training data reflects historical human behavior, including all associated biases.">LLM</span>s and other AI systems are trained to recognize and reproduce patterns in historical data. Historical data reflects historical human behavior, including historical discrimination, historical underrepresentation, and historical decision-making patterns that systematically disadvantaged certain groups. The AI does not "know" it is encoding bias; it is optimizing for statistical accuracy on a training distribution that contains those patterns. When deployed, it reproduces them efficiently.</p>
+
+        <p><strong>The documented cases, not hypotheticals:</strong></p>
+        <ul>
+          <li><strong>Facial recognition:</strong> The 2018 <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank">Gender Shades study</a> (MIT Media Lab) found facial recognition systems had error rates up to 34 percentage points higher for darker-skinned women than lighter-skinned men. As of 2025, the gap has narrowed but not closed in commercial systems.</li>
+          <li><strong>Hiring:</strong> Amazon's internal recruiting AI (discontinued 2018) systematically downgraded résumés containing the word "women's", having learned from historical hiring patterns that selected predominantly male candidates.</li>
+          <li><strong>Criminal justice:</strong> ProPublica's COMPAS analysis found that a recidivism prediction algorithm used in courts falsely flagged Black defendants as high risk at nearly twice the rate of white defendants, while falsely flagging white defendants as low risk at higher rates. This was not intentional bias, it was the result of optimizing on historical criminal justice data that reflected systemic racial disparities.</li>
+          <li><strong>Healthcare resource allocation:</strong> A widely used algorithm for allocating additional care resources was found to assign the same risk score to sicker Black patients as to healthier white patients. The algorithm used healthcare spending as a proxy for health need, but Black patients historically had less spent on their care, making them appear healthier than they were. An estimated 11.5 million Black patients were affected in the US annually.</li>
+        </ul>
+
+        <p><strong>What makes AI bias categorically different from human bias, scale and speed:</strong> A biased human loan officer makes 30–50 credit decisions per day. A biased lending AI processes 30,000 applications before breakfast. A biased parole recommendation AI processes every case in a jurisdiction on a consistent schedule. Human bias is subject to oversight, variance, and correction through appeals. At AI scale, bias operates uniformly, consistently, and faster than any institutional correction mechanism is designed to respond. The <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI Risk Management Framework</a> explicitly identifies bias as a core risk category precisely because the scale amplification is the novel danger, not the bias itself, which is old.</p>
+
+        <p><strong>The regulatory gap:</strong> The <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> mandates bias testing and documentation for "high-risk" AI applications including employment, credit, and criminal justice, effective August 2026 for systems used in Europe. The US has no equivalent federal mandate. Sector-specific guidance exists (EEOC for employment AI, CFPB for lending AI, NIST's voluntary RMF) but no binding federal bias audit requirement. As of April 2026, an employer in the US can deploy an AI hiring tool with documented racial disparity in outcomes without any federal legal obligation to disclose or correct this.</p>
+
+        <div class="callout red">
+          <div class="callout-label">Bottom Line</div>
+          <p>We are not at risk of scaling our worst cognitive tendencies at machine speed. We are already doing it, documented in peer-reviewed research and federal agency findings. The question is not whether AI inherits human bias, it does. The question is whether the governance frameworks being built around AI deployment are moving fast enough to identify, measure, and correct for this inheritance before the harms compound at scale. In the United States as of April 2026, the honest answer is: they are not.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Documented Cases</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">34pp</span><span class="stat-label">Error rate gap for darker-skinned women vs. lighter-skinned men in facial recognition (<a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank">MIT Gender Shades</a>, 2018)</span></div>
+              <div class="stat-item"><span class="stat-num">2×</span><span class="stat-label">Rate at which COMPAS falsely flagged Black defendants as high risk vs. white defendants (ProPublica)</span></div>
+              <div class="stat-item"><span class="stat-num">11.5M</span><span class="stat-label">Estimated Black patients in the US annually affected by the biased healthcare resource allocation algorithm</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">Regulatory Status (Apr 2026)</div>
+          <div class="sb-body">
+            <strong><a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a>:</strong> Mandatory bias testing for high-risk AI (employment, credit, criminal justice), effective Aug 2026<br><br>
+            <strong>US Federal:</strong> No binding bias audit mandate. Voluntary <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI RMF</a>. Sector agency guidance (EEOC, CFPB) without enforcement infrastructure<br><br>
+            <strong>State level:</strong> Illinois AI Employment Disclosure Act; NYC Local Law 144 (hiring AI bias audits), patchwork, not systematic
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The aggregate economic and social harm of AI-mediated bias across the full range of high-stakes deployment contexts. Whether bias auditing at the level the EU mandates is technically sufficient to identify the most consequential biases, or whether deeper architectural solutions are required. Whether bias mitigation in one population context transfers to others.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body">MIT <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank">Gender Shades study</a> (Buolamwini &amp; Gebru, 2018) · <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank">ProPublica COMPAS</a> analysis · <a href="https://www.science.org/doi/10.1126/science.aax2342" target="_blank">Obermeyer et al. "Dissecting Racial Bias</a> in an Algorithm" (Science, 2019) · <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI Risk Management Framework</a> (2023) · <a href="https://www.reuters.com/article/world/insight-amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women-idUSKCN1MK0AG/" target="_blank">Amazon recruiting AI</a> disclosure (Reuters, 2018) · <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act high-risk classification</a> documentation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <strong>Q&amp;A Series, Batch 1: Technical Demystification · April 2026</strong><br>
+  Primary Sources: <a href="https://arxiv.org/abs/2203.15556" target="_blank">Hoffmann et al. "Training Compute-Optimal</a> LLMs" (<a href="https://arxiv.org/abs/2203.15556" target="_blank">Chinchilla, 2022</a>) · Epoch AI Supply Chain Analysis (Mar 2026) · Epoch AI Data Wall Analysis · <a href="https://www.nature.com/articles/s41586-024-07566-y" target="_blank">Shumailov et al. "Curse of Recursion"</a> (Nature, 2024) · arXiv "Model Collapse Does Not Mean What You Think" (2025) · Microsoft Phi Research · DeepSeek R1 Technical Report (Jan 2025) · <a href="https://proceedings.mlr.press/v81/buolamwini18a.html" target="_blank">MIT Gender Shades</a> Study · <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank">ProPublica COMPAS</a> Analysis · <a href="https://www.science.org/doi/10.1126/science.aax2342" target="_blank">Obermeyer et al. Science (2019)</a> · <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI Risk Management Framework</a> · <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> · Gartner Synthetic Data Forecast · <a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/" target="_blank">METR Task Horizon</a> Benchmark (Mar 2025) · <a href="https://introl.com/blog/inference-time-scaling-and-the-rise-of-reasoning-models" target="_blank">Introl Inference-Time Scaling</a> Analysis (Dec 2025) · <a href="https://lambda.ai/blog/2025-ai-wrapped" target="_blank">Lambda AI 2025 Wrapped</a> · <a href="https://www.tomshardware.com/tech-industry/semiconductors/hbm-shortage-could-last-through-2026" target="_blank">Tom's Hardware HBM</a> Analysis · <a href="https://www.idc.com/getdoc.jsp?containerId=prUS53076625" target="_blank">IDC Memory Market</a> Projections · <a href="https://investors.micron.com/news-releases" target="_blank">SK Hynix, Micron, TSMC, NVIDIA</a> CEO Earnings Testimony (Q3–Q4 2025)<br><br>
+  <a href="index.html">← Main Report</a> &nbsp;·&nbsp;
+  <a href="glossary.html">Glossary →</a> &nbsp;·&nbsp;
+  <a href="QA_Geopolitics_National_Security.html">Batch 3: Geopolitics →</a>
+</footer>
+
+<script>
+const ACRONYMS = {
+  'LLM':   'Large Language Model, a neural network trained on massive text data to understand and generate language. Examples: GPT, Claude, Gemini, Llama.',
+  'LLMs':  'Large Language Models, the category of AI systems trained on internet-scale text to produce human-like language outputs.',
+  'SLM':   'Small Language Model, typically 1–15 billion parameters; trained or fine-tuned for specific domains. Faster, cheaper, and often more accurate than frontier LLMs on narrow, well-defined tasks.',
+  'SLMs':  'Small Language Models, AI models in the 1–15B parameter range, optimized for specific domain tasks rather than general use.',
+  'HBM':   'High Bandwidth Memory, specialized DRAM built by stacking multiple memory dies vertically using Through-Silicon Vias (TSVs). Provides the extreme data bandwidth AI accelerators require.',
+  'CoWoS': 'Chip-on-Wafer-on-Substrate, TSMC\'s advanced packaging process that integrates HBM memory stacks with GPU logic chips on a silicon interposer. Essential for all modern frontier AI accelerators.',
+  'GPU':   'Graphics Processing Unit, originally designed for gaming; now the primary hardware for training and running AI models due to its parallel matrix processing architecture.',
+  'GPUs':  'Graphics Processing Units, the primary AI training and inference hardware, manufactured primarily by NVIDIA.',
+  'DRAM':  'Dynamic Random Access Memory, the foundational memory technology in computers. HBM is a specialized, vertically stacked variant engineered for AI accelerator bandwidth.',
+  'API':   'Application Programming Interface, standardized way for software systems to communicate. AI companies offer APIs for per-use access to their models.',
+  'CoT':   'Chain of Thought, a prompting or training technique where a model generates explicit intermediate reasoning steps before its final answer. Significantly improves performance on complex tasks.',
+  'CoT reasoning': 'Chain of Thought reasoning, the practice of generating step-by-step intermediate logic before producing a final answer. Documented to improve accuracy on math, coding, and logic tasks.',
+  'RL':    'Reinforcement Learning, a training paradigm where a model learns by receiving rewards or penalties for actions, rather than from labeled examples.',
+  'RLHF':  'Reinforcement Learning from Human Feedback, a training technique using human preference ratings to shape AI model behavior toward helpful, safe responses.',
+  'ARC-AGI': 'Abstract and Reasoning Corpus for Artificial General Intelligence, a benchmark designed by <a href="https://en.wikipedia.org/wiki/Fran%C3%A7ois_Chollet" target="_blank">François Chollet</a> to test genuine compositional reasoning, deliberately resistant to pattern-matching approaches.',
+  'NIST':  'National Institute of Standards and Technology, the US federal agency that publishes the AI Risk Management Framework and other AI standards.',
+  'SWE-bench': 'Software Engineering Benchmark, tests AI ability to resolve real-world GitHub issues. Claude Opus 4.6 leads at 80.8% as of April 2026.',
+  'GPQA':  'Graduate-Level Google-Proof Q&A, a benchmark of expert-level science questions requiring graduate-level reasoning to answer correctly.',
+  'AIME':  'American Invitational Mathematics Examination, a prestigious math competition benchmark used to evaluate AI mathematical reasoning.',
+  'MMLU':  'Massive Multitask Language Understanding, a benchmark testing knowledge and reasoning across 57 academic subjects.',
+  'CFPB':  'Consumer Financial Protection Bureau, US federal agency with authority over fair lending practices, including AI-driven credit decisions.',
+  'EEOC':  'Equal Employment Opportunity Commission, US federal agency enforcing employment discrimination laws, with guidance on AI hiring tools.',
+};
+
+function applyTooltips(root) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => {
+      const p = n.parentElement;
+      if (!p) return NodeFilter.FILTER_REJECT;
+      if (['SCRIPT','STYLE','A','ABBR'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+      if (p.classList.contains('ac')) return NodeFilter.FILTER_REJECT;
+      if (p.closest('.ac')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  let node;
+  while ((node = walker.nextNode())) nodes.push(node);
+  const keys = Object.keys(ACRONYMS).sort((a,b) => b.length - a.length);
+  const pattern = new RegExp('\\b(' + keys.map(k => k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') + ')\\b', 'g');
+  nodes.forEach(textNode => {
+    const text = textNode.textContent;
+    if (!pattern.test(text)) return;
+    pattern.lastIndex = 0;
+    const frag = document.createDocumentFragment();
+    let last = 0, m;
+    while ((m = pattern.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      const span = document.createElement('span');
+      span.className = 'ac';
+      span.setAttribute('data-tip', ACRONYMS[m[0]]);
+      span.setAttribute('tabindex', '0');
+      span.textContent = m[0];
+      frag.appendChild(span);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    textNode.parentNode.replaceChild(frag, textNode);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.qa-answer, .sb-body').forEach(applyTooltips);
+  document.addEventListener('click', e => {
+    const tip = e.target.closest('.ac');
+    document.querySelectorAll('.ac.tip-open').forEach(el => { if (el !== tip) el.classList.remove('tip-open'); });
+    if (tip) { tip.classList.toggle('tip-open'); e.stopPropagation(); }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.ac.tip-open').forEach(el => el.classList.remove('tip-open'));
+  });
+});
+</script>
+</body>
+</html>

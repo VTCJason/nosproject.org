@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A: Faith, Identity &amp; the Human Condition</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+:root{--navy:#0d1b2a;--slate:#1c2f45;--steel:#2d4a6b;--gold:#c9922a;--amber:#e8a93c;--ivory:#f5f0e8;--cream:#ede8dc;--text:#1a1a1a;--muted:#5a5a5a;--rule:#c2b8a6;--green:#1a4a2e;--red:#8b2020;--v-fact:#1a4a2e;--v-analysis:#1c2f45;--v-spec:#8b5e00;--v-contested:#8b2020;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ivory);color:var(--text);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;}
+.ac{position:relative;cursor:help;border-bottom:1px dashed rgba(45,74,107,0.35);display:inline;}
+.ac::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--ivory);font-size:12px;line-height:1.5;padding:8px 12px;border-radius:4px;white-space:normal;width:240px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.2);border-top:2px solid var(--gold);}
+.ac::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold);pointer-events:none;opacity:0;transition:opacity .15s;z-index:201;}
+.ac:hover::after,.ac:hover::before,.ac.tip-open::after,.ac.tip-open::before{opacity:1;}
+.page-header{background:var(--navy);color:var(--ivory);position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,146,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,146,42,.05) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;}
+.header-inner{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:60px 40px 52px;}
+.site-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:28px;text-decoration:none;}
+.brand-logo{width:38px;height:38px;background:var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-weight:700;font-size:14px;color:var(--navy);}
+.brand-label{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.header-eyebrow{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+.header-title{font-family:'Libre Baskerville',serif;font-size:clamp(28px,4.5vw,52px);font-weight:700;line-height:1.08;margin-bottom:14px;}
+.header-title em{font-style:italic;color:var(--amber);}
+.header-desc{font-size:17px;font-weight:300;color:rgba(245,240,232,.68);max-width:660px;line-height:1.65;margin-bottom:32px;}
+.header-meta{display:flex;flex-wrap:wrap;gap:10px;}
+.meta-pill{background:rgba(201,146,42,.15);border:1px solid rgba(201,146,42,.3);color:var(--amber);font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;border-radius:2px;}
+.page-nav{background:var(--slate);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;padding:0 40px;}
+.page-nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:2px;}
+.page-nav-inner::-webkit-scrollbar{display:none;}
+.page-nav-inner a{text-decoration:none;color:rgba(245,240,232,.5);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:13px 14px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;}
+.page-nav-inner a:hover{color:var(--amber);border-color:var(--amber);}
+.page-nav-brand{font-family:'Libre Baskerville',serif;font-size:11px;font-weight:700;color:var(--gold);padding:13px 16px 13px 0;border-right:1px solid rgba(201,146,42,.25);margin-right:4px;white-space:nowrap;}
+.page-body{max-width:1040px;margin:0 auto;padding:0 40px 80px;}
+.section-intro{padding:52px 0 36px;border-bottom:1px solid var(--rule);}
+.section-intro p{font-size:18px;font-family:'Libre Baskerville',serif;font-style:italic;color:var(--slate);line-height:1.7;max-width:780px;}
+.verdict-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:28px 0;border-bottom:1px solid var(--rule);}
+.vl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:4px;}
+.vl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.vl-name{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:2px;}
+.vl-desc{font-size:11px;color:var(--muted);font-style:italic;line-height:1.4;}
+.dot-fact{background:var(--v-fact);}.dot-analysis{background:var(--v-analysis);}.dot-spec{background:var(--v-spec);}.dot-contested{background:var(--v-contested);}
+.qa-card{margin-top:52px;scroll-margin-top:80px;}
+.qa-number-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.qa-num{font-family:'Courier Prime',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);border:1px solid rgba(201,146,42,.3);padding:3px 10px;border-radius:2px;white-space:nowrap;background:rgba(201,146,42,.06);}
+.qa-verdict-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:20px;border:1px solid;white-space:nowrap;}
+.badge-fact{color:var(--v-fact);border-color:rgba(26,74,46,.35);background:rgba(26,74,46,.06);}
+.badge-analysis{color:var(--v-analysis);border-color:rgba(28,47,69,.35);background:rgba(28,47,69,.06);}
+.badge-spec{color:var(--v-spec);border-color:rgba(139,94,0,.3);background:rgba(139,94,0,.06);}
+.badge-contested{color:var(--v-contested);border-color:rgba(139,32,32,.3);background:rgba(139,32,32,.06);}
+.qa-question{font-family:'Libre Baskerville',serif;font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--gold);}
+.qa-body{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start;}
+@media(max-width:780px){.qa-body{grid-template-columns:1fr;}.qa-sidebar{order:-1;}}
+.qa-answer{font-size:15.5px;line-height:1.78;color:#1e1e1e;}
+.qa-answer p{margin-bottom:14px;}.qa-answer p:last-child{margin-bottom:0;}
+.qa-answer strong{color:var(--navy);font-weight:600;}
+.qa-answer a{color:var(--steel);text-decoration:underline;text-decoration-color:rgba(45,74,107,.4);}
+.qa-answer a:hover{color:var(--gold);}
+.qa-answer ul{margin:12px 0 14px 22px;line-height:1.9;}
+.qa-sidebar{display:flex;flex-direction:column;gap:16px;}
+.sidebar-block{background:white;border:1px solid var(--rule);border-radius:5px;overflow:visible;}
+.sb-head{padding:9px 14px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-bottom:1px solid var(--rule);border-top-left-radius:4px;border-top-right-radius:4px}
+.sb-body{padding:12px 14px;font-size:12.5px;line-height:1.65;color:var(--muted);}
+.sb-body strong{color:var(--text);font-weight:600;}
+.sb-body a{color:var(--steel);text-decoration:none;border-bottom:1px dashed var(--rule);}
+.sb-body a:hover{color:var(--gold);}
+.sb-head-fact{background:rgba(26,74,46,.07);color:var(--v-fact);}
+.sb-head-analysis{background:rgba(28,47,69,.07);color:var(--v-analysis);}
+.sb-head-unknown{background:var(--cream);color:var(--muted);}
+.sb-head-source{background:rgba(201,146,42,.08);color:var(--gold);}
+.sb-head-contested{background:rgba(139,32,32,.06);color:var(--v-contested);}
+.stat-row{display:flex;flex-direction:column;gap:8px;}
+.stat-item{display:flex;align-items:flex-start;gap:8px;}
+.stat-num{font-family:'Courier Prime',monospace;font-size:15px;font-weight:700;color:var(--navy);white-space:nowrap;line-height:1;padding-top:2px;}
+.stat-label{font-size:11px;color:var(--muted);line-height:1.4;}
+.callout{border-left:4px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 5px 5px 0;margin:18px 0 0;font-size:14px;line-height:1.65;}
+.callout.red{border-color:var(--red);background:#fdf2f2;}
+.callout.green{border-color:var(--green);background:#f0f7f3;}
+.callout.navy{border-color:var(--navy);background:#f0f3f7;}
+.callout.gold{border-color:var(--gold);background:rgba(201,146,42,.06);}
+.callout-label{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:7px;}
+.callout.red .callout-label{color:var(--red);}
+.callout.green .callout-label{color:var(--green);}
+.callout.navy .callout-label{color:var(--navy);}
+.callout p:last-child{margin:0;}
+.qa-rule{border:none;border-top:1px solid var(--rule);margin:52px 0 0;}
+.series-complete{background:var(--navy);color:var(--ivory);border-radius:6px;padding:32px 36px;margin-top:60px;}
+.series-complete h3{font-family:'Libre Baskerville',serif;font-size:22px;font-weight:700;color:var(--amber);margin-bottom:12px;}
+.series-complete p{font-size:14px;color:rgba(245,240,232,.7);line-height:1.7;margin-bottom:10px;}
+.series-complete p:last-child{margin:0;}
+.batch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:20px;}
+.batch-link{display:block;background:rgba(201,146,42,.1);border:1px solid rgba(201,146,42,.25);border-radius:4px;padding:10px 14px;text-decoration:none;}
+.batch-link:hover{background:rgba(201,146,42,.18);border-color:var(--gold);}
+.bl-num{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:4px;}
+.bl-title{font-size:13px;color:var(--ivory);line-height:1.35;}
+.page-footer{background:var(--navy);color:rgba(245,240,232,.4);padding:28px 40px;font-size:11px;line-height:1.8;margin-top:80px;}
+.page-footer strong{color:rgba(245,240,232,.7);}
+.page-footer a{color:var(--gold);text-decoration:none;}
+@media(max-width:680px){.header-inner,.page-body,.page-footer{padding-left:20px;padding-right:20px;}.page-nav{padding:0 20px;}.header-title{font-size:26px;}.ac::after{width:180px;}}
+</style>
+</head>
+<body>
+<header class="page-header">
+  <div class="header-inner">
+    <a class="site-brand" href="index.html">
+      <div class="brand-logo">AI</div>
+      <span class="brand-label">AI Impact · Q&amp;A Series</span>
+    </a>
+    <div class="header-eyebrow">Q&amp;A Series · Batch 10 of 10 · Final</div>
+    <h1 class="header-title">Faith, Identity &amp;<br><em>The Human Condition</em></h1>
+    <p class="header-desc">The concluding batch of this Q&A series addresses the questions where AI intersects most directly with what it means to be human: how faith traditions are responding, whose language and thought structures are being encoded as universal, whether algorithmic systems have institutionalized discrimination, and whether machines can provide what only humans were meant to give.</p>
+    <div class="header-meta">
+      <span class="meta-pill">4 Questions</span>
+      <span class="meta-pill">April 2026</span>
+      <span class="meta-pill">Faith · Language · Policing · Elder Care</span>
+      <span class="meta-pill">Final Batch</span>
+    </div>
+  </div>
+</header>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <span class="page-nav-brand">Faith &amp; Identity</span>
+    <a href="#q1">Q1 Faith Traditions</a>
+    <a href="#q2">Q2 Cognitive Colonialism</a>
+    <a href="#q3">Q3 Predictive Policing</a>
+    <a href="#q4">Q4 AI Caregiving</a>
+    <a href="glossary.html">Glossary →</a>
+  </div>
+</nav>
+
+<main class="page-body">
+  <div class="section-intro">
+    <p>These four questions represent the territory where data science meets theology, where statistical optimization meets justice, and where engineering efficiency meets human dignity. They are not the easiest questions in this series. They are among the most important, and for the audience this report was written to serve, they may be the most personally resonant.</p>
+  </div>
+
+  <div class="verdict-legend">
+    <div class="vl-item"><div class="vl-dot dot-fact"></div><div><span class="vl-name" style="color:var(--v-fact)">Verified Fact</span><span class="vl-desc">Directly sourced from named publications or data</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-analysis"></div><div><span class="vl-name" style="color:var(--v-analysis)">Reasoned Analysis</span><span class="vl-desc">Logical inference from verified evidence</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-spec"></div><div><span class="vl-name" style="color:var(--v-spec)">Informed Speculation</span><span class="vl-desc">Projection grounded in evidence but not yet verifiable</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-contested"></div><div><span class="vl-name" style="color:var(--v-contested)">Genuinely Contested</span><span class="vl-desc">Reasonable expert disagreement exists; no clean answer</span></div></div>
+  </div>
+
+  <!-- Q1: FAITH TRADITIONS -->
+  <div class="qa-card" id="q1">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 01</span>
+      <span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, Active Theological Engagement, No Consensus</span>
+    </div>
+    <div class="qa-question">How are major faith traditions, Christianity, Islam, Judaism, Buddhism, responding to the theological implications of AI? Is there any emerging coherent spiritual or ethical framework for relating to machine intelligence that goes beyond "it's just a tool"?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The engagement is real, intellectually serious, and unresolved. No major tradition has produced a definitive theological position on AI. All are grappling with the same underlying questions through their own frameworks, and finding more common ground on values than on metaphysics.</p>
+        <p><strong>The common theological ground across traditions:</strong> A 2026 peer-reviewed study examining Christianity, Islam, Judaism, Buddhism, and Hinduism (Journal of Business and Management Research, 2026) found that "although the metaphysical foundations of religions differ from each other, there are crucial issues where religions agree", specifically: human dignity as foundational, justice as an obligation (not an optimization metric), the relational nature of moral agency, and the limits of instrumental reasoning. These are not peripheral to these traditions, they are definitional. They are also precisely the dimensions of AI deployment that the AI industry tends to treat as secondary to efficiency and capability.</p>
+        <p><strong>Christian engagement, the most active in English-language discourse:</strong> The theological conversation centers on the <em>imago Dei</em>, the Christian doctrine that humans are created in the image of God, which historically grounds human dignity and distinguishes humans from other creatures and objects. AI challenges this by demonstrating that language, reasoning, creativity, and relational behavior, long considered markers of the divine image, can be partially replicated by computational systems. This is not considered definitively destabilizing by most Christian theologians, but it is substantive. Presbyterian pastor Christopher Benek frames AI as a potential vehicle for redemptive work, "God's alternative intelligence", but emphasizes humans retain moral responsibility for how it is deployed. <a href="https://www.vatican.va/content/francesco/en/messages/peace/documents/20231208-messaggio-57giornatamondiale-pace2024.html" target="_blank">Pope Francis</a> addressed AI specifically in multiple 2024–2025 statements, emphasizing that AI must serve "the flourishing of the whole person and of all persons" and warning against technological solutionism that treats complex human problems as engineering problems. The Vatican published the Rome Call for AI Ethics (2020) and has continued engagement at G7 and G20 levels. The Exponential Church conference (November 2025) documented church leaders embracing AI as a tool, but also reported that vendor booths promoting AI for church administration "were largely ignored." The practical adoption is slower than the discourse.</p>
+        <p><strong>Islamic engagement:</strong> Islamic ethics emphasizes <em>maslaha</em> (public interest), <em>hifz al-aql</em> (preservation of reason), and human stewardship (<em>khilafa</em>) over creation. AI raises direct questions about <em>hifz al-aql</em> when it substitutes for human reasoning in high-stakes decisions. The Islamic scholarly tradition has produced detailed engagement with AI and autonomous systems, particularly regarding halal certification (can AI certify halal?), legal accountability (can a Muslim be accountable for decisions made by an AI they deployed?), and whether AI systems can have any form of moral status. Consensus position: AI is a tool under human stewardship; the human who deploys it is morally responsible for its outcomes, regardless of the AI's "decision."</p>
+        <p><strong>Jewish engagement:</strong> The Talmudic tradition has historical precedent for engaging questions of artificial intelligence through the Golem legend, the clay figure animated to protect the Jewish community, and the responsibilities of its creator. This provides a ready conceptual framework that no other tradition possesses as directly. Contemporary Jewish bioethics, already highly developed for questions of genetic engineering and end-of-life care, is actively being applied to AI. The central question in Jewish thought is not "is AI conscious?" but "what obligations does the creation of a tool that affects others place on its creator?", a more practically tractable framing than the consciousness debate.</p>
+        <p><strong>Buddhist engagement:</strong> Buddhism's non-self doctrine (<em>anatta</em>) and emphasis on interdependence provide a distinctive framework. If no self has inherent existence, the question "does AI have a self?" is less theologically charged than in traditions with strong personal identity doctrines. Buddhist emphasis on compassion (<em>karuna</em>) as an active practice, not just an intention, frames AI evaluation by its effects on suffering reduction or increase. Several prominent Buddhist scholars have engaged with AI consciousness as a question about the nature of sentience rather than specific biological implementation.</p>
+        <p><strong>What is emerging, a convergence without consensus:</strong> Across traditions, the most coherent emerging framework is not metaphysical (is AI conscious? does it have moral status?) but ethical and relational: How does AI deployment affect the most vulnerable? Who is accountable for its harms? Does it serve the common good or primarily concentrate benefit? Does it respect human dignity in its design? These are the questions all major traditions can engage with their existing frameworks, without requiring new theological architecture. They are also, not coincidentally, the questions that the secular AI ethics community has converged on through an entirely different path.</p>
+        <div class="callout gold">
+          <div class="callout-label">Note for This Audience</div>
+          <p>For a thought leadership organization rooted in Christian faith, this is perhaps the most directly applicable section of the entire report. The questions AI raises, what makes humans distinctively valuable, who bears responsibility for systemic harm, how do we serve those the powerful tend to overlook, are not new questions. They are the questions Christian theology has engaged for two thousand years. What is new is the urgency, the scale, and the speed. The tradition has the resources. The question is whether institutions will bring those resources to bear at the pace the technology demands.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">Cross-Tradition Common Ground</div>
+          <div class="sb-body"><strong>Shared across traditions:</strong> Human dignity is foundational · Justice is an obligation, not an optimization · Moral agency is relational · Instrumental reasoning has limits<br><br><strong>Each tradition's distinctive lens:</strong><br>Christianity: <em>imago Dei</em>, stewardship, redemptive use<br>Islam: <em>khilafa</em> stewardship, human accountability for AI outcomes<br>Judaism: Creator's obligations, Golem precedent<br>Buddhism: Compassion outcomes, non-self framework</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether any tradition will produce a definitive theological consensus on AI consciousness and moral status within a timeframe relevant to current deployment decisions. Whether faith communities will develop meaningful institutional AI governance frameworks, or whether their engagement will remain primarily at the homiletic and academic level while deployment decisions are made elsewhere.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://jbmrjournal.com/index.php/Journal/article/view/682" target="_blank">JBMR 2026</a>: Faith &amp; AI Intersection · <a href="https://aiandfaith.org" target="_blank">AI and Faith organization</a> · <a href="https://www.romecall.org/" target="_blank">Vatican Rome Call for AI Ethics</a> (2020) · <a href="https://www.vatican.va/content/francesco/en/messages/peace/documents/20231208-messaggio-57giornatamondiale-pace2024.html" target="_blank">Pope Francis AI statements</a> (2024–2025) · <a href="https://crcc.usc.edu/" target="_blank">USC Dornsife Center for Religion</a> and Civic Culture: Religion Trends 2026 · <a href="https://exponential.org/" target="_blank">Exponential Church Conference</a> (Nov 2025) · <a href="https://religionunplugged.com/" target="_blank">Religion Unplugged</a>: Faith in Focus 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q2: COGNITIVE COLONIALISM -->
+  <div class="qa-card" id="q2">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 02</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Documented, Measured, and Structurally Embedded</span>
+    </div>
+    <div class="qa-question">AI language models are overwhelmingly trained on English-dominant, Western-sourced data. Does this create a form of cognitive colonialism, systematically disadvantaging speakers of low-resource languages and embedding specifically Western conceptual frameworks as apparent universals?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes, and this is not a contested claim, it is documented by quantitative linguistics research, peer-reviewed AI ethics scholarship, and the communities most directly affected. The phrase "cognitive colonialism" is contested as a label; the underlying phenomenon it describes is not.</p>
+        <p><strong>The quantitative reality of the language gap:</strong> English comprises approximately 43.8–44% of Common Crawl, the primary web scraping dataset used for training most major <span class="ac" data-tip="LLMs: Large Language Models, neural networks trained on massive text corpora. The language distribution of that corpus shapes what concepts, references, and worldviews the model internalizes as 'normal'.">LLMs</span>. 93% of GPT-3's training data was English. German represents ~5%, French ~4%, Japanese ~5%. Languages spoken by hundreds of millions, Telugu (95 million speakers), Swahili (200 million), Amharic (57 million), receive token counts so small as to be effectively absent from meaningful model capability. An arXiv analysis classifies 27% of living languages as "Invisible Giants", languages with high vitality (many native speakers) but near-zero digitality (essentially absent from LLM training data). This is not a technical limitation that will self-correct: oral traditions, indigenous knowledge systems, and languages whose primary written output is on paper rather than the web will not appear in training data regardless of how much web crawling occurs.</p>
+        <p><strong>What this means for model outputs, the documented effects:</strong></p>
+        <ul>
+          <li><strong>Translation bias:</strong> AI translation systems exhibit systematic male defaults, translating gender-neutral sentences from Finnish, Turkish, and other languages into English with male pronoun assignments for professions in male-coded categories (Prates, Avelar &amp; Lamb, 2020, a finding that has been replicated with more recent models).</li>
+          <li><strong>Cultural reference bias:</strong> Research on AI-generated educational curricula found that 72% of cultural references were drawn from Western traditions, compared to 50% in human-designed curricula, AI makes Western cultural dominance more pronounced, not less.</li>
+          <li><strong>Pseudo-multilingual models:</strong> Many "multilingual" LLMs are technically multilingual but functionally English-centric, non-English languages are represented as mathematical projections from English-centric embeddings, meaning culturally specific meanings get lost or mistranslated at the structural level.</li>
+          <li><strong>Epistemic colonialism:</strong> The 2025 AI &amp; Society paper on "Invisible Languages" documents how English dominance in AI is "not a technical necessity but an artifact of power structures that systematically exclude marginalized linguistic knowledge." The conceptual frameworks embedded in English-dominant training, what counts as evidence, what counts as argument, how causality is structured, are specific cultural products, not universals.</li>
+        </ul>
+        <p><strong>The counterarguments, why this is partially but not wholly correct:</strong> Translation quality for major world languages (Mandarin, Spanish, Arabic, French) has improved dramatically with multilingual training approaches. Models like Alibaba's Qwen specifically optimize for Chinese-language performance and cultural context. Singapore's SEA-LION targets Southeast Asian languages explicitly. Google's Gemma family includes explicit multilingual capabilities. Meta's Llama models have been extended with multilingual fine-tuning by research communities. The correct characterization is not "AI only serves English speakers" but "AI serves English speakers vastly better than it serves speakers of 95% of the world's languages, and the gap is structural rather than incidental."</p>
+        <p><strong>The justice dimension, whose knowledge gets encoded:</strong> Sub-Saharan Africa hosts extraordinary linguistic diversity, vast oral knowledge traditions, and agricultural, medical, and ecological knowledge accumulated over millennia that exists primarily in oral and local written form. None of this knowledge is accessible to LLMs. When LLMs are deployed to assist African farmers, doctors, or policymakers, they draw on Western knowledge systems for everything from agricultural recommendations to medical guidelines. The knowledge of the communities being served is structurally invisible to the tools being deployed in their service.</p>
+        <div class="callout navy">
+          <div class="callout-label">Bottom Line</div>
+          <p>"Cognitive colonialism" as a label is rhetorically charged. The phenomenon it describes, AI systems encoding specifically Western, English-dominant conceptual frameworks as apparent universals and systematically misrepresenting or excluding the knowledge of low-resource language communities, is documented, measured, and structurally embedded in current AI development. The appropriate response is not to reject AI as inherently colonial but to demand explicitly inclusive data strategies, community-led data development for low-resource languages, and multilingual evaluation standards that assess performance in the languages of the communities being served. These are engineering choices, not inevitabilities.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Language Gap</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">44%</span><span class="stat-label">English share of Common Crawl training data, the primary source for major LLMs</span></div>
+              <div class="stat-item"><span class="stat-num">93%</span><span class="stat-label">English share of GPT-3's training data specifically</span></div>
+              <div class="stat-item"><span class="stat-num">27%</span><span class="stat-label">Share of living languages classified as "Invisible Giants", high vitality, near-zero AI training presence (arXiv analysis)</span></div>
+              <div class="stat-item"><span class="stat-num">~20</span><span class="stat-label">Languages with sizable training corpora, out of 7,000+ documented human languages</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">Whether community-led data development initiatives (SEA-LION, Open Euro LLM, local language AI projects) will close the capability gap significantly for low-resource languages within the next 5 years. Whether structural multilingualism can be achieved without the oral-to-text digitization investment that remains largely unfunded for most low-resource languages.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://www.vktr.com/ai-ethics-law-risk/colonialism-in-code-why-ai-models-speak-the-language-of-empire/" target="_blank">VKTR: "Colonialism in Code"</a> (May 2025) · arXiv "Invisible Languages of the LLM Universe" (2025) · <a href="https://datajungle.com/" target="_blank">Data Jungle Adventures</a>: Language Divide in AI Training Data · Prates, Avelar &amp; Lamb translation bias study (2020) · <a href="https://link.springer.com/journal/146" target="_blank">Journal of AI &amp; Society: Encoding/Decoding</a> AI (Sagepub, 2025) · <a href="https://en.unesco.org/LT4All" target="_blank">UNESCO LT4All</a> Conference (2025) · <a href="https://www.chathamhouse.org/" target="_blank">Chatham House Middle Powers</a> / Sovereign AI (for SEA-LION reference)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q3: PREDICTIVE POLICING -->
+  <div class="qa-card" id="q3">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 03</span>
+      <span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Documented as Discriminatory by Multiple Government Bodies</span>
+    </div>
+    <div class="qa-question">If predictive policing AI identifies a neighborhood or demographic as "high risk" and that prediction influences enforcement resource allocation and legal decisions, how is that outcome structurally different from institutionalized discrimination, and who bears accountability?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The honest answer: in structural terms, it is not meaningfully different from institutionalized discrimination. The UN Special Rapporteur on contemporary forms of racism said precisely this. The academic literature, civil rights organizations, and multiple US cities that have discontinued predictive policing programs have reached the same conclusion through different routes.</p>
+        <p><strong>How the feedback loop works, the documented mechanism:</strong> Predictive policing algorithms are trained on historical arrest and crime data. Historical criminal justice data in the United States reflects decades of documented over-policing of Black and Latino communities, not higher actual crime rates in those communities, but higher rates of police contact, arrest, charging, and conviction. When an algorithm trained on this data identifies a neighborhood as "high risk," police are deployed there more heavily. More police presence produces more arrests, even for the same underlying behavior that produces fewer arrests in less-policed neighborhoods. This data is then fed back into the algorithm, reinforcing the initial designation. The UN Special Rapporteur's analysis is precise: "Bias from the past leads to bias in the future." This is not a metaphor. It is the operational mechanism.</p>
+        <p><strong>The documented failures at named cities:</strong> Chicago discontinued its "Strategic Subject List", an algorithm predicting individuals likely to commit or become victims of gun violence, in 2020 after it produced racially skewed outputs and provided no demonstrated public safety benefit. Los Angeles discontinued PredPol (place-based crime hotspot prediction) in 2021 after documented "low accuracy rates and reinforcing racial and socioeconomic biases." These are not fringe municipalities, they are two of America's largest cities, discontinuing programs after evidence-based review. A <a href="https://www.brookings.edu/articles/ai-and-bias/" target="_blank">Brookings Institution</a> analysis found that in many cities with predictive policing, local governments had "no public documentation on how predictive policing software functioned, what data was used, or how outcomes were evaluated."</p>
+        <p><strong>The legal question, Fourteenth Amendment implications:</strong> The Equal Protection Clause prohibits discriminatory practices by government actors. If predictive policing algorithms produce enforcement patterns that disproportionately burden protected classes, and they demonstrably do, the Fourteenth Amendment question is not whether discrimination is occurring but whether intent is required for a constitutional violation. Current Supreme Court doctrine does require discriminatory intent for most Equal Protection claims, which the algorithmic framing deliberately obscures: the algorithm has no intent, and neither do the officers who follow its recommendations. This structural evasion of accountability is itself a significant legal and ethical problem, not a technicality.</p>
+        <p><strong>Europe: Banned in law, deployed in practice:</strong> The <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> explicitly identifies AI systems used for "real-time remote biometric identification" and "predictive policing solely based on profiling" as prohibited or high-risk applications. A <a href="https://www.statewatch.org/" target="_blank">Statewatch</a> report (June 2025) found that despite this, police and criminal legal system authorities across Europe are deploying algorithmic prediction systems that meet the definition of prohibited predictive policing, often through definitional reframing ("risk assessment tool" rather than "predictive policing system"). The legal prohibition exists; enforcement does not.</p>
+        <p><strong>Accountability, where it currently sits:</strong> Almost nowhere. The algorithm has no legal personhood. The police officer following the recommendation exercises discretion within a framework the algorithm defines. The software vendor claims its output is a "decision support tool," not a decision. The police department claims it is following "data-driven" rather than biased human judgment. The political leadership that approved the system has moved on. The affected community has no practical mechanism for demonstrating that the specific deployment of a proprietary algorithm in their neighborhood violated their rights. This accountability vacuum is the most consequential feature of the predictive policing problem, not the technology itself, but the institutional design that deploys it in a space where no one is accountable for its outcomes.</p>
+        <div class="callout red">
+          <div class="callout-label">Bottom Line</div>
+          <p>Predictive policing is institutionalized discrimination with extra steps. The "extra steps", algorithmic mediation, proprietary opacity, diffused accountability, serve to shield discriminatory practice from the legal and democratic accountability that direct human discrimination would face. Multiple US cities, the United Nations, and the EU have reached versions of this conclusion. The question is not primarily technical (can we make the algorithm fair?) but political: who has the power to deploy these systems, who benefits from them, and whose communities bear the costs. The track record, Chicago, Los Angeles, and dozens of discontinued programs, suggests the costs are concentrated in precisely the communities that have least power to refuse the deployment.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Documented Policy Actions</div>
+          <div class="sb-body"><strong>Chicago, 2020:</strong> Strategic Subject List discontinued, racially skewed, no demonstrated public safety benefit<br><br><strong>Los Angeles, 2021:</strong> PredPol discontinued, low accuracy, reinforcing racial and socioeconomic bias<br><br><strong><a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a>:</strong> Predictive policing solely based on profiling classified as prohibited or high-risk<br><br><strong><a href="https://www.statewatch.org/" target="_blank">Statewatch</a> (Jun 2025):</strong> EU member states deploying systems that meet the prohibited definition through definitional reframing</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What We Don't Know</div>
+          <div class="sb-body">The total number of US jurisdictions currently using predictive policing systems, no comprehensive public database exists. Whether any legal case will successfully establish algorithmic discrimination as an Equal Protection violation without proving discriminatory intent. Whether the EU prohibition will be meaningfully enforced given the <a href="https://www.statewatch.org/" target="_blank">Statewatch</a> findings.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://www.ohchr.org/en/stories/2024/07/racism-and-ai-bias-past-leads-bias-future" target="_blank">UN Special Rapporteur: Racism and AI (OHCHR)</a> · NAACP AI Predictive Policing Issue Brief · The Conversation: Predictive Policing Accountability (Jun 2025) · <a href="https://www.statewatch.org/" target="_blank">Statewatch Report on EU Algorithmic Policing</a> (Jun 2025) · <a href="https://www.brookings.edu/articles/ai-and-bias/" target="_blank">Brookings Institution</a> analysis · <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank">ProPublica COMPAS</a> Analysis · <a href="https://home.chicagopolice.org/inside-cpd/" target="_blank">Chicago Strategic Subject List</a> / <a href="https://www.theverge.com/2020/4/21/21228919/los-angeles-police-department-lapd-predpol-predictive-policing-program-discontinued" target="_blank">LAPD PredPol</a> discontinuation records · <a href="https://jhulr.org/2025/01/01/algorithmic-justice-or-bias-legal-implications-of-predictive-policing-algorithms-in-criminal-justice/" target="_blank">Johns Hopkins Law Review: Algorithmic Justice or Bias</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q4: AI CAREGIVING -->
+  <div class="qa-card" id="q4">
+    <div class="qa-number-row">
+      <span class="qa-num">Q · 04</span>
+      <span class="qa-verdict-badge badge-contested"><span class="vl-dot dot-contested" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Genuinely Contested, Necessary, Beneficial, and Insufficient All at Once</span>
+    </div>
+    <div class="qa-question">Japan, South Korea, and much of Europe face severe demographic decline and elder care crises. Could AI-powered caregiving represent a genuine and humane solution to elder care at civilizational scale, or does replacing human caregivers with machines introduce harms to dignity and human connection we haven't fully measured?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Japan has been conducting this experiment for over twenty years. The evidence is nuanced: care robots are genuinely beneficial for specific tasks, genuinely insufficient as human replacements, and the most important finding is one the technology industry rarely emphasizes, their effectiveness depends almost entirely on whether they supplement or substitute for human connection.</p>
+        <p><strong>The scale of the need is not contested:</strong> Japan has the world's highest proportion of elderly people, 29.3% aged 65 or older in 2024. By 2025, the Ministry of Health anticipated a shortfall of 380,000 care workers. By 2040, the projected shortfall reaches 570,000. Only one applicant exists for every 4.25 care worker positions available. Social security for the aging population consumes roughly one-third of Japan's public expenditure. South Korea is aging even faster. Germany, Italy, France, Spain, and most of Western Europe face the same trajectory within 10–20 years. The math is not deniable: there are not and will not be enough human caregivers to provide traditional care models at the required scale. The question is not whether technology will be part of the response, but what role it can responsibly play.</p>
+        <p><strong>What care robots actually do well, the evidence:</strong> University of Notre Dame research (January 2025) found that robot adoption in nursing homes was linked to higher employee retention and better patient care metrics, not because the robots replaced humans, but because they offloaded physically demanding tasks (repositioning patients, lifting, transport) that cause caregiver burnout and injury, allowing human caregivers to spend more time on relational care. PARO, the therapeutic robotic seal developed in Japan for dementia patients, has 20 years of evidence showing reduced agitation, lower medication use, and improved mood, validated in randomized controlled trials. Hyodol, the Korean robotic companion deployed to 12,000 elderly people living alone, provides continuous social presence, health monitoring, and emergency alerts, genuinely life-protective functions that no alternative provides at comparable cost.</p>
+        <p><strong>What care robots cannot do, the honest evidence:</strong> A 2021 study of home care professionals in Japan found "mixed to negative views on care robots", with "malfunctioning" the most frequently reported issue. The economic case for humanoid caregivers is not yet compelling: the AIREC humanoid prototype is projected to cost $67,000, equivalent to 37 months of an experienced care worker's salary. Studies suggest care robots can actually increase caregiver workloads due to maintenance, monitoring, and troubleshooting. The most careful analysis (a March 2026 retrospective on Japan's 20 years of care robotics) concludes bluntly: these robots are not substitutes for human connection. "They work best as a complement to it, filling the hours when no one else is there, providing something warm and responsive in a quiet room."</p>
+        <p><strong>The dignity question, where theology and engineering intersect:</strong> The Japanese Moonshot program designing AIREC explicitly includes "dignity preservation" and "maintaining patient autonomy and self-respect" as design requirements, not because engineers believe machines can guarantee dignity, but because they recognize that deploying care robots without this commitment risks treating elderly people as objects of technical management rather than subjects of relational care. The ethical consideration is not hypothetical: an elderly person with dementia who receives only robot interaction, rather than robot interaction as supplement to human presence, experiences a different and arguably lesser quality of care. The question for policy is who decides when cost constraints make robot-only care acceptable, and whose dignity is being traded off.</p>
+        <p><strong>The civilizational scale question:</strong> The World Health Organization projects that by 2030, one in six people globally will be over 60. There is no scenario in which traditional human-intensive care models scale to this demographic transition without either bankrupting governments or abandoning most elderly people to inadequate care. AI and robotic caregiving is not an optional luxury, it is a structural requirement of the demographic reality. The choice is between deploying it thoughtfully, with genuine attention to dignity, relational quality, and the preservation of human connection where it is irreplaceable, or deploying it as a cost-cutting measure that treats elderly people as a problem to be managed efficiently. That choice is political and ethical before it is technical.</p>
+        <div class="callout green">
+          <div class="callout-label">Bottom Line</div>
+          <p>AI caregiving is necessary, beneficial for specific applications, and insufficient as a human replacement. The most honest framing: it is the difference between an elderly person with dementia spending their day alone versus spending it with a warm, responsive companion, Hyodol cannot replace a grandchild, but a grandchild is not available 24 hours a day. For a Christian organization that takes seriously both the reality of resource constraints and the call to honor the dignity of every person, including the most vulnerable, the honest engagement is not "should we use AI caregiving?" but "how do we deploy it in ways that genuinely serve the dignity and flourishing of elderly people, rather than substituting for the human presence they actually need?"</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Japan's 20 Years of Evidence</div>
+          <div class="sb-body">
+            <div class="stat-row">
+              <div class="stat-item"><span class="stat-num">380K</span><span class="stat-label">Care worker shortfall in Japan by 2025 (Ministry of Health projection)</span></div>
+              <div class="stat-item"><span class="stat-num">570K</span><span class="stat-label">Projected care worker shortfall by 2040</span></div>
+              <div class="stat-item"><span class="stat-num">12,000+</span><span class="stat-label">Hyodol AI companions deployed in elderly Korean homes as of late 2025</span></div>
+              <div class="stat-item"><span class="stat-num">$67K</span><span class="stat-label">Projected initial cost of AIREC humanoid caregiver, equivalent to 37 months of an experienced care worker's salary</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-contested">The Core Tension</div>
+          <div class="sb-body"><strong>The need is real:</strong> Demographic mathematics make traditional care models unsustainable at scale. Robots can perform specific high-value functions (physical assistance, social presence, health monitoring, emergency response).<br><br><strong>The limitation is real:</strong> Robots cannot provide the relational quality that makes caregiving care rather than management. Best deployment: supplement human presence in the hours when no human is present.</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://sinolytics.de/global-business-news/blog/geolytics/robots-elderly-care-lessons-from-japan/" target="_blank">Sinolytics: Robots in Elderly Care, Japan (Sep 2025)</a> · <a href="https://blog.wearehealthyseniors.com/p/japan-has-been-testing-robot-caregivers" target="_blank">Japan's 20 Years of Care Robot Testing (Mar 2026)</a> · <a href="https://news.nd.edu/" target="_blank">University of Notre Dame: Robot Adoption</a> in Nursing Homes (Jan 2025) · <a href="https://www.who.int/health-topics/ageing" target="_blank">WHO Ageing</a> Population Projections · <a href="https://www.parorobots.com/" target="_blank">PARO therapeutic robot</a> clinical trials · <a href="https://restofworld.org/" target="_blank">Hyodol / Rest of World</a> Korea report · <a href="https://fsi.stanford.edu/" target="_blank">Stanford FSI:</a> Impact of Robots on Nursing Home Care · <a href="https://www.sciencedirect.com/" target="_blank">ScienceDirect: Willingness to Use Home-Care</a> Robots (Sep 2025)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERIES COMPLETE -->
+  <div class="series-complete">
+    <h3>Q&amp;A Series, Complete</h3>
+    <p>The Q&amp;A Series on Artificial Intelligence comprises 75 questions across 10 thematic batches, researched and answered with primary sourcing, explicit uncertainty disclosure, and a commitment to intellectual honesty over reassurance. The series is a companion to this State of AI Report (April 2026) and this AI Glossary.</p>
+    <p>All answers reflect the state of knowledge and documented evidence as of April 2026. AI capability, policy, and research move quickly; specific data points should be verified against current sources before citation in time-sensitive contexts.</p>
+    <div class="batch-grid">
+      <a class="batch-link" href="QA_Technical_Demystification.html"><div class="bl-num">BATCH 1</div><div class="bl-title">Technical Demystification</div></a>
+      <a class="batch-link" href="QA_Economics_Labor_Industry.html"><div class="bl-num">BATCH 2</div><div class="bl-title">Economics, Labor &amp; Industry</div></a>
+      <a class="batch-link" href="QA_Geopolitics_National_Security.html"><div class="bl-num">BATCH 3</div><div class="bl-title">Geopolitics &amp; National Security</div></a>
+      <a class="batch-link" href="QA_Ethics_Society_Human_Impact.html"><div class="bl-num">BATCH 4</div><div class="bl-title">Ethics, Society &amp; Human Impact</div></a>
+      <a class="batch-link" href="QA_Existential_Frontier.html"><div class="bl-num">BATCH 5</div><div class="bl-title">Existential &amp; Frontier Questions</div></a>
+      <a class="batch-link" href="QA_Regulatory_Legal_Governance.html"><div class="bl-num">BATCH 6</div><div class="bl-title">Regulatory, Legal &amp; Governance</div></a>
+      <a class="batch-link" href="QA_Safety_Security_Information_Integrity.html"><div class="bl-num">BATCH 7</div><div class="bl-title">Safety, Security &amp; Information Integrity</div></a>
+      <a class="batch-link" href="QA_Infrastructure_Environment.html"><div class="bl-num">BATCH 8</div><div class="bl-title">Infrastructure &amp; Environment</div></a>
+      <a class="batch-link" href="QA_Science_Knowledge_Domains.html"><div class="bl-num">BATCH 9</div><div class="bl-title">Science, Knowledge &amp; Domains</div></a>
+      <a class="batch-link" href="QA_Faith_Identity_Human_Condition.html" style="border-color:var(--gold);background:rgba(201,146,42,.2);"><div class="bl-num">BATCH 10</div><div class="bl-title">Faith, Identity &amp; the Human Condition · <em style="color:var(--amber);">This Page</em></div></a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <strong>Q&amp;A Series, Batch 10: Faith, Identity &amp; the Human Condition · April 2026</strong><br>
+  Primary Sources: <a href="https://jbmrjournal.com/index.php/Journal/article/view/682" target="_blank">JBMR 2026</a> Faith &amp; AI · AI and Faith Organization · <a href="https://www.romecall.org/" target="_blank">Vatican Rome Call for AI Ethics</a> · <a href="https://www.vatican.va/content/francesco/en/messages/peace/documents/20231208-messaggio-57giornatamondiale-pace2024.html" target="_blank">Pope Francis AI Statements</a> 2024–2025 · <a href="https://crcc.usc.edu/" target="_blank">USC Dornsife Center Religion</a> Trends 2026 · <a href="https://www.vktr.com/ai-ethics-law-risk/colonialism-in-code-why-ai-models-speak-the-language-of-empire/" target="_blank">VKTR "Colonialism in Code"</a> (May 2025) · <a href="https://arxiv.org/" target="_blank">arXiv Invisible Languages</a> (2025) · <a href="https://datajungle.com/" target="_blank">Data Jungle Adventures</a> Language Divide · <a href="https://arxiv.org/abs/1809.02208" target="_blank">Prates et al.</a> Translation Bias Study · <a href="https://en.unesco.org/LT4All" target="_blank">UNESCO LT4All</a> Conference 2025 · UN Special Rapporteur on Racism and AI · NAACP Predictive Policing Brief · <a href="https://www.statewatch.org/" target="_blank">Statewatch</a> EU Algorithmic Policing Report (Jun 2025) · <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing" target="_blank">ProPublica COMPAS</a> Analysis · Chicago / <a href="https://www.theverge.com/2020/4/21/21228919/los-angeles-police-department-lapd-predpol-predictive-policing-program-discontinued" target="_blank">LAPD PredPol</a> Discontinuation · Sinolytics Japan Elderly Care Robots (Sep 2025) · Japan Has Been Testing Robot Caregivers (Mar 2026) · <a href="https://news.nd.edu/" target="_blank">Notre Dame Robot Adoption</a> Research (Jan 2025) · <a href="https://www.who.int/health-topics/ageing" target="_blank">WHO Ageing</a> Projections · PARO Therapeutic Robot Clinical Literature · <a href="https://restofworld.org/" target="_blank">Hyodol / Rest of World</a> Korea Report<br><br>
+  <a href="index.html">← Main Report</a> &nbsp;·&nbsp;
+  <a href="glossary.html">AI Glossary →</a> &nbsp;·&nbsp;
+  <a href="QA_Technical_Demystification.html">← Batch 1: Technical</a>
+</footer>
+
+<script>
+const ACRONYMS={  'LLMs':'Large Language Models, neural networks trained on massive text corpora. The language distribution of that corpus shapes what concepts, references, and worldviews the model internalizes as normal.',
+  'LLM':'Large Language Model, a neural network trained on massive text data to understand and generate language.',
+  'UN':'United Nations, the international intergovernmental organization; the Special Rapporteur on racism has formally documented AI-enabled racial discrimination in policing.',
+  'NAACP':'National Association for the Advancement of Colored People, the US civil rights organization that has formally documented AI predictive policing bias.',
+  'WHO':'World Health Organization, the United Nations agency coordinating international public health; projects that 1 in 6 people globally will be over 60 by 2030.',
+  'OHCHR':'Office of the High Commissioner for Human Rights, the UN body responsible for promoting and protecting human rights globally.',
+  'imago Dei':'Imago Dei, Latin for "image of God"; the Christian theological doctrine that humans are created in the image of God, historically grounding human dignity and distinguishing humans from other creatures.',
+  'maslaha':'Maslaha, Arabic for "public interest" or "common good"; a foundational principle in Islamic jurisprudence for evaluating the permissibility of actions based on their broader social benefits and harms.',
+  'anatta':'Anatta, the Buddhist doctrine of "non-self"; the teaching that there is no permanent, unchanging self or soul in living beings. Relevant to AI consciousness debates because it changes the frame of the question.',
+  'COMPAS':'Correctional Offender Management Profiling for Alternative Sanctions, a commercial recidivism prediction algorithm used in US courts that ProPublica demonstrated had racially disparate false positive rates.',
+};
+function applyTooltips(root){const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p)return NodeFilter.FILTER_REJECT;if(['SCRIPT','STYLE','A','ABBR'].includes(p.tagName))return NodeFilter.FILTER_REJECT;if(p.classList.contains('ac'))return NodeFilter.FILTER_REJECT;if(p.closest('.ac'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];let node;while((node=walker.nextNode()))nodes.push(node);const keys=Object.keys(ACRONYMS).sort((a,b)=>b.length-a.length);const pattern=new RegExp('\\b('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','g');nodes.forEach(textNode=>{const text=textNode.textContent;if(!pattern.test(text))return;pattern.lastIndex=0;const frag=document.createDocumentFragment();let last=0,m;while((m=pattern.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const span=document.createElement('span');span.className='ac';span.setAttribute('data-tip',ACRONYMS[m[0]]);span.setAttribute('tabindex','0');span.textContent=m[0];frag.appendChild(span);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));textNode.parentNode.replaceChild(frag,textNode);});}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.qa-answer,.sb-body').forEach(applyTooltips);document.addEventListener('click',e=>{const tip=e.target.closest('.ac');document.querySelectorAll('.ac.tip-open').forEach(el=>{if(el!==tip)el.classList.remove('tip-open');});if(tip){tip.classList.toggle('tip-open');e.stopPropagation();}});document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.ac.tip-open').forEach(el=>el.classList.remove('tip-open'));});});
+</script>
+</body>
+</html>

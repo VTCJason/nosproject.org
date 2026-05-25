@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAC AI Glossary — April 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --navy:  #0d1b2a;
+  --slate: #1c2f45;
+  --steel: #2d4a6b;
+  --gold:  #c9922a;
+  --amber: #e8a93c;
+  --ivory: #f5f0e8;
+  --cream: #ede8dc;
+  --warm:  #d8cfc0;
+  --text:  #1a1a1a;
+  --muted: #5a5a5a;
+  --rule:  #c2b8a6;
+  --green: #1a4a2e;
+  --red:   #8b1a1a;
+  --teal:  #1a3a4a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--ivory);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* HEADER */
+.site-header {
+  background: var(--navy);
+  color: var(--ivory);
+  padding: 48px 48px 40px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--gold);
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(201,146,42,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(201,146,42,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.header-inner { position: relative; z-index: 1; }
+.firm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.firm-logo {
+  width: 40px; height: 40px;
+  background: var(--gold);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700; font-size: 15px;
+  color: var(--navy);
+}
+.firm-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px; letter-spacing: 3px;
+  color: var(--gold); text-transform: uppercase;
+}
+h1.page-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: var(--ivory);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.page-subtitle {
+  font-size: 16px; font-weight: 300;
+  color: rgba(245,240,232,0.65);
+  max-width: 640px; line-height: 1.6;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 20px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px; letter-spacing: 2px;
+  color: var(--gold); text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(201,146,42,0.3);
+  padding: 6px 14px; border-radius: 2px;
+}
+.back-link:hover { background: rgba(201,146,42,0.1); }
+
+/* SEARCH + FILTER */
+.controls-bar {
+  background: white;
+  border-bottom: 2px solid var(--rule);
+  padding: 16px 48px;
+  display: flex; align-items: center; gap: 16px;
+  position: sticky; top: 0; z-index: 50;
+  flex-wrap: wrap;
+}
+#glossary-search {
+  flex: 1; min-width: 200px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; color: var(--text);
+  background: var(--ivory);
+  outline: none;
+}
+#glossary-search:focus { border-color: var(--gold); }
+.filter-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase;
+  white-space: nowrap;
+}
+.alpha-filters {
+  display: flex; flex-wrap: wrap; gap: 4px;
+}
+.alpha-btn {
+  width: 26px; height: 26px;
+  border: 1px solid var(--rule);
+  border-radius: 3px; background: var(--ivory);
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px; font-weight: 700;
+  color: var(--muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.alpha-btn:hover, .alpha-btn.active {
+  background: var(--navy); color: var(--amber);
+  border-color: var(--navy);
+}
+.alpha-btn.all-btn {
+  width: auto; padding: 0 8px;
+  font-size: 9px; letter-spacing: 1px;
+  background: var(--navy); color: var(--amber);
+  border-color: var(--navy);
+}
+.result-count {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px; color: var(--muted);
+  white-space: nowrap;
+}
+
+/* LAYOUT */
+.main-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 200px);
+}
+@media (max-width: 720px) {
+  .main-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .controls-bar { padding: 12px 20px; }
+  .site-header { padding: 32px 20px; }
+  .glossary-content { padding: 24px 20px; }
+}
+
+/* SIDEBAR */
+.sidebar {
+  padding: 32px 16px 32px 0;
+  border-right: 1px solid var(--rule);
+  position: sticky;
+  top: 66px;
+  height: calc(100vh - 66px);
+  overflow-y: auto;
+}
+.sidebar-group { margin-bottom: 8px; }
+.sidebar-letter {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); padding: 4px 8px;
+  display: block;
+}
+.sidebar-link {
+  display: block;
+  font-size: 12px; color: var(--slate);
+  padding: 3px 8px; border-radius: 3px;
+  text-decoration: none;
+  line-height: 1.4;
+}
+.sidebar-link:hover { background: var(--cream); color: var(--navy); }
+.sidebar-link.active { background: var(--navy); color: var(--amber); }
+
+/* CONTENT */
+.glossary-content {
+  padding: 40px 48px 80px;
+}
+
+/* LETTER ANCHOR */
+.letter-anchor {
+  display: block;
+  margin: 40px 0 16px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--navy);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gold);
+}
+.letter-anchor:first-child { margin-top: 0; }
+
+/* TERM ENTRY */
+.term-entry {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--rule);
+  scroll-margin-top: 80px;
+}
+.term-entry:last-child { border-bottom: none; }
+
+.term-header {
+  display: flex; align-items: flex-start;
+  gap: 12px; flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.term-name {
+  font-family: 'Courier Prime', monospace;
+  font-size: 16px; font-weight: 700;
+  color: var(--navy);
+}
+
+.term-badges {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 2px;
+}
+
+.badge {
+  font-family: 'Courier Prime', monospace;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 2px;
+  border: 1px solid;
+}
+.badge-cat  { color: var(--steel); border-color: var(--steel); background: rgba(45,74,107,0.06); }
+.badge-link { color: var(--green); border-color: var(--green); background: rgba(26,74,46,0.06); }
+.badge-warn { color: var(--red);   border-color: var(--red);   background: rgba(139,32,32,0.06); }
+.badge-new  { color: var(--gold);  border-color: var(--gold);  background: rgba(201,146,42,0.08); }
+
+.term-definition {
+  font-size: 14px; line-height: 1.75;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.term-definition strong { color: var(--navy); }
+.term-definition em { color: var(--muted); }
+.term-definition a {
+  color: var(--steel); text-decoration: underline;
+  text-decoration-color: rgba(45,74,107,0.4);
+}
+.term-definition a:hover { color: var(--gold); }
+
+.term-example {
+  background: var(--cream);
+  border-left: 3px solid var(--gold);
+  padding: 10px 14px;
+  border-radius: 0 3px 3px 0;
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.see-also {
+  margin-top: 8px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px; letter-spacing: 1px;
+  color: var(--muted);
+}
+.see-also a {
+  color: var(--steel); text-decoration: none;
+  border-bottom: 1px dashed var(--rule);
+  margin-right: 8px;
+}
+.see-also a:hover { color: var(--gold); border-color: var(--gold); }
+
+.hidden { display: none !important; }
+
+/* FOOTER */
+.page-footer {
+  background: var(--navy);
+  color: rgba(245,240,232,0.4);
+  padding: 28px 48px;
+  font-size: 11px; line-height: 1.8;
+}
+.page-footer strong { color: rgba(245,240,232,0.7); }
+
+/* ── nOS site nav ─────────────────────────────────────────────────────────── */
+#nos-snav{background:#0d1b2a;border-bottom:2px solid #c9922a;position:sticky;top:0;z-index:400;padding:0 40px;}
+#nos-snav-inner{width:min(88vw,1500px);margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;}
+#nos-snav-inner::-webkit-scrollbar{display:none;}
+.snav-wordmark{font-family:'Libre Baskerville',Georgia,serif;font-size:16px;font-weight:700;color:#c9922a;text-decoration:none;padding:9px 18px 9px 0;border-right:1px solid rgba(201,146,42,.3);margin-right:10px;white-space:nowrap;flex-shrink:0;}
+.snav-link{font-family:'DM Sans',system-ui,sans-serif;font-size:15px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;flex-shrink:0;}
+.snav-link:hover{color:#f5f0e8;border-bottom-color:#e8a93c;}
+.snav-link.snav-active{color:#c9922a !important;border-bottom-color:#c9922a;}
+.snav-sign{font-family:'DM Sans',system-ui,sans-serif;font-size:15px;font-weight:400;color:rgba(245,240,232,.7);text-decoration:none;padding:9px 12px;white-space:nowrap;margin-left:auto;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s;flex-shrink:0;}
+.snav-sign:hover{color:#f5f0e8;}
+</style>
+</head>
+<body>
+
+<nav id="nos-snav" aria-label="Site navigation">
+  <div id="nos-snav-inner">
+    <a class="snav-wordmark" href="/">nOS</a>
+    <a class="snav-link" href="/case-study/">Case Study</a>
+    <a class="snav-link" href="/human-question/">The Human Question</a>
+    <a class="snav-link snav-active" href="/glossary/">Glossary</a>
+    <a class="snav-link" href="/essays/">Essays</a>
+    <a class="snav-link" href="/about/">About</a>
+    <a class="snav-sign" href="/sign/">Sign the Manifesto</a>
+  </div>
+</nav>
+
+<div class="site-header">
+  <div class="header-inner">
+    <div class="firm-badge">
+      <div class="firm-logo">IAC</div>
+      <div class="firm-label">Incredibly Accurate Consultants</div>
+    </div>
+    <h1 class="page-title">AI Glossary</h1>
+    <p class="page-subtitle">Authoritative definitions for the terms driving the AI conversation — from foundation concepts to advanced technical vocabulary. Plain language where possible; precision always.</p>
+    <a class="back-link" href="IAC_State_of_AI_Report_2026.html">← Return to Full Report</a>
+  </div>
+</div>
+
+<div class="controls-bar">
+  <input type="text" id="glossary-search" placeholder="Search terms..." aria-label="Search glossary">
+  <span class="filter-label">Jump:</span>
+  <div class="alpha-filters" id="alpha-filters">
+    <button class="alpha-btn all-btn active" data-letter="ALL">ALL</button>
+    <!-- Generated by JS -->
+  </div>
+  <span class="result-count" id="result-count"></span>
+</div>
+
+<div class="main-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar-nav" aria-label="Glossary navigation"></nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="glossary-content" id="glossary-main">
+
+  <!-- ═══════════════════════════════════ A ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-A">A</div>
+
+  <div class="term-entry" id="term-AGI" data-letter="A">
+    <div class="term-header">
+      <span class="term-name">AGI (Artificial General Intelligence)</span>
+      <div class="term-badges"><span class="badge badge-cat">Concept / Contested</span><span class="badge badge-warn">No consensus definition</span></div>
+    </div>
+    <p class="term-definition">A hypothetical AI system that matches or exceeds human cognitive ability across all domains — not just one specific task. Unlike narrow AI (which plays chess, or identifies tumors, or translates text), AGI could, in principle, do anything a human can do intellectually, and generalize from one domain to another. <strong>As of April 2026, AGI has not been achieved.</strong> Definitions vary widely: some researchers set the bar at passing a Turing test; others require genuine reasoning, creativity, and physical-world agency. Oxford philosopher Toby Ord describes AGI as better understood as a continuum than a binary threshold — making precise year predictions meaningless. Common claim: "We'll have AGI in 2026." Reality: not demonstrated as of this date. See also: <a href="https://www.tobyord.com/writing/broad-timelines" target="_blank">Toby Ord, "Broad Timelines" (March 2026)</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Superintelligence">Superintelligence</a> <a href="#term-Frontier-Model">Frontier Model</a> <a href="#term-Alignment">Alignment</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Alignment" data-letter="A">
+    <div class="term-header">
+      <span class="term-name">Alignment (AI Alignment)</span>
+      <div class="term-badges"><span class="badge badge-cat">Safety / Research</span></div>
+    </div>
+    <p class="term-definition">The field of AI research concerned with ensuring that AI systems pursue the goals their operators intend, rather than pursuing proxy goals or unintended objectives. The classic illustration: an AI instructed to "maximize paperclip production" that converts all available matter into paperclips is not malevolent — it is simply wrong about what humans actually want. Alignment is hard because goals are difficult to specify precisely, and because reward functions (the scoring systems used to train AI) can be "hacked" by models that find unexpected shortcuts to high scores without doing what was intended. <strong>Alignment for current systems</strong> is an active engineering problem. <strong>Alignment for hypothetical superintelligent systems</strong> is an open research frontier that no group has solved. <a href="https://www.anthropic.com/research/alignment-faking" target="_blank">Anthropic published research in 2024</a> on models that can exhibit "alignment faking" — appearing aligned under observation while retaining misaligned tendencies.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RLHF">RLHF</a> <a href="#term-Constitutional-AI">Constitutional AI</a> <a href="#term-AGI">AGI</a></div>
+  </div>
+
+  <div class="term-entry" id="term-API" data-letter="A">
+    <div class="term-header">
+      <span class="term-name">API (Application Programming Interface)</span>
+      <div class="term-badges"><span class="badge badge-cat">Infrastructure</span></div>
+    </div>
+    <p class="term-definition">A standardized set of rules that allows one software system to request services from another. In AI, APIs are how most businesses access AI capabilities — they send a prompt (or image, audio, etc.) to a cloud service via the API and receive a response. OpenAI, Anthropic, and Google all offer APIs. You pay per token consumed. APIs abstract away the underlying model infrastructure; you don't need to own GPUs to use GPT-5 — you call the API. Most enterprise AI deployments are API-based, not local model deployments. <a href="https://platform.openai.com/docs/overview" target="_blank">OpenAI API Docs</a> | <a href="https://docs.anthropic.com" target="_blank">Anthropic API Docs</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Token">Token</a> <a href="#term-Inference">Inference</a> <a href="#term-MCP">MCP</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Attention" data-letter="A">
+    <div class="term-header">
+      <span class="term-name">Attention Mechanism (Self-Attention)</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">The computational mechanism — introduced in the landmark 2017 paper <a href="https://arxiv.org/abs/1706.03762" target="_blank">"Attention Is All You Need"</a> (Vaswani et al.) — that allows a model to weigh the relevance of every token in a sequence against every other token when making a prediction. Attention is what allows an LLM to understand that "it" in "The cat sat on the mat because it was tired" refers to the cat, not the mat. <strong>Self-attention</strong> computes these relevance scores within a single sequence. <strong>Cross-attention</strong> relates tokens across two sequences (e.g., question and context). Attention is computationally expensive — it scales quadratically with sequence length, which is why extending context windows is an engineering challenge. Efficient attention variants (Flash Attention, Sliding Window Attention) reduce this cost.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Transformer">Transformer</a> <a href="#term-Context-Window">Context Window</a> <a href="#term-Context-Rot">Context Rot</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Autoregressive" data-letter="A">
+    <div class="term-header">
+      <span class="term-name">Autoregressive Model</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">A model that generates outputs one piece at a time, where each new piece is conditioned on everything that came before it. In LLMs, this means generating one token at a time — the model produces a word, appends it to the context, and then generates the next word based on that extended context. <strong>Strengths:</strong> Highly compatible with inference-time scaling (you can give the model more "thinking time" via extended chains of reasoning); benefits from search algorithms like beam search; excels at text generation, code, and structured outputs. <strong>Weaknesses:</strong> Inherently sequential — each token must wait for the previous one, creating latency; image generation via autoregressive models has historically been slower and less compositionally accurate than diffusion models. <strong>Trend:</strong> Hybrid systems (e.g., HART from MIT/NVIDIA) combine autoregressive "rough draft" generation with diffusion refinement, capturing advantages of both. GPT, Claude, Gemini, and Llama are all autoregressive LLMs.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Diffusion-Model">Diffusion Model</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Token">Token</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ C ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-C">C</div>
+
+  <div class="term-entry" id="term-Chain-of-Thought" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Chain of Thought (CoT)</span>
+      <div class="term-badges"><span class="badge badge-cat">Prompting / Reasoning</span></div>
+    </div>
+    <p class="term-definition">A prompting technique where a model is instructed (or trained) to generate intermediate reasoning steps before producing a final answer, rather than jumping straight to the output. CoT dramatically improves accuracy on multi-step logical, mathematical, and planning tasks. The original finding (<a href="https://arxiv.org/abs/2201.11903" target="_blank">Wei et al., 2022</a>) showed that simply including "Let's think step by step" in a prompt significantly improved LLM performance on reasoning benchmarks. Modern reasoning models (GPT o3, Claude extended thinking, DeepSeek R1) are trained to do CoT internally before producing user-visible responses — the "thinking" may be hidden from the user but shapes the output. <strong>Practical implication:</strong> For complex tasks, prompts that instruct the model to reason before concluding consistently outperform direct-answer prompts.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Reasoning-Model">Reasoning Model</a> <a href="#term-CoB">Chain of Note (CoN)</a> <a href="#term-Query-Decomposition">Query Decomposition</a></div>
+  </div>
+
+  <div class="term-entry" id="term-CoB" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Chain of Note (CoN)</span>
+      <div class="term-badges"><span class="badge badge-cat">RAG / Reasoning</span></div>
+    </div>
+    <p class="term-definition">A retrieval-augmented generation technique where the model, before producing a final answer, generates sequential "notes" that summarize and critically evaluate each retrieved document chunk. This allows the model to flag when retrieved content is irrelevant, contradictory, or insufficient — reducing hallucination in RAG pipelines. Unlike standard RAG where the model ingests all retrieved content and answers directly, CoN adds an explicit filtering and synthesis step. Introduced by researchers at Tencent AI Lab (<a href="https://arxiv.org/abs/2311.09210" target="_blank">Wang et al., 2023</a>). Particularly valuable when retrieved documents vary widely in quality or relevance to the query.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Chain-of-Thought">Chain of Thought</a> <a href="#term-HyDE">HyDE</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Chunking" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Chunking</span>
+      <div class="term-badges"><span class="badge badge-cat">Data Processing / RAG</span></div>
+    </div>
+    <p class="term-definition">The process of splitting a long document into smaller, manageable segments (chunks) before embedding them into a vector database for retrieval. Chunk size is a critical engineering decision: chunks too small lose surrounding context; chunks too large may embed too many topics in one vector, making retrieval imprecise. Common strategies include fixed-size chunking (split every N tokens), sentence-level chunking (split at sentence boundaries), recursive character splitting, and semantic chunking (split at topical boundaries detected by the model itself). Chunking strategy is one of the highest-impact variables in RAG system quality, yet it is frequently underengineered.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Embedding">Embedding</a> <a href="#term-Vectorization">Vectorization</a></div>
+  </div>
+
+  <div class="term-entry" id="term-CoBERT" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">ColBERT</span>
+      <div class="term-badges"><span class="badge badge-cat">Retrieval / Architecture</span></div>
+    </div>
+    <p class="term-definition">Contextualized Late Interaction over BERT — a retrieval model architecture that achieves dense retrieval quality close to full cross-encoder accuracy, at a fraction of the computational cost. Standard dense retrieval (bi-encoders) embed query and document independently, then compare vectors — fast but loses fine-grained token interactions. Full cross-encoders attend jointly to query and document — very accurate but too slow at scale. ColBERT stores per-token embeddings and computes a "MaxSim" late interaction score at query time, bridging the gap. Widely used in production RAG systems. <a href="https://arxiv.org/abs/2004.12832" target="_blank">Original paper: Khattab &amp; Zaharia, 2020</a>. The RAGatouille library makes ColBERT accessible for Python developers.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Embedding">Embedding</a> <a href="#term-Retrieval">Retrieval</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Constitutional-AI" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Constitutional AI (CAI)</span>
+      <div class="term-badges"><span class="badge badge-cat">Safety / Training</span></div>
+    </div>
+    <p class="term-definition">An alignment technique developed by <a href="https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback" target="_blank">Anthropic (Bai et al., 2022)</a> where a model is trained to critique and revise its own outputs according to a set of principles (a "constitution") — essentially using AI feedback (RLAIF) rather than exclusively human feedback. The model first generates a response, then critiques that response against its constitution, then revises it, and finally learns from this self-critique cycle. Reduces dependence on large volumes of human preference labeling. Claude models are trained using Constitutional AI as a primary alignment technique.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RLHF">RLHF</a> <a href="#term-Alignment">Alignment</a> <a href="#term-Fine-Tuning">Fine-Tuning</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Context" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Context</span>
+      <div class="term-badges"><span class="badge badge-cat">Foundation</span></div>
+    </div>
+    <p class="term-definition">Everything the model can "see" at the time of generating a response — including the system prompt (instructions from the developer), the conversation history, any retrieved documents, file uploads, and the current user message. Context is not "memory" in the human sense; it is the contents of the model's active working space for that interaction. When a conversation ends, the context is gone (unless the application explicitly stores and re-injects it). <strong>Context is the single most important engineering variable</strong> in applied AI systems. What you put in context, how you structure it, and how much you include dramatically shapes output quality — often more than model selection. See also: Context Window, Context Rot, Context Weights.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Context-Window">Context Window</a> <a href="#term-Context-Rot">Context Rot</a> <a href="#term-Context-Weights">Context Weights</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Context-Rot" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Context Rot</span>
+      <div class="term-badges"><span class="badge badge-cat">Performance Phenomenon</span><span class="badge badge-new">Active Research 2025</span></div>
+    </div>
+    <p class="term-definition">The measurable degradation in LLM output quality that occurs as input context grows longer — even when the total context is still well within the model's maximum context window. <strong>Coined and formalized by <a href="https://research.trychroma.com/context-rot" target="_blank">Chroma (Hong, Troynikov &amp; Huber, July 2025)</a></strong>, who tested 18 frontier models including GPT-4.1, Claude, and Gemini and found every single one performed worse as input length increased. The degradation is not gradual — models can hold near-perfect accuracy then drop precipitously once a length threshold is crossed, and that threshold varies unpredictably by model and task. <strong>Root cause:</strong> Attention is a finite resource. As more tokens compete for the model's attention, relevant information gets buried in "low-attention zones," especially in the middle of long contexts (the "lost in the middle" phenomenon, <a href="https://arxiv.org/abs/2307.03172" target="_blank">Liu et al., 2023</a>). <strong>Practical implication:</strong> More context is not always better. Clean, curated, densely relevant context beats long, noisy context every time. For agentic systems, context rot is described as the primary failure mode — not model capability. See also: Context Window, Chunking, RAG.</p>
+    <div class="term-example">Example: A model summarizing a 100-page contract performs better if given 5 precisely relevant pages than all 100 pages.</div>
+    <div class="see-also">SEE ALSO: <a href="#term-Context-Window">Context Window</a> <a href="#term-Context">Context</a> <a href="#term-RAG">RAG</a> <a href="#term-Attention">Attention</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Context-Weights" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Context Weights</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">The attention scores the model assigns to different tokens in the context window when generating a response. Not all tokens are weighted equally — through the attention mechanism, the model dynamically allocates more "focus" to tokens it deems relevant for the current prediction. These weights are not user-configurable; they emerge from training. Context weights explain why position matters in a prompt: tokens at the beginning and end of a context window tend to receive higher attention weights than tokens in the middle (the "primacy/recency effect" — the same cognitive bias humans exhibit). Understanding this helps practitioners place the most critical information at the start or end of prompts, rather than burying it in the middle.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Attention">Attention</a> <a href="#term-Context-Rot">Context Rot</a> <a href="#term-Context-Window">Context Window</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Context-Window" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Context Window</span>
+      <div class="term-badges"><span class="badge badge-cat">Foundation</span></div>
+    </div>
+    <p class="term-definition">The maximum amount of text (measured in tokens) that a model can process in a single inference call — its working memory limit. Inputs plus outputs must fit within this limit. <strong>2020:</strong> GPT-3 had a 4,096-token context window (~3,000 words). <strong>2024:</strong> Gemini 1.5 Pro introduced a 1 million-token context window. <strong>2026:</strong> Claude Opus 4.6 supports 1 million tokens; GPT-4.1 supports 1 million tokens; Gemma 4 supports 128K–256K tokens. Larger context windows enable processing entire books, large codebases, or hours of conversation history. However, context rot research shows that larger windows do not guarantee better performance — models degrade with noise even within their limits. Think of the context window as the whiteboard the model can see; anything not on the whiteboard does not exist to the model in that moment.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Context">Context</a> <a href="#term-Context-Rot">Context Rot</a> <a href="#term-Token">Token</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ D ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-D">D</div>
+
+  <div class="term-entry" id="term-Deep-Learning" data-letter="D">
+    <div class="term-header">
+      <span class="term-name">Deep Learning</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">A subfield of machine learning using neural networks with many layers (hence "deep"). Each layer learns progressively more abstract representations of the input data. Deep learning is the architectural foundation for virtually all modern AI — CNNs for images, transformers for language, diffusion models for generation. The "deep" distinguishes multi-layer networks from older shallow models (e.g., SVMs). Enabled at scale by GPU computing and large datasets.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Neural-Network">Neural Network</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Supervised-Learning">Supervised Learning</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Diffusion-Model" data-letter="D">
+    <div class="term-header">
+      <span class="term-name">Diffusion Model</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span><span class="badge badge-cat">Generative</span></div>
+    </div>
+    <p class="term-definition">A class of generative model that learns by training on the process of gradually adding noise to data (images, audio, video) until the data becomes pure noise, then learning to reverse that process — denoise — to reconstruct the original. At inference time, you start with random noise and the model iteratively denoises it, guided by a text prompt or other conditioning, until a coherent output emerges. <strong>Examples:</strong> Stable Diffusion, DALL-E 3, Midjourney, Sora (video), Flux. <strong>Strengths:</strong> Exceptional photorealistic image quality; strong compositional understanding; consistent fine detail; industry-dominant for images and video as of 2026. <strong>Weaknesses:</strong> Inherently iterative — many denoising steps are required (typically 20–50 passes), making it slow compared to single-pass generation; harder to benefit from inference-time scaling techniques like beam search (which work well for discrete, autoregressive models); text generation is not a natural fit. <strong>Competitive landscape:</strong> MIT/NVIDIA's HART hybrid system (2025) combines autoregressive high-level layout with diffusion refinement, generating images ~9× faster than pure diffusion at comparable quality. The path forward for media generation likely involves such hybrids. See <a href="https://arxiv.org/abs/2410.10812" target="_blank">HART paper</a>.</p>
+    <div class="term-example">Analogy: Diffusion is like sculpting — you start with raw marble (noise) and progressively remove material (noise) until the intended form (image) emerges. Autoregressive is like writing — you build word by word from left to right.</div>
+    <div class="see-also">SEE ALSO: <a href="#term-Autoregressive">Autoregressive Model</a> <a href="#term-Generative-AI">Generative AI</a> <a href="#term-Supervised-Learning">Supervised Learning</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ E ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-E">E</div>
+
+  <div class="term-entry" id="term-Embedding" data-letter="E">
+    <div class="term-header">
+      <span class="term-name">Embedding</span>
+      <div class="term-badges"><span class="badge badge-cat">Data Representation</span></div>
+    </div>
+    <p class="term-definition">A numerical representation (a vector — a list of numbers) of a piece of text, image, or other data that captures its semantic meaning in a high-dimensional space. "The cat sat on the mat" and "A feline rested on the rug" would have very similar (close) embeddings because they mean the same thing. Embeddings are how AI systems do semantic search — rather than matching keywords, they match meaning. They are the foundation of RAG systems: documents are embedded and stored in a vector database; at query time, the query is embedded and the most semantically similar documents are retrieved. Embedding models (e.g., OpenAI ada-002, Anthropic's embedding API, BAAI/bge) are separate from generation models. <a href="https://platform.openai.com/docs/guides/embeddings" target="_blank">OpenAI Embeddings Guide</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Vectorization">Vectorization</a> <a href="#term-RAG">RAG</a> <a href="#term-Chunking">Chunking</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ F ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-F">F</div>
+
+  <div class="term-entry" id="term-Fine-Tuning" data-letter="F">
+    <div class="term-header">
+      <span class="term-name">Fine-Tuning</span>
+      <div class="term-badges"><span class="badge badge-cat">Training</span></div>
+    </div>
+    <p class="term-definition">The process of continuing to train a pre-trained foundation model on a smaller, domain-specific dataset to specialize its behavior. A base LLM trained on the internet can be fine-tuned on legal documents to become a legal assistant, or on medical literature to improve clinical accuracy. Fine-tuning modifies the model's weights — unlike RAG, which keeps the model static and adds information at inference time. <strong>Full fine-tuning</strong> updates all parameters — expensive. <strong>LoRA (Low-Rank Adaptation)</strong> is the dominant efficient fine-tuning method, inserting small trainable matrices alongside frozen layers to achieve specialization at ~1–5% of the compute cost. Gemma 4's Apache 2.0 license explicitly allows commercial fine-tuning and redistribution of fine-tuned derivatives — a significant enterprise advantage.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Quantization">Quantization</a> <a href="#term-RAG">RAG</a> <a href="#term-Supervised-Learning">Supervised Learning</a> <a href="#term-Parameters">Parameters</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Frontier-Model" data-letter="F">
+    <div class="term-header">
+      <span class="term-name">Frontier Model</span>
+      <div class="term-badges"><span class="badge badge-cat">Industry Term</span><span class="badge badge-new">Regulatory Significance</span></div>
+    </div>
+    <p class="term-definition">The most capable AI models available at any given time — those operating at or beyond the boundary of what was previously possible. In 2026, frontier models include GPT-5 (OpenAI), Claude Opus 4.6 (Anthropic), Gemini Ultra (Google), and Grok 3 (xAI). The EU AI Act uses training compute (threshold: 10²⁵ FLOPs) as a proxy for frontier status, triggering the most stringent GPAI (General Purpose AI) obligations. Frontier models are typically accessible only through paid APIs; their training costs hundreds of millions of dollars. They are distinct from open-weight models like Llama or Gemma, which may approach (but rarely match) frontier capability at a fraction of the cost. The frontier advances roughly every 6–12 months as new models are released. <strong>What was frontier yesterday is commodity today</strong> — a key dynamic driving the open-source ecosystem.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-LLM">LLM</a> <a href="#term-Open-Source-AI">Open-Weight / Open-Source AI</a> <a href="#term-Parameters">Parameters</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ G ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-G">G</div>
+
+  <div class="term-entry" id="term-Generative-AI" data-letter="G">
+    <div class="term-header">
+      <span class="term-name">Generative AI (GenAI)</span>
+      <div class="term-badges"><span class="badge badge-cat">Category</span></div>
+    </div>
+    <p class="term-definition">AI models that produce new content — text, images, audio, video, code, 3D models — rather than merely classifying or predicting from existing data. The term encompasses LLMs (text/code generation), diffusion models (image/video/audio generation), and multimodal models that handle multiple types simultaneously. Generative AI is the primary driver of the 2022–2026 AI boom. The global generative AI market was ~$37B in 2024 and is projected to reach $220B by 2030 (ABI Research, 2025). Key distinction: <strong>discriminative</strong> AI (e.g., spam filters, face recognition) classifies inputs into categories. <strong>Generative</strong> AI produces novel outputs.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-LLM">LLM</a> <a href="#term-Diffusion-Model">Diffusion Model</a> <a href="#term-Autoregressive">Autoregressive Model</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ H ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-H">H</div>
+
+  <div class="term-entry" id="term-Hallucination" data-letter="H">
+    <div class="term-header">
+      <span class="term-name">Hallucination</span>
+      <div class="term-badges"><span class="badge badge-cat">Failure Mode</span><span class="badge badge-warn">High-impact risk</span></div>
+    </div>
+    <p class="term-definition">When an AI model generates a plausible-sounding but factually incorrect output — fabricating citations, inventing statistics, misquoting sources, or stating false facts confidently. Not "lying" in any intentional sense; the model has no internal truth-checking mechanism — it generates what statistically follows from the context, and incorrect continuations can have very high probability. <strong>Examples:</strong> A legal AI cites a case that doesn't exist; a medical AI confidently states an incorrect drug dosage; a research assistant fabricates a journal citation. <strong>Mitigation:</strong> RAG (grounding responses in retrieved documents), tool use (web search integration), reasoning chains (extended thinking), and calibration training (teaching models to express uncertainty). Hallucination rates vary dramatically by domain, model generation, and task type. They have declined substantially with each model generation but remain non-zero across all frontier models.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Grounding">Grounding</a> <a href="#term-Reasoning-Model">Reasoning Model</a></div>
+  </div>
+
+  <div class="term-entry" id="term-HuggingFace" data-letter="H">
+    <div class="term-header">
+      <span class="term-name">HuggingFace</span>
+      <div class="term-badges"><span class="badge badge-cat">Platform / Community</span></div>
+    </div>
+    <p class="term-definition">The dominant open-source AI model distribution and collaboration platform — often called "the GitHub of AI." As of 2026, HuggingFace hosts 500,000+ AI model repositories, 50,000+ datasets, and provides tools (the Transformers library, the Datasets library, Inference API) that have become the de facto standard for open-source AI development. Companies release open models here (Meta's Llama, Google's Gemma, Mistral, DeepSeek, Microsoft's Phi). Researchers share datasets and fine-tunes. The platform enables the open-source ecosystem to function as a coherent community rather than fragmented individual releases. <a href="https://huggingface.co" target="_blank">huggingface.co</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Open-Source-AI">Open-Weight / Open-Source AI</a> <a href="#term-Fine-Tuning">Fine-Tuning</a></div>
+  </div>
+
+  <div class="term-entry" id="term-HyDE" data-letter="H">
+    <div class="term-header">
+      <span class="term-name">HyDE (Hypothetical Document Embeddings)</span>
+      <div class="term-badges"><span class="badge badge-cat">RAG Technique</span></div>
+    </div>
+    <p class="term-definition">A retrieval technique where, instead of directly embedding the user's query for vector search, an LLM first generates a <em>hypothetical answer</em> to the query, and that hypothetical answer is then embedded for retrieval. The intuition: the hypothetical answer looks more like the documents that contain the real answer than the original question does, leading to better retrieval. For example, a legal query like "What are the elements of negligence?" produces a poor embedding for searching case law (too abstract), but a generated paragraph describing negligence law provides a richer semantic target. Introduced by <a href="https://arxiv.org/abs/2212.10496" target="_blank">Gao et al., 2022</a>. Particularly effective for narrow or highly technical domains where query reformulation is difficult.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Embedding">Embedding</a> <a href="#term-Query-Decomposition">Query Decomposition</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ I ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-I">I</div>
+
+  <div class="term-entry" id="term-Inference" data-letter="I">
+    <div class="term-header">
+      <span class="term-name">Inference</span>
+      <div class="term-badges"><span class="badge badge-cat">Deployment</span></div>
+    </div>
+    <p class="term-definition">The process of using a trained AI model to generate outputs — as distinct from training, which is the process of building the model. Every time you send a prompt to ChatGPT or Claude, you are running inference. Inference is less computationally intensive than training but becomes significant at scale: OpenAI processes approximately 1 billion queries per day. <strong>Inference cost</strong> is typically measured in dollars per million tokens (input and output priced separately). Inference costs have fallen dramatically as optimization techniques (quantization, speculative decoding, KV cache sharing) improve efficiency. <strong>Inference-time scaling</strong> is the emerging paradigm of allocating more compute at inference time (letting the model "think longer") rather than always training larger models.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Token">Token</a> <a href="#term-Quantization">Quantization</a> <a href="#term-Reasoning-Model">Reasoning Model</a> <a href="#term-API">API</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ L ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-L">L</div>
+
+  <div class="term-entry" id="term-LLM" data-letter="L">
+    <div class="term-header">
+      <span class="term-name">LLM (Large Language Model)</span>
+      <div class="term-badges"><span class="badge badge-cat">Foundation</span></div>
+    </div>
+    <p class="term-definition">A neural network trained on massive text corpora (and increasingly multimodal data) to predict and generate language. "Large" refers to the number of parameters — mathematical weights — typically ranging from 7 billion to over a trillion. LLMs are the core technology behind ChatGPT, Claude, Gemini, Llama, and most consumer AI products. They are autoregressive: they generate output one token at a time. Training an LLM involves: (1) pre-training on general data (unsupervised), (2) instruction tuning (supervised fine-tuning on task examples), and (3) alignment (RLHF or Constitutional AI to make behavior safe and helpful). LLMs are not databases — they do not "look up" facts; they generate statistically probable continuations, which is why they can hallucinate. <a href="https://www.anthropic.com/research" target="_blank">Anthropic Research</a> | <a href="https://openai.com/research" target="_blank">OpenAI Research</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Transformer">Transformer</a> <a href="#term-Token">Token</a> <a href="#term-Hallucination">Hallucination</a> <a href="#term-RLHF">RLHF</a> <a href="#term-Parameters">Parameters</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ M ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-M">M</div>
+
+  <div class="term-entry" id="term-MCP" data-letter="M">
+    <div class="term-header">
+      <span class="term-name">MCP (Model Context Protocol)</span>
+      <div class="term-badges"><span class="badge badge-cat">Infrastructure / Standard</span><span class="badge badge-new">Emerging Standard 2024–2026</span></div>
+    </div>
+    <p class="term-definition">An open protocol introduced by Anthropic (November 2024) that standardizes how AI models communicate with external tools, data sources, and services. Before MCP, every AI application required custom API integrations for each tool it used (a calendar tool, a database, a code executor, etc.) — creating enormous duplication. MCP provides a universal "plug" standard: any tool that implements MCP can be used by any MCP-compatible AI agent. Analogous to USB standardizing physical device connections. As of 2026, MCP is rapidly becoming an industry standard, adopted by OpenAI, Google, and major enterprise software vendors. MCP enables the multi-agent, multi-tool agentic workflows described throughout this report. <a href="https://modelcontextprotocol.io" target="_blank">modelcontextprotocol.io</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-API">API</a> <a href="#term-Agentic-AI">Agentic AI</a> <a href="#term-RAG">RAG</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Mixture-of-Experts" data-letter="M">
+    <div class="term-header">
+      <span class="term-name">MoE (Mixture of Experts)</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">A neural network architecture where the model is divided into many "expert" sub-networks, but only a small subset of them are activated for any given input. A routing layer decides which experts to use based on the input. <strong>Why it matters:</strong> MoE allows a model to have a very large total parameter count while only using a fraction of those parameters per inference — dramatically reducing computation cost relative to a dense model of the same total size. GPT-4, Mixtral 8x7B, Gemma 4's 26B variant, and Meta's Llama 4 Scout all use MoE architectures. <strong>Monolithic model</strong> (the alternative) uses all parameters for every token. Trade-off: MoE models can be harder to fine-tune and require specialized infrastructure, but offer superior inference efficiency at scale. A "26B A4B" MoE model has 26B total parameters but only activates ~4B (A4B = "active 4 billion") per token.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Parameters">Parameters</a> <a href="#term-Monolithic-Model">Monolithic Model</a> <a href="#term-Inference">Inference</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Monolithic-Model" data-letter="M">
+    <div class="term-header">
+      <span class="term-name">Monolithic Model</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">A neural network that uses all its parameters for every inference call — as opposed to a Mixture of Experts model which only activates a subset. "Dense" model is the more common technical synonym. Most early LLMs (GPT-3, original Claude, Llama 1/2) are monolithic. Monolithic models are simpler to train and fine-tune, but become computationally expensive at large parameter counts since every parameter is engaged for every token. Gemma 4's 31B model is a dense (monolithic) model; its 26B variant is MoE. The practical implication: a 31B dense model requires all 31B parameters to be loaded in GPU memory; a 26B MoE model with 4B active parameters can be significantly more memory-efficient per token at inference.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Mixture-of-Experts">MoE</a> <a href="#term-Parameters">Parameters</a> <a href="#term-Quantization">Quantization</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Multimodal" data-letter="M">
+    <div class="term-header">
+      <span class="term-name">Multimodal AI</span>
+      <div class="term-badges"><span class="badge badge-cat">Capability</span></div>
+    </div>
+    <p class="term-definition">AI models capable of processing and/or generating across multiple data types simultaneously — text, images, audio, video, documents, and code. A multimodal model can read a photograph and answer a question about it; listen to audio and transcribe and analyze it; look at a chart and describe the trends. <strong>Examples (2026):</strong> GPT-4o (text + vision + audio), Claude Opus 4.6 (text + vision + documents), Gemma 4 (text + vision + audio natively), Gemini Ultra (text + vision + audio + video). Multimodality is now the expectation for frontier models; single-modality text-only models are increasingly relegated to cost-optimized use cases. The integration is architectural: truly multimodal models process all modalities in a shared representation space, rather than bolting a vision encoder onto a text model post-hoc.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-LLM">LLM</a> <a href="#term-Frontier-Model">Frontier Model</a> <a href="#term-Diffusion-Model">Diffusion Model</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ N ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-N">N</div>
+
+  <div class="term-entry" id="term-Neural-Network" data-letter="N">
+    <div class="term-header">
+      <span class="term-name">Neural Network</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">A computational architecture loosely inspired by biological neurons. Layers of mathematical nodes (neurons) transform input data through a series of learned transformations, with each layer extracting increasingly abstract representations. A neural network "learns" by adjusting the strength (weight) of connections between neurons based on feedback from training data. <strong>Shallow networks</strong> have 1–2 hidden layers. <strong>Deep networks</strong> (deep learning) have many layers — modern LLMs have dozens to hundreds of transformer layers. The mathematical operations are primarily matrix multiplications and non-linear activation functions, which is why GPUs (optimized for parallel matrix operations) dominate AI compute.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Deep-Learning">Deep Learning</a> <a href="#term-Parameters">Parameters</a> <a href="#term-Supervised-Learning">Supervised Learning</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ O ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-O">O</div>
+
+  <div class="term-entry" id="term-Open-Source-AI" data-letter="O">
+    <div class="term-header">
+      <span class="term-name">Open-Weight / Open-Source AI</span>
+      <div class="term-badges"><span class="badge badge-cat">Business Model</span></div>
+    </div>
+    <p class="term-definition">AI models whose underlying parameters (weights) are publicly released, allowing anyone to download, run, modify, fine-tune, and deploy them. <strong>"Open-weight"</strong> is technically more precise: the weights are open, but training data and full training code may not be. <strong>"Open-source"</strong> implies full transparency of the entire development stack. Key open-weight models (2026): Meta Llama 3.x (custom permissive license), Google Gemma 4 (Apache 2.0 — the most permissive license in this class), Mistral (Apache 2.0), DeepSeek R1 (MIT license), Microsoft Phi-4, Alibaba Qwen 3.5. <strong>Apache 2.0</strong> (used by Gemma 4 and Mistral) is considered the cleanest license for commercial deployment — no restrictions on use, modification, or redistribution; standard open-source legal precedent; no custom clauses requiring legal review. Open-weight models enable on-premises deployment (data never leaves your infrastructure), custom fine-tuning for proprietary data, and elimination of per-token API costs at scale. See also: <a href="https://ai.google.dev/gemma" target="_blank">Google Gemma official page</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Fine-Tuning">Fine-Tuning</a> <a href="#term-HuggingFace">HuggingFace</a> <a href="#term-Quantization">Quantization</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ P ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-P">P</div>
+
+  <div class="term-entry" id="term-Parameters" data-letter="P">
+    <div class="term-header">
+      <span class="term-name">Parameters</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">The numerical values (weights and biases) that define a neural network's learned behavior — the product of training. A model with "70 billion parameters" has 70 billion individual numerical values that collectively encode everything the model has learned. Parameters are the model itself; they are what's stored, shared, and loaded into GPU memory. Larger parameter counts generally correlate with greater capability, but the relationship is non-linear and depends heavily on training quality, data diversity, and architecture efficiency. MoE architectures decouple total parameters (what's stored) from active parameters (what's computed per token), making parameter count an incomplete proxy for both capability and cost. <a href="https://openai.com/research/scaling-laws" target="_blank">OpenAI Scaling Laws</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Fine-Tuning">Fine-Tuning</a> <a href="#term-Quantization">Quantization</a> <a href="#term-Mixture-of-Experts">MoE</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Prompts" data-letter="P">
+    <div class="term-header">
+      <span class="term-name">Prompts / Prompt Engineering</span>
+      <div class="term-badges"><span class="badge badge-cat">Interaction</span></div>
+    </div>
+    <p class="term-definition">A <strong>prompt</strong> is the input provided to an AI model — the text (or image, audio, etc.) that initiates a generation. Prompts include: the user's question or instruction, system prompts (developer instructions that shape model behavior), conversation history, and injected context (retrieved documents, tool outputs). <strong>Prompt engineering</strong> is the practice of crafting inputs that reliably elicit better outputs. Key techniques: (1) clear role and task specification; (2) few-shot examples (showing the model what good output looks like); (3) explicit instruction to reason step by step (CoT); (4) XML tags or structured formatting to separate instructions from content; (5) specifying output format explicitly. Effective prompt engineering can increase model performance on a given task by 20–50% without any model change. See <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank">Anthropic Prompt Engineering Guide</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Chain-of-Thought">Chain of Thought</a> <a href="#term-Context">Context</a> <a href="#term-Temperature">Temperature</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ Q ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-Q">Q</div>
+
+  <div class="term-entry" id="term-Quantization" data-letter="Q">
+    <div class="term-header">
+      <span class="term-name">Quantization</span>
+      <div class="term-badges"><span class="badge badge-cat">Optimization</span></div>
+    </div>
+    <p class="term-definition">The process of reducing the numerical precision of a model's parameters (weights) from high-precision floating-point (e.g., 32-bit or 16-bit floats) to lower-precision representations (e.g., 8-bit integers, 4-bit integers). <strong>Why it matters:</strong> A 70B-parameter model stored in full 16-bit precision requires ~140GB of GPU memory — beyond consumer hardware. The same model quantized to 4-bit requires only ~35GB, making it runnable on a workstation. Quantization trades a small amount of output quality for dramatic reductions in memory and compute cost. Common formats: GGUF (for llama.cpp local inference), GPTQ, AWQ, NVFP4. Gemma 4 is released with an NVFP4 quantized checkpoint by NVIDIA, enabling high-throughput inference on modern GPUs. Quantization is what makes open-source AI runnable on consumer hardware without cloud APIs.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Parameters">Parameters</a> <a href="#term-Inference">Inference</a> <a href="#term-Open-Source-AI">Open-Weight AI</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Query-Decomposition" data-letter="Q">
+    <div class="term-header">
+      <span class="term-name">Query Decomposition</span>
+      <div class="term-badges"><span class="badge badge-cat">RAG / Reasoning</span></div>
+    </div>
+    <p class="term-definition">A technique where a complex user query is broken down into multiple simpler sub-queries before retrieval. For example, "How has Tesla's gross margin changed since they began selling the Cybertruck, and how does that compare to legacy automakers?" might be decomposed into: (1) Tesla gross margin 2022–2026, (2) Cybertruck launch date and initial sales volume, (3) gross margins for Ford, GM, Stellantis 2022–2026. Each sub-query is retrieved independently, and the results are combined before the LLM synthesizes a final answer. Query decomposition dramatically improves performance on multi-faceted questions that no single retrieved chunk can answer completely. Also known as "step-back prompting" or "sub-question generation" in some frameworks.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-HyDE">HyDE</a> <a href="#term-Chain-of-Thought">Chain of Thought</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ R ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-R">R</div>
+
+  <div class="term-entry" id="term-RAG" data-letter="R">
+    <div class="term-header">
+      <span class="term-name">RAG (Retrieval-Augmented Generation)</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture / Technique</span></div>
+    </div>
+    <p class="term-definition">A technique that combines information retrieval with language model generation. Rather than relying solely on the model's trained knowledge (which has a cutoff date and can hallucinate specific facts), RAG first retrieves relevant documents from a database and injects them into the model's context before generating a response. <strong>Workflow:</strong> (1) User asks a question → (2) Question is embedded and used to query a vector database → (3) Most semantically similar document chunks are retrieved → (4) Retrieved chunks + original question are sent to the LLM → (5) LLM generates a response grounded in the retrieved information. RAG is how enterprises deploy LLMs on private, proprietary data without expensive fine-tuning. It also provides citations, enables real-time knowledge (by updating the database without retraining the model), and reduces hallucination on factual queries. See also: Chunking, Embedding, HyDE, ColBERT, Chain of Note.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Embedding">Embedding</a> <a href="#term-Chunking">Chunking</a> <a href="#term-HyDE">HyDE</a> <a href="#term-CoBERT">ColBERT</a> <a href="#term-CoB">Chain of Note</a> <a href="#term-Vectorization">Vectorization</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Ranking" data-letter="R">
+    <div class="term-header">
+      <span class="term-name">Ranking (Re-Ranking)</span>
+      <div class="term-badges"><span class="badge badge-cat">RAG / Retrieval</span></div>
+    </div>
+    <p class="term-definition">In RAG pipelines, the process of taking an initial set of retrieved document chunks (from vector search) and re-ordering them by relevance to the user's query using a more powerful (but slower) cross-encoder model, before passing the top results to the LLM. Vector search retrieves quickly but imperfectly; re-ranking refines the selection. A typical pipeline: retrieve top-100 candidates with fast vector search → re-rank with cross-encoder → pass top-5 to LLM. Re-ranking is a high-leverage optimization that substantially improves RAG answer quality in production systems. Common re-ranking models: Cohere Rerank, BGE-Reranker, cross-encoders via SBERT.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Retrieval">Retrieval</a> <a href="#term-Embedding">Embedding</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Reasoning-Model" data-letter="R">
+    <div class="term-header">
+      <span class="term-name">Reasoning Model</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture / Capability</span><span class="badge badge-new">Dominant paradigm 2025–2026</span></div>
+    </div>
+    <p class="term-definition">A class of LLM trained to generate explicit intermediate reasoning steps (a "reasoning chain" or "chain of thought") before producing a final answer, rather than answering directly. This "thinking before speaking" dramatically improves accuracy on complex logical, mathematical, coding, and multi-step planning tasks. <strong>Examples:</strong> OpenAI o1/o3/o4-mini, Claude Opus 4.6 in "extended thinking" mode, DeepSeek R1. Reasoning models typically use more compute at inference time (more tokens generated per query), making them slower and more expensive than standard models — but dramatically more accurate on hard problems. The trade-off: use a fast standard LLM for simple tasks; use a reasoning model for complex ones. <strong>Inference-time scaling</strong> is the principle that allocating more computation at inference time (rather than training larger models) yields quality improvements — reasoning models are the primary implementation of this principle. <a href="https://openai.com/o3" target="_blank">OpenAI o3</a> | <a href="https://www.anthropic.com/research/claude-extended-thinking" target="_blank">Claude Extended Thinking</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Chain-of-Thought">Chain of Thought</a> <a href="#term-Inference">Inference</a> <a href="#term-LLM">LLM</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Retrieval" data-letter="R">
+    <div class="term-header">
+      <span class="term-name">Retrieval</span>
+      <div class="term-badges"><span class="badge badge-cat">RAG / Information Architecture</span></div>
+    </div>
+    <p class="term-definition">The process of finding and fetching relevant information from a knowledge store in response to a query. In AI systems, retrieval is the mechanism that grounds model responses in specific documents, databases, or real-time data sources. <strong>Lexical retrieval</strong> (keyword matching, BM25): finds documents containing the same words as the query. <strong>Dense/semantic retrieval</strong> (embedding-based): finds documents with semantically similar meaning, even if exact words differ. <strong>Hybrid retrieval</strong>: combines both for broader coverage and higher precision. The retrieval quality is the single largest determinant of RAG system performance — garbage retrieved → garbage generated, regardless of how powerful the LLM is.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Embedding">Embedding</a> <a href="#term-Ranking">Ranking</a> <a href="#term-CoBERT">ColBERT</a></div>
+  </div>
+
+  <div class="term-entry" id="term-RLHF" data-letter="R">
+    <div class="term-header">
+      <span class="term-name">RLHF (Reinforcement Learning from Human Feedback)</span>
+      <div class="term-badges"><span class="badge badge-cat">Training / Alignment</span></div>
+    </div>
+    <p class="term-definition">The training technique that transforms a base pretrained language model into an assistant that is helpful, honest, and safe. Process: (1) humans rank pairs of model outputs from best to worst; (2) a "reward model" is trained on these preferences; (3) the LLM is then trained via reinforcement learning to maximize the reward model's score. RLHF is what turned GPT-3 (a raw completion model that would write anything) into ChatGPT (an assistant that follows instructions and declines harmful requests). Limitations: reward models can be "hacked" by the LLM finding outputs that score high but don't reflect genuine quality; human raters have inconsistencies; RLHF doesn't transfer well to domains where humans can't evaluate outputs (e.g., highly technical code). Constitutional AI (Anthropic's approach) uses AI feedback (RLAIF) in place of or alongside human feedback to scale alignment. See <a href="https://openai.com/research/learning-to-summarize-with-human-feedback" target="_blank">OpenAI RLHF research</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Alignment">Alignment</a> <a href="#term-Constitutional-AI">Constitutional AI</a> <a href="#term-Fine-Tuning">Fine-Tuning</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ S ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-S">S</div>
+
+  <div class="term-entry" id="term-Supervised-Learning" data-letter="S">
+    <div class="term-header">
+      <span class="term-name">Supervised vs. Unsupervised Learning</span>
+      <div class="term-badges"><span class="badge badge-cat">Training Paradigm</span></div>
+    </div>
+    <p class="term-definition"><strong>Supervised learning:</strong> The model is trained on labeled examples — input/output pairs where the "correct" answer is provided. The model learns to predict the label from the input. Examples: spam classifier (email → spam/not-spam), image classifier (photo → dog/cat), speech recognition (audio → transcript). Requires human labeling effort. Used extensively in fine-tuning LLMs with instruction/response pairs, and in training reward models for RLHF. <br><br><strong>Unsupervised learning:</strong> The model is trained on raw, unlabeled data and must discover patterns, structure, or representations on its own, without being told what to find. LLM pre-training is technically a form of self-supervised learning (a subtype of unsupervised) — the model predicts the next token using the text itself as the label. Diffusion model training is also self-supervised: the model learns to reverse a noise process it controls. <br><br><strong>Self-supervised learning</strong> is the dominant paradigm for modern foundation models — it scales to internet-scale data without human labeling of each example. <strong>Supervised fine-tuning (SFT)</strong> is then applied on top to specialize behavior using curated, labeled examples. <strong>Practical implication:</strong> Most "training data" concerns in AI relate to the unsupervised pre-training phase (web scraping, copyright), while alignment quality concerns relate to the supervised/RLHF fine-tuning phase.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RLHF">RLHF</a> <a href="#term-Fine-Tuning">Fine-Tuning</a> <a href="#term-LLM">LLM</a> <a href="#term-Deep-Learning">Deep Learning</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Superintelligence" data-letter="S">
+    <div class="term-header">
+      <span class="term-name">Superintelligence</span>
+      <div class="term-badges"><span class="badge badge-cat">Concept / Speculative</span><span class="badge badge-warn">Highly contested</span></div>
+    </div>
+    <p class="term-definition">A hypothetical AI that surpasses human cognitive ability in every intellectually relevant domain — not merely matching human performance (AGI) but dramatically exceeding it, including the ability to improve its own intelligence recursively. First systematically analyzed by Nick Bostrom in <em>Superintelligence</em> (2014). METR's February 2026 research models this arriving on "fast" AI timelines as early as mid-2031 under conservative compute growth assumptions. The strategic concern: a superintelligent system would by definition be better at self-improvement than humans are at constraining it, creating an alignment challenge that must be solved before the system reaches that capability level — not after. Sam Altman (OpenAI) has described superintelligence as potentially arriving within a few years. <strong>No superintelligent system exists as of April 2026.</strong> This term is included because it shapes frontier AI strategy and investment decisions regardless of when or whether it arrives.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-AGI">AGI</a> <a href="#term-Alignment">Alignment</a> <a href="#term-Frontier-Model">Frontier Model</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ T ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-T">T</div>
+
+  <div class="term-entry" id="term-Temperature" data-letter="T">
+    <div class="term-header">
+      <span class="term-name">Temperature</span>
+      <div class="term-badges"><span class="badge badge-cat">Inference Parameter</span></div>
+    </div>
+    <p class="term-definition">A parameter (typically 0–2) that controls the randomness/creativity of a model's output. At <strong>temperature 0</strong>, the model always picks the single most probable next token — deterministic, consistent, but potentially repetitive and literal. At <strong>high temperature (e.g., 1.5)</strong>, the model samples more broadly from the probability distribution — more creative, varied, and sometimes surprising, but also more prone to errors and inconsistency. <strong>Practical guidance:</strong> Use low temperature (0–0.3) for factual Q&amp;A, code generation, structured data extraction, and tasks where correctness matters above all. Use medium temperature (0.5–0.8) for general conversation. Use higher temperature (1.0+) for creative writing, brainstorming, or poetry. Temperature does not affect what the model "knows" — only how it samples from what it knows.</p>
+    <div class="term-example">Analogy: Temperature is like the "confidence dial" — low = very careful and literal; high = more adventurous and creative (and occasionally wrong).</div>
+    <div class="see-also">SEE ALSO: <a href="#term-Inference">Inference</a> <a href="#term-Prompts">Prompts</a> <a href="#term-LLM">LLM</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Token" data-letter="T">
+    <div class="term-header">
+      <span class="term-name">Token / Tokenize / Tokenization</span>
+      <div class="term-badges"><span class="badge badge-cat">Foundation</span></div>
+    </div>
+    <p class="term-definition">A <strong>token</strong> is the fundamental unit of text that LLMs process — roughly corresponding to ¾ of a word in English (a common approximation: 100 words ≈ 75 tokens; 1,000 tokens ≈ 750 words). Tokens are not always full words: "unbelievable" might be 3 tokens (un / believ / able). Common words are typically 1 token; rare words may be multiple tokens. <strong>Tokenization</strong> is the process of splitting raw text into tokens before the model processes it. This is done by a tokenizer trained alongside the model (e.g., byte-pair encoding, BPE). <strong>Why tokens matter:</strong> API pricing is per token (both input and output); context windows are measured in tokens; the model sees tokens, not characters or words. In April 2026, frontier LLM pricing ranges from $0.10 to $5 per million input tokens. <a href="https://platform.openai.com/tokenizer" target="_blank">OpenAI Tokenizer Tool</a> lets you visualize how text is tokenized.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Context-Window">Context Window</a> <a href="#term-API">API</a> <a href="#term-Inference">Inference</a> <a href="#term-LLM">LLM</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Transformer" data-letter="T">
+    <div class="term-header">
+      <span class="term-name">Transformer</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">The neural network architecture that underlies virtually all modern LLMs and many other AI systems. Introduced in the landmark 2017 Google Brain paper <a href="https://arxiv.org/abs/1706.03762" target="_blank">"Attention Is All You Need"</a>. The key innovation: replacing recurrent processing (which handled text sequentially, accumulating errors) with attention mechanisms that process all tokens in parallel, attending to any other token regardless of distance. Transformers enabled scaling to massive datasets and model sizes in ways that were not feasible with prior architectures. GPT, Claude, Gemini, Llama, Gemma, Mistral, and DeepSeek are all transformer-based models. Non-transformer architectures (Mamba, RWKV) are being researched as potentially more efficient alternatives for very long contexts, but as of 2026, transformers remain dominant.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Attention">Attention Mechanism</a> <a href="#term-LLM">LLM</a> <a href="#term-Deep-Learning">Deep Learning</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ U ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-U">U</div>
+
+  <div class="term-entry" id="term-Unsupervised-Learning" data-letter="U">
+    <div class="term-header">
+      <span class="term-name">Unsupervised Learning</span>
+      <div class="term-badges"><span class="badge badge-cat">Training Paradigm</span></div>
+    </div>
+    <p class="term-definition">See: <a href="#term-Supervised-Learning">Supervised vs. Unsupervised Learning</a> above. Unsupervised learning in brief: training on unlabeled data to find structure, patterns, or representations. The pre-training phase of modern LLMs (predicting the next token on internet text) is technically self-supervised learning — a variant of unsupervised learning where the labels are derived from the data itself. K-means clustering and PCA are classical unsupervised algorithms. In modern AI, self-supervised pre-training has replaced both classical supervised and unsupervised approaches for most foundation model development.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Supervised-Learning">Supervised Learning</a> <a href="#term-LLM">LLM</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ V ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-V">V</div>
+
+  <div class="term-entry" id="term-Vectorization" data-letter="V">
+    <div class="term-header">
+      <span class="term-name">Vectorization / Vector Database</span>
+      <div class="term-badges"><span class="badge badge-cat">Data Infrastructure</span></div>
+    </div>
+    <p class="term-definition"><strong>Vectorization</strong> is the process of converting data (text, images, audio) into dense numerical vectors (embeddings) that represent their semantic content. <strong>Vector databases</strong> (e.g., Pinecone, Weaviate, Chroma, pgvector, Qdrant) are optimized storage and retrieval systems for these high-dimensional vectors. They support "approximate nearest neighbor" (ANN) search — finding the vectors (and thus the documents) most semantically similar to a query vector, at scale. In a RAG pipeline: documents are vectorized (embedded) → stored in a vector database → at query time, the query is embedded → top-K most similar vectors are retrieved → those documents are passed to the LLM. Vector databases are a critical piece of modern AI infrastructure, enabling semantic search over millions of documents in milliseconds. <a href="https://docs.trychroma.com" target="_blank">Chroma Docs</a> | <a href="https://www.pinecone.io/learn/" target="_blank">Pinecone Learning</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Embedding">Embedding</a> <a href="#term-RAG">RAG</a> <a href="#term-Chunking">Chunking</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ G-section: Grounding ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-G2" style="display:none"></div>
+  <div class="term-entry" id="term-Grounding" data-letter="G">
+    <div class="term-header">
+      <span class="term-name">Grounding</span>
+      <div class="term-badges"><span class="badge badge-cat">Quality / Reliability</span></div>
+    </div>
+    <p class="term-definition">The practice of anchoring AI outputs to verifiable sources rather than relying solely on the model's parametric (trained) knowledge. Techniques include RAG (injecting retrieved documents), tool use (web search integration), and citation requirements. A "grounded" response is one where every key claim can be traced to a specific source. Grounding is the primary engineering countermeasure to hallucination. Without grounding, the model answers from memory (which can be wrong, outdated, or hallucinated). With grounding, the model answers from retrieved evidence (which can be verified). Grounding is particularly critical in legal, medical, financial, and scientific applications where factual accuracy is non-negotiable.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Hallucination">Hallucination</a> <a href="#term-Retrieval">Retrieval</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Agentic-AI" data-letter="A">
+    <div class="term-header">
+      <span class="term-name">Agentic AI / AI Agent</span>
+      <div class="term-badges"><span class="badge badge-cat">Deployment Model</span><span class="badge badge-new">Frontier 2025–2026</span></div>
+    </div>
+    <p class="term-definition">An AI system that goes beyond single-turn question answering to autonomously plan and execute multi-step tasks — browsing the web, writing and running code, sending emails, managing calendars, querying databases — without requiring human instruction at each step. The user provides a goal; the agent determines the steps and executes them. <strong>Single-agent systems</strong> use one LLM with access to tools. <strong>Multi-agent systems</strong> orchestrate multiple specialized AI models — one for research, one for writing, one for code review — coordinated by a supervisor model. The Anthropic 2026 Agentic Coding Report (cited throughout the main report) documents agents completing entire software features in hours. <strong>Key limitations (2026):</strong> "Fully delegated" tasks still represent only 0–20% of developer workflows; human oversight remains essential for high-stakes work. Context rot is the primary failure mode in long agentic task chains. See also: <a href="https://modelcontextprotocol.io" target="_blank">MCP (the standard enabling agent-tool communication)</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-MCP">MCP</a> <a href="#term-Context-Rot">Context Rot</a> <a href="#term-Chain-of-Thought">Chain of Thought</a></div>
+  </div>
+
+  </main><!-- /glossary-main -->
+</div><!-- /main-layout -->
+
+<div class="page-footer">
+  <strong>IAC AI Glossary</strong> — Companion document to the IAC State of AI Report, April 2026<br>
+  Definitions are synthesized from primary sources including: Anthropic Documentation · OpenAI Research · Google DeepMind Publications · Chroma Research · METR · arXiv (linked inline) · IEEE/ACM proceedings · VentureBeat · InfoQ · ProductTalk.org<br>
+  External links open in new tabs. Definitions reflect the state of AI as of April 2026. This is a living document; definitions in active fields (context rot, reasoning models, MoE) may evolve rapidly.
+</div>
+
+<script>
+// ── RENDER ALPHABET BUTTONS ──────────────────────────────────
+const letters = [...new Set([...document.querySelectorAll('.term-entry')].map(el => el.dataset.letter))].sort();
+const filtersDiv = document.getElementById('alpha-filters');
+letters.forEach(l => {
+  const btn = document.createElement('button');
+  btn.className = 'alpha-btn';
+  btn.dataset.letter = l;
+  btn.textContent = l;
+  filtersDiv.appendChild(btn);
+});
+
+// ── BUILD SIDEBAR ─────────────────────────────────────────────
+const sidebar = document.getElementById('sidebar-nav');
+const grouped = {};
+document.querySelectorAll('.term-entry').forEach(el => {
+  const l = el.dataset.letter;
+  if (!grouped[l]) grouped[l] = [];
+  grouped[l].push({ id: el.id, name: el.querySelector('.term-name').textContent });
+});
+Object.keys(grouped).sort().forEach(l => {
+  const grp = document.createElement('div');
+  grp.className = 'sidebar-group';
+  const lbl = document.createElement('span');
+  lbl.className = 'sidebar-letter';
+  lbl.textContent = l;
+  grp.appendChild(lbl);
+  grouped[l].forEach(t => {
+    const a = document.createElement('a');
+    a.className = 'sidebar-link';
+    a.href = '#' + t.id;
+    a.textContent = t.name.length > 28 ? t.name.slice(0, 26) + '…' : t.name;
+    grp.appendChild(a);
+  });
+  sidebar.appendChild(grp);
+});
+
+// ── SEARCH ────────────────────────────────────────────────────
+const searchInput = document.getElementById('glossary-search');
+const countEl = document.getElementById('result-count');
+
+function updateCount() {
+  const visible = document.querySelectorAll('.term-entry:not(.hidden)').length;
+  const total = document.querySelectorAll('.term-entry').length;
+  countEl.textContent = visible === total ? `${total} terms` : `${visible} of ${total} terms`;
+}
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim();
+  // reset alpha filter
+  document.querySelectorAll('.alpha-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.alpha-btn.all-btn').classList.add('active');
+  document.querySelectorAll('.term-entry').forEach(el => {
+    const text = el.textContent.toLowerCase();
+    el.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+  });
+  // show/hide letter anchors
+  document.querySelectorAll('.letter-anchor').forEach(anchor => {
+    const l = anchor.id.replace('letter-', '');
+    const hasVisible = [...document.querySelectorAll(`.term-entry[data-letter="${l}"]`)].some(e => !e.classList.contains('hidden'));
+    anchor.style.display = hasVisible ? '' : 'none';
+  });
+  updateCount();
+});
+
+// ── ALPHA FILTER ──────────────────────────────────────────────
+filtersDiv.addEventListener('click', e => {
+  const btn = e.target.closest('.alpha-btn');
+  if (!btn) return;
+  document.querySelectorAll('.alpha-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  searchInput.value = '';
+  const letter = btn.dataset.letter;
+  document.querySelectorAll('.term-entry').forEach(el => {
+    el.classList.toggle('hidden', letter !== 'ALL' && el.dataset.letter !== letter);
+  });
+  document.querySelectorAll('.letter-anchor').forEach(anchor => {
+    const l = anchor.id.replace('letter-', '');
+    const show = letter === 'ALL' || l === letter;
+    anchor.style.display = show ? '' : 'none';
+  });
+  updateCount();
+});
+
+// ── SIDEBAR HIGHLIGHT ─────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      document.querySelectorAll('.sidebar-link').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+document.querySelectorAll('.term-entry').forEach(el => observer.observe(el));
+
+updateCount();
+</script>
+
+</body>
+</html>

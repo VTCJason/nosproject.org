@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>When the Tenant Becomes the Landlord, v5.0 Preview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+
+  :root {
+    --serif: "EB Garamond", "Garamond", "Adobe Garamond Pro", Georgia, serif;
+    --sans: "Calibri", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --ink: #111827;
+    --muted: #4B5563;
+    --rule: #D1D5DB;
+    --paper: #FFFFFF;
+    --legend-bg: #FAF8F2;
+    --config-a: #2D6A6A;
+    --config-b: #4A4A55;
+    --config-c: #B8862F;
+  }
+
+  html, body { background: #E5E7EB; margin: 0; padding: 0; }
+  body { font-family: var(--serif); color: var(--ink); }
+
+  .page {
+    background: var(--paper);
+    width: 8.5in;
+    max-width: 100%;
+    margin: 24px auto;
+    padding: 0.9in 1.1in 0.4in 1.1in;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .page-footer {
+    margin: 30pt -1.1in 0;
+    padding: 10pt 1.1in 14pt;
+    border-top: 0.6pt solid var(--rule);
+    font-family: var(--sans);
+    font-size: 8pt;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18pt;
+    line-height: 1.3;
+  }
+  .page-footer .footer-legend { display: flex; gap: 16pt; flex-wrap: wrap; }
+  .page-footer .footer-item { display: flex; align-items: center; gap: 5pt; white-space: nowrap; }
+  .page-footer .footer-mark { display: inline-block; width: 6pt; height: 6pt; border-radius: 50%; flex-shrink: 0; }
+  .page-footer .footer-letter { font-weight: 700; color: var(--ink); letter-spacing: 0.04em; }
+  .page-footer .footer-name { font-style: italic; color: var(--muted); }
+  .page-footer .footer-page { font-family: var(--sans); font-size: 8pt; color: var(--muted); letter-spacing: 0.06em; flex-shrink: 0; }
+  .footer-mark.a { background: var(--config-a); }
+  .footer-mark.b { background: var(--config-b); }
+  .footer-mark.c { background: var(--config-c); }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #6B7280;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  h1.title {
+    font-family: var(--sans);
+    font-size: 28pt;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    margin: 0 0 8pt;
+    line-height: 1.15;
+  }
+
+  .subtitle {
+    font-family: var(--sans);
+    font-size: 14pt;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    margin: 0 0 18pt;
+  }
+
+  .seminar, .author {
+    font-family: var(--sans);
+    font-size: 11pt;
+    color: #6B7280;
+    text-align: center;
+    margin: 0 0 4pt;
+  }
+
+  .companion {
+    font-family: var(--sans);
+    font-size: 10pt;
+    font-style: italic;
+    color: #6B7280;
+    text-align: center;
+    margin: 0 0 24pt;
+  }
+
+  hr.divider {
+    border: 0;
+    border-top: 1.2pt solid var(--ink);
+    margin: 16pt 0;
+  }
+
+  p, li {
+    font-family: var(--serif);
+    font-size: 12pt;
+    line-height: 1.55;
+    color: var(--ink);
+    text-align: justify;
+    hyphens: auto;
+    margin: 0 0 11pt;
+  }
+
+  .abstract-block { margin: 14pt 0; }
+  .abstract-label {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 11pt;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+  }
+
+  h1.section {
+    font-family: var(--sans);
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 28pt 0 10pt;
+    line-height: 1.2;
+  }
+
+  h2.subsection {
+    font-family: var(--sans);
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 22pt 0 8pt;
+    line-height: 1.25;
+  }
+
+  h3.subsubsection {
+    font-family: var(--sans);
+    font-size: 11.5pt;
+    font-weight: 700;
+    margin: 18pt 0 6pt;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+  }
+
+  h3.aip { color: var(--config-a); }
+  h3.aio { color: var(--config-b); }
+  h3.aia { color: var(--config-c); }
+
+  .legend {
+    background: var(--legend-bg);
+    margin: 24pt 0 8pt;
+    padding: 18pt 22pt 16pt;
+    border-top: 0.6pt solid var(--ink);
+    border-bottom: 0.6pt solid var(--ink);
+  }
+  .legend-eyebrow {
+    font-family: var(--sans);
+    font-size: 9.5pt;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 14pt;
+    padding-bottom: 8pt;
+    border-bottom: 0.4pt solid var(--rule);
+  }
+  .legend-row {
+    display: grid;
+    grid-template-columns: 14pt 30pt 1fr;
+    gap: 10pt;
+    align-items: baseline;
+    margin: 0 0 10pt;
+    font-family: var(--sans);
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+  .legend-mark {
+    width: 8pt;
+    height: 8pt;
+    border-radius: 50%;
+    align-self: center;
+  }
+  .legend-letter {
+    font-family: var(--sans);
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 11pt;
+    letter-spacing: 0.04em;
+  }
+  .legend-name {
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .mark-a { background: var(--config-a); }
+  .mark-b { background: var(--config-b); }
+  .mark-c { background: var(--config-c); }
+  .legend-note {
+    margin-top: 12pt;
+    padding-top: 10pt;
+    border-top: 0.4pt solid var(--rule);
+    font-family: var(--sans);
+    font-style: italic;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .preview-banner {
+    background: #FEF3C7;
+    border-bottom: 1px solid #F59E0B;
+    color: #78350F;
+    font-family: var(--sans);
+    font-size: 10pt;
+    padding: 8px 16px;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .page { padding: 0.7in 0.6in; }
+    h1.title { font-size: 22pt; }
+    .page-footer { margin: 20pt -0.6in 0; padding: 8pt 0.6in 12pt; }
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-banner">
+  Preview rendering of v5.1: Sections 1, 2, and 3 as a consolidated revision. AIP/AIO/AIA taxonomy throughout. Empirical anchors current as of May 12, 2026. SAP block in companion file.
+</div>
+
+<div class="page">
+
+  <div class="eyebrow">Case Study  &nbsp;|&nbsp;  Revised Edition</div>
+  <h1 class="title">When the Tenant Becomes the Landlord</h1>
+  <div class="subtitle">Value-Chain Inversion in the Post-2026 Productivity Stack</div>
+  <div class="seminar">A Discussion Case for Graduate Strategy Seminars</div>
+  <div class="author">Jason Troxel  &nbsp;|&nbsp;  Drafted April 2026; revised May 2026</div>
+  <div class="companion">Companion to The nOS Manifesto</div>
+
+  <hr class="divider">
+
+  <div class="abstract-block">
+    <p><span class="abstract-label">ABSTRACT.</span>&nbsp; Between October 2025 and April 2026, the leading frontier-model vendors and the hyperscaler platforms distributing them advanced positions that diverge across the architectural stack rather than competing for the same layer of it, in what may be the most consequential platform migration in computing since the decoupling of software from hardware that enabled cloud-native computing. Anthropic completed a six-month traversal of Microsoft Office through native Claude integrations and crossed $30 billion in annualized revenue run rate by April 2026, passing OpenAI for the first time. Google launched Workspace Intelligence, a cross-application semantic layer consolidating Gmail, Drive, Docs, Sheets, Slides, Chat, and Calendar under a Gemini-powered orchestration surface. OpenAI shipped Atlas (an AI-native browser) and Frontier (an enterprise semantic layer), announced a desktop superapp consolidating ChatGPT, Codex, and Atlas under a single platform, and reached $24 billion annualized revenue. Perplexity scaled Comet (an AI-native browser) and Computer (an autonomous agent platform) past 100 million monthly active users at a $20 billion valuation, expanding Personal Computer to all Mac users in May 2026. Meta acquired Manus (the autonomous AI agent built by Butterfly Effect) for approximately $2 billion in December 2025 and committed $115 to $135 billion in 2026 AI infrastructure. Amazon committed roughly $200 billion in 2026 AI infrastructure and up to $25 billion in cumulative Anthropic investment, positioning AWS Bedrock as the primary cloud-distribution channel for the frontier-model layer.</p>
+
+    <p>The velocity is not incidental. Frontier-model vendors compete simultaneously on capability advancement (DeepSeek V4's compressed sparse attention mechanisms continue to lower frontier-inference costs) and monetized engagement growth (daily active paying users and time-in-app per paid user have converged as operative measures of platform position ahead of public-market events). Read individually, the moves can be justified on conventional terms (market share capture, productivity feature improvement, distribution expansion). Read together, they make more analytical sense as positioning across three observable architectural states for the productivity and operating-system stack, here designated AIP (AI Productivity), AIO (AI Orchestration), and AIA (AI Agency), and as evidence that the migration toward a destination beyond those three states is already underway.</p>
+
+    <p>This case examines the empirical record from October 2025 through April 2026, places it in the context of prior platform migrations, and asks students to reason about which configuration captures the value, on what timeline, and which vendor is positioned to win. The case is the analytical companion to the author's nOS Manifesto, which signals the direction in which computing will transition over the next two decades: extending the trajectory that personal computing began, that connected computing scaled, and that cloud computing distilled into the present configuration. The case stress-tests that signaled trajectory against the empirical record.</p>
+  </div>
+
+  <hr class="divider">
+
+  <h1 class="section">1. The Question the Case Examines</h1>
+
+  <p>A first reading of the empirical record might frame the strategic question as a contest between two configurations: AIP, in which AI lives inside existing productivity applications as a sidebar feature, and AIO, in which AI becomes the primary surface and the productivity application is reduced to a rendering peripheral. Such a reading would trace Anthropic's six-month traversal of Microsoft Office (Excel in October 2025, PowerPoint in February 2026, Word in April 2026) and conclude that the entrant was building toward an architectural inversion of the productivity stack.</p>
+
+  <p>That reading is incomplete. Within three weeks of the binary framing being plausible, three developments forced its analytical structure to be rebuilt. Google launched Workspace Intelligence on April 22, 2026, demonstrating that the productivity vendor with the deepest vertical integration across email, storage, productivity, and identity could capture AIO from inside its own incumbent position rather than being captured by it. OpenAI consolidated its product strategy around a desktop superapp announced March 19, 2026, integrating ChatGPT, Codex, and the Atlas browser, and supplemented this with the Frontier enterprise platform launched in February 2026 and the continued investment in AI-native hardware through the Jony Ive partnership; OpenAI is positioning across all three observable configurations simultaneously rather than committing to one. Perplexity scaled past 100 million monthly active users on the strength of an AI-native browser (Comet) and an autonomous agent platform (Computer) that together represent AIO and AIA execution at consumer scale, with Personal Computer for Mac reaching general availability across Pro, Enterprise, and Max subscribers on May 7, 2026.</p>
+
+  <p>These developments collectively demonstrate that the binary framing understated the decision space. The strategic question facing the next generation of vendors, enterprises, regulators, and educators is not whether AI lives inside the productivity application or replaces it. It is which architectural layer captures platform power across the entire knowledge-work surface, what configuration of vendors and incumbents survives that capture, on what timeline, and what an institution should do now in light of those uncertainties.</p>
+
+  <p>The future-facing nOS Manifesto, written separately from this case, is a distant vision in the same way that the 1939 World's Fair GM presentation "Futurama" in the Highways and Horizons pavilion remains a distant vision in 2026, even though self-driving automotive technology has emerged. The manifesto argues that platform power has migrated up the architectural stack roughly once per decade for the last forty years, that the migration now underway is to the AI orchestration layer, and that three observable configurations describe the empirical record of that migration; the destination beyond those three configurations, named in the manifesto and not in this case, is a category change rather than a configuration. This case examines the observable trajectory the manifesto's analytical position rests on. Each document can be read independently; the case stands on the empirical record alone, the manifesto stands on the analytical position alone. Reading both adds the contextual "why" that explains the relationship between the trajectory and its destination.</p>
+
+  <div class="legend">
+    <div class="legend-eyebrow">Configuration legend</div>
+
+    <div class="legend-row">
+      <span class="legend-mark mark-a"></span>
+      <span class="legend-letter">AIP</span>
+      <span><span class="legend-name">AI Productivity.</span> AI lives inside a host application's bounded domain, performing assignment-based work the application was designed to support.</span>
+    </div>
+
+    <div class="legend-row">
+      <span class="legend-mark mark-b"></span>
+      <span class="legend-letter">AIO</span>
+      <span><span class="legend-name">AI Orchestration.</span> AI becomes the primary surface, maintaining coherent state across applications that were never designed to share state directly.</span>
+    </div>
+
+    <div class="legend-row">
+      <span class="legend-mark mark-c"></span>
+      <span class="legend-letter">AIA</span>
+      <span><span class="legend-name">AI Agency.</span> AI operates with proactive agency, initiating work and executing goals across surfaces without requiring task-level user direction.</span>
+    </div>
+
+    <div class="legend-note">
+      The case uses the acronyms at section openings and transitions and the descriptive names (productivity, orchestration, agency) in body prose where flow benefits. A compressed legend appears in the running footer of every subsequent page.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-legend">
+      <span class="footer-item"><span class="footer-mark a"></span><span class="footer-letter">AIP</span> <span class="footer-name">Productivity</span></span>
+      <span class="footer-item"><span class="footer-mark b"></span><span class="footer-letter">AIO</span> <span class="footer-name">Orchestration</span></span>
+      <span class="footer-item"><span class="footer-mark c"></span><span class="footer-letter">AIA</span> <span class="footer-name">Agency</span></span>
+    </div>
+    <span class="footer-page">When the Tenant Becomes the Landlord  &middot;  v5.1  &middot;  1</span>
+  </div>
+
+</div>
+
+<div class="page">
+
+  <h1 class="section">2. The Three Configurations</h1>
+
+  <p>The three configurations are categorical boundaries defined by structural conditions of membership, not by enumeration of current shipping examples. Any AI capability that satisfies a configuration's structural conditions belongs in the category, regardless of whether the capability is currently shipping at production maturity, in development, in research, or in design ideation. What occupies each category at any moment is empirical fill, distinct from the category definition; Section 3 documents the in-production subcircle of each category, while this section establishes the boundaries that determine membership.</p>
+
+  <p>The analytical apparatus borrows structure from SAE International's J3016 Standard for levels of driving automation, which defines a progressive-autonomy framework with bounded operational design domains. Where SAE J3016 distinguishes Level 0 (no automation) through Level 5 (full automation with no operational design domain restriction), the three configurations in this case correspond to Levels 2 through 4: bounded autonomy at increasing scope and decreasing user-direction requirement. Level 1 in the J3016 analog (driver assistance with active human operation) corresponds to the LLM chat baseline that precedes AIP and is implicit throughout the case but not engaged as a configuration. Level 5 in the J3016 analog (full automation without operational design domain restriction) corresponds to nOS, the destination beyond the three configurations that the manifesto engages and this case does not.</p>
+
+  <h2 class="subsection">2.1. AIP: AI Productivity</h2>
+
+  <p>AIP is the category of AI capability deployed inside a host application's bounded domain, performing assignment-based work the application was designed to support. The host application defines the data model, the operations available, the output format, and the commercial relationship with the user; the AI extends the application's capability without crossing its boundaries.</p>
+
+  <p>The structural conditions of membership in AIP: the AI operates within a single host application or closely coupled application family; the AI's work is initiated by user assignment within that application's domain; the AI's output is rendered through the application's native primitives; the AI's commercial relationship with the user runs through the host vendor's subscription or licensing structure. A capability that crosses applications, that operates without user-defined task assignment, or that maintains commercial relationship independent of the host vendor sits outside AIP regardless of its underlying technology.</p>
+
+  <p>The illustrative example sits inside a productivity application as a workplace assistant that drafts a formal letter, edits a paragraph for tone, or formats a document according to the application's style primitives. The capability is meaningfully more than a chat interface (it performs work the application was designed for, at quality the application's users expect), but it is bounded by the host application's domain. Equivalent examples sit inside spreadsheet applications, presentation applications, email applications, and developer environments. The category persists wherever AI capability is bounded by a host application's operational domain.</p>
+
+  <p>The upper boundary of AIP is the host application's reach. A capability that maintains coherent state across applications, that orchestrates work spanning multiple host applications, or that operates without a host application's commercial container belongs in AIO rather than AIP. The lower boundary is the LLM chat baseline: a capability that produces only conversational response without performing assignment-based work within an application's domain has not crossed into AIP.</p>
+
+  <h2 class="subsection">2.2. AIO: AI Orchestration</h2>
+
+  <p>AIO is the category of AI capability that maintains coherent state across application boundaries, executing user-assigned tasks that require coordination among applications, tools, operating-system surfaces, or data sources not designed to share state directly. The orchestrator is the primary surface for the work; host applications persist as substrates the orchestrator invokes when their formatting or computational primitives are required.</p>
+
+  <p>The structural conditions of membership in AIO: the AI operates across multiple application boundaries, file systems, tool integrations, or service surfaces; the AI's work is initiated by user-defined task assignment with goal parameters the user specifies; the AI maintains coherent state across the surfaces it orchestrates; the AI's commercial relationship with the user is independent of any single host application's subscription. AIO exists as a distinct category because the work that needs doing crosses bounded domains, and the orchestrator's structural capability is maintaining coherent state across domains that were never designed to share it. No individual application has visibility outside its own domain; AIO does.</p>
+
+  <p>The illustrative example: a digital workplace assistant that receives the assignment "prepare the quarterly review packet" and proceeds to collect performance data from the financial system, sales pipeline data from the CRM, customer satisfaction data from the survey platform, format the data into a coherent narrative document, generate supporting visualizations, package the deliverable, and present it for review. The assistant invokes each application as a substrate, summons each tool when its primitives are required, and maintains the cross-application context no single application could maintain.</p>
+
+  <p>The upper boundary of AIO is task-based assignment with heteronomy: the orchestrator does not initiate work proactively, does not operate without user-defined task scope, and does not extend autonomy beyond the boundaries the assignment establishes. A capability that initiates work proactively, that operates against goal definitions without task-level decomposition, or that maintains autonomy across task boundaries belongs in AIA rather than AIO. The lower boundary is single-application output: a capability that produces output bounded by a single application's domain has not crossed into AIO.</p>
+
+  <h2 class="subsection">2.3. AIA: AI Agency</h2>
+
+  <p>AIA is the category of AI capability that operates with proactive agency, initiating work and executing goals across surfaces without requiring task-level user direction. The user defines goals, success criteria, and operating constraints; the agent identifies opportunities, evaluates options, executes work, and reports outcomes. The agent's commercial relationship with the user is goal-completion-based rather than subscription-or-task-based.</p>
+
+  <p>The structural conditions of membership in AIA: the AI initiates work proactively rather than awaiting task-level user direction; the AI operates across applications, operating systems, and other surfaces it does not own; the AI executes goals rather than tasks, with the user providing goal parameters and success criteria rather than step-by-step instructions; the AI maintains autonomy at the appropriate operational scope. The scope spans a continuous spectrum from narrow-domain proactive decision-making (Google's Pixel call screening that decides which calls reach the user based on training accumulated from past behavior, email spam filtering that determines what reaches the inbox, trading bots that execute within rudimentary goal constraints) to strategic-scope proactive opportunity-identification (an agent that identifies competitive pressure in a regulated industry, designs a product to address it, evaluates manufacturing options across geographies, projects compliance and pass-rate outcomes, and presents a complete business case for decision).</p>
+
+  <p>Both endpoints of the spectrum are inside AIA. The category does not require any single product to span the full range; what makes a capability AIA is satisfaction of the structural conditions, not the scope at which it operates. A capability that requires task-level user direction at any operational scope sits outside AIA regardless of how sophisticated its execution; a capability that initiates work proactively at any operational scope sits inside AIA regardless of how narrow its domain.</p>
+
+  <p>The upper boundary of AIA is the operational design domain restriction. An agent that operates with full autonomy across unbounded operational scope, without any human-defined goal definition or success criteria, sits in nOS territory rather than AIA; the manifesto engages that boundary and this case does not. The lower boundary is task-level user direction: a capability that requires the user to specify task decomposition rather than goal parameters sits in AIO rather than AIA, regardless of its technical sophistication.</p>
+
+  <p>The autonomy distinctions across AIP, AIO, and AIA map onto a workplace-role spectrum that illustrates the boundaries without implying that any configuration is strategically more valuable than another. Productivity corresponds to the role of an in-application assistant: present where the work happens, capable of performing the work at quality, bounded by the application's domain. Orchestration corresponds to the role of an intern or junior associate: capable of cross-application work, dependable on assigned tasks, requiring direction at the task level and verification at completion. Agency corresponds to the role of a senior associate or manager: trusted with goals and budgets, evaluated on outcomes rather than activities, reviewed periodically rather than supervised continuously. The roles persist in any organization simultaneously because they serve different categories of work; the case's analytical claim is that Productivity, Orchestration, and Agency persist in the architectural stack for the same reason, with capability scaled to the requirement of each category of work rather than maximized for autonomy's sake.</p>
+
+  <h2 class="subsection">2.4. Why these three and what lies beyond them</h2>
+
+  <p>The three configurations are not exhaustive of all imaginable architectural states for the productivity and operating-system stack; nor are they even exhaustive of the architectural states currently shipping in production when the open-source ecosystem is considered as of May 2026. Scenarios this analysis has not anticipated are possible by definition, including: where AI fails to capture platform power at any layer, platform power fragments across multiple AI vendors, or platform layer migrates somewhere not predictable. All are viable and realistic. The case acknowledges these possibilities without engaging them; the burden of identifying and defending such alternatives lies with the reader who proposes them.</p>
+
+  <p>The case introduces the three configurations as the observable record of a migration in progress; the manifesto treats them as the staging ground for a category change beyond the framing the case establishes. The two posture differently for analytical reasons. The case is bounded by what has shipped and by the categorical boundaries that determine what could ship within the framework; the manifesto is bounded by where the trajectory points beyond those boundaries. The two boundaries are different by design and both are useful. The three-configuration framework serves as an organizing structure for the analysis that follows, and invites readers to argue with it.</p>
+
+  <div class="page-footer">
+    <div class="footer-legend">
+      <span class="footer-item"><span class="footer-mark a"></span><span class="footer-letter">AIP</span> <span class="footer-name">Productivity</span></span>
+      <span class="footer-item"><span class="footer-mark b"></span><span class="footer-letter">AIO</span> <span class="footer-name">Orchestration</span></span>
+      <span class="footer-item"><span class="footer-mark c"></span><span class="footer-letter">AIA</span> <span class="footer-name">Agency</span></span>
+    </div>
+    <span class="footer-page">When the Tenant Becomes the Landlord  &middot;  v5.1  &middot;  2</span>
+  </div>
+
+</div>
+
+<div class="page">
+
+  <h1 class="section">3. The Empirical Record, October 2025 to April 2026</h1>
+
+  <p>The case examines the empirical record through the three configurations rather than through the vendors producing them. Exhibit 1 provides the vendor-focused view across configurations.</p>
+
+  <h2 class="subsection">3.1. AIP in Production</h2>
+
+  <p>AIP is the most heavily populated configuration in the empirical record. Every major vendor ships products inside the boundary; the analytical questions are not whether the configuration exists but whether it is stable, how the unit economics work, and whether the adoption metrics support the pricing structures vendors have built around it.</p>
+
+  <h3 class="subsubsection aip">The canonical case: Microsoft 365 Copilot</h3>
+
+  <p>Microsoft 365 Copilot is the most visible AIP product at scale and the canonical case for the configuration's economics. Paid Copilot seats reached approximately 20 million by March 31, 2026, the close of Microsoft's fiscal Q3, against a Microsoft 365 commercial seat base of approximately 415 million worldwide. Year-over-year seat growth ran above 160 percent through Q2 FY26 and accelerated into Q3 FY26 per the April 29 earnings call. Headline penetration is approximately 4.8 percent of the M365 commercial base.</p>
+
+  <p>The seat count requires unpacking. Microsoft's actual pricing is layered through enterprise agreements, business and individual tiers, promotional rates, bundle SKUs, and adoption-credit mechanisms that Microsoft does not break out publicly; the headline $30 per seat per month does not represent what Microsoft receives per paid seat at scale. Regulatory attention has followed the gap between headline and outcome, with the Australian Competition and Consumer Commission filing suit in October 2025 over Copilot bundling disclosure. Multiplying 20 million by $30 produces a revenue figure that overstates what Microsoft actually receives.</p>
+
+  <p>The adoption metrics inside the paid base are where the configuration's stability becomes the analytical question. Workplace conversion rates (the share of employees with a Copilot license who actually choose to use it) sit at approximately 35.8 percent across multiple third-party surveys. When employees have simultaneous access to Copilot, ChatGPT, and Gemini, Copilot's active usage share collapses to approximately 8 percent. These numbers do not describe a failed product; they describe an adoption curve materially slower than the headline unit economics require, and a workforce whose actual usage is migrating toward AI surfaces the productivity vendor did not build.</p>
+
+  <p>Three readings of the seat-and-usage data are defensible. First: the configuration's pricing is not stable at the present adoption mix and the price drops, the value rises, or users migrate to a different configuration. Second: adoption is being held back not by the product but by the procurement cycle inside large enterprises, and steady-state adoption will look materially different in eighteen months as deployment matures. Third: Copilot is the wrong unit of analysis. Microsoft's broader AI strategy (Azure OpenAI, the Foundry model marketplace, the GitHub developer-tooling stack, and the enterprise-scale deployment capability the Fortune 500 tethering produces) is the load-bearing portfolio, and Copilot is one product within it. Q3 FY26 results support the third reading: Microsoft's AI annualized revenue run rate reached $37 billion (up 123 percent year-over-year), Azure grew 40 percent, and commercial cloud remaining performance obligations doubled to $627 billion. The case treats all three readings as live and returns to the third in Section 4, where the cross-vendor dynamics analysis engages Microsoft's strategic position as a portfolio rather than as a single product.</p>
+
+  <p>The capital intensity of the defense is the strongest evidence Microsoft itself reads the strategic situation as unsettled. Quarterly AI capital expenditure crossed $37.5 billion in late 2025. Full-year FY26 capex guidance, raised on the April 29 call, sits at approximately $190 billion against a prior consensus near $154.6 billion. Whatever AIP produces commercially, Microsoft is investing as if the underlying capability race remains open.</p>
+
+  <h3 class="subsubsection aip">The second leg: Google Workspace AI features</h3>
+
+  <p>Google's position differs from Microsoft's in two respects. Google folded Gemini into the Workspace base subscription at approximately $2 per seat per month price increase rather than charging a $30 add-on, trading near-term AI revenue for adoption velocity and platform-position retention. Google Workspace also operates on a structurally different base: 3 billion monthly active users and approximately 11 million paying business customers (up from roughly 8 million a year prior), with Gemini Enterprise paid monthly active users growing 40 percent quarter-over-quarter through Q1 2026 and Google Cloud generative-AI revenue growing nearly 800 percent year-over-year per the April 29 earnings call. Google Cloud revenue reached $20 billion in Q1 2026, up 63 percent year-over-year.</p>
+
+  <p>The 3-billion-user base matters because the comparison cannot be reduced to paid-seat counts. Google operates two materially different revenue mechanisms in the consumer Workspace base (subscription for paid tiers, advertising and adjacent monetization for the free tier) and the advertising mechanism has no Microsoft counterpart. The case does not engage the advertising-revenue analysis here; the discussion questions ask the student to consider what the asymmetry implies for long-run unit economics.</p>
+
+  <p>The pricing strategies produce different but not incomparable outcomes. Google's model produces higher adoption velocity within the Workspace customer base; Microsoft's produces higher nominal revenue per active user, qualified by the discount layers above. The configuration's stability question cuts in opposite directions for the two vendors: Google must demonstrate that low-margin AIP is sustainable as inference costs evolve; Microsoft must demonstrate the Copilot price-value relationship holds as alternatives proliferate.</p>
+
+  <h3 class="subsubsection aip">The entry-point case: Anthropic's original Office add-ins</h3>
+
+  <p>Anthropic's first Microsoft Office deployments were AIP products by the structural test. Claude for Excel, launched October 27, 2025 as a research preview limited to Max and Enterprise plan customers, premiered as a sidebar inside an existing application. Claude for PowerPoint, launched February 5, 2026, was structurally the same. Both occupied AIP in their original deployments. The analytical importance is not the AIP classification but their position as the entry point for the AIO move that followed in March and April 2026, which Section 3.2 engages.</p>
+
+  <h3 class="subsubsection aip">The developer-tooling case: GitHub Copilot Chat in VS Code</h3>
+
+  <p>The structural test that captures the office-productivity slice captures the developer-tooling slice. GitHub Copilot Chat, deployed inside VS Code, is AI as a feature inside an existing developer application. The user opens the editor to begin work and summons the AI when needed; the editor controls the file format, the rendering pipeline, and the commercial relationship.</p>
+
+  <p>Microsoft's developer-tooling product reaches a base the office-productivity product cannot match: VS Code holds approximately 75 percent of the professional developer market, GitHub serves approximately 100 million developers, and Copilot Chat in VS Code has a free tier converting to paid usage. The office product cannot replicate this acquisition flow because the office product requires paid M365 plus the $30 Copilot add-on to deliver any AI experience. The asymmetry between Microsoft's office-productivity position and Microsoft's developer-tooling position is one of the cross-vendor dynamics Section 4 engages explicitly.</p>
+
+  <h3 class="subsubsection aip">What AIP looks like in production</h3>
+
+  <p>Three observations follow. First, AIP is the easiest configuration to deploy and the most heavily populated; every major vendor ships within the boundary. Second, the unit economics depend more on pricing structure than on technical capability; Google's $2 increment and Microsoft's $30 add-on deploy comparable technical capability under materially different commercial frames, with materially different adoption results. Third, stability is genuinely contested: Microsoft's Copilot adoption metrics, taken seriously, suggest AIP may not be a long-run equilibrium for the office-productivity slice, even as it remains the dominant configuration for the developer-tooling slice. The configuration's heterogeneity across slices is why the case treats slices as separate units of analysis where evidence supports it.</p>
+
+  <h2 class="subsection">3.2. AIO in Production</h2>
+
+  <p>Where AIP is bounded by the host application's reach, AIO is bounded by the orchestrator's access to tools and the clarity of tasks given. Orchestration does not create its own tools; it works through operating-system surfaces, Model Context Protocol (MCP) integrations, scripted IDE connections, and direct API access to underlying applications. The orchestrator can assign work to productivity-layer capabilities within applications when this maximizes context and attention, then collect-verify, assemble-test, and document-deliver against the user's assigned tasks.</p>
+
+  <p>The configuration shifted fastest among the three during the empirical window. Six weeks separated the three releases that took AIO from a defensible architectural argument to a configuration shipping at consumer and enterprise scale from two vendors approaching it from opposite ends of the productivity stack.</p>
+
+  <h3 class="subsubsection aio">The two-front advance: Anthropic and Google, six weeks apart</h3>
+
+  <p>Anthropic's traversal of Microsoft Office shipped its architectural payload on March 11, 2026, when Claude for Excel and Claude for PowerPoint received shared conversational context. Before that release, the two products were AIP integrations inside their respective host applications; after it, the AI carried context across documents, spreadsheets, and slides within a single conversation, and the productivity application became the rendering peripheral the AIO definition requires. The architectural primitive that distinguishes AIO from AIP shipped that day. Six weeks later, on April 22 at Cloud Next '26, Google launched Workspace Intelligence: a cross-application semantic layer mapping Gmail, Drive, Docs, Sheets, Slides, Chat, and Calendar into shared context for Gemini-powered agents. Two days before that, on April 10, Anthropic completed the Office triad when Claude for Word inherited the same shared-context capability that Excel and PowerPoint had received in March. The three releases in six weeks demonstrated AIO was not a single-vendor architectural argument but a shipping configuration with two implementations from opposite directions.</p>
+
+  <p>The two implementations differ in ways that matter for the strategic analysis. Anthropic built AIO from outside the productivity suite, layering cross-application context over Microsoft's host applications without owning any of them. The host vendor's interface, file formats, and rendering pipelines persist; what changes is where the context lives and which surface the user starts in. Google built AIO from inside the productivity suite, with cross-application context running as a native semantic layer over applications Google already owned. The host vendor's interface persists; what changes is that the productivity suite is now its own AI orchestration substrate, with no entrant required to deliver the configuration.</p>
+
+  <p>The strategic implications cut differently. Anthropic's external-overlay approach means it can ship AIO wherever the productivity suite is used, including environments Google and Microsoft do not control. The approach is constrained: the cross-application context Anthropic builds is parasitic on host applications the host vendor can change, and the user experience depends on integration quality Anthropic cannot fully determine. Google's internal-incumbent approach means the configuration ships natively, with full integration quality and full control over host applications. The approach is constrained: Workspace Intelligence is locked to Workspace customers, and the 11 million paying business customer base, while growing, is smaller than Microsoft's M365 commercial base.</p>
+
+  <p>The financial trajectories underneath the launches are part of why the two-front advance reads as a genuine contest rather than as leader-and-follower. Anthropic's annualized revenue run rate trajectory was $14 billion in February 2026, $19 billion in March, and $30 billion in April, passing OpenAI on top-line revenue for the first time. Eight of the Fortune 10 are now Claude customers and over 1,000 enterprise customers pay more than $1 million annually (doubled from 500+ in under two months following the February Series G). Claude Code alone passed $2.5 billion annualized run rate by February 2026, with enterprise representing over half of Claude Code revenue. Google Cloud revenue at $20 billion in Q1 2026 (+63 percent year-over-year) anchors the Workspace Intelligence deployment at hyperscaler distribution scale. Both vendors are deploying AIO into customer bases that are responding; the analytical question is which architectural approach (external overlay versus internal incumbent) produces the more defensible long-run position.</p>
+
+  <h3 class="subsubsection aio">The developer-tooling slice is further along than the office-productivity slice</h3>
+
+  <p>The developer-tooling slice has been in AIO execution longer and at greater depth. The AIP-to-AIO transition that office-productivity has been crossing in 2026 happened in developer-tooling in 2024 and 2025, and AIO has been the dominant pattern there for over a year.</p>
+
+  <p>Cursor (built by Anysphere) is an AI-primary code editor in which the AI is the principal interface and the editing surface is the rendering peripheral. The user describes what is needed; the AI generates and modifies code across files; the editor renders the result. Cursor reached approximately $500 million in annualized revenue by mid-2025 and continued to grow through Q1 2026. Replit operates a similar AIO architecture in a browser-based environment; its Agent product, launched in late 2024, executes multi-step development tasks autonomously with the development environment serving as substrate. Anthropic's Claude Code, launched as a standalone product in February 2025, reached $2.5 billion run-rate by February 2026 (doubling from the start of 2026) and represents AIO in command-line form: the developer describes the task; Claude Code reads the codebase, plans a sequence of actions, executes them using real development tools, evaluates the result, and adjusts. The editor, test runner, version control system, and package manager are tools the AI invokes; the developer's primary surface is the conversation. OpenAI's Codex, relaunched in 2025 as part of the ChatGPT-Codex consolidation and architecturally distinct from the 2021 GPT-3-based Codex that was discontinued in 2023, shipped as a standalone macOS application on February 2, 2026 and passed $1 billion annualized run-rate by January 2026.</p>
+
+  <p>The developer-tooling case matters beyond its standalone evidence for two reasons. First, it demonstrates orchestration is not a future-state hypothetical; the configuration has been the dominant architectural pattern in a major slice of the productivity stack for over a year, with material revenue, defensible adoption, and consumer-scale execution. The office-productivity slice can be analyzed against an existing benchmark rather than against an imagined one. Second, the developer-tooling case shows what AIO looks like when it matures: the editor (or document, or spreadsheet) does not disappear; it persists as a rendering peripheral while platform rent migrates to the AI orchestration surface. The empirical answer to the "but doesn't orchestration just mean killing the application?" question is that the application persists; what changes is which surface is primary.</p>
+
+  <h3 class="subsubsection aio">OpenAI's parallel AIO push: Atlas and Frontier</h3>
+
+  <p>OpenAI shipped two AIO products during the empirical window. Atlas, launched October 21, 2025 for macOS, is an AI-native browser with agent mode that operates across web surfaces; the user opens Atlas to navigate, research, summarize, and execute web-based tasks, with traditional pages serving as the substrate the AI reads from and acts on. Atlas is AIO by the structural test: the AI is the primary surface, the browser layer is what it orchestrates through, the cross-application context the user maintains runs through Atlas rather than through bookmarks-and-tabs. Frontier, the enterprise semantic layer OpenAI launched in February 2026, is the enterprise-scope AIO product: the cross-application context spans the enterprise data layer rather than the consumer web layer. Atlas agent mode is available to Plus, Pro, and Business subscribers; Frontier is available to enterprise customers.</p>
+
+  <p>The March 19, 2026 superapp consolidation announcement positions Atlas and Frontier (along with Codex and ChatGPT itself) as components of a unified product surface that would extend OpenAI's AIO products toward AIA execution. Section 3.3 engages the superapp consolidation as the AIA move; in the empirical record through April 2026, Atlas and Frontier are deployed AIO products and the superapp is an announced architectural direction without a shipping date.</p>
+
+  <h3 class="subsubsection aio">The consumer-scale AIO case: Perplexity</h3>
+
+  <p>Perplexity's Comet browser is AIO at consumer scale. Released to paid subscribers in July 2025 and made free worldwide in October 2025, Comet sits as Perplexity's primary surface: the user opens Comet to navigate, research, summarize, and execute multi-step web tasks, with traditional pages as substrate. The browser is part of a broader Perplexity product family that crossed 100 million monthly active users by early 2026, with annualized revenue reaching approximately $450 million in March 2026 (up roughly 50 percent in a single month) at a $20 billion valuation following the Series E-6 round.</p>
+
+  <p>Comet is AIO rather than AIA because the user begins in the browser and the browser is Perplexity's surface; AIA requires the AI to operate beneath the browser layer rather than as the primary surface. Perplexity's Computer product, released in February 2026, is a different architectural object that engages AIA; Section 3.3 takes that up. The Comet evidence here matters because it demonstrates AIO at consumer scale, with adoption metrics that establish the configuration is not an enterprise-only pattern.</p>
+
+  <h3 class="subsubsection aio">Microsoft's structural position in AIO</h3>
+
+  <p>Microsoft's orchestration position is the configuration's most analytically interesting structural feature. Across the office-productivity slice, the vendor with the largest installed base and the most capital invested in AI is the vendor furthest from production-mature AIO. Microsoft 365 Copilot remains a productivity-layer product; the cross-application semantic layer Anthropic and Google have shipped at production maturity is not present in the Copilot architecture at equivalent maturity as of April 2026, though Microsoft has signaled orchestration-direction features on the roadmap (Copilot Pages, agent-mode features across M365 apps, Copilot Workspace). The reasons are partly technical (the M365 architecture was built for productivity-style integration and the retrofit to orchestration is non-trivial) and partly commercial (the Copilot pricing model produces revenue at the productivity layer that orchestration would dilute). Section 4 engages the commercial constraint in depth.</p>
+
+  <p>The developer-tooling slice tells the opposite story. GitHub Copilot Chat, while still a productivity-layer product in the VS Code integration, has been evolving toward agentic execution patterns that begin to engage orchestration architecturally; the Copilot Workspace product, agent-mode features in GitHub Copilot, and integration with the broader GitHub Actions and Copilot Studio surfaces are the orchestration direction Microsoft is moving in the developer slice. The asymmetry is the case's central observation about Microsoft as a portfolio: structurally behind on AIO in the office-productivity slice where its largest revenue line lives; structurally competitive on AIO in the developer-tooling slice where the acquisition flow has freemium economics. Section 4 engages the trifurcation.</p>
+
+  <h3 class="subsubsection aio">What AIO looks like in production</h3>
+
+  <p>Three observations follow. First, orchestration ships at scale in two slices of the productivity stack (office and developer-tooling) at materially different levels of maturity, with developer-tooling further along. Second, the architectural choice between external-overlay (Anthropic) and internal-incumbent (Google) produces two viable approaches with different strategic constraints; neither vendor has locked the configuration. Third, the orchestration transition in the office-productivity slice is structurally constrained by productivity-layer commercial commitments that the orchestration architecture would dilute, which is why Microsoft, the vendor with the most to defend at the productivity layer, has the weakest orchestration position in the office slice while having a competitive position in the developer slice. The configuration's heterogeneity across slices and the commercial constraints on the productivity-to-orchestration transition are the load-bearing observations Section 4 builds on.</p>
+
+  <h2 class="subsection">3.3. AIA in Production</h2>
+
+  <p>Where AIO is bounded by user-defined task assignment, AIA is bounded by user-defined goal definition and success criteria. The agent initiates work proactively, executes across surfaces, and operates with autonomy across the spectrum from narrow-domain decision-making to strategic-scope opportunity-identification. The empirical record contains shipping AIA products at the narrow-domain end of the spectrum, partially shipping AIA products at the middle range, and aspirational AIA products at the strategic-scope end. The case engages all three honestly.</p>
+
+  <h3 class="subsubsection aia">Narrow-domain proactive agency at consumer scale</h3>
+
+  <p>The narrow-domain end of AIA has shipped at consumer scale across multiple vendors and product categories without being labeled as agency in their product marketing. Google's Pixel call-screening feature decides which calls reach the user based on training accumulated from past call-handling behavior; the user did not direct the phone to handle a specific call but the phone decided how to handle it within the goal parameters the user implicitly established by accepting or rejecting prior calls. The capability is fully proactive (the AI initiates the decision), operates across the operating-system call surface, executes a goal rather than a task (handle unwanted calls without interrupting the user), and runs without per-call user direction. Email spam filtering operates on the same architectural pattern: the AI decides what reaches the inbox based on goal parameters (block unwanted communication) without per-message user direction. Algorithmic trading bots execute within rudimentary goal constraints (maximize returns within risk tolerance) without per-trade user direction. The narrow-domain proactive-agency pattern is shipping at consumer scale across multiple categories; the case names it as agency to demonstrate that the configuration is not a future-state hypothetical at any point along the spectrum.</p>
+
+  <h3 class="subsubsection aia">The closest production-mature general-purpose AIA case: Perplexity Computer with Personal Computer</h3>
+
+  <p>Perplexity's Computer and Personal Computer products are the closest to general-purpose AIA at production maturity in the empirical record. Computer, released in February 2026, is a digital-worker platform that connects to more than 400 external tools (Salesforce, Microsoft Teams, HubSpot, MySQL, GitHub, and the broader enterprise SaaS stack), routes work across approximately 20 frontier models, and executes multi-step workflows that previously required human task-switching across applications. Personal Computer, announced March 11, 2026 and made generally available to Pro, Enterprise, and Max Mac users on May 7, 2026, extends this to the operating-system layer: the AI accesses the local file system, native macOS applications, and the Comet browser through a hybrid local-cloud architecture, executing tasks autonomously while remaining auditable and reversible.</p>
+
+  <p>The two products satisfy both AIA architectural primitives. Layer-agnostic execution is present in the 400-plus tool integrations and multi-model routing harness. Proactive agency is present in the workflow architecture: the user describes a goal, and Computer plans, executes, monitors, and reports rather than producing a description of how the goal could be accomplished. Personal Computer is positioned explicitly against the broader local-agent category that includes open-source projects such as OpenClaw and OpenJarvis, rather than as a single-vendor product. The qualifier on production maturity is the user-base scope: Computer and Personal Computer are deployed to Perplexity's paid base, which is materially smaller than the 100-million-monthly-active-user total. The general-purpose AIA evidence is real but the consumer-scale footprint is partial.</p>
+
+  <h3 class="subsubsection aia">The directional AIA case: OpenAI's superapp consolidation</h3>
+
+  <p>OpenAI's three-product trajectory (ChatGPT, Codex, Atlas) is positioned for AIA but has not yet shipped the configuration in unified form. The component products exist and are deployed; Section 3.2 documents them as AIO. The superapp consolidation announced March 19, 2026 by Fidji Simo, OpenAI's CEO of Applications, is the architectural move that would convert the three AIO products into a unified AIA product surface. The internal memo cites "fragmentation across too many apps and stacks" and frames the consolidation as the response to Anthropic's lead, which by independent measurement had reached 73 percent of first-time enterprise AI spending against OpenAI's 27 percent. The superapp's stated architecture (ChatGPT as orchestration surface, Codex as agentic execution layer, Atlas as web-action layer, the desktop application running across operating systems) is AIA by the structural test. The qualifier is the superapp has not shipped; OpenAI announced "coming months" without a specific date. The case treats OpenAI's AIA position as directional rather than deployed.</p>
+
+  <h3 class="subsubsection aia">The protocol-level AIA case: Anthropic and MCP</h3>
+
+  <p>Anthropic's approach to AIA runs through the Model Context Protocol and the multi-cloud distribution architecture rather than through a single superapp product. MCP, open-sourced by Anthropic in 2024, has been adopted by Google, OpenAI, and a growing set of model vendors as the standard for cross-vendor tool-and-context exchange. The protocol is connective tissue layer-agnostic distribution requires; it allows AI systems from different vendors to share context, invoke tools, and orchestrate work across surfaces without any one vendor owning the orchestration layer. Anthropic's multi-cloud distribution through Amazon Bedrock, Google Vertex AI, and Microsoft Foundry extends the layer-agnostic positioning beyond protocols and into infrastructure. The May 2026 Anthropic-xAI Colossus deal, which gives Anthropic access to more than 300 megawatts of compute capacity at the xAI Memphis facility, immediately doubled Claude Code usage limits and demonstrates that the layer-agnostic strategy extends to compute-substrate diversification when the dominant providers cannot meet demand.</p>
+
+  <p>The proactive-agency primitive shows up in Anthropic's product portfolio rather than in a single AIA flagship. Claude Code, at $2.5 billion run rate by February 2026, performs software engineering tasks rather than describing them, and operates across the developer's full local environment as substrate. Cowork, Anthropic's enterprise productivity platform, operates similarly across the enterprise productivity stack. The Chrome browser agent Anthropic shipped in beta in early 2026 operates across web surfaces. None of these is presented as a unified AIA product the way OpenAI's superapp announcement positions; Anthropic's AIA architecture is distributed across the portfolio, with MCP providing the connective tissue.</p>
+
+  <p>The strategic implications differ from OpenAI's. Anthropic's AIA position is harder to describe in a single sentence (it is not "the Claude superapp") but easier to defend architecturally, because the layer-agnostic distribution is built into the protocols rather than into a single product. If MCP becomes the default cross-vendor context protocol, Anthropic captures AIA regardless of which product surface a user happens to begin in. The architectural bet the manifesto identifies as the staging ground for the destination beyond the three observable configurations runs through this protocol-level position, though the case does not engage that question; the configurations are the empirical record, not the destination.</p>
+
+  <h3 class="subsubsection aia">The acquired-AIA case: Meta's Manus</h3>
+
+  <p>Manus, the autonomous AI agent developed by Butterfly Effect and acquired by Meta in December 2025 for approximately $2 billion, is the most architecturally distinctive AIA product in the empirical record. Manus operates as a multi-agent system in a server-side sandboxed Ubuntu environment with a real Chromium browser, a shell with sudo privileges, file-system access, and interpreters for Python and Node.js. The user describes a goal; Manus's planning sub-agent (using Monte Carlo tree search) decomposes it, the execution sub-agent operates real tools in the sandbox, and the validation sub-agent runs adversarial testing on intermediate results. The agent continues working after the user's session closes; the user can watch progress through the "Manus's Computer" interface. The underlying models include Anthropic's Claude (Sonnet 3.5 and successors) and fine-tuned Alibaba Qwen variants, with Manus operating as an orchestration harness over multiple frontier models rather than as a single-model product. The Manus Browser Operator Chrome extension, launched November 18, 2025, gives the agent access to the user's authenticated browser sessions for cross-site task completion.</p>
+
+  <p>Manus revenue reached approximately $125 million annualized by December 2025 (up from $90 million in August). The Meta acquisition gives Manus the infrastructure backing of Meta's $115 to $135 billion 2026 AI infrastructure commitment and positions Manus as a productized AIA product within the broader Meta AI strategy that includes the Muse Spark closed-source model (debuted April 2026) and the AI-powered ad and engagement features inside Meta's core platforms. Manus continues to operate as its own product post-acquisition, with subscriptions available directly from manus.im.</p>
+
+  <p>Manus satisfies both AIA structural primitives more cleanly than most products in the empirical record. The agent initiates work after goal-level direction; the execution spans applications, operating systems, and browser surfaces it does not own; the user defines goal parameters and success criteria rather than step-by-step instructions. The Browser Operator's permission model has drawn security analysis attention (Mindgard documented in late 2025 that the extension's debugger-cookies-all_urls permission combination provides full browser remote-control access), which is part of why Manus is at the AIA boundary: the capability requires permissions that conventional applications do not request, and the security model for shipping that capability at production maturity is still maturing.</p>
+
+  <h3 class="subsubsection aia">The hardware-directional AIA case: the Jony Ive partnership</h3>
+
+  <p>OpenAI's acquisition of Jony Ive's design firm io in May 2025 is the most aspirational AIA evidence in the record and the thinnest in terms of production maturity. The partnership targets AI-native hardware operating as a layer-agnostic AIA surface beneath traditional computing devices, with the hardware itself becoming the substrate rather than running as an application on existing substrates. No product from the partnership has shipped; the architectural intent is public, the engineering trajectory is opaque, and the production-maturity date is unspecified. The case treats the partnership as directional evidence the AIA frontier extends beyond software into hardware, without committing to timeline or product form factor.</p>
+
+  <h3 class="subsubsection aia">The category-defining open-source case: OpenClaw, Hermes, and OpenJarvis</h3>
+
+  <p>The open-source AIA ecosystem has been defining what general-purpose autonomous agency at consumer scale looks like outside the major-vendor empirical record. OpenClaw (formerly Clawdbot, originated by Peter Steinberger) reached 60,000+ GitHub stars in three days in early 2026 and operates as a self-hosted autonomous agent platform with Agent Skills, multi-channel chat integration, and heartbeat-based independent monitoring. Hermes positions as the self-improving agent with a built-in learning loop creating Markdown skill files, against OpenClaw's control-plane approach. OpenJarvis, an open-source framework from Stanford's Scaling Intelligence Lab and Hazy Research Lab, organizes around a five-primitive architecture (Intelligence, Engine, Agents, Tools and Memory, Learning) and operates as part of the broader Intelligence Per Watt research initiative; the underlying research establishes that local language models already handle 88.7 percent of single-turn chat and reasoning queries at intelligence-per-watt efficiency improving 5.3x from 2023 to 2025.</p>
+
+  <p>The open-source AIA ecosystem operates on different value-capture mechanisms than the major-vendor record (community contribution, hardware-ownership model, privacy-first deployment), and the maturity comparison cannot be measured against the major-vendor revenue figures. The open-source layer is shipping production AIA at consumer scale with different success criteria than the major-vendor layer; the case acknowledges both as real and engages them at the analytical weight each deserves.</p>
+
+  <h3 class="subsubsection aia">What AIA looks like in production</h3>
+
+  <p>Three observations follow. First, agency spans a continuous spectrum from narrow-domain proactive decision-making (Pixel call screening, email filtering, trading bots) shipping at consumer scale, through general-purpose multi-step agentic execution (Manus, Perplexity Computer, Claude Code, the open-source agentic frameworks) shipping at production maturity with varying autonomy modes, to strategic-scope proactive opportunity-identification (the architectural endpoint of the spectrum) which has shipping examples in specialized research domains (AlphaFold, materials-discovery systems, mathematical-reasoning models) but does not yet ship at production maturity in general-purpose business or productivity domains. The category contains all three; the empirical fill is uneven across the spectrum. Second, the configuration's leading-edge vendors approach agency through structurally different strategies: Perplexity through a consumer-scale digital-worker platform with deep tool integration, OpenAI through consumer-app consolidation, Anthropic through a protocol-and-portfolio strategy, Meta through Manus's multi-agent acquired-product approach, and the open-source ecosystem through distributed local-agent frameworks. Third, the trajectory from current empirical fill to strategic-scope general-purpose agency at production maturity is identifiable: the components (context management, long-horizon planning, self-correction under uncertainty, tool-use reliability, alignment-under-autonomy) all ship in production at narrower scope today; the engineering work to extend them to strategic-scope general-purpose deployment is conventional rather than research-frontier. The configuration's strategic implications, including the cross-vendor freemium dynamics, the architectural-bet asymmetries, the hyperscaler-as-substrate observations, and the Apple-hardware-versus-AI-orchestration question, are the load-bearing observations Section 4 builds on.</p>
+
+  <div class="page-footer">
+    <div class="footer-legend">
+      <span class="footer-item"><span class="footer-mark a"></span><span class="footer-letter">AIP</span> <span class="footer-name">Productivity</span></span>
+      <span class="footer-item"><span class="footer-mark b"></span><span class="footer-letter">AIO</span> <span class="footer-name">Orchestration</span></span>
+      <span class="footer-item"><span class="footer-mark c"></span><span class="footer-letter">AIA</span> <span class="footer-name">Agency</span></span>
+    </div>
+    <span class="footer-page">When the Tenant Becomes the Landlord  &middot;  v5.1  &middot;  3</span>
+  </div>
+
+</div>
+
+</body>
+</html>

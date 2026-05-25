@@ -1,0 +1,173 @@
+% Pandoc LaTeX template for "When the Tenant Becomes the Landlord"
+% Two-column academic paper format using xelatex + EB Garamond
+\documentclass[10pt,letterpaper]{article}
+
+% ── Encoding ──────────────────────────────────────────────────────────────────
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{EB Garamond}[
+  Path=/usr/share/fonts/truetype/ebgaramond/,
+  Extension=.ttf,
+  UprightFont=EBGaramond12-Regular,
+  BoldFont=EBGaramond12-Bold,
+  ItalicFont=EBGaramond12-Italic,
+  BoldItalicFont=EBGaramond12-Italic
+]
+\setsansfont{TeX Gyre Heros}[Scale=0.88]
+
+% ── Layout ────────────────────────────────────────────────────────────────────
+\usepackage[
+  top=1in,
+  bottom=1in,
+  left=0.75in,
+  right=0.75in,
+  columnsep=0.22in
+]{geometry}
+
+% ── Colors ────────────────────────────────────────────────────────────────────
+\usepackage{xcolor}
+\definecolor{accentteal}{HTML}{2a6f7a}
+\definecolor{calloutbg}{HTML}{f5f4f1}
+\definecolor{rulegray}{HTML}{cccccc}
+
+% ── Callout boxes (for case-decision-frame, evidence-discipline, checkpoints) ─
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfdefinestyle{calloutStyle}{
+  skipabove=8pt,
+  skipbelow=8pt,
+  linewidth=1.2pt,
+  linecolor=accentteal,
+  backgroundcolor=calloutbg,
+  innertopmargin=8pt,
+  innerbottommargin=8pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  roundcorner=2pt
+}
+\newenvironment{callout}
+  {\begin{mdframed}[style=calloutStyle]\small\setlength{\parskip}{4pt}}
+  {\end{mdframed}}
+
+% ── Section formatting ────────────────────────────────────────────────────────
+\usepackage{titlesec}
+\setcounter{secnumdepth}{0}
+
+\titleformat{\section}[block]
+  {\normalfont\normalsize\bfseries\sffamily\MakeUppercase}
+  {}{0em}{}
+  [\vspace{-6pt}{\color{rulegray}\rule{\columnwidth}{0.4pt}}]
+\titlespacing*{\section}{0pt}{14pt}{5pt}
+
+\titleformat{\subsection}[block]
+  {\normalfont\normalsize\bfseries}
+  {}{0em}{}
+\titlespacing*{\subsection}{0pt}{10pt}{3pt}
+
+\titleformat{\subsubsection}[block]
+  {\normalfont\small\bfseries\itshape}
+  {}{0em}{}
+\titlespacing*{\subsubsection}{0pt}{8pt}{2pt}
+
+% ── Paragraph spacing ─────────────────────────────────────────────────────────
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{1.2em}
+
+% ── Figures ───────────────────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{
+  font=small,
+  labelfont=bf,
+  justification=justified,
+  singlelinecheck=false,
+  skip=4pt
+}
+
+% ── Page numbering ────────────────────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ── Hyperlinks ────────────────────────────────────────────────────────────────
+\usepackage[
+  colorlinks=true,
+  linkcolor=accentteal,
+  urlcolor=accentteal,
+  citecolor=accentteal,
+  pdfencoding=auto,
+  psdextra
+]{hyperref}
+\hypersetup{
+  pdftitle={When the Tenant Becomes the Landlord},
+  pdfauthor={Jason Troxel}
+}
+
+% ── Lists ─────────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist{topsep=4pt, itemsep=2pt, parsep=0pt, partopsep=0pt}
+\setlist[itemize]{leftmargin=1.4em}
+\setlist[enumerate]{leftmargin=1.6em}
+
+% ── Tables ────────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{longtable}
+
+% ── Micro-typography (text-protrusion only; compatible with fontspec) ─────────
+\usepackage[protrusion=true,expansion=false,babel=false,final]{microtype}
+
+% ── Blockquotes (fallback for any not-converted callouts) ─────────────────────
+\usepackage{csquotes}
+
+% ── Utility ───────────────────────────────────────────────────────────────────
+\usepackage{calc}
+
+% Pandoc tight-list support
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% ── Title page helpers ────────────────────────────────────────────────────────
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\small\bfseries\sffamily}
+\renewcommand{\abstracttextfont}{\normalfont\small}
+\setlength{\absleftindent}{0pt}
+\setlength{\absrightindent}{0pt}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+% ── Full-width title + abstract, then two-column body ─────────────────────────
+\twocolumn[%
+\begin{@twocolumnfalse}
+
+\vspace*{4pt}
+{\centering
+  {\large\bfseries\sffamily $title$}\par
+  \vspace{5pt}
+  {\normalsize\itshape $subtitle$}\par
+  \vspace{8pt}
+  {\color{rulegray}\rule{0.85\textwidth}{0.5pt}}\par
+  \vspace{6pt}
+  {\small $author$}\par
+  \vspace{2pt}
+  {\small $date$}\par
+  \vspace{3pt}
+  {\small A Discussion Case for Graduate Strategy Seminars\enspace|\enspace Companion to \textit{The nOS Manifesto}}\par
+}
+\vspace{10pt}
+\begin{abstract}
+$abstract$
+\end{abstract}
+\vspace{14pt}
+{\color{rulegray}\rule{\textwidth}{0.5pt}}\par
+\vspace{14pt}
+
+\end{@twocolumnfalse}
+]
+
+% ── Two-column body ───────────────────────────────────────────────────────────
+$body$
+
+\end{document}

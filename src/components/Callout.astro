@@ -1,0 +1,88 @@
+---
+interface Props {
+  type?: 'note' | 'insight' | 'warning' | 'data';
+  title?: string;
+}
+
+const { type = 'note', title } = Astro.props;
+
+const icons: Record<string, string> = {
+  note: '◆',
+  insight: '◉',
+  warning: '▲',
+  data: '◈',
+};
+const defaultLabels: Record<string, string> = {
+  note: 'Note',
+  insight: 'Insight',
+  warning: 'Warning',
+  data: 'Data Point',
+};
+---
+
+<div class:list={['callout', `callout--${type}`]}>
+  <div class="callout-header">
+    <span class="callout-icon" aria-hidden="true">{icons[type]}</span>
+    <span class="label callout-type">{title ?? defaultLabels[type]}</span>
+  </div>
+  <div class="callout-body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .callout {
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--steel);
+    background: var(--ivory);
+    margin: 1.5rem 0;
+  }
+  .callout--note {
+    border-left-color: var(--steel);
+  }
+  .callout--insight {
+    border-left-color: var(--gold);
+    background: #fdf9f0;
+  }
+  .callout--warning {
+    border-left-color: var(--red);
+    background: #fdf5f5;
+  }
+  .callout--data {
+    border-left-color: var(--green);
+    background: #f4f8f5;
+  }
+  .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.625rem;
+  }
+  .callout-icon {
+    font-size: 0.875rem;
+    line-height: 1;
+  }
+  .callout--note .callout-icon {
+    color: var(--steel);
+  }
+  .callout--insight .callout-icon {
+    color: var(--gold);
+  }
+  .callout--warning .callout-icon {
+    color: var(--red);
+  }
+  .callout--data .callout-icon {
+    color: var(--green);
+  }
+  .callout-body {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .callout-body :global(p) {
+    max-width: none;
+    margin-bottom: 0;
+  }
+</style>

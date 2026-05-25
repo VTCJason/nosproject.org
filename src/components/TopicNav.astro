@@ -1,0 +1,79 @@
+---
+const topics = [
+  { slug: 'technical-demystification', title: 'Technical Demystification' },
+  { slug: 'economics-labor-industry', title: 'Economics, Labor & Industry' },
+  { slug: 'geopolitics-national-security', title: 'Geopolitics & National Security' },
+  { slug: 'ethics-society-human-impact', title: 'Ethics, Society & Human Impact' },
+  { slug: 'existential-frontier', title: 'Existential Frontier' },
+  { slug: 'regulatory-legal-governance', title: 'Regulatory, Legal & Governance' },
+  {
+    slug: 'safety-security-information-integrity',
+    title: 'Safety, Security & Information Integrity',
+  },
+  { slug: 'infrastructure-environment', title: 'Infrastructure & Environment' },
+  { slug: 'science-knowledge-domains', title: 'Science & Knowledge Domains' },
+  { slug: 'faith-identity-human-condition', title: 'Faith, Identity & the Human Condition' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="topic-nav" aria-label="Human Question topics">
+  <p class="label nav-heading">Topics</p>
+  <ul class="topic-list">
+    {
+      topics.map(topic => {
+        const href = `/human-question/${topic.slug}/`;
+        const isActive = currentPath.startsWith(href);
+        return (
+          <li>
+            <a href={href} class:list={['topic-link', { active: isActive }]}>
+              {topic.title}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
+
+<style>
+  .topic-nav {
+    position: sticky;
+    top: calc(56px + 1.5rem);
+    max-height: calc(100vh - 56px - 3rem);
+    overflow-y: auto;
+  }
+  .nav-heading {
+    margin-bottom: 0.625rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .topic-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .topic-link {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.4rem 0.625rem;
+    border-left: 2px solid transparent;
+    border-radius: 0 3px 3px 0;
+    line-height: 1.4;
+    transition: color 0.15s, border-left-color 0.15s, background 0.15s;
+  }
+  .topic-link:hover {
+    color: var(--navy);
+    border-left-color: var(--gold);
+    background: var(--cream);
+  }
+  .topic-link.active {
+    color: var(--navy);
+    border-left-color: var(--gold);
+    font-weight: 500;
+    background: var(--cream);
+  }
+</style>

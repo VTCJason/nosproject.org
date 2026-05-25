@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HumanQuestionCard from '../../components/HumanQuestionCard.astro';
+
+const topics = [
+  {
+    title: 'Technical Demystification',
+    slug: 'technical-demystification',
+    summary:
+      'What AI actually is — and isn\'t. Capabilities, limits, and the gap between hype and reality.',
+    questionCount: 12,
+  },
+  {
+    title: 'Economics, Labor & Industry',
+    slug: 'economics-labor-industry',
+    summary: 'How AI reshapes work, wages, productivity, and the structure of industries at scale.',
+    questionCount: 10,
+  },
+  {
+    title: 'Geopolitics & National Security',
+    slug: 'geopolitics-national-security',
+    summary: 'AI as a geopolitical asset: sovereignty, military application, and the new arms race.',
+    questionCount: 9,
+  },
+  {
+    title: 'Ethics, Society & Human Impact',
+    slug: 'ethics-society-human-impact',
+    summary: 'Bias, fairness, dignity, and what AI means for how we treat each other.',
+    questionCount: 11,
+  },
+  {
+    title: 'Existential Frontier',
+    slug: 'existential-frontier',
+    summary:
+      'The questions at the outer edge — AGI, alignment, and what humanity\'s endgame might look like.',
+    questionCount: 8,
+  },
+  {
+    title: 'Regulatory, Legal & Governance',
+    slug: 'regulatory-legal-governance',
+    summary: 'Who governs AI, how, and whether existing frameworks are adequate to the task.',
+    questionCount: 10,
+  },
+  {
+    title: 'Safety, Security & Information Integrity',
+    slug: 'safety-security-information-integrity',
+    summary:
+      'Adversarial use, disinformation, deepfakes, and the challenge of building trustworthy systems.',
+    questionCount: 9,
+  },
+  {
+    title: 'Infrastructure & Environment',
+    slug: 'infrastructure-environment',
+    summary:
+      'The physical cost of AI: energy, water, compute, and what training at scale actually requires.',
+    questionCount: 7,
+  },
+  {
+    title: 'Science & Knowledge Domains',
+    slug: 'science-knowledge-domains',
+    summary:
+      'AI as scientific tool: drug discovery, materials science, and the future of knowledge work.',
+    questionCount: 8,
+  },
+  {
+    title: 'Faith, Identity & the Human Condition',
+    slug: 'faith-identity-human-condition',
+    summary: 'Meaning, consciousness, creativity, and what remains distinctly human.',
+    questionCount: 9,
+  },
+];
+---
+
+<BaseLayout
+  title="The Human Question"
+  description="A structured intelligence dossier across ten domains of human life."
+>
+  <div class="hq-hero">
+    <div class="container">
+      <p class="label hq-eyebrow">Public Intelligence Platform</p>
+      <h1 class="hq-headline">The Human Question</h1>
+      <p class="hq-subline">
+        AI poses questions that cut across every domain of human life. This is a structured,
+        honest attempt to name them, examine what we know, and be explicit about what we don't.
+      </p>
+      <p class="label hq-meta">10 domains · ongoing research · verdicts updated as evidence matures</p>
+    </div>
+  </div>
+
+  <section class="hq-grid-section">
+    <div class="container">
+      <div class="topic-grid">
+        {
+          topics.map(topic => (
+            <HumanQuestionCard
+              title={topic.title}
+              slug={topic.slug}
+              summary={topic.summary}
+              questionCount={topic.questionCount}
+            />
+          ))
+        }
+      </div>
+      <div class="glossary-callout">
+        <div class="glossary-callout-inner">
+          <div class="glossary-callout-text">
+            <p class="label glossary-label">Reference</p>
+            <p class="glossary-callout-body">New to AI terminology? The <a href="/glossary/">AI Glossary</a> defines the key concepts, technical vocabulary, and contested terms that appear across these domains.</p>
+          </div>
+          <a href="/glossary/" class="glossary-btn">View Glossary →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hq-hero {
+    background: var(--navy);
+    padding: 4rem 0 3.5rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .hq-eyebrow {
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+  .hq-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--ivory);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+  .hq-subline {
+    font-size: 1.0625rem;
+    color: var(--cream);
+    max-width: 58ch;
+    line-height: 1.75;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+  .hq-meta {
+    color: var(--muted);
+  }
+  .hq-grid-section {
+    padding: 3rem 0 5rem;
+    background: var(--navy);
+  }
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .glossary-callout {
+    margin-top: 2rem;
+    border-top: 1px solid rgba(201,146,42,.25);
+    padding-top: 1.5rem;
+  }
+  .glossary-callout-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .glossary-label {
+    color: var(--amber);
+    margin-bottom: 0.35rem;
+  }
+  .glossary-callout-body {
+    font-size: 0.9375rem;
+    color: var(--cream);
+    opacity: 0.85;
+    max-width: 58ch;
+    line-height: 1.65;
+  }
+  .glossary-callout-body a {
+    color: var(--amber);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,146,42,.4);
+  }
+  .glossary-callout-body a:hover {
+    border-bottom-color: var(--amber);
+  }
+  .glossary-btn {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--navy);
+    background: var(--gold);
+    border-radius: 3px;
+    padding: 0.5rem 1.1rem;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .glossary-btn:hover {
+    background: var(--amber);
+  }
+</style>

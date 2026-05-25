@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A: Regulatory, Legal & Governance, Who Makes the Rules?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+:root{--navy:#0d1b2a;--slate:#1c2f45;--steel:#2d4a6b;--gold:#c9922a;--amber:#e8a93c;--ivory:#f5f0e8;--cream:#ede8dc;--text:#1a1a1a;--muted:#5a5a5a;--rule:#c2b8a6;--green:#1a4a2e;--red:#8b2020;--v-fact:#1a4a2e;--v-analysis:#1c2f45;--v-spec:#8b5e00;--v-contested:#8b2020;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ivory);color:var(--text);font-size:16px;line-height:1.72;}
+.ac{position:relative;cursor:help;border-bottom:1px dashed rgba(45,74,107,0.35);display:inline;}
+.ac::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--ivory);font-size:12px;line-height:1.5;padding:8px 12px;border-radius:4px;white-space:normal;width:240px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.2);border-top:2px solid var(--gold);}
+.ac::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold);pointer-events:none;opacity:0;transition:opacity .15s;z-index:201;}
+.ac:hover::after,.ac:hover::before,.ac.tip-open::after,.ac.tip-open::before{opacity:1;}
+.page-header{background:var(--navy);color:var(--ivory);position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,146,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,146,42,.05) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;}
+.header-inner{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:60px 40px 52px;}
+.site-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:28px;text-decoration:none;}
+.brand-logo{width:38px;height:38px;background:var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-weight:700;font-size:14px;color:var(--navy);}
+.brand-label{font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.header-eyebrow{font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+.header-title{font-family:'Libre Baskerville',serif;font-size:clamp(28px,4.5vw,52px);font-weight:700;line-height:1.08;margin-bottom:14px;}
+.header-title em{font-style:italic;color:var(--amber);}
+.header-desc{font-size:17px;font-weight:300;color:rgba(245,240,232,.68);max-width:660px;line-height:1.65;margin-bottom:32px;}
+.header-meta{display:flex;flex-wrap:wrap;gap:10px;}
+.meta-pill{background:rgba(201,146,42,.15);border:1px solid rgba(201,146,42,.3);color:var(--amber);font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;border-radius:2px;}
+.page-nav{background:var(--slate);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;padding:0 40px;}
+.page-nav-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;}
+.page-nav-inner::-webkit-scrollbar{display:none;}
+.page-nav-inner a{text-decoration:none;color:rgba(245,240,232,.5);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:13px 12px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;}
+.page-nav-inner a:hover{color:var(--amber);border-color:var(--amber);}
+.page-nav-brand{font-family:'Libre Baskerville',serif;font-size:11px;font-weight:700;color:var(--gold);padding:13px 16px 13px 0;border-right:1px solid rgba(201,146,42,.25);margin-right:4px;white-space:nowrap;}
+.page-body{max-width:1040px;margin:0 auto;padding:0 40px 80px;}
+.section-intro{padding:52px 0 36px;border-bottom:1px solid var(--rule);}
+.section-intro p{font-size:18px;font-family:'Libre Baskerville',serif;font-style:italic;color:var(--slate);line-height:1.7;max-width:780px;}
+.verdict-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:28px 0;border-bottom:1px solid var(--rule);}
+.vl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:4px;}
+.vl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.vl-name{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:2px;}
+.vl-desc{font-size:11px;color:var(--muted);font-style:italic;line-height:1.4;}
+.dot-fact{background:var(--v-fact);}.dot-analysis{background:var(--v-analysis);}.dot-spec{background:var(--v-spec);}.dot-contested{background:var(--v-contested);}
+.qa-card{margin-top:52px;scroll-margin-top:80px;}
+.qa-number-row{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.qa-num{font-family:'Courier Prime',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);border:1px solid rgba(201,146,42,.3);padding:3px 10px;border-radius:2px;white-space:nowrap;background:rgba(201,146,42,.06);}
+.qa-verdict-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:20px;border:1px solid;white-space:nowrap;}
+.badge-fact{color:var(--v-fact);border-color:rgba(26,74,46,.35);background:rgba(26,74,46,.06);}
+.badge-analysis{color:var(--v-analysis);border-color:rgba(28,47,69,.35);background:rgba(28,47,69,.06);}
+.badge-spec{color:var(--v-spec);border-color:rgba(139,94,0,.3);background:rgba(139,94,0,.06);}
+.badge-contested{color:var(--v-contested);border-color:rgba(139,32,32,.3);background:rgba(139,32,32,.06);}
+.qa-question{font-family:'Libre Baskerville',serif;font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--gold);}
+.qa-body{display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start;}
+@media(max-width:780px){.qa-body{grid-template-columns:1fr;}.qa-sidebar{order:-1;}}
+.qa-answer{font-size:15.5px;line-height:1.78;color:#1e1e1e;}
+.qa-answer p{margin-bottom:14px;}
+.qa-answer p:last-child{margin-bottom:0;}
+.qa-answer strong{color:var(--navy);font-weight:600;}
+.qa-answer a{color:var(--steel);text-decoration:underline;text-decoration-color:rgba(45,74,107,.4);}
+.qa-answer a:hover{color:var(--gold);}
+.qa-answer ul{margin:10px 0 14px 22px;line-height:2;}
+.qa-sidebar{display:flex;flex-direction:column;gap:16px;}
+.sidebar-block{background:white;border:1px solid var(--rule);border-radius:5px;overflow:visible;}
+.sb-head{padding:9px 14px;font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-bottom:1px solid var(--rule);border-top-left-radius:4px;border-top-right-radius:4px}
+.sb-body{padding:12px 14px;font-size:12.5px;line-height:1.65;color:var(--muted);}
+.sb-body strong{color:var(--text);font-weight:600;}
+.sb-body a{color:var(--steel);text-decoration:none;border-bottom:1px dashed var(--rule);}
+.sb-body a:hover{color:var(--gold);}
+.sb-head-fact{background:rgba(26,74,46,.07);color:var(--v-fact);}
+.sb-head-analysis{background:rgba(28,47,69,.07);color:var(--v-analysis);}
+.sb-head-contested{background:rgba(139,32,32,.06);color:var(--v-contested);}
+.sb-head-source{background:rgba(201,146,42,.08);color:var(--gold);}
+.sb-head-unknown{background:var(--cream);color:var(--muted);}
+.stat-row{display:flex;flex-direction:column;gap:8px;}
+.stat-item{display:flex;align-items:flex-start;gap:8px;}
+.stat-num{font-family:'Courier Prime',monospace;font-size:15px;font-weight:700;color:var(--navy);white-space:nowrap;line-height:1;padding-top:2px;}
+.stat-label{font-size:11px;color:var(--muted);line-height:1.4;}
+.callout{border-left:4px solid var(--gold);background:var(--cream);padding:16px 20px;border-radius:0 5px 5px 0;margin:18px 0 0;font-size:14px;line-height:1.65;}
+.callout.red{border-color:var(--red);background:#fdf2f2;}
+.callout.green{border-color:var(--green);background:#f0f7f3;}
+.callout.navy{border-color:var(--navy);background:#f0f3f7;}
+.callout-label{font-family:'Courier Prime',monospace;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:7px;}
+.callout.red .callout-label{color:var(--red);}
+.callout.green .callout-label{color:var(--green);}
+.callout.navy .callout-label{color:var(--navy);}
+.callout p:last-child{margin:0;}
+.qa-rule{border:none;border-top:1px solid var(--rule);margin:52px 0 0;}
+.page-footer{background:var(--navy);color:rgba(245,240,232,.4);padding:28px 40px;font-size:11px;line-height:1.8;margin-top:80px;}
+.page-footer strong{color:rgba(245,240,232,.7);}.page-footer a{color:var(--gold);text-decoration:none;}
+@media(max-width:680px){.header-inner,.page-body,.page-footer{padding-left:20px;padding-right:20px;}.page-nav{padding:0 20px;}.ac::after{width:180px;}}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="header-inner">
+    <a class="site-brand" href="index.html">
+      <div class="brand-logo">AI</div>
+      <span class="brand-label">AI Impact · Q&amp;A Series</span>
+    </a>
+    <div class="header-eyebrow">Q&amp;A Series · Batch 6 of 10</div>
+    <h1 class="header-title">Regulatory, Legal &amp; Governance<br><em>Who Makes the Rules?</em></h1>
+    <p class="header-desc">Seven questions on the governance of AI, who is writing the rules, who benefits from weak ones, what copyright law means in an AI world, and how accountability gets assigned when autonomous systems cause harm.</p>
+    <div class="header-meta">
+      <span class="meta-pill">7 Questions</span>
+      <span class="meta-pill">April 2026</span>
+      <span class="meta-pill">Regulatory Capture · Copyright · Liability · Political AI · Legal Pace</span>
+    </div>
+  </div>
+</header>
+
+<nav class="page-nav">
+  <div class="page-nav-inner">
+    <span class="page-nav-brand">Regulatory Q&amp;A</span>
+    <a href="#q1">Q1 Capture</a>
+    <a href="#q2">Q2 Legal Person</a>
+    <a href="#q3">Q3 Copyright</a>
+    <a href="#q4">Q4 AI Auditing</a>
+    <a href="#q5">Q5 Legal Speed</a>
+    <a href="#q6">Q6 Political AI</a>
+    <a href="#q7">Q7 Agent Liability</a>
+    <a href="glossary.html">Glossary →</a>
+  </div>
+</nav>
+
+<main class="page-body">
+  <div class="section-intro">
+    <p>The governance of AI is arguably the most consequential set of decisions being made right now, and it is being made largely outside of public view, in trilogues and agency guidance documents, shaped disproportionately by the industries being governed. These seven questions lay the governance landscape bare.</p>
+  </div>
+  <div class="verdict-legend">
+    <div class="vl-item"><div class="vl-dot dot-fact"></div><div><span class="vl-name" style="color:var(--v-fact)">Verified Fact</span><span class="vl-desc">Sourced from named publications</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-analysis"></div><div><span class="vl-name" style="color:var(--v-analysis)">Reasoned Analysis</span><span class="vl-desc">Logical inference from verified evidence</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-spec"></div><div><span class="vl-name" style="color:var(--v-spec)">Informed Speculation</span><span class="vl-desc">Projection grounded in evidence</span></div></div>
+    <div class="vl-item"><div class="vl-dot dot-contested"></div><div><span class="vl-name" style="color:var(--v-contested)">Genuinely Contested</span><span class="vl-desc">No clean answer exists</span></div></div>
+  </div>
+
+  <!-- Q1: Regulatory Capture -->
+  <div class="qa-card" id="q1">
+    <div class="qa-number-row"><span class="qa-num">Q · 01</span><span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Documented and Active</span></div>
+    <div class="qa-question">Is AI regulation already captured by the industry it's supposed to govern, and if so, what does that mean for the public interest in AI governance?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The evidence of industry influence on AI governance is documented, specific, and current. Whether this rises to classical "regulatory capture", where a regulatory agency is so dominated by the industry it regulates that it primarily serves industry interests, is debated, but the influence is not.</p>
+        <p><strong>The US picture:</strong> The US federal government has no overarching AI law as of April 2026. The Trump administration revoked President Biden's AI executive order and replaced it with one directing agencies to "remove barriers to American AI leadership", a policy explicitly framed around competitiveness over consumer protection. The vacuum has been actively shaped: Meta launched a new Super PAC ("American Technology Excellence Project") in September 2025 with tens of millions of dollars specifically to support tech-friendly candidates and oppose state AI regulation. <a href="https://a16z.com/big-ideas-in-tech-2024/#section--7" target="_blank">a16z</a> and OpenAI president Greg Brockman announced a $100 million PAC ("<a href="https://a16z.com/big-ideas-in-tech-2024/#section--7" target="_blank">Leading the Future</a>") in August 2025 for similar purposes. NVIDIA, Google, Microsoft, Amazon, and OpenAI together spent over $100 million in lobbying in 2025, more than any other industry sector except financial services.</p>
+        <p><strong>The EU picture, more complex but not exempt:</strong> The <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> was celebrated as the world's first comprehensive AI law. Corporate Europe Observatory and LobbyControl documented that 69% of European Commission meetings on AI policy in 2025 were with business groups and only 16% with NGOs. Amazon alone spent €7 million lobbying EU institutions in one year. The Digital Omnibus, proposed November 2025, would weaken key provisions of the AI Act and GDPR simultaneously, specifically expanding "legitimate interest" grounds for using personal data to train AI. The April 29, 2026 trilogue on AI Act amendments failed to reach agreement, with a Dutch MEP stating: "Big Tech is probably popping champagne." The standards that companies need to demonstrate compliance are delayed until December 2026 at the earliest.</p>
+        <p><strong>The regulatory capture mechanism specific to AI:</strong> AI regulation requires technical expertise that is concentrated in the companies being regulated. Regulatory agencies that lack in-house AI expertise depend on industry briefings, industry-funded research, and often hire from industry. This creates structural dependency that shapes outcomes even without explicit lobbying pressure. "Regulatory capture through complexity", where the regulated industry is the only party capable of explaining the technology, is a documented dynamic in financial regulation that is now replicating in AI.</p>
+        <div class="callout red">
+          <div class="callout-label">Assessment</div>
+          <p>The governance process is heavily influenced by the entities being governed, this is documented, not alleged. Whether this produces captured outcomes depends on the specific provisions being contested. The most consequential battleground is not whether AI should be regulated (that question has been settled) but who participates in defining what "high-risk" means, what compliance requires, and how enforcement is resourced. Public interest organizations, civil society, and informed citizens have standing to participate in these processes, but currently participate far less than industry. Publicizing this gap is itself a meaningful act of governance.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Documented Influence</div>
+          <div class="sb-body"><div class="stat-row">
+            <div class="stat-item"><span class="stat-num">69%</span><span class="stat-label">European Commission AI meetings with business groups vs. 16% with NGOs (Corporate Europe Observatory, 2025)</span></div>
+            <div class="stat-item"><span class="stat-num">€7M</span><span class="stat-label">Amazon lobbying spend at EU institutions in one year</span></div>
+            <div class="stat-item"><span class="stat-num">$100M</span><span class="stat-label">PAC funding announced by <a href="https://a16z.com/big-ideas-in-tech-2024/#section--7" target="_blank">a16z</a>/Brockman and Meta in summer/fall 2025 to influence US AI policy</span></div>
+          </div></div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-source">Primary Sources</div>
+          <div class="sb-body"><a href="https://digital.nemko.com/insights/how-big-tech-lobbying-stopped-us-ai-regulation-in-2025" target="_blank">Nemko AI Lobbying Analysis (Dec 2025)</a> · <a href="https://corporateeurope.org/en/2026/01/article-article-how-big-tech-shaped-eus-roll-back-digital-rights" target="_blank">Corporate Europe Observatory (Jan 2026)</a> · <a href="https://www.techpolicy.press/eus-ai-act-delays-let-highrisk-systems-dodge-oversight/" target="_blank">TechPolicy.Press EU AI Act delays (Apr 2026)</a> · <a href="https://www.computerworld.com/article/4164963/eu-lawmakers-fail-to-agree-on-watered-down-ai-act-talks-pushed-to-may.html" target="_blank">Computerworld EU AI Act trilogue</a> failure (Apr 29, 2026)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q2: AI as legal person -->
+  <div class="qa-card" id="q2">
+    <div class="qa-number-row"><span class="qa-num">Q · 02</span><span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis</span></div>
+    <div class="qa-question">Should AI systems be granted legal personhood, and who would own the intellectual property AI creates?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Both questions are live legal debates with consequential real-world answers in 2026. Neither has been resolved, but courts and legislatures are being forced to stake positions.</p>
+        <p><strong>AI legal personhood, the current legal status:</strong> No jurisdiction has granted AI legal personhood as of April 2026. AI systems are legal property, they can be owned, sold, licensed, and depreciated, but they cannot enter contracts, hold property, or be sued. The debate about whether AI should receive some form of legal status analogous to corporate personhood is mostly theoretical, driven by questions of accountability (if an AI causes harm, can it be "liable"?) rather than advocacy for AI rights. The more practical question is not whether AI has rights but who bears legal responsibility for AI conduct, and that question is unresolved in most contexts.</p>
+        <p><strong>AI-generated IP ownership, where courts have spoken:</strong> The US Copyright Office has issued formal guidance: AI-generated works without "sufficient human authorship" cannot be copyrighted. The USCO has registered some AI-assisted works where the human contribution to selection, arrangement, and creative expression is substantial, but purely AI-generated outputs are not copyrightable in the US. The UK Intellectual Property Office position is similar. The <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> does not address IP ownership directly. This creates an economic anomaly: AI can generate commercially valuable creative output at scale, but that output is immediately in the public domain, no one owns it. Companies can protect AI outputs through trade secret law (protecting the prompt and the model), but not through copyright on the output itself.</p>
+        <p><strong>The patent question, also live:</strong> DABUS (Device for the Autonomous Bootstrapping of Unified Sentience), an AI system, was listed as an inventor on patent applications in multiple jurisdictions. Every jurisdiction rejected this: patents require human inventors. The UK Supreme Court, US Federal Circuit, European Patent Office, and Australian Federal Court all ruled that AI cannot be a patent inventor. The human who directed the AI is the inventor. This is a settled position across major jurisdictions.</p>
+        <p><strong>What this means practically:</strong> Businesses that rely on AI to generate creative or technical content need to understand: (1) that content is not automatically protected by copyright; (2) protecting it requires demonstrating human creative contribution or relying on trade secret / contractual protections; (3) using a competitor's AI-generated content freely may be legal if the content lacks human authorship. The strategic implications of this IP gap are significant and underappreciated in current AI deployment planning.</p>
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>AI legal personhood is not coming in any meaningful near-term timeframe, the legal, philosophical, and political barriers are prohibitive. AI-generated IP ownership is an active and consequential issue that is currently resolved against broad AI copyright protection. Organizations building business models on AI-generated content need a clear-eyed understanding of what legal protection that content actually has, and most do not.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Current Legal Rulings</div>
+          <div class="sb-body"><strong>US Copyright Office:</strong> AI-generated works without sufficient human authorship cannot be copyrighted (formal guidance, 2023–2025)<br><br><strong>DABUS patent cases:</strong> US Federal Circuit, UK Supreme Court, EPO, Australian Federal Court, all ruled AI cannot be a patent inventor<br><br><strong>AI legal personhood:</strong> No jurisdiction has granted any form</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What Remains Unsettled</div>
+          <div class="sb-body">The threshold of human creative contribution required to qualify AI-assisted work for copyright protection. How patent law should handle inventions where AI contribution is substantial but the "directing" human's contribution is minimal. Whether novel IP frameworks are needed for an AI-intensive creative economy.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q3: Copyright for training data -->
+  <div class="qa-card" id="q3">
+    <div class="qa-number-row"><span class="qa-num">Q · 03</span><span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Active Litigation at Scale</span></div>
+    <div class="qa-question">Should creators be compensated for works used to train AI, and is fair use a viable legal defense for AI developers?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>This is the most actively litigated question in AI law right now. Over 70 copyright infringement lawsuits have been filed against AI developers. The largest has already settled. The fair use question will not be definitively resolved until at least summer 2026, when the first appellate-level rulings are expected.</p>
+        <p><strong>The current state of litigation (verified, April 2026):</strong> The Bartz v. Anthropic class action, alleging Anthropic trained Claude on millions of pirated books, settled for $1.5 billion, the largest copyright settlement in US history. Final fairness hearing was set for April 2026. The New York Times v. OpenAI and Microsoft remains active in the Southern District of New York, consolidated with 12 other cases in the In re OpenAI MDL. The Authors Guild v. OpenAI class action (17 prominent authors including George R.R. Martin and David Baldacci) is active. Music publishers filed a $3.1 billion lawsuit against Anthropic in January 2026 alleging lyric training. BMG filed against Anthropic in March 2026. The Munich Regional Court ruled in November 2025 that OpenAI's use of German song lyrics to train GPT-4 violates German copyright law, among the first major European AI training rulings. Universal Music vs. Suno settled in a licensing deal; Warner settled with Udio for a strategic partnership.</p>
+        <p><strong>The fair use question, split among three judges so far:</strong> Three US judges have ruled on fair use in AI training contexts: two found in favor of AI developers on some claims; one found against. All three rulings are nuanced and circuit-specific. No appellate court has spoken definitively. The core fair use analysis in AI training involves: (1) whether the purpose is transformative (AI defendants argue yes; plaintiffs argue training to compete is not transformative); (2) the commercial nature of the use; (3) the amount of copyrighted material copied; (4) the market harm (the strongest argument for plaintiffs, AI models that generate content competitive with the originals reduce the market for originals). Fair use remains unsettled; a clear ruling is expected no earlier than summer 2026.</p>
+        <p><strong>The emerging market solution, licensing:</strong> Parallel to litigation, licensing markets are developing. OpenAI has licensing agreements with News Corp, Reuters, Le Monde, and Disney. Axel Springer licensed to OpenAI. These deals are confidential but represent a market acknowledgment that training data licensing is commercially rational. If courts rule against fair use for AI training, mandatory licensing frameworks (similar to music mechanical licensing) may emerge as the industry solution.</p>
+        <div class="callout green">
+          <div class="callout-label">Bottom Line</div>
+          <p>The legal question, fair use or infringement?, will be answered by courts in 2026–2028. The moral question, should creators be compensated?, is answered clearly by we: yes. The scale of economic value AI developers have extracted from creative works, without consent or payment, has produced a legitimate and serious injury to the creative community. Whether legal frameworks will require compensation is uncertain; that compensation is appropriate is not. The emerging licensing market acknowledges this, even as litigation continues.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Active Litigation Scale</div>
+          <div class="sb-body"><div class="stat-row">
+            <div class="stat-item"><span class="stat-num">70+</span><span class="stat-label">Copyright infringement lawsuits filed against AI developers as of April 2026</span></div>
+            <div class="stat-item"><span class="stat-num">$1.5B</span><span class="stat-label">Bartz v. Anthropic settlement, largest copyright settlement in US history</span></div>
+            <div class="stat-item"><span class="stat-num">$3.1B</span><span class="stat-label">UMG/Concord/ABKCO music lyrics lawsuit against Anthropic (Jan 2026)</span></div>
+          </div></div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">Timeline to Resolution</div>
+          <div class="sb-body">First US appellate ruling on fair use in AI training: Summer 2026 at earliest · Thomson Reuters v. ROSS Intelligence on appeal in 3rd Circuit · Fair use triangle, 2 for, 1 against at district court level · GEMA v. OpenAI (German copyright violation for lyrics) on appeal in Germany</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q4: Auditing AI -->
+  <div class="qa-card" id="q4">
+    <div class="qa-number-row"><span class="qa-num">Q · 04</span><span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis</span></div>
+    <div class="qa-question">Should AI systems that make consequential decisions be audited the way financial institutions are, independent, mandatory, with public disclosure?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>The financial regulation analogy is one of the most productive frameworks available for AI governance, and deserves serious examination rather than reflexive dismissal from either direction.</p>
+        <p><strong>What financial auditing actually does and why it works:</strong> Independent financial audits exist because: (1) financial institutions make decisions with consequences for people who don't have access to the institution's internal information; (2) the potential for harm is systematic (financial failure can cascade) and the harm falls on parties who did not choose to take on the risk; (3) management has incentives to present favorable information that may not reflect actual risk; (4) auditors with specialized expertise and independence can verify claims that regulators alone cannot. All four of these conditions apply to consequential AI systems, especially in healthcare, credit, criminal justice, and hiring.</p>
+        <p><strong>What AI auditing would look like, the emerging framework:</strong> The <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> requires conformity assessments for high-risk AI systems, mandatory documentation of training data, performance testing, human oversight mechanisms, and risk management. NYC Local Law 144 (2023) requires bias audits for AI hiring tools. The <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI Risk Management Framework</a> provides a voluntary audit structure. The UK's AI Safety Institute conducts evaluations of frontier models. These are the building blocks of what a mandatory AI audit regime could look like, but they remain fragmented, voluntary in key respects, and without the enforcement infrastructure that makes financial auditing consequential.</p>
+        <p><strong>The specific challenges AI auditing faces that financial auditing does not:</strong> (1) <em>Opacity:</em> Financial statements are standardized and interpretable. AI model internals are not, interpretability research is nascent. Auditing a neural network's decision process is not analogous to auditing a balance sheet. (2) <em>Dynamic systems:</em> Financial statements are snapshots. AI models can be updated continuously, changing their behavior between audit and deployment. (3) <em>Task specificity:</em> A single AI system may perform differently across hundreds of use cases; auditing requires specifying which tasks are in scope. (4) <em>Contested benchmarks:</em> The benchmarks for measuring AI performance and fairness are themselves contested, unlike GAAP accounting standards, no equivalent AI performance standard has been adopted universally.</p>
+        <div class="callout navy">
+          <div class="callout-label">Our Position: The Analogy Is Right, The Details Are Hard</div>
+          <p>The principle that consequential AI systems should face mandatory independent auditing with public disclosure is correct and defensible. The financial regulation analogy is apt: when private entities make decisions that affect people who cannot access the decision-maker's internal information, and when the potential for systematic harm exists, mandatory independent verification with public accountability is the appropriate governance response. Building the technical standards, independent auditor infrastructure, and enforcement mechanisms required to make this real will take years of sustained effort, and should be started now.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Existing Frameworks</div>
+          <div class="sb-body"><a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a>: mandatory conformity assessments for high-risk AI (effective Aug 2026) · NYC Local Law 144: mandatory bias audits for AI hiring tools · <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI RMF</a>: voluntary framework · UK AI Safety Institute: frontier model evaluations · ISO 42001: AI management system standard<br><br><em>None has the mandatory scope, enforcement infrastructure, or standardized methodology of financial auditing.</em></div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">The Hard Technical Problems</div>
+          <div class="sb-body">No universal AI performance standard equivalent to GAAP · Interpretability tools insufficient to fully audit neural network decision processes · Dynamic systems that can change between audit and deployment · Contested fairness metrics that preclude a single authoritative audit standard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q5: Legal system speed -->
+  <div class="qa-card" id="q5">
+    <div class="qa-number-row"><span class="qa-num">Q · 05</span><span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact</span></div>
+    <div class="qa-question">Is the adversarial legal system, built on discovery, expert testimony, and case law, structurally too slow to adjudicate AI-related disputes in a timeframe that makes any difference?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes. by design and by evidence. The US adversarial legal system was not built for AI-speed problems, and the evidence from active litigation confirms this rather than refuting it.</p>
+        <p><strong>The timeline evidence:</strong> The New York Times filed its copyright lawsuit against OpenAI in December 2023. As of April 2026, 28 months later, the case is still in discovery. No trial date has been set. Expert reports on fair use are not expected until late 2026. An appellate ruling, the first that would create binding precedent, is unlikely before 2027 or 2028. In those 28 months, GPT-4 has become GPT-5.4; Claude 2 has become Claude Opus 4.6; Gemini 1.0 has become Gemini 3; and the models that will be trained on the legal principles established by this litigation have already been deployed and updated multiple times. Legal resolution lags the technology by a full generation.</p>
+        <p><strong>Why the structure produces this outcome:</strong> Adversarial litigation requires: discovery (often 12–24 months for complex technology cases), expert designation and reports (6–12 months), briefing on dispositive motions (6–12 months), trial (rare in civil cases, most settle), and appeal (18–36 months). The total timeline for a complex AI case to produce final, precedent-setting appellate law is 5–10 years from filing. By that time, the technology in dispute has typically been superseded two or three times.</p>
+        <p><strong>What would work better:</strong> Administrative rulemaking is faster than litigation and can address AI-specific issues prospectively rather than reactively, but requires legislative authorization the US lacks at the federal level. Specialized AI courts or tribunals (analogous to specialized patent courts) could develop concentrated expertise faster than general courts. Pre-market testing requirements (analogous to FDA drug approval) could address some harms before deployment rather than after. None of these exists at the scale required.</p>
+        <div class="callout">
+          <div class="callout-label">Bottom Line</div>
+          <p>The legal system is structurally unable to provide timely accountability for AI harms in the current environment. This is not a failure of lawyers or judges, it is a structural property of a system designed for disputes between identifiable human actors with discoverable intent, applied to probabilistic AI systems operating at machine speed. The appropriate response is not to abandon legal accountability but to build faster-acting administrative and regulatory mechanisms that can operate in parallel, while litigation provides the slower-moving precedent that structures long-term accountability.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">The Timeline Gap</div>
+          <div class="sb-body"><strong>NYT v. OpenAI:</strong> Filed Dec 2023 · Still in discovery Apr 2026 (28 months) · No trial date set · Appellate ruling unlikely before 2027–2028<br><br><strong>Bartz v. Anthropic:</strong> Filed 2023 · Settlement April 2026 (3 years to resolve at settlement, not trial)<br><br><strong>GEMA v. OpenAI (Germany):</strong> Filed 2024 · First instance ruling Nov 2025 · On appeal<br><br><em>The models at issue in these cases have been superseded 2–3 times during litigation.</em></div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">Potential Faster Mechanisms</div>
+          <div class="sb-body">Federal rulemaking (requires Congressional authorization · US currently lacks) · Specialized AI adjudication tribunals · Pre-market review requirements · Industry-negotiated safe harbors with compliance conditions · International coordination on standards (currently minimal)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q6: Political AI micro-targeting -->
+  <div class="qa-card" id="q6">
+    <div class="qa-number-row"><span class="qa-num">Q · 06</span><span class="qa-verdict-badge badge-fact"><span class="vl-dot dot-fact" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Verified Fact, Already Operating</span></div>
+    <div class="qa-question">If AI can micro-target individual voters with psychographically personalized messaging, generate synthetic candidate video at will, and optimize donation appeals in real time, has political campaigning already moved beyond the reach of existing campaign finance law?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>Yes, in several specific and documented ways. The existing legal framework governing political advertising, disclosure, and campaign finance was designed for mass media and does not address the capabilities that AI has introduced to political campaigning.</p>
+        <p><strong>What AI has added to political campaigning (documented, 2024–2026):</strong> The 2024 US primary cycle produced the first documented cases of AI-generated political deepfakes used in actual campaigns: a Georgia House candidate released a synthetic audio advert mimicking Senator Jon Ossoff; robocalls in New Hampshire used a synthetic voice mimicking President Biden urging voters not to vote. The FEC has struggled to apply existing disclosure rules to AI-generated political content, existing rules require disclosure of "express advocacy" but do not clearly apply to AI-generated content that influences opinion without advocating directly. Campaign finance law does not address the economics of AI-generated content, which collapses the cost of producing political communication to near zero, eliminating one of the few barriers that spending limits were designed to address.</p>
+        <p><strong>The psychographic targeting question:</strong> Cambridge Analytica's use of Facebook data for psychographic micro-targeting in 2016 produced years of public concern and legislative debate, without producing federal law. AI dramatically extends this capability: AI systems can infer psychological profiles from far more diverse data inputs, generate personalized messaging at the individual level without the manual creative bottleneck that previously limited personalization, and optimize in real time based on engagement signals. The economic and legal barriers that constrained 2016-era micro-targeting do not apply to AI-enabled targeting in 2026.</p>
+        <p><strong>What existing law covers and what it misses:</strong> FEC disclosure requirements apply to paid political advertising, they do not clearly apply to AI-generated "organic" political content or to AI systems that generate and distribute personalized messages at scale below any individual spending threshold. The Federal Election Campaign Act's spending limits were designed to constrain financial resources, not AI-enabled content production that has effectively zero marginal cost. State deepfake laws (enacted in ~20 states) prohibit some uses of synthetic media in elections but are inconsistently drawn and difficult to enforce before election day, when rapid viral spread has already occurred.</p>
+        <div class="callout red">
+          <div class="callout-label">Assessment</div>
+          <p>US campaign finance law has not been updated for AI. The capabilities that AI introduces to political campaigning, zero-marginal-cost content production, individual-level psychographic targeting, synthetic candidate media, operate outside the categories that existing law was designed to address. The appropriate federal response, mandatory AI disclosure in political advertising, prohibition on synthetic candidate deepfakes, AI-specific campaign finance disclosure thresholds, has not been enacted at the federal level. The 2026 election cycle will be the first to operate fully under AI-capable conditions without any federal AI-specific electoral law.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-fact">Documented 2024 Cases</div>
+          <div class="sb-body">Georgia House candidate: synthetic audio ad mimicking Senator Ossoff · New Hampshire primary: deepfake Biden robocall urging non-participation · Netherlands: ~400 AI-generated synthetic images used against political candidates · Ireland: Deepfake video depicting presidential election winner withdrawing candidacy</div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">What's Coming</div>
+          <div class="sb-body">The 2026 US midterm cycle will be the first to operate fully under AI micro-targeting and synthetic media capabilities without federal AI-specific electoral regulation. The gap between state deepfake laws (patchwork, ~20 states) and federal framework (none) means enforcement will be state-by-state and inconsistent.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="qa-rule">
+
+  <!-- Q7: Agent liability -->
+  <div class="qa-card" id="q7">
+    <div class="qa-number-row"><span class="qa-num">Q · 07</span><span class="qa-verdict-badge badge-analysis"><span class="vl-dot dot-analysis" style="width:7px;height:7px;border-radius:50%;flex-shrink:0;"></span>Reasoned Analysis, The Most Pressing Near-Term Legal Gap</span></div>
+    <div class="qa-question">A human employee who causes harm can be fired, sued, and prosecuted. An AI agent that autonomously deletes files, executes a bad trade, or sends a defamatory communication currently has no clear liability chain. How do we construct legal accountability frameworks for autonomous systems before the harm event forces the question under crisis conditions?</div>
+    <div class="qa-body">
+      <div class="qa-answer">
+        <p>This is the most pressing near-term AI legal gap, not because it hasn't been identified, but because no jurisdiction has enacted the legal framework to address it, even as autonomous AI agents are being deployed at scale in business contexts right now.</p>
+        <p><strong>The problem, precisely stated:</strong> When an autonomous AI agent takes a consequential action, executing a financial transaction, sending a communication, modifying a system, making a medical recommendation that is acted upon, the legal chain of causation runs through: (1) the training decisions of the AI developer; (2) the configuration decisions of the deploying organization; (3) the system access granted by the operator; and (4) the specific action of the AI agent in the moment. None of these maps cleanly to the legal concepts of negligence, breach of contract, or tortious interference, which require identifiable human actors with duties, intentions, and causal responsibility. Current law has not been updated to address this multi-party, distributed-responsibility scenario.</p>
+        <p><strong>The closest existing analogies and why they fall short:</strong> <em>Employer liability for employees:</em> Employees are humans with legal standing who can be disciplined, sued, and whose actions can be attributed to their employer through respondeat superior doctrine. AI agents are not employees, they have no legal standing, cannot be "controlled" in the employment law sense, and the respondeat superior analogy breaks down for autonomous systems that can take actions outside their specified scope. <em>Product liability:</em> A manufacturer can be liable for a defective product's harm. But product liability is designed for physical products with identifiable defects, it does not map well to probabilistic AI systems where any individual harmful output is a statistical occurrence rather than a defect.</p>
+        <p><strong>What a functional liability framework would need:</strong> (1) Clear specification of which principal (developer, deployer, operator) is responsible for which categories of AI agent action; (2) Mandatory logging and audit trails so that post-harm analysis can reconstruct what the agent did and why; (3) Pre-deployment scope limitation requirements specifying the categories of action an agent is authorized to take autonomously vs. those requiring human approval; (4) Insurance or bonding requirements for operators deploying autonomous agents in high-stakes contexts; (5) Presumptive liability rules that make one party (the deployer) responsible as a default, with ability to shift liability to developer through indemnification agreements.</p>
+        <div class="callout navy">
+          <div class="callout-label">Assessment, Build the Framework Before the Crisis</div>
+          <p>The AI agent liability gap will be resolved, the question is whether it will be resolved proactively through thoughtful legislation, or reactively through a crisis event (a harmful AI agent action of sufficient scale and visibility to force legislative response). Reactive governance in technology has a poor track record, it tends to produce rushed, poorly designed frameworks that overcorrect in ways that harm legitimate uses while not addressing the actual risk. The organizations that would benefit from advocating for proactive framework design include both the companies deploying AI agents (who need legal certainty) and the public (who needs protection from autonomous AI harm). Building that coalition is the appropriate civic role for a thought leadership organization.</p>
+        </div>
+      </div>
+      <div class="qa-sidebar">
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-analysis">The Liability Triangle</div>
+          <div class="sb-body"><strong>AI Developer:</strong> Made training decisions, designed capabilities, set initial guardrails<br><br><strong>Deploying Organization:</strong> Configured the agent, granted access, deployed in specific context<br><br><strong>Human Operator:</strong> Authorized the system, was "in the loop" (nominally)<br><br><em>When an AI agent causes harm, all three bear partial responsibility, and existing law does not tell us how to apportion it.</em></div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sb-head sb-head-unknown">No Jurisdiction Has Solved This</div>
+          <div class="sb-body"><a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a>: Requires human oversight for high-risk systems, but doesn't specify liability allocation · US: No AI agent liability law · UK AI Safety Institute: Model evaluation, not deployment liability · OECD AI Principles: Non-binding · No binding international framework on AI agent liability</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <strong>Q&amp;A Series, Batch 6: Regulatory, Legal &amp; Governance · April 2026</strong><br>
+  Corporate Europe Observatory/LobbyControl (Jan 2026) · Nemko AI Lobbying Analysis (Dec 2025) · TechPolicy.Press <a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a> (Apr 2026) · <a href="https://www.computerworld.com/article/4164963/eu-lawmakers-fail-to-agree-on-watered-down-ai-act-talks-pushed-to-may.html" target="_blank">Computerworld EU AI Act trilogue</a> failure (Apr 29, 2026) · Copyright Alliance AI Lawsuits 2025 · Norton Rose Fulbright AI litigation update (Mar 2026) · AI Lawsuit Tracker ailawsuittracker.com (Apr 2026) · USCO Copyright Registration Guidance · DABUS patent cases (US Federal Circuit, UK Supreme Court, EPO, Australian Federal Court) · GEMA v. OpenAI Munich Regional Court (Nov 2025) · NYC Local Law 144 · <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI RMF</a><br><br>
+  <a href="index.html">← Main Report</a> &nbsp;·&nbsp; <a href="glossary.html">Glossary →</a>
+</footer>
+
+<script>
+const ACRONYMS={  '<a href="https://artificialintelligenceact.eu/" target="_blank">EU AI Act</a>':'European Union Artificial Intelligence Act, the world\'s most comprehensive AI regulation, passed in 2024. Uses a risk-based classification system with obligations scaling from minimal to prohibited based on risk level.',
+  'FEC':'Federal Election Commission, the US federal agency that administers and enforces campaign finance law.',
+  'GDPR':'General Data Protection Regulation, the EU\'s landmark data privacy law (2018) that limits collection and use of personal data.',
+  'NIST':'National Institute of Standards and Technology, the US federal agency that publishes the AI Risk Management Framework and other technology standards.',
+  'GAAP':'Generally Accepted Accounting Principles, the standardized accounting framework used by US public companies. Provides the consistent financial reporting standard that makes financial auditing meaningful.',
+  'USCO':'United States Copyright Office, the federal agency that registers and administers copyright in the United States.',
+  'DABUS':'Device for the Autonomous Bootstrapping of Unified Sentience, an AI system listed as an inventor on patent applications in multiple jurisdictions. Every major patent authority rejected this, ruling that only humans can be inventors.',
+  'MDL':'Multidistrict Litigation, a US federal procedure for consolidating similar cases from multiple districts before a single judge for pretrial proceedings.',
+  'FTC':'Federal Trade Commission, the US federal agency with authority over unfair or deceptive business practices, including emerging AI consumer protection issues.',
+  'EPO':'European Patent Office, the intergovernmental organization that processes patent applications across 39 European countries.',
+  'GEMA':'Gesellschaft für musikalische Aufführungs- und mechanische Vervielfältigungsrechte, the German music rights organization that filed the first major European copyright lawsuit against OpenAI for training on song lyrics.',
+  'OECD':'Organisation for Economic Co-operation and Development, an intergovernmental organization that has published influential but non-binding AI Principles.',
+  'NGO':'Non-governmental organization, non-profit organizations operating independently of government, such as civil society, advocacy, and research groups.',
+  'PAC':'Political Action Committee, an organization in US law that raises and spends money to elect or defeat political candidates.',
+};
+function applyTooltips(root){const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p)return NodeFilter.FILTER_REJECT;if(['SCRIPT','STYLE','A','ABBR'].includes(p.tagName))return NodeFilter.FILTER_REJECT;if(p.classList.contains('ac'))return NodeFilter.FILTER_REJECT;if(p.closest('.ac'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];let node;while((node=walker.nextNode()))nodes.push(node);const keys=Object.keys(ACRONYMS).sort((a,b)=>b.length-a.length);const pattern=new RegExp('\\b('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','g');nodes.forEach(textNode=>{const text=textNode.textContent;if(!pattern.test(text))return;pattern.lastIndex=0;const frag=document.createDocumentFragment();let last=0,m;while((m=pattern.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const span=document.createElement('span');span.className='ac';span.setAttribute('data-tip',ACRONYMS[m[0]]);span.setAttribute('tabindex','0');span.textContent=m[0];frag.appendChild(span);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));textNode.parentNode.replaceChild(frag,textNode);});}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.qa-answer,.sb-body').forEach(applyTooltips);document.addEventListener('click',e=>{const tip=e.target.closest('.ac');document.querySelectorAll('.ac.tip-open').forEach(el=>{if(el!==tip)el.classList.remove('tip-open');});if(tip){tip.classList.toggle('tip-open');e.stopPropagation();}});document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.ac.tip-open').forEach(el=>el.classList.remove('tip-open'));});});
+</script>
+</body>
+</html>

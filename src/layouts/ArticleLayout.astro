@@ -1,0 +1,79 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  frontmatter?: { title?: string; description?: string };
+}
+
+const { title, description, frontmatter } = Astro.props;
+const resolvedTitle = frontmatter?.title ?? title ?? 'Article';
+const resolvedDesc = frontmatter?.description ?? description;
+---
+
+<BaseLayout title={resolvedTitle} description={resolvedDesc}>
+  <div class="article-wrap">
+    <div class="container">
+      <article class="article-body">
+        <slot />
+      </article>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .article-wrap {
+    padding: 3rem 0 5rem;
+    background: var(--ivory);
+  }
+  .article-body {
+    max-width: 740px;
+  }
+  .article-body :global(h1) {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+  }
+  .article-body :global(h2) {
+    font-size: 1.375rem;
+    color: var(--navy);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .article-body :global(h3) {
+    font-size: 1.125rem;
+    color: var(--navy);
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .article-body :global(p) {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    max-width: none;
+  }
+  .article-body :global(hr) {
+    margin: 2.5rem 0;
+  }
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    padding-left: 1.5em;
+    margin-bottom: 1.25rem;
+  }
+  .article-body :global(li) {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .article-body :global(blockquote) {
+    border-left: 3px solid var(--gold);
+    padding: 0.25rem 0 0.25rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--slate);
+  }
+</style>
