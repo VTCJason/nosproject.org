@@ -1,201 +1,288 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import HumanQuestionCard from '../../components/HumanQuestionCard.astro';
 
-const topics = [
-  {
-    title: 'Technical Demystification',
-    slug: 'technical-demystification',
-    summary:
-      'What AI actually is — and isn\'t. Capabilities, limits, and the gap between hype and reality.',
-    questionCount: 12,
-  },
-  {
-    title: 'Economics, Labor & Industry',
-    slug: 'economics-labor-industry',
-    summary: 'How AI reshapes work, wages, productivity, and the structure of industries at scale.',
-    questionCount: 10,
-  },
-  {
-    title: 'Geopolitics & National Security',
-    slug: 'geopolitics-national-security',
-    summary: 'AI as a geopolitical asset: sovereignty, military application, and the new arms race.',
-    questionCount: 9,
-  },
-  {
-    title: 'Ethics, Society & Human Impact',
-    slug: 'ethics-society-human-impact',
-    summary: 'Bias, fairness, dignity, and what AI means for how we treat each other.',
-    questionCount: 11,
-  },
-  {
-    title: 'Existential Frontier',
-    slug: 'existential-frontier',
-    summary:
-      'The questions at the outer edge — AGI, alignment, and what humanity\'s endgame might look like.',
-    questionCount: 8,
-  },
-  {
-    title: 'Regulatory, Legal & Governance',
-    slug: 'regulatory-legal-governance',
-    summary: 'Who governs AI, how, and whether existing frameworks are adequate to the task.',
-    questionCount: 10,
-  },
-  {
-    title: 'Safety, Security & Information Integrity',
-    slug: 'safety-security-information-integrity',
-    summary:
-      'Adversarial use, disinformation, deepfakes, and the challenge of building trustworthy systems.',
-    questionCount: 9,
-  },
-  {
-    title: 'Infrastructure & Environment',
-    slug: 'infrastructure-environment',
-    summary:
-      'The physical cost of AI: energy, water, compute, and what training at scale actually requires.',
-    questionCount: 7,
-  },
-  {
-    title: 'Science & Knowledge Domains',
-    slug: 'science-knowledge-domains',
-    summary:
-      'AI as scientific tool: drug discovery, materials science, and the future of knowledge work.',
-    questionCount: 8,
-  },
-  {
-    title: 'Faith, Identity & the Human Condition',
-    slug: 'faith-identity-human-condition',
-    summary: 'Meaning, consciousness, creativity, and what remains distinctly human.',
-    questionCount: 9,
-  },
+const toc = [
+  { num: '01', label: 'Technical',      slug: 'technical-demystification' },
+  { num: '02', label: 'Economics',      slug: 'economics-labor-industry' },
+  { num: '03', label: 'Geopolitics',    slug: 'geopolitics-national-security' },
+  { num: '04', label: 'Ethics',         slug: 'ethics-society-human-impact' },
+  { num: '05', label: 'Frontier',       slug: 'existential-frontier' },
+  { num: '06', label: 'Regulatory',     slug: 'regulatory-legal-governance' },
+  { num: '07', label: 'Safety',         slug: 'safety-security-information-integrity' },
+  { num: '08', label: 'Infrastructure', slug: 'infrastructure-environment' },
+  { num: '09', label: 'Science',        slug: 'science-knowledge-domains' },
+  { num: '10', label: 'Faith',          slug: 'faith-identity-human-condition' },
 ];
 ---
 
 <BaseLayout
   title="The Human Question"
-  description="A structured intelligence dossier across ten domains of human life."
+  description="A working almanac of artificial intelligence and human life, in ten domains and one open verdict."
 >
-  <div class="hq-hero">
-    <div class="container">
-      <p class="label hq-eyebrow">Public Intelligence Platform</p>
-      <h1 class="hq-headline">The Human Question</h1>
-      <p class="hq-subline">
-        AI poses questions that cut across every domain of human life. This is a structured,
-        honest attempt to name them, examine what we know, and be explicit about what we don't.
-      </p>
-      <p class="label hq-meta">10 domains · ongoing research · verdicts updated as evidence matures</p>
-    </div>
-  </div>
+  <div class="almanac-cover">
 
-  <section class="hq-grid-section">
-    <div class="container">
-      <div class="topic-grid">
-        {
-          topics.map(topic => (
-            <HumanQuestionCard
-              title={topic.title}
-              slug={topic.slug}
-              summary={topic.summary}
-              questionCount={topic.questionCount}
-            />
-          ))
-        }
-      </div>
-      <div class="glossary-callout">
-        <div class="glossary-callout-inner">
-          <div class="glossary-callout-text">
-            <p class="label glossary-label">Reference</p>
-            <p class="glossary-callout-body">New to AI terminology? The <a href="/glossary/">AI Glossary</a> defines the key concepts, technical vocabulary, and contested terms that appear across these domains.</p>
-          </div>
-          <a href="/glossary/" class="glossary-btn">View Glossary →</a>
-        </div>
-      </div>
+    <div class="almanac-cover__masthead">
+      <span>VOLUME I · 2026</span>
+      <span>nOS · PUBLIC INTELLIGENCE PLATFORM</span>
+      <span>ONGOING SURVEY</span>
     </div>
-  </section>
+
+    <div class="almanac-cover__hero">
+
+      <div class="almanac-cover__left">
+        <div class="almanac-cover__eyebrow">An Almanac of</div>
+        <h1 class="almanac-cover__title">
+          the Human<br>
+          <em>Question</em><span class="period">.</span>
+        </h1>
+        <p class="almanac-cover__standfirst">
+          A working almanac of artificial intelligence and human life,
+          in ten domains and one open verdict.
+        </p>
+      </div>
+
+      <aside class="almanac-cover__toc">
+        <img
+          src="/assets/thq-monogram.svg"
+          alt="The Human Question"
+          class="almanac-cover__seal"
+          width="140"
+          height="140"
+        />
+        <div class="almanac-cover__toc-head">Contents</div>
+        {toc.map(item => (
+          <a href={`/human-question/${item.slug}/`} class="almanac-cover__toc-item">
+            <span class="almanac-cover__toc-num">{item.num}</span>
+            <span class="almanac-cover__toc-label">{item.label}</span>
+            <span class="almanac-cover__toc-arrow" aria-hidden="true">›</span>
+          </a>
+        ))}
+      </aside>
+
+    </div>
+
+    <div class="almanac-cover__footer">
+      <span>Edited by Jason G. Troxel</span>
+      <span>nosproject.org / human-question</span>
+      <span>CC BY-SA 4.0</span>
+    </div>
+
+  </div>
 </BaseLayout>
 
 <style>
-  .hq-hero {
-    background: var(--navy);
-    padding: 4rem 0 3.5rem;
-    border-bottom: 2px solid var(--gold);
-  }
-  .hq-eyebrow {
-    color: var(--amber);
-    margin-bottom: 1rem;
-  }
-  .hq-headline {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--ivory);
-    margin-bottom: 1rem;
-    line-height: 1.15;
-  }
-  .hq-subline {
-    font-size: 1.0625rem;
-    color: var(--cream);
-    max-width: 58ch;
-    line-height: 1.75;
-    opacity: 0.9;
-    margin-bottom: 1.5rem;
-  }
-  .hq-meta {
-    color: var(--muted);
-  }
-  .hq-grid-section {
-    padding: 3rem 0 5rem;
-    background: var(--navy);
-  }
-  .topic-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-  }
-  .glossary-callout {
-    margin-top: 2rem;
-    border-top: 1px solid rgba(201,146,42,.25);
-    padding-top: 1.5rem;
-  }
-  .glossary-callout-inner {
+  /* ─── Page background ──────────────────────────────────────────── */
+  :global(body) { background: var(--ivory); }
+
+  /* ─── Cover shell ──────────────────────────────────────────────── */
+  .almanac-cover {
+    width: 100%;
+    max-width: 1280px;
+    min-height: calc(100vh - 80px);
+    margin: 0 auto;
+    padding: 48px 80px 40px;
+    box-sizing: border-box;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+  }
+
+  /* ─── Masthead ─────────────────────────────────────────────────── */
+  .almanac-cover__masthead {
+    display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .glossary-label {
-    color: var(--amber);
-    margin-bottom: 0.35rem;
-  }
-  .glossary-callout-body {
-    font-size: 0.9375rem;
-    color: var(--cream);
-    opacity: 0.85;
-    max-width: 58ch;
-    line-height: 1.65;
-  }
-  .glossary-callout-body a {
-    color: var(--amber);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(201,146,42,.4);
-  }
-  .glossary-callout-body a:hover {
-    border-bottom-color: var(--amber);
-  }
-  .glossary-btn {
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 500;
+    align-items: baseline;
+    border-top: 2px solid var(--navy);
+    border-bottom: 1px solid var(--navy);
+    padding: 12px 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
     color: var(--navy);
-    background: var(--gold);
-    border-radius: 3px;
-    padding: 0.5rem 1.1rem;
-    text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: background 0.2s;
+    text-transform: uppercase;
   }
-  .glossary-btn:hover {
-    background: var(--amber);
+
+  /* ─── Hero grid ────────────────────────────────────────────────── */
+  .almanac-cover__hero {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 64px;
+    align-items: center;
+    margin-top: 36px;
+  }
+
+  /* ─── Left: title block ────────────────────────────────────────── */
+  .almanac-cover__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 700;
+  }
+
+  .almanac-cover__title {
+    font-family: var(--font-serif);
+    font-size: clamp(64px, 8vw, 110px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .almanac-cover__title em {
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .almanac-cover__title .period {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(80px, 10vw, 140px);
+    color: var(--gold);
+    margin-left: -8px;
+    line-height: 0.5;
+  }
+
+  .almanac-cover__standfirst {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--slate);
+    margin: 32px 0 0;
+    max-width: 520px;
+    line-height: 1.55;
+  }
+
+  /* ─── Right: seal + TOC ────────────────────────────────────────── */
+  .almanac-cover__toc {
+    border-left: 1px solid var(--rule);
+    padding-left: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .almanac-cover__seal {
+    display: block;
+    margin: 0 auto 20px;
+    opacity: 0.92;
+  }
+
+  .almanac-cover__toc-head {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 700;
+    width: 100%;
+  }
+
+  /* ─── TOC items as CTAs ────────────────────────────────────────── */
+  .almanac-cover__toc-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    padding: 7px 8px;
+    border-bottom: 1px dotted var(--rule);
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: var(--navy);
+    text-decoration: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.15s ease, box-shadow 0.15s ease, padding-left 0.15s ease;
+    position: relative;
+  }
+
+  .almanac-cover__toc-item:hover {
+    background: var(--cream);
+    box-shadow: 0 2px 10px rgba(13, 27, 42, 0.1);
+    padding-left: 12px;
+    color: var(--navy);
+  }
+
+  .almanac-cover__toc-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    min-width: 22px;
+    flex-shrink: 0;
+  }
+
+  .almanac-cover__toc-label {
+    flex: 1;
+  }
+
+  .almanac-cover__toc-arrow {
+    font-size: 16px;
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    transform: translateX(-4px);
+    line-height: 1;
+  }
+
+  .almanac-cover__toc-item:hover .almanac-cover__toc-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ─── Cover footer ─────────────────────────────────────────────── */
+  .almanac-cover__footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+    margin-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ─── Responsive ───────────────────────────────────────────────── */
+  @media (max-width: 880px) {
+    .almanac-cover {
+      padding: 32px 28px 32px;
+      min-height: 0;
+    }
+    .almanac-cover__masthead {
+      font-size: 9px;
+      letter-spacing: 2px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .almanac-cover__hero {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 28px;
+    }
+    .almanac-cover__toc {
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid var(--rule);
+      padding-top: 24px;
+    }
+    .almanac-cover__seal {
+      width: 80px;
+      height: 80px;
+    }
+    .almanac-cover__footer {
+      flex-direction: column;
+      gap: 6px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .almanac-cover { padding: 24px 20px; }
   }
 </style>

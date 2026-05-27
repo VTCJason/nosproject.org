@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" role="img" aria-label="nOS Project · official stamp">
+  <title>nOS Project · P·01 Primary Stamp · light variant</title>
+  
+
+  
+  <rect x="35" y="22" width="130" height="2.4" fill="#0d1b2a"></rect>
+
+  
+  <text x="100" y="60" text-anchor="middle" font-family="&#39;Libre Baskerville&#39;, Georgia, serif" font-weight="700" font-size="32" letter-spacing="-0.64" fill="#0d1b2a">n<tspan fill="#c9922a">O</tspan>S</text>
+
+  
+  <rect x="35" y="68" width="130" height="2.4" fill="#0d1b2a"></rect>
+
+  
+  <text x="100" y="88" text-anchor="middle" font-family="&#39;Courier Prime&#39;, ui-monospace, monospace" font-weight="700" font-size="9" letter-spacing="4" fill="#5a5a5a">PROJECT</text>
+</svg>
