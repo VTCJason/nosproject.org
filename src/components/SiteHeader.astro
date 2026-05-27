@@ -13,7 +13,9 @@ const path = Astro.url.pathname;
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="/" class="wordmark">nOS</a>
+    <a href="/" class="wordmark-stamp">
+      <img src="/assets/nos-stamp-dark.svg" alt="nOS Project" width="68" height="34">
+    </a>
     <nav aria-label="Main navigation">
       <ul class="nav-list">
         {nav.map(item => (
@@ -55,14 +57,19 @@ const path = Astro.url.pathname;
     padding-top: 0.875rem;
     padding-bottom: 0.875rem;
   }
-  .wordmark {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--gold);
-    text-decoration: none;
-    letter-spacing: 0.04em;
+  .wordmark-stamp {
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
+    text-decoration: none;
+    opacity: 0.92;
+    transition: opacity 0.15s;
+  }
+  .wordmark-stamp:hover {
+    opacity: 1;
+  }
+  .wordmark-stamp img {
+    display: block;
   }
   nav {
     flex: 1;
