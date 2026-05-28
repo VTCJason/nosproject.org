@@ -194,7 +194,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               ? `<span class="sig-name sig-name--anon">Anonymous</span>`
               : `<span class="sig-name">${escHtml(s.full_name)}</span>`;
             const pinnedBadge = isPinned
-              ? `<span class="sig-badge">Author</span>`
+              ? `<span style="font-family:var(--font-mono);font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);background:var(--navy);padding:0.15em 0.5em;border-radius:2px;margin-left:0.5rem;vertical-align:middle;">Author</span>`
               : '';
             const affHtml = (!isAnon && s.affiliation)
               ? `<span class="sig-affiliation">${escHtml(s.affiliation)}</span>`
@@ -203,7 +203,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               ? `<blockquote class="sig-why">${escHtml(s.why_signing)}</blockquote>`
               : '';
             const itemClass = isPinned ? 'sig-item sig-item--pinned' : 'sig-item';
-            return `<li class="${itemClass}"><div class="sig-name-row">${nameHtml}${pinnedBadge}</div>${affHtml}${whyHtml}</li>`;
+            return `<li class="${itemClass}"><div style="display:flex;align-items:center;flex-wrap:wrap;">${nameHtml}${pinnedBadge}</div>${affHtml}${whyHtml}</li>`;
           }).join('')}
         </ol>
       `;
