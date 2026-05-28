@@ -1,40 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-// Fetch public signatories at build time from the public view (no email exposed)
-const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
-
-let signatories: Array<{
-  id: string;
-  full_name: string;
-  affiliation: string | null;
-  why_signing: string | null;
-  created_at: string;
-}> = [];
-
-let fetchError = false;
-
-if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-  try {
-    const endpoint = SUPABASE_URL + "/rest/v1/public_signatories?select=id,full_name,affiliation,why_signing,created_at&order=created_at.asc";
-    const res = await fetch(endpoint, {
-      headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: "Bearer " + SUPABASE_ANON_KEY,
-      },
-    });
-    if (res.ok) {
-      signatories = await res.json();
-    } else {
-      fetchError = true;
-    }
-  } catch {
-    fetchError = true;
-  }
-}
-
-const count = signatories.length;
 ---
 
 <BaseLayout
@@ -49,50 +14,161 @@ const count = signatories.length;
         Those who have read the nOS Manifesto and added their names to it. Signing is an
         individual act — a public statement of agreement.
       </p>
-      <p class="label sig-count">
-        {count === 0 ? 'No signatures yet — be the first' : count + ' signature' + (count === 1 ? '' : 's')}
-      </p>
+      <p class="label sig-count">Loading…</p>
     </div>
   </div>
 
   <section class="sig-body">
     <div class="container">
-      {fetchError && (
-        <div class="sig-notice">
-          <p class="label">Could not load signatories</p>
-          <p>Please try refreshing the page.</p>
-        </div>
-      )}
-
-      {!fetchError && count === 0 && (
-        <div class="sig-notice">
-          <p class="label">No signatures yet</p>
-          <p>
-            Be among the first to sign. <a href="/sign/">Sign the manifesto</a>.
-          </p>
-        </div>
-      )}
-
-      {count > 0 && (
-        <table class="sig-table" aria-label="Signatories">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Affiliation</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {signatories.map(sig => (
-              <tr>
-                <td>{sig.full_name}</td>
-                <td class="sig-affiliation">{sig.affiliation ?? '—'}</td>
-                <td class="sig-date label">{sig.created_at.slice(0, 10)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <p class="sig-loading label">Retrieving signatures…</p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .sig-hero {
+    background: var(--navy);
+    border-bottom: 2px solid var(--gold);
+    padding: 3.5rem 0 3rem;
+  }
+  .eyebrow {
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+  }
+  .sig-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--ivory);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .sig-subline {
+    font-size: 1.0625rem;
+    color: var(--cream);
+    max-width: 52ch;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+  .sig-count {
+    color: var(--gold);
+  }
+
+  .sig-body {
+    padding: 3rem 0 5rem;
+    background: var(--ivory);
+  }
+
+  .sig-loading {
+    color: var(--muted);
+  }
+
+  /* ── List layout ────────────────────────────────────────── */
+  .sig-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 680px;
+  }
+  .sig-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .sig-item:first-child {
+    border-top: 1px solid var(--rule);
+  }
+  .sig-name {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .sig-affiliation {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .sig-why {
+    margin: 0.5rem 0 0;
+    padding: 0.625rem 1rem;
+    border-left: 2px solid var(--gold);
+    font-size: 0.9375rem;
+    color: var(--slate);
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  /* ── Empty / error state ────────────────────────────────── */
+  .sig-empty {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+  }
+  .sig-empty a {
+    color: var(--steel);
+    text-underline-offset: 3px;
+  }
+  .sig-empty a:hover { color: var(--gold); }
+</style>
+
+<script>
+  const SUPABASE_URL = "https://bxisrydsueinqnwoxfqv.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4aXNyeWRzdWVpbnFud294ZnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5Mzk4NjMsImV4cCI6MjA5NTUxNTg2M30.z-klpHW73PXs5zzKyVQ3ZqY5hHSY_nvi4PQDJ2vhnWc";
+
+  const sigCount = document.querySelector('.sig-count');
+  const sigBody  = document.querySelector('.sig-body .container');
+
+  function escHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  async function loadSignatories() {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/public_signatories?select=full_name,affiliation,why_signing,created_at&order=created_at.asc`,
+        {
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+        }
+      );
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        sigCount.textContent = 'No signatures yet — be the first';
+        sigBody.innerHTML = `<p class="sig-empty">The signatory list is empty. <a href="/sign/">Sign the Manifesto</a> to be the first.</p>`;
+        return;
+      }
+
+      sigCount.textContent = `${data.length} signature${data.length !== 1 ? 's' : ''}`;
+
+      sigBody.innerHTML = `
+        <ol class="sig-list">
+          ${data.map(s => `
+            <li class="sig-item">
+              <span class="sig-name">${escHtml(s.full_name)}</span>
+              ${s.affiliation ? `<span class="sig-affiliation">${escHtml(s.affiliation)}</span>` : ''}
+              ${s.why_signing ? `<blockquote class="sig-why">${escHtml(s.why_signing)}</blockquote>` : ''}
+            </li>
+          `).join('')}
+        </ol>
+      `;
+    } catch (err) {
+      sigCount.textContent = 'Signatures unavailable';
+      sigBody.innerHTML = `<p class="sig-empty">Could not load the signatory list. Please try again later.</p>`;
+      console.error('Could not load signatories:', err);
+    }
+  }
+
+  loadSignatories();
+</script>
