@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="How the nOS Manifesto handles the information you provide when signing."
+>
+  <div class="privacy-hero">
+    <div class="container">
+      <p class="label eyebrow">Legal</p>
+      <h1 class="privacy-headline">Privacy Policy</h1>
+      <p class="privacy-subline">Last updated: May 2026</p>
+    </div>
+  </div>
+
+  <section class="privacy-body">
+    <div class="container privacy-content">
+
+      <h2>What we collect</h2>
+      <p>When you sign the nOS Manifesto, we collect:</p>
+      <ul>
+        <li><strong>Full name</strong> — displayed publicly on the signatories page, unless you choose to sign anonymously.</li>
+        <li><strong>Email address</strong> — collected for verification purposes only. It is never published, displayed, or shared.</li>
+        <li><strong>Affiliation</strong> (optional) — displayed publicly alongside your name if provided.</li>
+        <li><strong>Reason for signing</strong> (optional) — displayed publicly only if you explicitly check "Share my reason publicly."</li>
+      </ul>
+      <p>We collect nothing else. There is no account, no login, and no tracking profile attached to your submission.</p>
+
+      <h2>How we use it</h2>
+      <p>Your name (or "Anonymous") and optional affiliation appear on the public signatories page as a record of agreement with the nOS Manifesto. Your email address is retained solely to allow us to identify your record if you contact us to request deletion.</p>
+      <p>We do not use your information for marketing, advertising, or any commercial purpose. We do not sell, rent, or share your information with any third party.</p>
+
+      <h2>Data storage</h2>
+      <p>Signatory data is stored in Supabase, a cloud database provider. Supabase infrastructure is hosted on AWS and complies with GDPR and standard data security practices. Data is stored in the United States.</p>
+
+      <h2>Your rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Request a copy of the data we hold about you</li>
+        <li>Request correction of inaccurate information</li>
+        <li>Request deletion of your record from the signatories list</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <strong>privacy@nosproject.org</strong>. We will respond within 30 days.</p>
+
+      <h2>Cookies and analytics</h2>
+      <p>This site does not currently use cookies or third-party analytics. If analytics are added in the future, this policy will be updated before any tracking is enabled.</p>
+
+      <h2>Children</h2>
+      <p>This site is not directed at children under 16. We do not knowingly collect information from anyone under 16.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If we make material changes, we will update the "Last updated" date above. Continued use of the site after any change constitutes acceptance of the revised policy.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy: <strong>privacy@nosproject.org</strong></p>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .privacy-hero {
+    background: var(--navy);
+    border-bottom: 2px solid var(--gold);
+    padding: 3rem 0 2.5rem;
+  }
+  .eyebrow {
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+  }
+  .privacy-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    color: var(--ivory);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .privacy-subline {
+    font-size: 0.875rem;
+    color: var(--cream);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .privacy-body {
+    padding: 3.5rem 0 5rem;
+    background: var(--ivory);
+  }
+
+  .privacy-content {
+    max-width: 680px;
+  }
+
+  .privacy-content h2 {
+    font-family: var(--font-serif);
+    font-size: 1.1875rem;
+    color: var(--navy);
+    margin: 2.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .privacy-content h2:first-of-type {
+    margin-top: 0;
+  }
+
+  .privacy-content p {
+    font-size: 0.9375rem;
+    color: var(--slate);
+    line-height: 1.75;
+    margin: 0 0 1rem;
+    max-width: none;
+  }
+
+  .privacy-content ul {
+    margin: 0 0 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .privacy-content li {
+    font-size: 0.9375rem;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  .privacy-content strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+</style>

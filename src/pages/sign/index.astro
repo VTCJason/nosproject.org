@@ -28,7 +28,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
         <div id="success-message" style="display:none" class="form-notice form-notice--success">
           <p class="label notice-label">You're on the list</p>
-          <p class="notice-text">Thank you for signing the nOS Manifesto. Your name will appear on the signatories page once the list goes live.</p>
+          <p class="notice-text">Thank you for signing the nOS Manifesto. Your signature is now recorded and will appear on the signatories page.</p>
         </div>
 
         <form id="sign-form" class="sign-form">
@@ -52,10 +52,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               id="email"
               name="email"
               type="email"
-              placeholder="For notification only — not published"
+              placeholder="For verification only — never published"
               autocomplete="email"
               required
             />
+            <p class="field-hint">Your email address is collected for verification purposes only. It will never be published, shared, or sold.</p>
           </div>
           <div class="field-group">
             <label class="field-label" for="affiliation">
@@ -86,8 +87,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               <span>Share my reason publicly</span>
             </label>
           </div>
+          <div class="field-group">
+            <label class="field-checkbox-label">
+              <input type="checkbox" id="show-name" name="show-name" checked />
+              <span>Display my name publicly on the signatories page</span>
+            </label>
+            <p class="field-hint">If unchecked, your signature is counted but listed as Anonymous.</p>
+          </div>
           <button class="submit-btn" type="submit" id="submit-btn">Sign the Manifesto</button>
           <p id="form-error" class="form-error" style="display:none"></p>
+          <p class="privacy-note">Your information is not sold or shared with third parties. <a href="/privacy/">Privacy policy</a>.</p>
         </form>
       </div>
 
@@ -96,9 +105,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <p class="label">Before you sign</p>
           <ul>
             <li>Read the full manifesto</li>
-            <li>Understand that your name will be public</li>
+            <li>Your name will appear publicly unless you choose anonymous</li>
             <li>Sign as an individual, not on behalf of an organization</li>
-            <li>You can withdraw your signature at any time</li>
           </ul>
         </div>
         <div class="sign-callout">
@@ -158,6 +166,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     color: var(--muted);
     font-weight: 400;
   }
+  .field-hint {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+  }
 
   .field-input {
     font-family: var(--font-sans);
@@ -191,7 +205,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     font-family: var(--font-sans);
     font-size: 0.875rem;
     color: var(--slate);
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
     cursor: pointer;
   }
   .field-checkbox-label input[type="checkbox"] {
@@ -202,7 +216,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     flex-shrink: 0;
   }
 
-  /* ── Submit button ──────────────────────────────────────── */
+  /* ── Submit + privacy ───────────────────────────────────── */
   .submit-btn {
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -220,6 +234,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   }
   .submit-btn:hover { background: var(--amber); }
   .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .privacy-note {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .privacy-note a {
+    color: var(--steel);
+    text-underline-offset: 3px;
+  }
+  .privacy-note a:hover { color: var(--gold); }
 
   /* ── Notices ────────────────────────────────────────────── */
   .form-notice {
@@ -300,8 +326,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </style>
 
 <script>
-  const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
-  const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+  const SUPABASE_URL = "https://bxisrydsueinqnwoxfqv.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4aXNyeWRzdWVpbnFud294ZnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5Mzk4NjMsImV4cCI6MjA5NTUxNTg2M30.z-klpHW73PXs5zzKyVQ3ZqY5hHSY_nvi4PQDJ2vhnWc";
 
   const form = document.getElementById('sign-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
@@ -328,6 +354,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     const affiliation = (document.getElementById('affiliation') as HTMLInputElement).value.trim();
     const why = (document.getElementById('why') as HTMLTextAreaElement).value.trim();
     const shareReason = (document.getElementById('share-reason') as HTMLInputElement).checked;
+    const showName = (document.getElementById('show-name') as HTMLInputElement).checked;
 
     try {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/signatories`, {
@@ -344,6 +371,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           affiliation: affiliation || null,
           why_signing: why || null,
           share_reason: shareReason,
+          anonymous: !showName,
         }),
       });
 
