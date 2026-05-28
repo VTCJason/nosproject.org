@@ -20,15 +20,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <section class="sign-body">
     <div class="container sign-grid">
       <div class="sign-form-wrap">
-        <div class="form-notice">
-          <p class="label notice-label">Signature collection</p>
-          <p class="notice-text">
-            Signature collection is not yet active. Leave your email below to be notified when
-            signing opens — your information will not be shared or used for any other purpose.
-          </p>
+
+        <div id="form-notice" class="form-notice" style="display:none">
+          <p class="label notice-label" id="notice-label">Signature collection</p>
+          <p class="notice-text" id="notice-text"></p>
         </div>
 
-        <form class="sign-form" action="#" method="post">
+        <div id="success-message" style="display:none" class="form-notice form-notice--success">
+          <p class="label notice-label">You're on the list</p>
+          <p class="notice-text">Thank you for signing the nOS Manifesto. Your name will appear on the signatories page once the list goes live.</p>
+        </div>
+
+        <form id="sign-form" class="sign-form">
           <div class="field-group">
             <label class="field-label" for="name">Full name</label>
             <input
@@ -38,6 +41,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               type="text"
               placeholder="Your name as it will appear"
               autocomplete="name"
+              required
+              maxlength="200"
             />
           </div>
           <div class="field-group">
@@ -49,6 +54,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               type="email"
               placeholder="For notification only — not published"
               autocomplete="email"
+              required
             />
           </div>
           <div class="field-group">
@@ -61,196 +67,117 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               name="affiliation"
               type="text"
               placeholder="Organization, title, or role"
+              maxlength="300"
             />
           </div>
           <div class="field-group">
-            <label class="field-label" for="comment">
+            <label class="field-label" for="why">
               Why you're signing <span class="field-optional">(optional)</span>
             </label>
             <textarea
               class="field-input field-textarea"
-              id="comment"
-              name="comment"
-              rows="4"
-              placeholder="A sentence or two — may be shared with your permission"></textarea>
+              id="why"
+              name="why"
+              placeholder="A sentence or two — may be shared with your permission"
+              maxlength="2000"
+            ></textarea>
+            <label class="field-checkbox-label">
+              <input type="checkbox" id="share-reason" name="share-reason" />
+              <span>Share my reason publicly</span>
+            </label>
           </div>
-          <button class="submit-btn" type="submit" disabled>Notify me when signing opens</button>
-          <p class="form-footnote label">
-            Signing not yet active. Form submission is disabled.
-          </p>
+          <button class="submit-btn" type="submit" id="submit-btn">Sign the Manifesto</button>
+          <p id="form-error" class="form-error" style="display:none"></p>
         </form>
       </div>
 
       <aside class="sign-sidebar">
-        <div class="sidebar-panel">
-          <p class="label panel-label">Before you sign</p>
-          <ul class="sign-checklist">
+        <div class="sign-callout">
+          <p class="label">Before you sign</p>
+          <ul>
             <li>Read the full manifesto</li>
             <li>Understand that your name will be public</li>
             <li>Sign as an individual, not on behalf of an organization</li>
             <li>You can withdraw your signature at any time</li>
           </ul>
         </div>
-        <div class="sidebar-panel">
-          <p class="label panel-label">Already signed?</p>
-          <p class="panel-text">
-            View the list of current signatories at <a href="/signatories/">signatories</a>.
-          </p>
+        <div class="sign-callout">
+          <p class="label">Already signed?</p>
+          <p>View the list of current signatories at <a href="/signatories/">signatories</a>.</p>
         </div>
       </aside>
     </div>
   </section>
 </BaseLayout>
 
-<style>
-  .sign-hero {
-    background: var(--cream);
-    padding: 3.5rem 0 3rem;
-    border-bottom: 1px solid var(--rule);
-  }
-  .eyebrow {
-    margin-bottom: 0.75rem;
-  }
-  .sign-headline {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    color: var(--navy);
-    margin-bottom: 0.875rem;
-  }
-  .sign-subline {
-    font-size: 1.0625rem;
-    color: var(--muted);
-    max-width: 52ch;
-    line-height: 1.75;
-  }
-  .sign-body {
-    padding: 3rem 0 5rem;
-  }
-  .sign-grid {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 3rem;
-    align-items: start;
-  }
-  .form-notice {
-    background: var(--cream);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--amber);
-    border-radius: 3px;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .notice-label {
-    margin-bottom: 0.5rem;
-    color: var(--amber);
-  }
-  .notice-text {
-    font-size: 0.9375rem;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: none;
-  }
-  .sign-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  .field-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-  }
-  .field-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .field-optional {
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: 0;
-    text-transform: none;
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-  }
-  .field-input {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--text);
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    padding: 0.625rem 0.875rem;
-    width: 100%;
-    transition: border-color 0.15s;
-    -webkit-appearance: none;
-  }
-  .field-input:focus {
-    outline: none;
-    border-color: var(--steel);
-  }
-  .field-textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  .submit-btn {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: var(--navy);
-    color: var(--ivory);
-    border: none;
-    padding: 0.875rem 1.5rem;
-    border-radius: 2px;
-    cursor: not-allowed;
-    opacity: 0.5;
-    align-self: flex-start;
-  }
-  .form-footnote {
-    color: var(--muted);
-    font-size: 0.68rem;
-  }
-  .sign-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    position: sticky;
-    top: calc(56px + 1.5rem);
-  }
-  .sidebar-panel {
-    background: var(--cream);
-    border: 1px solid var(--rule);
-    border-top: 3px solid var(--steel);
-    border-radius: 3px;
-    padding: 1.25rem;
-  }
-  .panel-label {
-    margin-bottom: 0.75rem;
-  }
-  .sign-checklist {
-    padding-left: 1.1em;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    font-size: 0.875rem;
-    color: var(--text);
-    line-height: 1.55;
-  }
-  .panel-text {
-    font-size: 0.875rem;
-    color: var(--muted);
-    line-height: 1.65;
-    max-width: none;
+<script>
+  const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
+  const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+  const form = document.getElementById('sign-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const formError = document.getElementById('form-error') as HTMLElement;
+  const successMessage = document.getElementById('success-message') as HTMLElement;
+  const formNotice = document.getElementById('form-notice') as HTMLElement;
+
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    formNotice.style.display = 'block';
+    (document.getElementById('notice-label') as HTMLElement).textContent = 'Configuration error';
+    (document.getElementById('notice-text') as HTMLElement).textContent =
+      'Signing is temporarily unavailable. Please try again later.';
+    submitBtn.disabled = true;
   }
 
-  @media (max-width: 768px) {
-    .sign-grid {
-      grid-template-columns: 1fr;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formError.style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    const name = (document.getElementById('name') as HTMLInputElement).value.trim();
+    const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+    const affiliation = (document.getElementById('affiliation') as HTMLInputElement).value.trim();
+    const why = (document.getElementById('why') as HTMLTextAreaElement).value.trim();
+    const shareReason = (document.getElementById('share-reason') as HTMLInputElement).checked;
+
+    try {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/signatories`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({
+          full_name: name,
+          email: email,
+          affiliation: affiliation || null,
+          why_signing: why || null,
+          share_reason: shareReason,
+        }),
+      });
+
+      if (response.status === 409) {
+        formError.textContent = 'This email address has already been used to sign the manifesto.';
+        formError.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign the Manifesto';
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      form.style.display = 'none';
+      successMessage.style.display = 'block';
+
+    } catch (err) {
+      formError.textContent = 'Something went wrong. Please try again.';
+      formError.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Sign the Manifesto';
     }
-    .sign-sidebar {
-      position: static;
-    }
-  }
-</style>
+  });
+</script>
