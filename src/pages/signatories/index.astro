@@ -80,6 +80,34 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .sig-item:first-child {
     border-top: 1px solid var(--rule);
   }
+
+  /* ── Pinned / author entry ──────────────────────────────── */
+  .sig-item--pinned {
+    background: var(--cream);
+    margin: 0 -1.25rem;
+    padding: 1.25rem 1.25rem;
+    border-left: 3px solid var(--gold);
+    border-top: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sig-name-row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+  }
+  .sig-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    padding: 0.15em 0.5em;
+    border-radius: 2px;
+  }
+
   .sig-name {
     font-family: var(--font-serif);
     font-size: 1.0625rem;
@@ -137,7 +165,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   async function loadSignatories() {
     try {
       const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/public_signatories?select=full_name,affiliation,why_signing,anonymous,created_at&order=created_at.asc`,
+        `${SUPABASE_URL}/rest/v1/public_signatories?select=full_name,affiliation,why_signing,anonymous,pinned,created_at&order=pinned.desc,created_at.asc`,
         {
           headers: {
             apikey: SUPABASE_ANON_KEY,
@@ -161,16 +189,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <ol class="sig-list">
           ${data.map(s => {
             const isAnon = s.anonymous;
+            const isPinned = s.pinned;
             const nameHtml = isAnon
               ? `<span class="sig-name sig-name--anon">Anonymous</span>`
               : `<span class="sig-name">${escHtml(s.full_name)}</span>`;
+            const pinnedBadge = isPinned
+              ? `<span class="sig-badge">Author</span>`
+              : '';
             const affHtml = (!isAnon && s.affiliation)
               ? `<span class="sig-affiliation">${escHtml(s.affiliation)}</span>`
               : '';
             const whyHtml = s.why_signing
               ? `<blockquote class="sig-why">${escHtml(s.why_signing)}</blockquote>`
               : '';
-            return `<li class="sig-item">${nameHtml}${affHtml}${whyHtml}</li>`;
+            const itemClass = isPinned ? 'sig-item sig-item--pinned' : 'sig-item';
+            return `<li class="${itemClass}"><div class="sig-name-row">${nameHtml}${pinnedBadge}</div>${affHtml}${whyHtml}</li>`;
           }).join('')}
         </ol>
       `;
