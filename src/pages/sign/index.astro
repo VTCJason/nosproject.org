@@ -347,15 +347,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         }),
       });
 
-      if (response.status === 409) {
-        formError.textContent = 'This email address has already been used to sign the manifesto.';
-        formError.style.display = 'block';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign the Manifesto';
-        return;
-      }
-
       if (!response.ok) {
+        let isDuplicate = response.status === 409;
+        if (!isDuplicate && response.status === 400) {
+          try {
+            const body = await response.json();
+            if (body && (body.code === '23505' || (body.message && body.message.includes('duplicate')))) {
+              isDuplicate = true;
+            }
+          } catch (_) {}
+        }
+        if (isDuplicate) {
+          formError.textContent = 'It looks like you\'ve already signed the Manifesto with this email address. Check the signatories page to confirm.';
+          formError.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Sign the Manifesto';
+          return;
+        }
         throw new Error(`Server error: ${response.status}`);
       }
 
