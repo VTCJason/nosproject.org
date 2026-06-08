@@ -6,12 +6,28 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  ogType?: string;
+  pageSchema?: Record<string, unknown>;
 }
 
 const {
   title,
   description = 'nOS Manifesto — A public-intelligence platform for the age of artificial intelligence.',
+  ogType = 'website',
+  pageSchema,
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const fullTitle = `${title} | nOS Manifesto`;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'nOS Manifesto',
+  url: 'https://nosproject.org',
+  description: 'A public-intelligence platform for the age of artificial intelligence.',
+  author: { '@type': 'Person', name: 'Jason G. Troxel' },
+};
 ---
 
 <!doctype html>
@@ -20,8 +36,22 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <title>{title} | nOS Manifesto</title>
+    <title>{fullTitle}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="nOS Manifesto" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <!-- Structured data: site-wide -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    {pageSchema && <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />}
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7JXEMC997E"></script>
     <script>

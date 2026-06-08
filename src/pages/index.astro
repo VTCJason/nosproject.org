@@ -1,11 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionCard from '../components/SectionCard.astro';
+
+const manifestoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'nOS Manifesto — The Extinction-Level Event of the Operating System',
+  description: 'A declaration for the age of artificial intelligence. AI is a civilizational shift requiring new values, vocabulary, and action.',
+  author: { '@type': 'Person', name: 'Jason G. Troxel' },
+  datePublished: '2026-04-01',
+  publisher: { '@type': 'Organization', name: 'nOS Manifesto', url: 'https://nosproject.org' },
+  url: 'https://nosproject.org/',
+  license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+};
 ---
 
 <BaseLayout
   title="nOS Manifesto"
   description="A public-intelligence platform for the age of artificial intelligence."
+  ogType="article"
+  pageSchema={manifestoSchema}
 >
   <!-- Hero -->
   <section class="hero-homepage">

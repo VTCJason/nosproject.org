@@ -1,6 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
+const hqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'The Human Question',
+  description: 'A working almanac of artificial intelligence and human life, in ten domains and one open verdict.',
+  url: 'https://nosproject.org/human-question/',
+  author: { '@type': 'Person', name: 'Jason G. Troxel' },
+  license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+};
+
 const toc = [
   { num: '01', label: 'Technical',      slug: 'technical-demystification' },
   { num: '02', label: 'Economics',      slug: 'economics-labor-industry' },
@@ -18,6 +28,7 @@ const toc = [
 <BaseLayout
   title="The Human Question"
   description="A working almanac of artificial intelligence and human life, in ten domains and one open verdict."
+  pageSchema={hqSchema}
 >
   <div class="almanac-cover">
 
