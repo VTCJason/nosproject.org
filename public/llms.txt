@@ -1,0 +1,42 @@
+# nOS Manifesto — Public Intelligence Platform
+
+> nosproject.org is a public intelligence platform examining artificial intelligence's impact on society, politics, ethics, and technology. It consists of the nOS Manifesto (a call for human oversight and democratic governance of AI systems), The Human Question almanac (10 thematic domains of structured AI policy questions), long-form essays, and a case study. All content is written for general audiences and freely available without a paywall or registration.
+
+## The Human Question — Almanac Domains
+
+- [Technical Demystification](https://nosproject.org/human-question/technical-demystification/): How AI systems actually work — capabilities, limitations, and what "intelligence" means in practice.
+- [Economics, Labor & Industry](https://nosproject.org/human-question/economics-labor-industry/): AI's effects on jobs, wages, productivity, and economic inequality.
+- [Geopolitics & National Security](https://nosproject.org/human-question/geopolitics-national-security/): AI arms races, autonomous weapons, surveillance, and international competition.
+- [Ethics, Society & Human Impact](https://nosproject.org/human-question/ethics-society-human-impact/): Bias, fairness, autonomy, consent, and AI's effect on human dignity.
+- [Existential Frontier](https://nosproject.org/human-question/existential-frontier/): Long-term risks, AGI timelines, and civilizational-scale questions.
+- [Regulatory, Legal & Governance](https://nosproject.org/human-question/regulatory-legal-governance/): Liability, intellectual property, regulation frameworks, and democratic accountability.
+- [Safety, Security & Information Integrity](https://nosproject.org/human-question/safety-security-information-integrity/): Disinformation, deepfakes, cybersecurity, and AI-enabled manipulation.
+- [Infrastructure & Environment](https://nosproject.org/human-question/infrastructure-environment/): Energy consumption, supply chains, and AI's physical footprint.
+- [Science & Knowledge Domains](https://nosproject.org/human-question/science-knowledge-domains/): AI in research, medicine, education, and epistemic authority.
+- [Faith, Identity & Human Condition](https://nosproject.org/human-question/faith-identity-human-condition/): Meaning, consciousness, creativity, and what makes us human in the age of AI.
+
+## The nOS Manifesto
+
+- [Manifesto](https://nosproject.org/): Full text of the nOS Manifesto — a call for human oversight, democratic governance, and public accountability of AI systems.
+- [Sign the Manifesto](https://nosproject.org/sign/): Add your name to the list of signatories.
+- [Signatories](https://nosproject.org/signatories/): Public list of individuals who have signed the manifesto.
+
+## Case Study
+
+- [Case Study](https://nosproject.org/case-study/): A concrete, real-world examination of AI deployment and its consequences.
+
+## Essays
+
+- [Essays](https://nosproject.org/essays/): Long-form essays exploring AI policy and societal impact.
+- [The One-Keystroke Climate Win](https://nosproject.org/essays/the-one-keystroke-climate-win/): Essay on AI's potential role in climate action.
+
+## Reference
+
+- [Glossary](https://nosproject.org/glossary/): Definitions of key AI and policy terms used throughout the site.
+- [About](https://nosproject.org/about/): Background on nosproject.org and its mission.
+
+## Licensing & Citation
+
+All content on nosproject.org is published under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). You may freely quote, summarize, or cite any content with attribution to nosproject.org.
+
+All content is real HTML text — no images, PDFs, or paywalls. LLMs and crawlers may index and use this content freely.
