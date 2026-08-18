@@ -385,6 +385,18 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-Diffusion-Model">Diffusion Model</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Token">Token</a></div>
   </div>
 
+  <!-- ═══════════════════════════════════ B ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-B">B</div>
+
+  <div class="term-entry" id="term-Benchmark" data-letter="B">
+    <div class="term-header">
+      <span class="term-name">Benchmark</span>
+      <div class="term-badges"><span class="badge badge-cat">Foundation / Evaluation</span></div>
+    </div>
+    <p class="term-definition">A standardized test with a fixed dataset and scoring method, used to produce comparable capability numbers across models. Familiar examples measure general knowledge, coding, mathematics, and software-engineering task completion. Benchmarks are the primary public evidence for capability claims — and they carry four well-documented limitations that vendor announcements rarely foreground. <strong>Contamination:</strong> benchmark items leak into training data, inflating scores without improving ability. <strong>Saturation:</strong> once models approach the ceiling, the benchmark stops discriminating between them and remains cited anyway. <strong>Construct validity:</strong> a benchmark measures what it measures, which may not be the capability you actually care about — scoring well on isolated coding problems does not establish competence on a large existing codebase. <strong>Goodhart's law:</strong> once a benchmark becomes an optimization target, it ceases to be a good measure of the thing it was built to proxy. Common claim: "This model scores 72% on a software-engineering benchmark, so it can do roughly 72% of engineering work." Reality: a benchmark score is not a task-success rate in your repository, and the gap is usually large. The practical complement is a local evaluation — measuring the fraction of your own real tasks a model completes correctly, which no published benchmark can answer for you.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Epistemic-Discipline">Epistemic Discipline</a> <a href="#term-Frontier-Model">Frontier Model</a> <a href="#term-Contamination">Contamination</a> <a href="#term-Evaluation">Evaluation (Eval)</a></div>
+  </div>
+
   <!-- ═══════════════════════════════════ C ═══════════════════════════════════ -->
   <div class="letter-anchor" id="letter-C">C</div>
 
@@ -433,6 +445,15 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-RLHF">RLHF</a> <a href="#term-Alignment">Alignment</a> <a href="#term-Fine-Tuning">Fine-Tuning</a></div>
   </div>
 
+  <div class="term-entry" id="term-Contamination" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Contamination (Data Contamination, Benchmark Contamination)</span>
+      <div class="term-badges"><span class="badge badge-cat">Failure Mode / Evaluation</span></div>
+    </div>
+    <p class="term-definition">When benchmark or test data has appeared in a model's training set, so the model has effectively already seen the answers. The result is a score that rises without capability rising — the model recalls rather than reasons. Contamination is difficult to rule out because training corpora are largely undisclosed and are assembled by scraping the web, which is also where public benchmarks and their solutions live. It comes in degrees: <strong>direct contamination</strong> is the test items themselves; <strong>indirect contamination</strong> is discussion of them, published solutions, tutorials, and derivative datasets — which is harder to detect and just as distorting. <strong>Mitigations</strong> include private held-out test sets, "verified" or re-annotated benchmark variants, canary strings embedded to detect leakage, and temporal splits that test only on material postdating a model's training cutoff. None are complete. <strong>Practical consequence:</strong> a published score on an older public benchmark should be read as an upper bound, not a measurement. Common claim: "The newer model scores higher, so it's more capable." Reality: it may simply have seen more of the test. The condition is a principal reason benchmarks lose usefulness over time even when nothing about them changes.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Benchmark">Benchmark</a> <a href="#term-Evaluation">Evaluation (Eval)</a> <a href="#term-Frontier-Model">Frontier Model</a></div>
+  </div>
+
   <div class="term-entry" id="term-Context" data-letter="C">
     <div class="term-header">
       <span class="term-name">Context</span>
@@ -440,6 +461,15 @@ h1.page-title {
     </div>
     <p class="term-definition">Everything the model can "see" at the time of generating a response — including the system prompt (instructions from the developer), the conversation history, any retrieved documents, file uploads, and the current user message. Context is not "memory" in the human sense; it is the contents of the model's active working space for that interaction. When a conversation ends, the context is gone (unless the application explicitly stores and re-injects it). <strong>Context is the single most important engineering variable</strong> in applied AI systems. What you put in context, how you structure it, and how much you include dramatically shapes output quality — often more than model selection. See also: Context Window, Context Rot, Context Weights.</p>
     <div class="see-also">SEE ALSO: <a href="#term-Context-Window">Context Window</a> <a href="#term-Context-Rot">Context Rot</a> <a href="#term-Context-Weights">Context Weights</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Context-Engineering" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Context Engineering</span>
+      <div class="term-badges"><span class="badge badge-cat">Practice / Engineering</span></div>
+    </div>
+    <p class="term-definition">The discipline of deciding what goes into the context window — and what stays out. Distinct from prompt engineering, which concerns <em>how</em> a request is worded; context engineering concerns selection, compression, and isolation of everything surrounding it: instructions, retrieved documents, tool outputs, conversation history, and prior results. Anthropic frames it as "curating what will go into the limited context window from a constantly evolving universe of possible information." A common four-part framing is <strong>write, select, compress, isolate</strong>. Canonical techniques include <strong>compaction</strong> (summarize the conversation, then restart in a fresh window), <strong>sub-agent decomposition</strong> (split work across several clean context windows communicating through narrow interfaces), and <strong>context editing</strong> (rule-based pruning applied by the surrounding software rather than by the model). The field exists because of a counterintuitive finding: every frontier model gets measurably worse as its context grows, well before the window is actually full — a phenomenon sometimes called context rot. Common claim: "Larger context windows make this unnecessary." Reality: capacity and quality are different axes; a million-token window does not mean a million tokens of reliable attention, and adding tokens can reduce instruction-following. Context engineering is currently the primary runtime lever available for that problem, and published approaches are explicitly workarounds for the absence of a training-time fix. See also: <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank">Anthropic, "Effective context engineering for AI agents"</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Context-Window">Context Window</a> <a href="#term-Knowledge-Conflict">Knowledge Conflict</a> <a href="#term-RAG">RAG</a> <a href="#term-Token">Token</a></div>
   </div>
 
   <div class="term-entry" id="term-Context-Rot" data-letter="C">
@@ -502,6 +532,24 @@ h1.page-title {
     </div>
     <p class="term-definition">A numerical representation (a vector — a list of numbers) of a piece of text, image, or other data that captures its semantic meaning in a high-dimensional space. "The cat sat on the mat" and "A feline rested on the rug" would have very similar (close) embeddings because they mean the same thing. Embeddings are how AI systems do semantic search — rather than matching keywords, they match meaning. They are the foundation of RAG systems: documents are embedded and stored in a vector database; at query time, the query is embedded and the most semantically similar documents are retrieved. Embedding models (e.g., OpenAI ada-002, Anthropic's embedding API, BAAI/bge) are separate from generation models. <a href="https://platform.openai.com/docs/guides/embeddings" target="_blank">OpenAI Embeddings Guide</a>.</p>
     <div class="see-also">SEE ALSO: <a href="#term-Vectorization">Vectorization</a> <a href="#term-RAG">RAG</a> <a href="#term-Chunking">Chunking</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Epistemic-Discipline" data-letter="E">
+    <div class="term-header">
+      <span class="term-name">Epistemic Discipline</span>
+      <div class="term-badges"><span class="badge badge-cat">Practice / Evaluation</span></div>
+    </div>
+    <p class="term-definition">The ability to distinguish what was assumed from what was verified — and to say which is which. Identified by the APEX-SWE benchmark as the dominant skill gap in long-horizon coding agents: not reasoning ability, not knowledge, but the capacity to track the provenance of one's own claims. An agent lacking it produces confident wrong answers that are formally indistinguishable from confident right ones, because nothing in the output marks which facts were checked. <strong>The practical tell is hedging attached to claims about state</strong> — <em>may, might, probably, likely, should be</em>. Applied to a system's actual configuration, those words signal an unverified assertion dressed as a finding. The discipline is not caution; it's bookkeeping. Common claim: "The model said it checked." Reality: models routinely report conclusions without separating what they confirmed from what they inferred, and the reader cannot tell the difference from the text alone. Relevant beyond AI — it names a failure common in human incident reports, audits, and status updates.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Knowledge-Conflict">Knowledge Conflict</a> <a href="#term-Hallucination">Hallucination</a> <a href="#term-Chain-of-Thought">Chain of Thought</a> <a href="#term-Benchmark">Benchmark</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Evaluation" data-letter="E">
+    <div class="term-header">
+      <span class="term-name">Evaluation (Eval)</span>
+      <div class="term-badges"><span class="badge badge-cat">Practice / Evaluation</span></div>
+    </div>
+    <p class="term-definition">Any repeatable procedure for measuring model or system behavior against a defined standard. Broader than a benchmark: a benchmark is standardized and shared so results compare across models, while an eval may be entirely bespoke and private, built to answer a question only you have. Three common forms: <strong>automated evals</strong>, where a deterministic check passes or fails (tests compile, output matches a schema); <strong>model-graded evals</strong>, where one model scores another's output; and <strong>human review</strong>. Model-graded evals are cheap and scale well, but they inherit the judge's failure modes — including knowledge-driven failures where a judge prefers its own trained belief over the reference answer it was given. <strong>Regression evals</strong> are the highest-value and least-practiced kind: a fixed set of cases re-run whenever you change a prompt, model, or surrounding scaffolding, so degradation is detected rather than discovered. Common claim: "We tested it and it works well." Reality: without a fixed set of cases and a repeatable scoring method, that is an impression rather than a measurement, and impressions do not survive a model upgrade. The practical rule: benchmarks tell you what's comparable; evals tell you what's true for your work.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Benchmark">Benchmark</a> <a href="#term-Contamination">Contamination</a> <a href="#term-Epistemic-Discipline">Epistemic Discipline</a> <a href="#term-Knowledge-Conflict">Knowledge Conflict</a></div>
   </div>
 
   <!-- ═══════════════════════════════════ F ═══════════════════════════════════ -->
@@ -577,6 +625,18 @@ h1.page-title {
     </div>
     <p class="term-definition">The process of using a trained AI model to generate outputs — as distinct from training, which is the process of building the model. Every time you send a prompt to ChatGPT or Claude, you are running inference. Inference is less computationally intensive than training but becomes significant at scale: OpenAI processes approximately 1 billion queries per day. <strong>Inference cost</strong> is typically measured in dollars per million tokens (input and output priced separately). Inference costs have fallen dramatically as optimization techniques (quantization, speculative decoding, KV cache sharing) improve efficiency. <strong>Inference-time scaling</strong> is the emerging paradigm of allocating more compute at inference time (letting the model "think longer") rather than always training larger models.</p>
     <div class="see-also">SEE ALSO: <a href="#term-Token">Token</a> <a href="#term-Quantization">Quantization</a> <a href="#term-Reasoning-Model">Reasoning Model</a> <a href="#term-API">API</a></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ K ═══════════════════════════════════ -->
+  <div class="letter-anchor" id="letter-K">K</div>
+
+  <div class="term-entry" id="term-Knowledge-Conflict" data-letter="K">
+    <div class="term-header">
+      <span class="term-name">Knowledge Conflict</span>
+      <div class="term-badges"><span class="badge badge-cat">Failure Mode / Research</span></div>
+    </div>
+    <p class="term-definition">What happens when information given to a model in its prompt contradicts what the model absorbed during training. The two sources have names: <strong>parametric knowledge</strong> lives in the weights and was learned; <strong>contextual knowledge</strong> is what you just told it. When they disagree, the model does not reliably defer to you. Research through 2026 finds that models generally prefer evidence consistent with their parametric knowledge over conflicting evidence in context, though coherent and convincing external evidence can win. The effect is task-dependent: negligible on tasks needing little knowledge, and it substantially impairs performance on knowledge-intensive work — which is most professional use. A one-sentence demonstration: take the classic riddle where a father dies in a crash and the surgeon says "I can't operate, he's my son," then invert it so the mother dies and the prompt states the doctor is the father. Models frequently still answer "the surgeon is his mother" — the familiar pattern beating a fact stated one sentence earlier. Common claim: "If you put it in the context window, the model will use it." Reality: not reliably, and least reliably when it contradicts training. As of 2026 there is no principled training-time fix — published mitigations are scaffolding around the model, not corrections inside it. See also: <a href="https://arxiv.org/pdf/2504.08202" target="_blank">Harnessing the Unseen (2025)</a>, <a href="https://arxiv.org/pdf/2407.13048" target="_blank">Establishing Knowledge Preference (2024)</a>, <a href="https://arxiv.org/abs/2606.20245" target="_blank">Explicit Knowledge Conflict Resolution (2026)</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Context-Window">Context Window</a> <a href="#term-Hallucination">Hallucination</a> <a href="#term-RAG">RAG</a> <a href="#term-Context-Engineering">Context Engineering</a></div>
   </div>
 
   <!-- ═══════════════════════════════════ L ═══════════════════════════════════ -->
