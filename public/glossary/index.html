@@ -367,6 +367,15 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-Token">Token</a> <a href="#term-Inference">Inference</a> <a href="#term-MCP">MCP</a></div>
   </div>
 
+  <div class="term-entry" id="term-Attention-Layers" data-letter="A">
+    <div class="term-header">
+      <span class="term-name">Attention Layers</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">The layers within a transformer where the self-attention mechanism operates. Each attention layer takes the sequence of token representations from the previous layer and recomputes them by allowing every token to weigh the relevance of every other token, producing context-aware representations that are passed up the stack. Modern LLMs stack dozens to hundreds of these layers; lower layers tend to capture local syntactic relationships while deeper layers capture more abstract semantic and long-range dependencies. Attention layers are interleaved with feed-forward layers throughout the network. Because attention scales quadratically with sequence length, the attention layers are the primary computational bottleneck in long-context inference.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Attention">Attention Mechanism</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Multi-Head-Attention">Multi-Head Attention</a></div>
+  </div>
+
   <div class="term-entry" id="term-Attention" data-letter="A">
     <div class="term-header">
       <span class="term-name">Attention Mechanism (Self-Attention)</span>
@@ -387,6 +396,15 @@ h1.page-title {
 
   <!-- ═══════════════════════════════════ B ═══════════════════════════════════ -->
   <div class="letter-anchor" id="letter-B">B</div>
+
+  <div class="term-entry" id="term-Base-Language-Model" data-letter="B">
+    <div class="term-header">
+      <span class="term-name">Base Language Model</span>
+      <div class="term-badges"><span class="badge badge-cat">Foundation</span></div>
+    </div>
+    <p class="term-definition">A language model immediately after pretraining, before any instruction tuning or alignment has been applied. A base model has absorbed broad statistical knowledge of language from its training corpus and is a pure next-token predictor: given some text, it continues it in the most statistically probable way. It does not "follow instructions" in the assistant sense. Asked a question, a base model is as likely to generate more questions, or a list of similar questions, as it is to answer, because it is completing text rather than helping. Base models are the raw substrate that instruction tuning and RLHF transform into usable assistants. Many open-weight releases ship both a base checkpoint and an instruction-tuned ("-Instruct" or "-Chat") checkpoint. Also called a raw language model.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Pretraining">Pretraining</a> <a href="#term-Instruction-Tuning">Instruction Tuning</a> <a href="#term-Raw-Language-Model">Raw Language Model</a> <a href="#term-RLHF">RLHF</a></div>
+  </div>
 
   <div class="term-entry" id="term-Benchmark" data-letter="B">
     <div class="term-header">
@@ -500,8 +518,26 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-Context">Context</a> <a href="#term-Context-Rot">Context Rot</a> <a href="#term-Token">Token</a></div>
   </div>
 
+  <div class="term-entry" id="term-Convolutional-Architectures" data-letter="C">
+    <div class="term-header">
+      <span class="term-name">Convolutional Architectures (CNNs)</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">A class of neural network built around the convolution operation, in which small learnable filters slide across the input to detect local patterns regardless of where they appear. CNNs dominated computer vision through the 2010s — detecting edges and textures in early layers and assembling them into objects in deeper layers — and were also applied to text and audio. Their key properties are translation invariance (a feature is recognized wherever it occurs) and parameter sharing (the same filter is reused across the whole input), making them efficient and effective for grid-like data such as images. In language, CNNs and recurrent networks were the dominant pre-transformer architectures; the transformer's attention mechanism has since displaced both for most large-scale language tasks, though CNNs remain important in vision and as components of multimodal systems.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Recurrent-Architecture">Recurrent Architecture</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Neural-Network">Neural Network</a></div>
+  </div>
+
   <!-- ═══════════════════════════════════ D ═══════════════════════════════════ -->
   <div class="letter-anchor" id="letter-D">D</div>
+
+  <div class="term-entry" id="term-Databricks" data-letter="D">
+    <div class="term-header">
+      <span class="term-name">Databricks</span>
+      <div class="term-badges"><span class="badge badge-cat">Platform / Vendor</span></div>
+    </div>
+    <p class="term-definition">A data and AI platform company whose core product, the Databricks Data Intelligence Platform, is built on the "lakehouse" architecture — a design that combines the low-cost, open scalability of data lakes with the reliability, governance, and transactional guarantees of data warehouses in a single system. Founded by the original creators of Apache Spark, Databricks unifies data engineering, analytics, business intelligence, and machine learning/AI workloads on one platform, underpinned by open-source projects including Apache Spark, Delta Lake (its ACID-compliant storage layer), and MLflow, with Unity Catalog providing data and AI governance. In the AI era, Databricks is positioned as infrastructure for building, fine-tuning, and serving models on an organization's own governed data without copying it into separate systems. <a href="https://www.databricks.com" target="_blank">databricks.com</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Fine-Tuning">Fine-Tuning</a> <a href="#term-RAG">RAG</a> <a href="#term-Vectorization">Vectorization</a></div>
+  </div>
 
   <div class="term-entry" id="term-Deep-Learning" data-letter="D">
     <div class="term-header">
@@ -512,6 +548,15 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-Neural-Network">Neural Network</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Supervised-Learning">Supervised Learning</a></div>
   </div>
 
+  <div class="term-entry" id="term-Dense-Retriever" data-letter="D">
+    <div class="term-header">
+      <span class="term-name">Dense Retriever</span>
+      <div class="term-badges"><span class="badge badge-cat">Retrieval / RAG</span></div>
+    </div>
+    <p class="term-definition">A retrieval system that finds relevant documents by comparing dense vector embeddings of the query and the documents, matching on semantic meaning rather than exact keywords. Both query and documents are encoded into high-dimensional vectors by an embedding model, and the retriever returns the documents whose vectors are closest to the query vector (by cosine similarity or dot product). This contrasts with sparse or lexical retrievers (such as BM25), which match on overlapping terms. Dense retrievers excel when the query and the relevant document express the same idea in different words, but can miss exact-match cues (specific names, codes, identifiers) that lexical methods catch — which is why hybrid retrieval combining both is common in production RAG. Most dense retrievers are bi-encoders, encoding query and document independently for fast similarity search at scale.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Retrieval">Retrieval</a> <a href="#term-Embedding">Embedding</a> <a href="#term-RAG">RAG</a> <a href="#term-Vectorization">Vectorization</a></div>
+  </div>
+
   <div class="term-entry" id="term-Diffusion-Model" data-letter="D">
     <div class="term-header">
       <span class="term-name">Diffusion Model</span>
@@ -520,6 +565,15 @@ h1.page-title {
     <p class="term-definition">A class of generative model that learns by training on the process of gradually adding noise to data (images, audio, video) until the data becomes pure noise, then learning to reverse that process — denoise — to reconstruct the original. At inference time, you start with random noise and the model iteratively denoises it, guided by a text prompt or other conditioning, until a coherent output emerges. <strong>Examples:</strong> Stable Diffusion, DALL-E 3, Midjourney, Sora (video), Flux. <strong>Strengths:</strong> Exceptional photorealistic image quality; strong compositional understanding; consistent fine detail; industry-dominant for images and video as of 2026. <strong>Weaknesses:</strong> Inherently iterative — many denoising steps are required (typically 20–50 passes), making it slow compared to single-pass generation; harder to benefit from inference-time scaling techniques like beam search (which work well for discrete, autoregressive models); text generation is not a natural fit. <strong>Competitive landscape:</strong> MIT/NVIDIA's HART hybrid system (2025) combines autoregressive high-level layout with diffusion refinement, generating images ~9× faster than pure diffusion at comparable quality. The path forward for media generation likely involves such hybrids. See <a href="https://arxiv.org/abs/2410.10812" target="_blank">HART paper</a>.</p>
     <div class="term-example">Analogy: Diffusion is like sculpting — you start with raw marble (noise) and progressively remove material (noise) until the intended form (image) emerges. Autoregressive is like writing — you build word by word from left to right.</div>
     <div class="see-also">SEE ALSO: <a href="#term-Autoregressive">Autoregressive Model</a> <a href="#term-Generative-AI">Generative AI</a> <a href="#term-Supervised-Learning">Supervised Learning</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Document-Index" data-letter="D">
+    <div class="term-header">
+      <span class="term-name">Document Index</span>
+      <div class="term-badges"><span class="badge badge-cat">Retrieval / Data Infrastructure</span></div>
+    </div>
+    <p class="term-definition">The searchable data structure that stores a collection of documents (or document chunks) so they can be retrieved efficiently at query time. In modern RAG systems, the document index is typically a vector database holding the embeddings of each chunk alongside its source text and metadata, enabling fast approximate-nearest-neighbor search. In lexical systems, the index is an inverted index mapping terms to the documents that contain them (the classic search-engine structure behind BM25). Many production pipelines maintain both, or a hybrid index, to support semantic and keyword retrieval together. Building the index — chunking documents, embedding them, and storing them — is the ingestion phase of RAG; querying it is the retrieval phase.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Retrieval">Retrieval</a> <a href="#term-Vectorization">Vectorization</a> <a href="#term-Chunking">Chunking</a> <a href="#term-Dense-Retriever">Dense Retriever</a></div>
   </div>
 
   <!-- ═══════════════════════════════════ E ═══════════════════════════════════ -->
@@ -606,6 +660,15 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-Open-Source-AI">Open-Weight / Open-Source AI</a> <a href="#term-Fine-Tuning">Fine-Tuning</a></div>
   </div>
 
+  <div class="term-entry" id="term-Human-Feedback" data-letter="H">
+    <div class="term-header">
+      <span class="term-name">Human Feedback</span>
+      <div class="term-badges"><span class="badge badge-cat">Training / Alignment</span></div>
+    </div>
+    <p class="term-definition">Human judgments about model outputs, used as the training signal that shapes a model's behavior toward being helpful, honest, and safe. In the dominant pipeline, human annotators compare or rank candidate responses, and those preferences are distilled into a reward model that guides reinforcement learning (RLHF). Human feedback is what teaches a model the difference between a technically correct answer and a genuinely useful one, and it encodes the norms — tone, refusal behavior, formatting — that distinguish a deployed assistant from a raw completion engine. Its limitations are well documented: human raters disagree, can be inconsistent or biased, and cannot reliably evaluate outputs in domains beyond their expertise, which motivates complementary approaches such as Constitutional AI's use of AI-generated feedback (RLAIF).</p>
+    <div class="see-also">SEE ALSO: <a href="#term-RLHF">RLHF</a> <a href="#term-Constitutional-AI">Constitutional AI</a> <a href="#term-Instruction-Tuning">Instruction Tuning</a> <a href="#term-Alignment">Alignment</a></div>
+  </div>
+
   <div class="term-entry" id="term-HyDE" data-letter="H">
     <div class="term-header">
       <span class="term-name">HyDE (Hypothetical Document Embeddings)</span>
@@ -618,6 +681,15 @@ h1.page-title {
   <!-- ═══════════════════════════════════ I ═══════════════════════════════════ -->
   <div class="letter-anchor" id="letter-I">I</div>
 
+  <div class="term-entry" id="term-In-Context-Learning" data-letter="I">
+    <div class="term-header">
+      <span class="term-name">In-Context Learning</span>
+      <div class="term-badges"><span class="badge badge-cat">Capability / Foundation</span></div>
+    </div>
+    <p class="term-definition">The ability of a large language model to perform a new task purely from examples or instructions provided in the prompt, without any update to its weights. Shown a few input/output pairs in context (few-shot prompting), the model infers the pattern and applies it to a new input — appearing to "learn" the task on the fly, even though nothing about the model has actually changed. This emergent property, prominent since GPT-3, is what makes prompting so powerful: behavior is steered at inference time rather than through retraining. In-context learning underlies few-shot prompting, chain-of-thought, and most prompt-engineering techniques. Its effectiveness depends heavily on example quality, ordering, and how much relevant context fits in the window — and it degrades as context grows noisy or overly long.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Prompts">Prompts / Prompt Engineering</a> <a href="#term-Chain-of-Thought">Chain of Thought</a> <a href="#term-Context">Context</a> <a href="#term-Fine-Tuning">Fine-Tuning</a></div>
+  </div>
+
   <div class="term-entry" id="term-Inference" data-letter="I">
     <div class="term-header">
       <span class="term-name">Inference</span>
@@ -625,6 +697,24 @@ h1.page-title {
     </div>
     <p class="term-definition">The process of using a trained AI model to generate outputs — as distinct from training, which is the process of building the model. Every time you send a prompt to ChatGPT or Claude, you are running inference. Inference is less computationally intensive than training but becomes significant at scale: OpenAI processes approximately 1 billion queries per day. <strong>Inference cost</strong> is typically measured in dollars per million tokens (input and output priced separately). Inference costs have fallen dramatically as optimization techniques (quantization, speculative decoding, KV cache sharing) improve efficiency. <strong>Inference-time scaling</strong> is the emerging paradigm of allocating more compute at inference time (letting the model "think longer") rather than always training larger models.</p>
     <div class="see-also">SEE ALSO: <a href="#term-Token">Token</a> <a href="#term-Quantization">Quantization</a> <a href="#term-Reasoning-Model">Reasoning Model</a> <a href="#term-API">API</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Instruction-Following-Assistant" data-letter="I">
+    <div class="term-header">
+      <span class="term-name">Instruction-Following Assistant</span>
+      <div class="term-badges"><span class="badge badge-cat">Capability / Deployment Model</span></div>
+    </div>
+    <p class="term-definition">A language model that has been trained, through instruction tuning and alignment, to interpret a user's request and respond by carrying it out — as opposed to a base model that merely continues text. The instruction-following assistant is the familiar product form of an LLM: ChatGPT, Claude, and Gemini are all instruction-following assistants built on top of base models. The transformation from raw model to assistant comes from supervised fine-tuning on instruction/response pairs followed by preference-based alignment (RLHF or Constitutional AI), which together teach the model to answer questions, follow multi-step directions, adopt a helpful tone, and decline harmful requests. This is the behavioral layer that makes a model usable by non-experts.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Instruction-Tuning">Instruction Tuning</a> <a href="#term-Base-Language-Model">Base Language Model</a> <a href="#term-RLHF">RLHF</a> <a href="#term-Human-Feedback">Human Feedback</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Instruction-Tuning" data-letter="I">
+    <div class="term-header">
+      <span class="term-name">Instruction Tuning</span>
+      <div class="term-badges"><span class="badge badge-cat">Training</span></div>
+    </div>
+    <p class="term-definition">The supervised fine-tuning stage in which a pretrained base model is trained on a curated dataset of instruction/response pairs, teaching it to interpret and act on requests rather than simply continue text. Where pretraining gives a model broad language competence, instruction tuning gives it the behavioral disposition to be helpful: shown thousands of examples of well-formed instructions paired with high-quality responses, the model generalizes to follow instructions it has never seen. This stage typically precedes preference-based alignment (RLHF) in the training pipeline and is the step that first turns a raw completion model into something resembling an assistant. Often abbreviated SFT (supervised fine-tuning) when described at the mechanism level.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Pretraining">Pretraining</a> <a href="#term-Fine-Tuning">Fine-Tuning</a> <a href="#term-RLHF">RLHF</a> <a href="#term-Instruction-Following-Assistant">Instruction-Following Assistant</a></div>
   </div>
 
   <!-- ═══════════════════════════════════ K ═══════════════════════════════════ -->
@@ -663,6 +753,15 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-API">API</a> <a href="#term-Agentic-AI">Agentic AI</a> <a href="#term-RAG">RAG</a></div>
   </div>
 
+  <div class="term-entry" id="term-MCP-Server" data-letter="M">
+    <div class="term-header">
+      <span class="term-name">MCP Server</span>
+      <div class="term-badges"><span class="badge badge-cat">Infrastructure / Standard</span></div>
+    </div>
+    <p class="term-definition">An application that exposes tools, data, and resources to an AI model through the Model Context Protocol (MCP), acting as a standardized bridge between the model and an external system. Rather than building a custom integration for every tool an AI agent needs, a developer runs (or connects to) an MCP server that advertises its capabilities in the protocol's common format; any MCP-compatible client — an LLM, an IDE assistant, or an agent — can then discover and call those capabilities. MCP servers wrap things like local file systems, databases, APIs, version-control systems, and SaaS applications, giving the model a governed, uniform way to read data and take actions in the outside world. They are the supply side of the MCP ecosystem: the model (the client) consumes what the servers expose. <a href="https://modelcontextprotocol.io" target="_blank">modelcontextprotocol.io</a>.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-MCP">MCP</a> <a href="#term-Agentic-AI">Agentic AI / AI Agent</a> <a href="#term-API">API</a></div>
+  </div>
+
   <div class="term-entry" id="term-Mixture-of-Experts" data-letter="M">
     <div class="term-header">
       <span class="term-name">MoE (Mixture of Experts)</span>
@@ -681,6 +780,15 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-Mixture-of-Experts">MoE</a> <a href="#term-Parameters">Parameters</a> <a href="#term-Quantization">Quantization</a></div>
   </div>
 
+  <div class="term-entry" id="term-Multi-Head-Attention" data-letter="M">
+    <div class="term-header">
+      <span class="term-name">Multi-Head Attention</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">A refinement of the attention mechanism in which several independent attention computations ("heads") run in parallel within the same layer, each learning to focus on different kinds of relationships among tokens. One head might track subject-verb agreement, another long-range coreference, another local phrasing — and their outputs are concatenated and combined, giving the model a richer, multi-perspective view of the sequence than a single attention computation could provide. Introduced in the 2017 "Attention Is All You Need" paper, multi-head attention is a defining component of the transformer. The number of heads is a core architectural hyperparameter, and variants such as multi-query and grouped-query attention reduce the memory cost of the heads to speed up inference.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Attention">Attention Mechanism</a> <a href="#term-Attention-Layers">Attention Layers</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Positional-Encoding">Positional Encoding</a></div>
+  </div>
+
   <div class="term-entry" id="term-Multimodal" data-letter="M">
     <div class="term-header">
       <span class="term-name">Multimodal AI</span>
@@ -692,6 +800,15 @@ h1.page-title {
 
   <!-- ═══════════════════════════════════ N ═══════════════════════════════════ -->
   <div class="letter-anchor" id="letter-N">N</div>
+
+  <div class="term-entry" id="term-Natural-Language-Processing" data-letter="N">
+    <div class="term-header">
+      <span class="term-name">Natural Language Processing (NLP)</span>
+      <div class="term-badges"><span class="badge badge-cat">Field</span></div>
+    </div>
+    <p class="term-definition">The branch of artificial intelligence concerned with enabling computers to understand, interpret, and generate human language. NLP spans tasks such as translation, summarization, sentiment analysis, named-entity recognition, question answering, and speech transcription. The field evolved from hand-written rules and statistical methods through recurrent and convolutional neural networks, and was transformed by the transformer architecture and large language models, which now set the state of the art across most NLP tasks. The distinction between "NLP" and "LLMs" has blurred: contemporary NLP is largely the study and application of large language models, though the field also encompasses evaluation, linguistics, and the many specialized tasks that predate the LLM era.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-LLM">LLM</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Deep-Learning">Deep Learning</a></div>
+  </div>
 
   <div class="term-entry" id="term-Neural-Network" data-letter="N">
     <div class="term-header">
@@ -726,6 +843,33 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-Fine-Tuning">Fine-Tuning</a> <a href="#term-Quantization">Quantization</a> <a href="#term-Mixture-of-Experts">MoE</a></div>
   </div>
 
+  <div class="term-entry" id="term-Positional-Encoding" data-letter="P">
+    <div class="term-header">
+      <span class="term-name">Positional Encoding</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">The mechanism that gives a transformer information about the order of tokens in a sequence. Because attention processes all tokens in parallel and is, by itself, order-blind — it would treat "dog bites man" and "man bites dog" identically — positional encoding injects each token's position into its representation so the model can reason about sequence and distance. Early transformers used fixed sinusoidal functions of position; modern LLMs more commonly use learned or rotary position embeddings (RoPE), the latter being central to extending models to long context windows. Positional encoding is what allows an order-agnostic attention mechanism to nonetheless respect word order, which is essential to meaning in language.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Attention">Attention Mechanism</a> <a href="#term-Transformer">Transformer</a> <a href="#term-Multi-Head-Attention">Multi-Head Attention</a> <a href="#term-Context-Window">Context Window</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Post-Training-Quantization" data-letter="P">
+    <div class="term-header">
+      <span class="term-name">Post-Training Quantization (PTQ)</span>
+      <div class="term-badges"><span class="badge badge-cat">Optimization</span></div>
+    </div>
+    <p class="term-definition">A quantization method applied to a model after training is complete, converting its already-learned weights from high precision (e.g., 16-bit floats) to a lower-precision format (e.g., 8-bit or 4-bit) without any further training. PTQ is fast, cheap, and requires no access to the original training pipeline — often only a small calibration dataset to set the conversion ranges — which makes it the default way to shrink open-weight models for local or low-cost inference. Its trade-off is quality: because the model never had a chance to adapt to the reduced precision, PTQ can degrade output quality, and the degradation grows as bit-width drops, particularly at 4-bit and below. When that quality loss is unacceptable, quantization-aware training is the alternative.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Quantization">Quantization</a> <a href="#term-Quantization-Aware-Training">Quantization-Aware Training</a> <a href="#term-Parameters">Parameters</a> <a href="#term-Inference">Inference</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Pretraining" data-letter="P">
+    <div class="term-header">
+      <span class="term-name">Pretraining</span>
+      <div class="term-badges"><span class="badge badge-cat">Training / Foundation</span></div>
+    </div>
+    <p class="term-definition">The first and most compute-intensive stage of building a large language model, in which the model learns general language competence from a massive corpus of largely unlabeled text by predicting the next token over and over. This phase is self-supervised — the labels are the text itself — which is what lets it scale to internet-sized datasets without human annotation of each example. Pretraining is where the model acquires its broad knowledge of grammar, facts, reasoning patterns, and world structure; it is also the stage that consumes the vast majority of training cost and that raises most data-provenance and copyright questions. The result is a base model, which subsequent stages (instruction tuning, alignment) specialize into a usable assistant.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Base-Language-Model">Base Language Model</a> <a href="#term-Instruction-Tuning">Instruction Tuning</a> <a href="#term-Supervised-Learning">Supervised vs. Unsupervised Learning</a> <a href="#term-Scaling-Laws">Scaling Laws</a></div>
+  </div>
+
   <div class="term-entry" id="term-Prompts" data-letter="P">
     <div class="term-header">
       <span class="term-name">Prompts / Prompt Engineering</span>
@@ -745,6 +889,15 @@ h1.page-title {
     </div>
     <p class="term-definition">The process of reducing the numerical precision of a model's parameters (weights) from high-precision floating-point (e.g., 32-bit or 16-bit floats) to lower-precision representations (e.g., 8-bit integers, 4-bit integers). <strong>Why it matters:</strong> A 70B-parameter model stored in full 16-bit precision requires ~140GB of GPU memory — beyond consumer hardware. The same model quantized to 4-bit requires only ~35GB, making it runnable on a workstation. Quantization trades a small amount of output quality for dramatic reductions in memory and compute cost. Common formats: GGUF (for llama.cpp local inference), GPTQ, AWQ, NVFP4. Gemma 4 is released with an NVFP4 quantized checkpoint by NVIDIA, enabling high-throughput inference on modern GPUs. Quantization is what makes open-source AI runnable on consumer hardware without cloud APIs.</p>
     <div class="see-also">SEE ALSO: <a href="#term-Parameters">Parameters</a> <a href="#term-Inference">Inference</a> <a href="#term-Open-Source-AI">Open-Weight AI</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Quantization-Aware-Training" data-letter="Q">
+    <div class="term-header">
+      <span class="term-name">Quantization-Aware Training (QAT)</span>
+      <div class="term-badges"><span class="badge badge-cat">Optimization</span></div>
+    </div>
+    <p class="term-definition">A quantization method that simulates low-precision arithmetic during training (or fine-tuning) so the model learns to compensate for the precision loss it will face once deployed in a quantized format. By exposing the model to rounding effects throughout the learning process, QAT lets the weights adapt around them, typically recovering much of the accuracy that post-training quantization sacrifices. The key distinction: QAT does not make the model smaller than PTQ at a given target format — both produce, say, a 4-bit model of the same size — it improves quality at that size. The trade-off is cost: QAT requires a training run and access to data and the training pipeline, making it more expensive and less convenient than the after-the-fact simplicity of PTQ.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Post-Training-Quantization">Post-Training Quantization (PTQ)</a> <a href="#term-Quantization">Quantization</a> <a href="#term-Fine-Tuning">Fine-Tuning</a> <a href="#term-Parameters">Parameters</a></div>
   </div>
 
   <div class="term-entry" id="term-Query-Decomposition" data-letter="Q">
@@ -777,6 +930,15 @@ h1.page-title {
     <div class="see-also">SEE ALSO: <a href="#term-RAG">RAG</a> <a href="#term-Retrieval">Retrieval</a> <a href="#term-Embedding">Embedding</a></div>
   </div>
 
+  <div class="term-entry" id="term-Raw-Language-Model" data-letter="R">
+    <div class="term-header">
+      <span class="term-name">Raw Language Model</span>
+      <div class="term-badges"><span class="badge badge-cat">Foundation</span></div>
+    </div>
+    <p class="term-definition">See <a href="#term-Base-Language-Model">Base Language Model</a> above. A raw language model is a model straight out of pretraining, before instruction tuning or alignment — a pure next-token predictor that completes text rather than following instructions. "Raw" and "base" are used interchangeably; the term emphasizes that the model's behavior has not yet been shaped by human feedback into assistant-like helpfulness, so it will continue, echo, or extend a prompt rather than respond to it as a request.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Base-Language-Model">Base Language Model</a> <a href="#term-Pretraining">Pretraining</a> <a href="#term-Instruction-Tuning">Instruction Tuning</a></div>
+  </div>
+
   <div class="term-entry" id="term-Reasoning-Model" data-letter="R">
     <div class="term-header">
       <span class="term-name">Reasoning Model</span>
@@ -784,6 +946,15 @@ h1.page-title {
     </div>
     <p class="term-definition">A class of LLM trained to generate explicit intermediate reasoning steps (a "reasoning chain" or "chain of thought") before producing a final answer, rather than answering directly. This "thinking before speaking" dramatically improves accuracy on complex logical, mathematical, coding, and multi-step planning tasks. <strong>Examples:</strong> OpenAI o1/o3/o4-mini, Claude Opus 4.6 in "extended thinking" mode, DeepSeek R1. Reasoning models typically use more compute at inference time (more tokens generated per query), making them slower and more expensive than standard models — but dramatically more accurate on hard problems. The trade-off: use a fast standard LLM for simple tasks; use a reasoning model for complex ones. <strong>Inference-time scaling</strong> is the principle that allocating more computation at inference time (rather than training larger models) yields quality improvements — reasoning models are the primary implementation of this principle. <a href="https://openai.com/o3" target="_blank">OpenAI o3</a> | <a href="https://www.anthropic.com/research/claude-extended-thinking" target="_blank">Claude Extended Thinking</a>.</p>
     <div class="see-also">SEE ALSO: <a href="#term-Chain-of-Thought">Chain of Thought</a> <a href="#term-Inference">Inference</a> <a href="#term-LLM">LLM</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Recurrent-Architecture" data-letter="R">
+    <div class="term-header">
+      <span class="term-name">Recurrent Architecture (RNNs)</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">A class of neural network that processes sequences one element at a time, maintaining a hidden "state" that is updated at each step and carries information forward — giving the network a form of memory of what came before. Recurrent networks (RNNs, and their gated variants LSTM and GRU) were the dominant approach to language and other sequence tasks before the transformer. Their defining weakness is sequential processing: each step depends on the previous one, so they cannot be parallelized across a sequence the way transformers can, and they struggle to carry information across long distances as the hidden state degrades. The 2017 transformer replaced recurrence with attention specifically to overcome these limits, enabling the parallel training that made large-scale LLMs feasible. Newer recurrent-style architectures (Mamba, RWKV) are being explored as efficient alternatives for very long contexts.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Transformer">Transformer</a> <a href="#term-Convolutional-Architectures">Convolutional Architectures</a> <a href="#term-Attention">Attention Mechanism</a></div>
   </div>
 
   <div class="term-entry" id="term-Retrieval" data-letter="R">
@@ -806,6 +977,24 @@ h1.page-title {
 
   <!-- ═══════════════════════════════════ S ═══════════════════════════════════ -->
   <div class="letter-anchor" id="letter-S">S</div>
+
+  <div class="term-entry" id="term-Scaling-Laws" data-letter="S">
+    <div class="term-header">
+      <span class="term-name">Scaling Laws</span>
+      <div class="term-badges"><span class="badge badge-cat">Research / Foundation</span></div>
+    </div>
+    <p class="term-definition">Empirical relationships describing how a model's performance improves predictably as a function of three inputs: the number of parameters, the amount of training data, and the quantity of compute. Formalized in work from OpenAI (2020) and refined by DeepMind's Chinchilla study (2022), scaling laws show that loss falls smoothly and predictably as these resources grow, which is why frontier labs can forecast the capability of a model before training it and justify the enormous cost of larger runs. The Chinchilla finding — that many models were oversized relative to their training data, and that parameters and tokens should be scaled together — reshaped how training budgets are allocated. Scaling laws are a central organizing principle of modern AI strategy, though there is active debate about where and whether they eventually plateau.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Parameters">Parameters</a> <a href="#term-Pretraining">Pretraining</a> <a href="#term-Frontier-Model">Frontier Model</a> <a href="#term-LLM">LLM</a></div>
+  </div>
+
+  <div class="term-entry" id="term-Self-Attention" data-letter="S">
+    <div class="term-header">
+      <span class="term-name">Self-Attention</span>
+      <div class="term-badges"><span class="badge badge-cat">Architecture</span></div>
+    </div>
+    <p class="term-definition">The form of attention in which the relevance scores are computed within a single sequence — every token attends to every other token in the same input to build a context-aware representation of itself. Self-attention is what allows a model to resolve that "it" in "The cat sat on the mat because it was tired" refers to the cat: each token looks across the whole sequence and decides which other tokens matter most for understanding it. This is the core operation of the transformer, distinct from cross-attention, which relates tokens across two different sequences (such as a question and a retrieved passage). Self-attention is implemented through multi-head attention stacked across many layers.</p>
+    <div class="see-also">SEE ALSO: <a href="#term-Attention">Attention Mechanism</a> <a href="#term-Multi-Head-Attention">Multi-Head Attention</a> <a href="#term-Attention-Layers">Attention Layers</a> <a href="#term-Transformer">Transformer</a></div>
+  </div>
 
   <div class="term-entry" id="term-Supervised-Learning" data-letter="S">
     <div class="term-header">
