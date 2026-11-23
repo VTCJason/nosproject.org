@@ -18,7 +18,7 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
-const fullTitle = `${title} | nOS Manifesto`;
+const fullTitle = title.startsWith('nOS Manifesto') ? title : `${title} | nOS Manifesto`;
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -45,10 +45,15 @@ const websiteSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="nOS Manifesto" />
+    <meta property="og:image" content="https://nosproject.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The nOS Manifesto: A declaration for the age of artificial intelligence." />
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://nosproject.org/og-image.png" />
     <!-- Structured data: site-wide -->
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     {pageSchema && <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />}
