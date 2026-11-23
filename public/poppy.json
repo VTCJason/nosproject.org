@@ -2,6 +2,7 @@
   "name": "nOS Manifesto",
   "description": "A public-intelligence platform examining artificial intelligence's impact on society, politics, ethics, and technology. Home of the nOS Manifesto, The Human Question almanac, long-form essays, a case study, and an AI glossary.",
   "url": "https://nosproject.org/",
+  "contact": "hello@nosproject.org",
   "license": "https://creativecommons.org/licenses/by-sa/4.0/",
   "ai_usage": {
     "training": "allowed",
