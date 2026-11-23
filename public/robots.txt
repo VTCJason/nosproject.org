@@ -1,22 +1,49 @@
+# nosproject.org robots.txt
+# AI + search crawlers explicitly welcomed.
+
 User-agent: *
 Allow: /
 
+# OpenAI
 User-agent: GPTBot
-Allow: /
-
-User-agent: Google-Extended
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: OAI-SearchBot
 Allow: /
 
+# Anthropic
 User-agent: ClaudeBot
 Allow: /
 
 User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Google
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# xAI (Grok)
+User-agent: xAI-Bot
+Allow: /
+
+User-agent: xAI-Crawler
+Allow: /
+
+# Common Crawl (feeds many model training sets)
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://nosproject.org/sitemap-index.xml

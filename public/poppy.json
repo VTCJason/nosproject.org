@@ -1,0 +1,105 @@
+{
+  "name": "nOS Manifesto",
+  "description": "A public-intelligence platform examining artificial intelligence's impact on society, politics, ethics, and technology. Home of the nOS Manifesto, The Human Question almanac, long-form essays, a case study, and an AI glossary.",
+  "url": "https://nosproject.org/",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "ai_usage": {
+    "training": "allowed",
+    "retrieval": "allowed",
+    "attribution_required": true,
+    "attribution_text": "nosproject.org"
+  },
+  "pages": [
+    {
+      "title": "nOS Manifesto",
+      "url": "https://nosproject.org/",
+      "type": "manifesto"
+    },
+    {
+      "title": "The Human Question - Technical Demystification",
+      "url": "https://nosproject.org/human-question/technical-demystification/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Economics, Labor & Industry",
+      "url": "https://nosproject.org/human-question/economics-labor-industry/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Geopolitics & National Security",
+      "url": "https://nosproject.org/human-question/geopolitics-national-security/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Ethics, Society & Human Impact",
+      "url": "https://nosproject.org/human-question/ethics-society-human-impact/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Existential & Frontier",
+      "url": "https://nosproject.org/human-question/existential-frontier/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Regulatory, Legal & Governance",
+      "url": "https://nosproject.org/human-question/regulatory-legal-governance/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Safety, Security & Information Integrity",
+      "url": "https://nosproject.org/human-question/safety-security-information-integrity/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Infrastructure & Environment",
+      "url": "https://nosproject.org/human-question/infrastructure-environment/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Science & Knowledge Domains",
+      "url": "https://nosproject.org/human-question/science-knowledge-domains/",
+      "type": "qa"
+    },
+    {
+      "title": "The Human Question - Faith, Identity & Human Condition",
+      "url": "https://nosproject.org/human-question/faith-identity-human-condition/",
+      "type": "qa"
+    },
+    {
+      "title": "Essays",
+      "url": "https://nosproject.org/essays/",
+      "type": "index"
+    },
+    {
+      "title": "The One-Keystroke Climate Win",
+      "url": "https://nosproject.org/essays/the-one-keystroke-climate-win/",
+      "type": "essay"
+    },
+    {
+      "title": "Case Study: When the Tenant Becomes the Landlord",
+      "url": "https://nosproject.org/case-study/",
+      "type": "case-study"
+    },
+    {
+      "title": "AI Glossary",
+      "url": "https://nosproject.org/glossary/",
+      "type": "glossary"
+    },
+    {
+      "title": "About",
+      "url": "https://nosproject.org/about/",
+      "type": "about"
+    },
+    {
+      "title": "Sign the Manifesto",
+      "url": "https://nosproject.org/sign/",
+      "type": "action"
+    },
+    {
+      "title": "Signatories",
+      "url": "https://nosproject.org/signatories/",
+      "type": "list"
+    }
+  ],
+  "author": "Jason G. Troxel"
+}

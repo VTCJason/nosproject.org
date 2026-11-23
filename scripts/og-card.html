@@ -1,0 +1,41 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500&family=Courier+Prime:wght@400;700&display=block" rel="stylesheet">
+<style>
+  :root { --navy:#0d1b2a; --slate:#1c2f45; --gold:#c9922a; --amber:#e8a93c; --ivory:#f5f0e8; --cream:#ede8dc; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:1200px; height:630px; overflow:hidden; background:var(--navy); }
+  .card { position:relative; width:1200px; height:630px; padding:64px 80px 0; color:var(--ivory);
+    background:
+      linear-gradient(rgba(201,146,42,.05) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, rgba(201,146,42,.05) 1px, transparent 1px) 0 0/40px 40px,
+      radial-gradient(ellipse at 85% 10%, var(--slate) 0%, transparent 60%),
+      var(--navy);
+    border-bottom:10px solid var(--gold); }
+  .stamp { position:absolute; top:56px; right:64px; width:250px; }
+  .eyebrow { font-family:'Courier Prime',monospace; font-weight:700; font-size:22px; letter-spacing:.18em; color:var(--amber); }
+  h1 { font-family:'Libre Baskerville',Georgia,serif; font-weight:700; font-size:74px; line-height:1.1;
+    letter-spacing:-.01em; margin-top:30px; max-width:860px; }
+  .sub { font-family:'DM Sans',system-ui,sans-serif; font-size:30px; line-height:1.4; color:var(--cream);
+    opacity:.85; margin-top:34px; max-width:860px; }
+  .foot { position:absolute; left:80px; right:80px; bottom:44px; display:flex; justify-content:space-between;
+    align-items:baseline; border-top:1px solid rgba(201,146,42,.35); padding-top:22px; }
+  .sections { font-family:'Courier Prime',monospace; font-size:17px; letter-spacing:.12em; text-transform:uppercase;
+    color:rgba(245,240,232,.55); }
+  .url { font-family:'Libre Baskerville',serif; font-size:24px; color:var(--gold); }
+</style></head>
+<body><div class="card">
+  <svg class="stamp" viewBox="0 0 200 100" aria-hidden="true">
+    <rect x="35" y="22" width="130" height="2.4" fill="#f5f0e8"/>
+    <text x="100" y="60" text-anchor="middle" font-family="'Libre Baskerville', Georgia, serif" font-weight="700" font-size="32" letter-spacing="-0.64" fill="#f5f0e8">n<tspan fill="#c9922a">O</tspan>S</text>
+    <rect x="35" y="68" width="130" height="2.4" fill="#f5f0e8"/>
+    <text x="100" y="88" text-anchor="middle" font-family="'Courier Prime', monospace" font-weight="700" font-size="9" letter-spacing="4" fill="#f5f0e8" fill-opacity="0.55">PROJECT</text>
+  </svg>
+  <p class="eyebrow">The nOS Manifesto</p>
+  <h1>A declaration for the age of artificial intelligence.</h1>
+  <p class="sub">AI is not a product update. It is a civilizational shift.</p>
+  <div class="foot">
+    <span class="sections">Manifesto · Case Study · The Human Question · Essays · Glossary</span>
+    <span class="url">nosproject.org</span>
+  </div>
+</div></body></html>
